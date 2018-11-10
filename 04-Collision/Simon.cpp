@@ -6,6 +6,7 @@ Simon::Simon()
 {
 	_texture = new Texture("Resource\\sprites\\SIMON.png", 8, 3, 24);
 	_sprite = new Sprite(_texture, 100);
+	whip = new Whip(0,0);
 	tag = 1;
 
 	isWalking = 0;
@@ -43,6 +44,67 @@ void Simon::GetBoundingBox(float & left, float & top, float & right, float & bot
 
 }
 
+void Simon::CollisionWithLargeCandle(vector<LPGAMEOBJECT>* coObjects)
+{
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+
+	CalcPotentialCollisions(coObjects, coEvents); // Lấy danh sách các va chạm
+
+												  // No collision occured, proceed normally
+	if (coEvents.size() == 0)
+	{
+	/*	x += dx;
+		y += dy;*/
+	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny;
+
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+		// nếu ko va chạm thì min_tx,min_ty = 1.0, còn nếu có thì nó trả về thời gian va chạm. 
+		//Còn nx,ny là hướng va chạm,  = 0 nếu ko va chạm;
+
+		// block 
+		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+		//y += min_ty * dy + ny * 0.4f; // ny = -1 thì hướng từ trên xuống....
+
+		if (nx != 0)
+		{
+			vx = 0; // nếu mà nx, ny <>0  thì nó va chạm rồi. mà chạm rồi thì dừng vận tốc cho nó đừng chạy nữa
+		}
+			
+
+		if (ny != 0)
+		{
+			vy = 0;
+
+		}
+
+		
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
+			if (dynamic_cast<LargeCandle *>(e->obj))
+			{
+				LargeCandle *largecandle = dynamic_cast<LargeCandle *>(e->obj);
+				// jump on top >> kill Goomba and deflect a bit 
+				if (e->nx != 0)
+				{
+					largecandle->isDead=true;
+				}
+			}
+		}
+		//}
+
+
+		// clean up collision events
+		for (UINT i = 0; i < coEvents.size(); i++)
+			delete coEvents[i];
+	}
+}
 void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	/* Không cho lọt khỏi camera */
@@ -91,21 +153,16 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	/* Update về sprite */
 
 
-	//if (isAttacking == true)
-	//{
-	//	if (_ListWeapon[0]->GetFinish() == false) // nếu MorningStar đang đánh
-	//	{
-	//		_ListWeapon[0]->SetPosition(this->x, this->y);
-	//		_ListWeapon[0]->Update(dt);
-	//	}
-
-
-	//}
-
-
-
-
-
+	if (isAttacking == true)
+	{		
+		if (whip->isFinish == false)
+		{
+			whip->SetPosition(this->x, this->y);
+			whip->Update(dt);
+		}
+		//whip->isFinish = true;
+		//isAttacking = false;
+	}
 
 	CGameObject::Update(dt);
 	vy += SIMON_GRAVITY * dt;// Simple fall down
@@ -113,12 +170,17 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	vector<LPGAMEOBJECT> coObjects_Brick;
 	coObjects_Brick.clear();
-	for (int i = 0; i < coObjects->size(); i++)
+	for (int i = 0; i < coObjects->size(); i++)	
 		if (coObjects->at(i)->GetType() == 21)
 			coObjects_Brick.push_back(coObjects->at(i));
 	CollisionWithBrick(&coObjects_Brick); // check Collision and update x, y for simon
 
-
+	vector<LPGAMEOBJECT> coObjects_LargeCandle;
+	coObjects_LargeCandle.clear();
+	for (int i = 0; i < coObjects->size(); i++)
+		if (coObjects->at(i)->GetType() == 41)
+			coObjects_LargeCandle.push_back(coObjects->at(i));
+	CollisionWithLargeCandle(&coObjects_LargeCandle);
 
 }
 
@@ -132,11 +194,11 @@ void Simon::Render(Camera *camera)
 	else
 		_sprite->DrawFlipX(pos.x, pos.y);
 
-	//for (int i = 0; i<_ListWeapon.size(); i++)
-	//	if (_ListWeapon[i]->GetFinish() == false)
-	//	{
-	//		_ListWeapon[i]->Draw(camera); // không cần xét hướng, vì Draw của lớp Weapon đã xét khi vẽ
-	//	}
+	
+	if (whip->isFinish==false)
+	{
+		whip->Render(camera);
+	}
 	RenderBoundingBox(camera);
 }
 
@@ -276,12 +338,12 @@ void Simon::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++)
 		delete coEvents[i];
 }
-//
-//void Simon::Attack(Weapon * w)
-//{
-//	if (isAttacking == true) // đang tấn công thì thôi
-//		return;
-//
-//	isAttacking = 1;
-//	w->Create(this->x, this->y, this->trend); // set vị trí weapon theo simon
-//}
+
+void Simon::Attack()
+{
+	if (isAttacking == true) // đang tấn công thì thôi
+		return;
+
+	isAttacking = 1;
+	whip->Create(this->x, this->y, this->trend); // set vị trí weapon theo simon
+}

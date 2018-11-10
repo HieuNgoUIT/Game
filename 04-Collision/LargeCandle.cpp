@@ -10,8 +10,14 @@ LargeCandle::LargeCandle(int X,int Y)
 	this->y = Y;
 	tag = 41;
 	health = 1;
+	id = 161;
+	vx = 1;
+	vy = 1;
 }
-
+void LargeCandle::RenderBoundingBox(Camera * camera)
+{
+	CGameObject::RenderBoundingBox(camera);
+}
 LargeCandle::LargeCandle()
 {
 }
@@ -31,11 +37,26 @@ void LargeCandle::GetBoundingBox(float & left, float & top, float & right, float
 
 void LargeCandle::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	_sprite->Update(dt); // update animation
+	if (!isDead)
+	{
+		_sprite->Update(dt); // update animation
+	}
+	
 }
 
 void LargeCandle::Render(Camera * camera)
 {
-	D3DXVECTOR2 pos = camera->Transform(x, y);
-	_sprite->Draw(pos.x, pos.y);
+	if (!isDead)
+	{
+		D3DXVECTOR2 pos = camera->Transform(x, y);
+		_sprite->Draw(pos.x, pos.y);
+		RenderBoundingBox(camera);
+	}
+	
+}
+
+void LargeCandle::Delete() 
+{
+	delete _texture;
+	delete _sprite;
 }

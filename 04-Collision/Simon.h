@@ -38,6 +38,8 @@
 
 #include "GameObject.h"
 #include "Camera.h"
+#include "LargeCandle.h"
+#include "Whip.h"
 //#include "Weapon.h"
 //#include "MorningStar.h"
 
@@ -50,14 +52,14 @@ public:
 	bool isSitting;
 	bool isAttacking;
 
-	//vector<Weapon*> _ListWeapon;
+	Whip* whip;
 
 public:
 	Simon();
 	~Simon();
 
 
-
+	void CollisionWithLargeCandle(vector<LPGAMEOBJECT>* coObjects);
 	 void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 
 	 void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
@@ -77,7 +79,7 @@ public:
 
 	void CollisionWithBrick(vector<LPGAMEOBJECT> *coObjects = NULL);
 
-	//void Attack(Weapon *w);
+	void Attack();
 
 
 };

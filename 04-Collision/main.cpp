@@ -98,11 +98,10 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		DebugOut(L"[SIMON] X = %f , Y = %f \n", simon->x + 10, simon->y);
 	}
 
-	//if (KeyCode == DIK_X)
-	//{
-	//	//DebugOut(L"[SIMON] X = %f , Y = %f \n", simon->x + 10, simon->y);
-	//	simon->Attack(simon->_ListWeapon[0]);
-	//}
+	if (KeyCode == DIK_X)
+	{		
+		simon->Attack();
+	}
 }
 
 void CSampleKeyHander::OnKeyUp(int KeyCode)
@@ -180,7 +179,7 @@ void LoadResources()
 
 	
 	
-	whip = new Whip(0, 0);
+	//whip = new Whip(0, 0);
 	//objects.push_back(whip);
 
 	brick = new Brick(0, 325, 1536, 32);
@@ -217,10 +216,10 @@ void Update(DWORD dt)
 		objects[i]->Update(dt,&coObjects);
 	}
 	simon->Update(dt, &coObjects);
-	float newx, newy;
-	simon->GetPosition(newx, newy);
-	whip->SetPosition(newx-90, newy);
-	whip->Update(dt, &coObjects);
+	/*float newx, newy;
+	simon->GetPosition(newx, newy);*/
+	//whip->SetPosition(newx-90, newy);
+	//whip->Update(dt, &coObjects);
 
 	camera->SetPosition(simon->x-320+60,0);
 	camera->Update();
@@ -251,9 +250,7 @@ void Render()
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render(camera);
 		simon->Render(camera);
-		whip->Render(camera);
-
-
+		//whip->Render(camera);
 
 		spriteHandler->End();
 		d3ddv->EndScene();

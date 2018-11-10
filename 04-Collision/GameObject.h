@@ -48,7 +48,7 @@ public:
 	int trend;
 
 	int state;
-
+	bool isDead;
 	DWORD dt; 
 	
 	Texture * _texture;
