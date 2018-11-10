@@ -113,23 +113,27 @@ void CGameObject::FilterCollision(
 }
 
 
-void CGameObject::RenderBoundingBox()
+void CGameObject::RenderBoundingBox(Camera *camera)
 {
-	/*D3DXVECTOR3 p(x, y, 0);
+	D3DXVECTOR3 p(x, y, 0);
 	RECT rect;
+	Texture *texture = new Texture("textures\\bbox.png");
+	LPDIRECT3DTEXTURE9 bbox = texture->texture;
 
-	LPDIRECT3DTEXTURE9 bbox = Texture::GetInstance()->Get(ID_TEX_BBOX);
-
-	float l,t,r,b; 
+	float l, t, r, b;
 
 	GetBoundingBox(l, t, r, b);
 	rect.left = 0;
 	rect.top = 0;
 	rect.right = (int)r - (int)l;
 	rect.bottom = (int)b - (int)t;
+	
+	D3DXVECTOR2 pos=camera->Transform(x,y);
 
-	CGame::GetInstance()->Draw(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom, 32);*/
+
+	CGame::GetInstance()->Draw(pos.x, pos.y, bbox, rect.left, rect.top, rect.right, rect.bottom, 100);
 }
+
 
 void CGameObject::AddAnimation(int aniId)
 {

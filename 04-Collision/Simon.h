@@ -64,7 +64,7 @@ public:
 
 
 	 void Render(Camera *camera);
-
+	 void RenderBoundingBox(Camera *camera);
 
 	void Left();  // set lại hướng của simon
 	void Right(); // set lại hướng của simon

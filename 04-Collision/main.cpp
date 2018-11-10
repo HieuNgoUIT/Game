@@ -30,7 +30,7 @@
 #include "TileMap.h"
 #include "Brick.h"
 #include "LargeCandle.h"
-
+#include "Whip.h"
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"04 - Collision"
 
@@ -54,6 +54,7 @@ TileMap *tilemap;
 Sprite *sprite;
 LargeCandle * largecandle;
 Texture *texture;
+Whip *whip;
 class CSampleKeyHander: public CKeyEventHandler
 {
 	virtual void KeyState(BYTE *states);
@@ -177,7 +178,12 @@ void LoadResources()
 	simon->SetPosition(SIMON_POSITION_DEFAULT);
 	simon->SetPosition(0, 0);
 
-	brick = new Brick(0, 320, 1536, 32);
+	
+	
+	whip = new Whip(0, 0);
+	//objects.push_back(whip);
+
+	brick = new Brick(0, 325, 1536, 32);
 	objects.push_back(brick);
 
 	camera = new Camera(640,480);
@@ -185,7 +191,7 @@ void LoadResources()
 	tilemap = new TileMap();
 	tilemap->LoadMap();
 
-	largecandle = new LargeCandle(0, 320);
+	largecandle = new LargeCandle(300, 265);
 	objects.push_back(largecandle);
 
 
@@ -211,9 +217,14 @@ void Update(DWORD dt)
 		objects[i]->Update(dt,&coObjects);
 	}
 	simon->Update(dt, &coObjects);
+	float newx, newy;
+	simon->GetPosition(newx, newy);
+	whip->SetPosition(newx-90, newy);
+	whip->Update(dt, &coObjects);
+
 	camera->SetPosition(simon->x-320+60,0);
 	camera->Update();
-
+	
 }
 
 /*
@@ -240,7 +251,7 @@ void Render()
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render(camera);
 		simon->Render(camera);
-
+		whip->Render(camera);
 
 
 

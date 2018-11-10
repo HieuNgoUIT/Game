@@ -137,7 +137,7 @@ void Simon::Render(Camera *camera)
 	//	{
 	//		_ListWeapon[i]->Draw(camera); // không cần xét hướng, vì Draw của lớp Weapon đã xét khi vẽ
 	//	}
-
+	RenderBoundingBox(camera);
 }
 
 
@@ -196,7 +196,10 @@ void Simon::Stop()
 	}
 
 }
-
+void Simon::RenderBoundingBox(Camera *camera)
+{
+	CGameObject::RenderBoundingBox(camera);
+}
 void Simon::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 {
 	vector<LPCOLLISIONEVENT> coEvents;

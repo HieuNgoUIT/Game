@@ -53,6 +53,7 @@ public:
 	
 	Texture * _texture;
 	Sprite * _sprite;
+	
 
 public: 
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
@@ -62,7 +63,7 @@ public:
 
 	//int GetState() { return this->state; }
 
-	void RenderBoundingBox();
+	void RenderBoundingBox( Camera *camera);
 
 	LPCOLLISIONEVENT SweptAABBEx(LPGAMEOBJECT coO);
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT> *coObjects, vector<LPCOLLISIONEVENT> &coEvents);

@@ -63,6 +63,9 @@
     <ClInclude Include="LargeCandle.h">
       <Filter>Objets</Filter>
     </ClInclude>
+    <ClInclude Include="Whip.h">
+      <Filter>Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debug.cpp">
@@ -100,6 +103,9 @@
     </ClCompile>
     <ClCompile Include="LargeCandle.cpp">
       <Filter>Objets</Filter>
+    </ClCompile>
+    <ClCompile Include="Whip.cpp">
+      <Filter>Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

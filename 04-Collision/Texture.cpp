@@ -38,6 +38,8 @@ void Texture::Draw(int x, int y)
 	spriteHandler->Draw(texture, &Size, NULL, &position, 0xFFFFFFFF);
 }
 
+
+
 void Texture::Load()
 {
 	D3DXIMAGE_INFO info;
