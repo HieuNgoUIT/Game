@@ -74,7 +74,7 @@ public:
 		float &min_ty, 
 		float &nx, 
 		float &ny);
-
+	bool isColliding(LPGAMEOBJECT object, LPGAMEOBJECT other);
 	void AddAnimation(int aniId);
 
 	CGameObject();

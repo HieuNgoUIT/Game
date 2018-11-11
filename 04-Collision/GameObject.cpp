@@ -1,4 +1,4 @@
-#include <d3dx9.h>
+﻿#include <d3dx9.h>
 #include <algorithm>
 
 
@@ -116,9 +116,26 @@ void CGameObject::FilterCollision(
 	if (min_iy>=0) coEventsResult.push_back(coEvents[min_iy]);
 }
 
+bool CGameObject::isColliding(LPGAMEOBJECT object, LPGAMEOBJECT other)
+{
+	float l1, t1, r1, b1;
+	object->GetBoundingBox(l1, t1, r1, b1);
+
+	float l2, t2, r2, b2;
+	other->GetBoundingBox(l2, t2, r2, b2);
+
+	if (l2 < r1 && r2 > l1 && t2 <b1 && b2 >t1)
+		return true;
+	else
+		return false;
+}
+
 
 void CGameObject::RenderBoundingBox(Camera *camera)
 {
+
+	
+
 	D3DXVECTOR3 p(x, y, 0);
 	RECT rect;
 	Texture *texture = new Texture("textures\\bbox.png");
@@ -150,6 +167,7 @@ int CGameObject::GetType()
 {
 	return tag;
 }
+
 
 CGameObject::~CGameObject()
 {

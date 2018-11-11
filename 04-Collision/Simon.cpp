@@ -6,7 +6,7 @@ Simon::Simon()
 {
 	_texture = new Texture("Resource\\sprites\\SIMON.png", 8, 3, 24);
 	_sprite = new Sprite(_texture, 100);
-	whip = new Whip(0,0);
+	whip = new Whip(x,y);
 	tag = 1;
 
 	isWalking = 0;
@@ -56,8 +56,8 @@ void Simon::CollisionWithLargeCandle(vector<LPGAMEOBJECT>* coObjects)
 												  // No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
-	/*	x += dx;
-		y += dy;*/
+		/*	x += dx;
+			y += dy;*/
 	}
 	else
 	{
@@ -75,7 +75,7 @@ void Simon::CollisionWithLargeCandle(vector<LPGAMEOBJECT>* coObjects)
 		{
 			vx = 0; // nếu mà nx, ny <>0  thì nó va chạm rồi. mà chạm rồi thì dừng vận tốc cho nó đừng chạy nữa
 		}
-			
+
 
 		if (ny != 0)
 		{
@@ -83,7 +83,7 @@ void Simon::CollisionWithLargeCandle(vector<LPGAMEOBJECT>* coObjects)
 
 		}
 
-		
+
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
@@ -93,7 +93,7 @@ void Simon::CollisionWithLargeCandle(vector<LPGAMEOBJECT>* coObjects)
 				// jump on top >> kill Goomba and deflect a bit 
 				if (e->nx != 0)
 				{
-					largecandle->isDead=true;
+					largecandle->isDead = true;
 				}
 			}
 		}
@@ -152,16 +152,21 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	/* Update về sprite */
 
+	 // k phai dau, qua ham render la len hinh r
 
 	if (isAttacking == true)
-	{		
+	{
 		if (whip->isFinish == false)
 		{
 			whip->SetPosition(this->x, this->y);
-			whip->Update(dt);
+			whip->Update(dt, coObjects);
+
+		}
+		if (whip->isFinish == true)
+		{
+			isAttacking = false;
 		}
 		//whip->isFinish = true;
-		//isAttacking = false;
 	}
 
 	CGameObject::Update(dt);
@@ -170,17 +175,17 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	vector<LPGAMEOBJECT> coObjects_Brick;
 	coObjects_Brick.clear();
-	for (int i = 0; i < coObjects->size(); i++)	
+	for (int i = 0; i < coObjects->size(); i++)
 		if (coObjects->at(i)->GetType() == 21)
 			coObjects_Brick.push_back(coObjects->at(i));
 	CollisionWithBrick(&coObjects_Brick); // check Collision and update x, y for simon
 
-	vector<LPGAMEOBJECT> coObjects_LargeCandle;
+	/*vector<LPGAMEOBJECT> coObjects_LargeCandle;
 	coObjects_LargeCandle.clear();
 	for (int i = 0; i < coObjects->size(); i++)
 		if (coObjects->at(i)->GetType() == 41)
 			coObjects_LargeCandle.push_back(coObjects->at(i));
-	CollisionWithLargeCandle(&coObjects_LargeCandle);
+	CollisionWithLargeCandle(&coObjects_LargeCandle);*/
 
 }
 
@@ -194,8 +199,8 @@ void Simon::Render(Camera *camera)
 	else
 		_sprite->DrawFlipX(pos.x, pos.y);
 
-	
-	if (whip->isFinish==false)
+
+	if (whip->isFinish == false)
 	{
 		whip->Render(camera);
 	}
@@ -344,6 +349,6 @@ void Simon::Attack()
 	if (isAttacking == true) // đang tấn công thì thôi
 		return;
 
-	isAttacking = 1;
+	isAttacking = true;
 	whip->Create(this->x, this->y, this->trend); // set vị trí weapon theo simon
 }
