@@ -23,6 +23,10 @@ void Camera::Update()
 	{
 		_viewport.x = 0;
 	}
+	if (_viewport.x >850)
+	{
+		_viewport.x = 850;
+	}
 }
 
 D3DXVECTOR2 Camera::Transform(int x, int y)

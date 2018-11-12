@@ -192,6 +192,8 @@ void LoadResources()
 
 	largecandle = new LargeCandle(300, 265);
 	objects.push_back(largecandle);
+	largecandle = new LargeCandle(350, 200);
+	objects.push_back(largecandle);
 
 
 }

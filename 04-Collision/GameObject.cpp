@@ -134,7 +134,7 @@ bool CGameObject::isColliding(LPGAMEOBJECT object, LPGAMEOBJECT other)
 void CGameObject::RenderBoundingBox(Camera *camera)
 {
 
-	
+	return;
 
 	D3DXVECTOR3 p(x, y, 0);
 	RECT rect;

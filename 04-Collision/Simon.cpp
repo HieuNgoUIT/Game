@@ -6,7 +6,7 @@ Simon::Simon()
 {
 	_texture = new Texture("Resource\\sprites\\SIMON.png", 8, 3, 24);
 	_sprite = new Sprite(_texture, 100);
-	whip = new Whip(x,y);
+	whip = new Whip(x, y);
 	tag = 1;
 
 	isWalking = 0;
@@ -129,13 +129,25 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				if (index < SIMON_ANI_BEGIN_WALKING || index >= SIMON_ANI_END_WALKING)
 					_sprite->SelectIndex(1);
+				if (isAttacking == true)
+				{
+					_sprite->SelectIndex(5);
+				}
 
 				//cập nhật frame mới
 				_sprite->Update(dt); // dt này được cập nhật khi gọi update; 
 			}
 			else
 			{
-				_sprite->SelectIndex(SIMON_ANI_JUMPING);
+				if (isAttacking == true)
+				{
+					_sprite->SelectIndex(5);
+				}
+				else
+				{
+					_sprite->SelectIndex(SIMON_ANI_JUMPING);
+				}
+				
 			}
 
 		}
@@ -143,6 +155,11 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			if (isJumping == true) // nếu ko đi mà chỉ nhảy
 			{
 				_sprite->SelectIndex(SIMON_ANI_JUMPING);
+			}
+			else if (isAttacking == true)
+			{
+				_sprite->SelectIndex(5);
+
 			}
 			else
 			{

@@ -29,10 +29,21 @@ void Whip::RenderBoundingBox(Camera * camera)
 
 void Whip::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	left = x;
-	top = y;
-	right = x + _texture->FrameWidth;
-	bottom = y + _texture->FrameHeight;
+	if (_sprite->GetIndex() == 0 || _sprite->GetIndex() == 1 || _sprite->GetIndex() == 2)
+	{
+		left = x;
+		top = y;
+		right = x + _texture->FrameWidth-55;
+		bottom = y + _texture->FrameHeight-20;
+	}
+	else
+	{
+		left = x;
+		top = y;
+		right = x + _texture->FrameWidth;
+		bottom = y + _texture->FrameHeight;
+	}
+
 }
 
 void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -123,8 +134,8 @@ void Whip::Render(Camera * camera)
 {
 	D3DXVECTOR2 pos = camera->Transform(x, y);
 	if (trend == -1)
-		_sprite->Draw(pos.x, pos.y);
+		_sprite->Draw(pos.x-70, pos.y+5);
 	else
-		_sprite->DrawFlipX(pos.x, pos.y);
+		_sprite->DrawFlipX(pos.x-33, pos.y);
 	RenderBoundingBox(camera);
 }
