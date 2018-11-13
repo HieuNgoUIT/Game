@@ -1,17 +1,16 @@
 #pragma once
 #include "GameObject.h"
-#include "Item.h"
-class LargeCandle:public CGameObject
+class Item :public CGameObject
 {
 public:
-	Item * item;
-	LargeCandle(int X,int Y);
-	LargeCandle();
-	~LargeCandle();
-	void Delete();
+	
+	Item(int X, int Y);
+	Item();
+	~Item();
+	char* PathRandom();
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	virtual void Render(Camera * camera);
-	void RenderBoundingBox(Camera* camera);
+	int GetIsCreated();
+	//void RenderBoundingBox(Camera* camera);
 };
-

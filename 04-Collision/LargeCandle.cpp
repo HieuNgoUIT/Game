@@ -11,8 +11,7 @@ LargeCandle::LargeCandle(int X,int Y)
 	tag = 41;
 	health = 1;
 	id = 161;
-	vx = 1;
-	vy = 1;
+	item = new Item();
 }
 void LargeCandle::RenderBoundingBox(Camera * camera)
 {
@@ -41,7 +40,12 @@ void LargeCandle::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		_sprite->Update(dt); // update animation
 	}
-	
+	if (isDead)
+	{
+		dropItem = 1;
+		//isCreated = 1;
+		//item->isCreated = 1;
+	}	
 }
 
 void LargeCandle::Render(Camera * camera)
@@ -52,6 +56,10 @@ void LargeCandle::Render(Camera * camera)
 		_sprite->Draw(pos.x, pos.y);
 		RenderBoundingBox(camera);
 	}
+	/*if(item->GetIsCreated() ==1)
+	{
+		item->Render(camera);
+	}*/
 	
 }
 

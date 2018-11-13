@@ -38,10 +38,10 @@ public:
 	int health;
 	float x; 
 	float y;
-
+	int dropItem = 0;
 	float dx;	// dx = vx*dt
 	float dy;	// dy = vy*dt
-
+	int isCreated = 0;
 	float vx;
 	float vy;
 

@@ -59,7 +59,7 @@ public:
 	~Simon();
 
 
-	void CollisionWithLargeCandle(vector<LPGAMEOBJECT>* coObjects);
+	void CollisionWithItem(vector<LPGAMEOBJECT>* coObjects);
 	 void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 
 	 void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);

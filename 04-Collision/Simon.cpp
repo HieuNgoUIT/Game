@@ -44,7 +44,7 @@ void Simon::GetBoundingBox(float & left, float & top, float & right, float & bot
 
 }
 
-void Simon::CollisionWithLargeCandle(vector<LPGAMEOBJECT>* coObjects)
+void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 {
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -87,13 +87,13 @@ void Simon::CollisionWithLargeCandle(vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<LargeCandle *>(e->obj))
+			if (dynamic_cast<Item *>(e->obj))
 			{
-				LargeCandle *largecandle = dynamic_cast<LargeCandle *>(e->obj);
+				Item *item = dynamic_cast<Item *>(e->obj);
 				// jump on top >> kill Goomba and deflect a bit 
 				if (e->nx != 0)
 				{
-					largecandle->isDead = true;
+					item->isDead = true;
 				}
 			}
 		}
@@ -197,12 +197,12 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			coObjects_Brick.push_back(coObjects->at(i));
 	CollisionWithBrick(&coObjects_Brick); // check Collision and update x, y for simon
 
-	/*vector<LPGAMEOBJECT> coObjects_LargeCandle;
+	vector<LPGAMEOBJECT> coObjects_LargeCandle;
 	coObjects_LargeCandle.clear();
 	for (int i = 0; i < coObjects->size(); i++)
-		if (coObjects->at(i)->GetType() == 41)
+		if (coObjects->at(i)->GetType() == 69)
 			coObjects_LargeCandle.push_back(coObjects->at(i));
-	CollisionWithLargeCandle(&coObjects_LargeCandle);*/
+	CollisionWithItem(&coObjects_LargeCandle);
 
 }
 

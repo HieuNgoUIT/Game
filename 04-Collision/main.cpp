@@ -49,12 +49,14 @@ HWND hWnd;
 Brick *brick;
 Simon *simon;
 vector<LPGAMEOBJECT> objects;
+vector<LPGAMEOBJECT> items;
 Camera *camera;
 TileMap *tilemap;
 Sprite *sprite;
 LargeCandle * largecandle;
 Texture *texture;
 Whip *whip;
+Item *item;
 class CSampleKeyHander: public CKeyEventHandler
 {
 	virtual void KeyState(BYTE *states);
@@ -192,8 +194,8 @@ void LoadResources()
 
 	largecandle = new LargeCandle(300, 265);
 	objects.push_back(largecandle);
-	largecandle = new LargeCandle(350, 200);
-	objects.push_back(largecandle);
+	/*largecandle = new LargeCandle(350, 200);
+	objects.push_back(largecandle);*/
 
 
 }
@@ -225,7 +227,19 @@ void Update(DWORD dt)
 
 	camera->SetPosition(simon->x-320+60,0);
 	camera->Update();
-	
+	for (int i =0;i<objects.size(); i++)
+	{
+		if (objects[i]->dropItem == true)
+		{
+			item = new Item(objects[i]->x, objects[i]->y);			
+			items.push_back(item);
+			objects[i]->dropItem = false;
+		}
+	}
+	for (int i = 0; i < items.size(); i++)
+	{
+		items[i]->Update(dt, &coObjects);
+	}
 }
 
 /*
@@ -251,6 +265,8 @@ void Render()
 
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render(camera);
+		for (int i = 0; i < items.size(); i++)
+			items[i]->Render(camera);
 		simon->Render(camera);
 		//whip->Render(camera);
 

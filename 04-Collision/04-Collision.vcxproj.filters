@@ -28,6 +28,9 @@
     <Filter Include="Objets">
       <UniqueIdentifier>{18e4d149-9a37-4a1f-95c5-96085519ed43}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Item">
+      <UniqueIdentifier>{381d6f39-312f-4e64-ad81-0f83491a9756}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debug.h">
@@ -65,6 +68,9 @@
     </ClInclude>
     <ClInclude Include="Whip.h">
       <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -106,6 +112,9 @@
     </ClCompile>
     <ClCompile Include="Whip.cpp">
       <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Item</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
