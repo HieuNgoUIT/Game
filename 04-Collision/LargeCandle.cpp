@@ -40,9 +40,10 @@ void LargeCandle::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		_sprite->Update(dt); // update animation
 	}
-	if (isDead)
+	if (isDead && isCreated==0)
 	{
 		dropItem = 1;
+		isCreated = 1;
 		//isCreated = 1;
 		//item->isCreated = 1;
 	}	

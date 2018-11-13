@@ -63,7 +63,7 @@ public:
 	 void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 
 	 void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
-
+	 void UpdatewItem(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 
 	 void Render(Camera *camera);
 	 void RenderBoundingBox(Camera *camera);

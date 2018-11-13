@@ -12,5 +12,5 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	virtual void Render(Camera * camera);
 	int GetIsCreated();
-	//void RenderBoundingBox(Camera* camera);
+	void RenderBoundingBox(Camera* camera);
 };

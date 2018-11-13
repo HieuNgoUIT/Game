@@ -214,12 +214,25 @@ void Update(DWORD dt)
 	{
 		coObjects.push_back(objects[i]);
 	}
-
+	for (int i = 0; i<objects.size(); i++)
+	{
+		if (objects[i]->dropItem == true)
+		{
+			item = new Item(objects[i]->x, objects[i]->y);
+			items.push_back(item);
+			objects[i]->SetDropItem(false);
+		}
+	}
 	for (int i = 0; i < objects.size(); i++)
 	{
 		objects[i]->Update(dt,&coObjects);
 	}
+	for (int i = 0; i < items.size(); i++)
+	{
+		items[i]->Update(dt, &coObjects);
+	}
 	simon->Update(dt, &coObjects);
+	simon->UpdatewItem(dt, &items);
 	/*float newx, newy;
 	simon->GetPosition(newx, newy);*/
 	//whip->SetPosition(newx-90, newy);
@@ -227,19 +240,8 @@ void Update(DWORD dt)
 
 	camera->SetPosition(simon->x-320+60,0);
 	camera->Update();
-	for (int i =0;i<objects.size(); i++)
-	{
-		if (objects[i]->dropItem == true)
-		{
-			item = new Item(objects[i]->x, objects[i]->y);			
-			items.push_back(item);
-			objects[i]->dropItem = false;
-		}
-	}
-	for (int i = 0; i < items.size(); i++)
-	{
-		items[i]->Update(dt, &coObjects);
-	}
+	
+
 }
 
 /*

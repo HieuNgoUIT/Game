@@ -38,7 +38,7 @@ public:
 	int health;
 	float x; 
 	float y;
-	int dropItem = 0;
+	bool dropItem;
 	float dx;	// dx = vx*dt
 	float dy;	// dy = vy*dt
 	int isCreated = 0;
@@ -84,6 +84,7 @@ public:
 	virtual void Render(Camera *camera)=0 ;
 	virtual void SetState(int state) { this->state = state; }
 	int GetType();
+	void SetDropItem(bool x) { this->dropItem = x; }
 
 	~CGameObject();
 };

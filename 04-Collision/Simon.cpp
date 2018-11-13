@@ -197,12 +197,21 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			coObjects_Brick.push_back(coObjects->at(i));
 	CollisionWithBrick(&coObjects_Brick); // check Collision and update x, y for simon
 
-	vector<LPGAMEOBJECT> coObjects_LargeCandle;
-	coObjects_LargeCandle.clear();
+	vector<LPGAMEOBJECT> coObjects_Item;
+	coObjects_Item.clear();
 	for (int i = 0; i < coObjects->size(); i++)
 		if (coObjects->at(i)->GetType() == 69)
-			coObjects_LargeCandle.push_back(coObjects->at(i));
-	CollisionWithItem(&coObjects_LargeCandle);
+			coObjects_Item.push_back(coObjects->at(i));
+	CollisionWithItem(&coObjects_Item);
+
+}
+void Simon::UpdatewItem(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
+	vector<LPGAMEOBJECT> coObjects_Item;
+	coObjects_Item.clear();
+	for (int i = 0; i < coObjects->size(); i++)
+			coObjects_Item.push_back(coObjects->at(i));
+	CollisionWithItem(&coObjects_Item);
 
 }
 

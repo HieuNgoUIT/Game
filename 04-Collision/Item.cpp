@@ -67,6 +67,10 @@ Item::~Item()
 
 void Item::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
+	left = x;
+	top = y;
+	right = x + _texture->FrameWidth;
+	bottom = y + _texture->FrameHeight;
 }
 
 void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -82,7 +86,10 @@ void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	}
 }
-
+void Item::RenderBoundingBox(Camera * camera)
+{
+	CGameObject::RenderBoundingBox(camera);
+}
 void Item::Render(Camera * camera)
 {
 	if (!isDead)
