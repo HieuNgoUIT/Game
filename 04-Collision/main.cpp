@@ -40,9 +40,7 @@
 
 #define MAX_FRAME_RATE 120
 
-#define ID_TEX_MARIO 0
-#define ID_TEX_ENEMY 10
-#define ID_TEX_MISC 20
+
 
 CGame *game;
 HWND hWnd;
@@ -141,12 +139,20 @@ void CSampleKeyHander::KeyState(BYTE *states)
 	{
 		simon->Right();
 		simon->Go();
+		if (simon->isAttacking == true)
+		{
+			simon->Stop();
+		}
 	}
 	else
 		if (game->IsKeyDown(DIK_LEFT))
 		{
 			simon->Left();
 			simon->Go();
+			if (simon->isAttacking == true)
+			{
+				simon->Stop();
+			}
 		}
 		else
 		{
@@ -177,12 +183,7 @@ void LoadResources()
 {
 	simon = new Simon();
 	simon->SetPosition(SIMON_POSITION_DEFAULT);
-	simon->SetPosition(0, 0);
-
-	
-	
-	//whip = new Whip(0, 0);
-	//objects.push_back(whip);
+	//simon->SetPosition(0, 0);
 
 	brick = new Brick(0, 325, 1536, 32);
 	objects.push_back(brick);
@@ -214,6 +215,10 @@ void Update(DWORD dt)
 	{
 		coObjects.push_back(objects[i]);
 	}
+	for (int i = 0; i < objects.size(); i++)
+	{
+		objects[i]->Update(dt,&coObjects);
+	}
 	for (int i = 0; i<objects.size(); i++)
 	{
 		if (objects[i]->dropItem == true)
@@ -223,21 +228,12 @@ void Update(DWORD dt)
 			objects[i]->SetDropItem(false);
 		}
 	}
-	for (int i = 0; i < objects.size(); i++)
-	{
-		objects[i]->Update(dt,&coObjects);
-	}
 	for (int i = 0; i < items.size(); i++)
 	{
 		items[i]->Update(dt, &coObjects);
 	}
 	simon->Update(dt, &coObjects);
 	simon->UpdatewItem(dt, &items);
-	/*float newx, newy;
-	simon->GetPosition(newx, newy);*/
-	//whip->SetPosition(newx-90, newy);
-	//whip->Update(dt, &coObjects);
-
 	camera->SetPosition(simon->x-320+60,0);
 	camera->Update();
 	
@@ -262,8 +258,6 @@ void Render()
 
 
 		tilemap->DrawMap(camera);
-
-
 
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render(camera);

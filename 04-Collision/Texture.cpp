@@ -18,11 +18,7 @@ Texture::Texture(char* _fileName, int cols, int rows, int count, int R, int G, i
 	this->Load(R, G, B);
 }
 
-Texture::Texture(int a,char* _fileName)
-{
-	FileName = _fileName;
-	this->LoadFromFile();
-}
+
 
 Texture::~Texture()
 {
@@ -53,51 +49,8 @@ void Texture::Load()
 	RECT s = { 0, 0, info.Width, info.Height };
 	this->Size = s;
 
-	FrameWidth = info.Width / Cols;
+	FrameWidth = info.Width / Cols;//160 68
 	FrameHeight = info.Height / Rows;
-
-	if (result != D3D_OK)
-	{
-		//	GLMessage("Can not load texture");
-		//	GLTrace("[texture.h] Failed to get information from image file [%s]", FileName);
-		OutputDebugStringA(FileName);
-		return;
-	}
-
-	result = D3DXCreateTextureFromFileExA(
-		G_Device,
-		FileName,
-		info.Width,
-		info.Height,
-		1,
-		D3DUSAGE_DYNAMIC,
-		D3DFMT_UNKNOWN,
-		D3DPOOL_DEFAULT,
-		D3DX_DEFAULT,
-		D3DX_DEFAULT,
-		D3DCOLOR_XRGB(255, 0, 255), //color
-		&info,
-		0,
-		&texture
-	);
-
-	if (result != D3D_OK)
-	{
-		//GLMessage("Can not load texture");
-		//	GLTrace("[texture.h] Failed to create texture from file '%s'", FileName);
-		return;
-	}
-}
-void Texture::LoadFromFile()
-{
-	D3DXIMAGE_INFO info;
-	HRESULT result;
-
-	LPDIRECT3DDEVICE9 G_Device = CGame::GetInstance()->GetDirect3DDevice();
-
-
-	result = D3DXGetImageInfoFromFileA(FileName, &info);
-
 
 	if (result != D3D_OK)
 	{

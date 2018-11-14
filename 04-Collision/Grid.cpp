@@ -18,14 +18,14 @@
 //	ifstream inp;
 //	inp.open(filename, ios::in);
 //
-//	int id, type, trend;
+//	int id, type, direction;
 //	float x, y, w, h;
 //
 //	if (inp)
 //	{
-//		while (inp >> id >> type >> trend >> x >> y >> w >> h)
+//		while (inp >> id >> type >> direction >> x >> y >> w >> h)
 //		{
-//			Insert(id, type, trend, x, y, w, h);
+//			Insert(id, type, direction, x, y, w, h);
 //		}
 //		inp.close();
 //	}
@@ -100,7 +100,7 @@
 //	}
 //}
 //
-//void Grid::Insert(int id, int type, int trend, float x, float y, float w, float h)
+//void Grid::Insert(int id, int type, int direction, float x, float y, float w, float h)
 //{
 //	int Top = floor(y / (float)GRID_CELL_HEIGHT);
 //	int Bottom = floor((y + h) / (float)GRID_CELL_HEIGHT);
@@ -115,7 +115,7 @@
 //		return;
 //	}
 //	dataObject->SetId(id);
-//	dataObject->SetTrend(trend);
+//	dataObject->Setdirection(direction);
 //	dataObject->isTake = false;
 //
 //	listObjectGame.push_back(dataObject);

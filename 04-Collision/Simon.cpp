@@ -4,7 +4,7 @@
 
 Simon::Simon()
 {
-	_texture = new Texture("Resource\\sprites\\SIMON.png", 8, 3, 24);
+	_texture = new Texture("Resource\\sprites\\simon.png", 8, 3, 24);
 	_sprite = new Sprite(_texture, 100);
 	whip = new Whip(x, y);
 	tag = 1;
@@ -31,15 +31,15 @@ void Simon::GetBoundingBox(float & left, float & top, float & right, float & bot
 	{
 		left = x + 12;
 		top = y - 1; // không chỉnh lại y bởi vì hàm Sit() đã điều chỉnh
-		right = x + SIMON_BBOX_WIDTH - 17;
-		bottom = y + SIMON_BBOX_SITTING_HEIGHT - 3;
+		right = x + _texture->FrameHeight ;
+		bottom = y + _texture->FrameHeight  - 21;
 	}
 	else
 	{
 		left = x + 12;
 		top = y - 1;
-		right = x + SIMON_BBOX_WIDTH - 17;
-		bottom = y + SIMON_BBOX_HEIGHT - 3;
+		right = x + _texture->FrameWidth ;
+		bottom = y + _texture->FrameHeight - 3;
 	}
 
 }
@@ -110,8 +110,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	/* Không cho lọt khỏi camera */
 	if (x < -10)
 		x = -10;
-	//if (x + SIMON_BBOX_WIDTH > MapWidth)
-	//	x = MapWidth - SIMON_BBOX_WIDTH;
+	
 
 
 	/* Update về sprite */
@@ -121,6 +120,11 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (isSitting == true)
 	{
 		_sprite->SelectIndex(SIMON_ANI_SITTING);
+		if (isAttacking == true)
+		{
+			if (index < 16 || index >= 18)
+				_sprite->SelectIndex(16);
+		}
 	}
 	else
 		if (isWalking == true) // đang di chuyển
@@ -131,6 +135,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					_sprite->SelectIndex(1);
 				if (isAttacking == true)
 				{
+					if (index < 5 || index >= 7)
 					_sprite->SelectIndex(5);
 				}
 
@@ -141,7 +146,9 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				if (isAttacking == true)
 				{
-					_sprite->SelectIndex(5);
+					if (index < 5 || index >= 7)
+						_sprite->SelectIndex(5);
+					_sprite->Update(dt);
 				}
 				else
 				{
@@ -158,7 +165,9 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			else if (isAttacking == true)
 			{
-				_sprite->SelectIndex(5);
+				if (index < 5 || index >= 7)
+					_sprite->SelectIndex(5);
+				_sprite->Update(dt);
 
 			}
 			else
@@ -175,7 +184,15 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (whip->isFinish == false)
 		{
-			whip->SetPosition(this->x, this->y);
+			if (direction == -1)
+			{
+				whip->SetPosition(this->x-30, this->y); //set pos cho bbox whip
+			}
+			else
+			{
+				whip->SetPosition(this->x, this->y);
+			}
+			
 			whip->Update(dt, coObjects);
 
 		}
@@ -207,11 +224,11 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 void Simon::UpdatewItem(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	vector<LPGAMEOBJECT> coObjects_Item;
+	/*vector<LPGAMEOBJECT> coObjects_Item;
 	coObjects_Item.clear();
 	for (int i = 0; i < coObjects->size(); i++)
-			coObjects_Item.push_back(coObjects->at(i));
-	CollisionWithItem(&coObjects_Item);
+			coObjects_Item.push_back(coObjects->at(i));*/
+	CollisionWithItem(coObjects);
 
 }
 
@@ -220,7 +237,7 @@ void Simon::Render(Camera *camera)
 
 	D3DXVECTOR2 pos = camera->Transform(x, y);
 
-	if (trend == -1)
+	if (direction == -1)
 		_sprite->Draw(pos.x, pos.y);
 	else
 		_sprite->DrawFlipX(pos.x, pos.y);
@@ -236,17 +253,19 @@ void Simon::Render(Camera *camera)
 
 void Simon::Left()
 {
-	trend = -1;
+	direction = -1;
+	whip->direction = -1;
 }
 
 void Simon::Right()
 {
-	trend = 1; // quay qua phải
+	direction = 1; // quay qua phải
+	whip->direction = 1;
 }
 
 void Simon::Go()
 {
-	vx = SIMON_WALKING_SPEED * trend;
+	vx = SIMON_WALKING_SPEED * direction;
 	isWalking = 1;
 
 }
@@ -273,10 +292,10 @@ void Simon::Jump()
 void Simon::Stop()
 {
 	if (vx != 0)
-		vx -= dt * SIMON_GRAVITY*0.1*trend;
-	if (trend == 1 && vx < 0)
+		vx -= dt * SIMON_GRAVITY*0.1*direction;
+	if (direction == 1 && vx < 0)
 		vx = 0;
-	if (trend == -1 && vx > 0)
+	if (direction == -1 && vx > 0)
 		vx = 0;
 	// tóm lại là vx = 0 :v
 
@@ -376,5 +395,5 @@ void Simon::Attack()
 		return;
 
 	isAttacking = true;
-	whip->Create(this->x, this->y, this->trend); // set vị trí weapon theo simon
+	whip->Create(this->x, this->y, this->direction); // set vị trí weapon theo simon
 }

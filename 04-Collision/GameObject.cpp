@@ -13,6 +13,7 @@ CGameObject::CGameObject()
 	x = y = 0;
 	vx = vy = 0;
 	//nx = 1;	
+	
 }
 
 void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -135,11 +136,11 @@ void CGameObject::RenderBoundingBox(Camera *camera)
 {
 
 	return;
-
+	
 	D3DXVECTOR3 p(x, y, 0);
 	RECT rect;
-	Texture *texture = new Texture("textures\\bbox.png");
-	LPDIRECT3DTEXTURE9 bbox = texture->texture;
+	
+	LPDIRECT3DTEXTURE9 bbox = texturebox->texture;
 
 	float l, t, r, b;
 

@@ -7,7 +7,7 @@ Whip::Whip(int X, int Y)
 	x = X;
 	y = Y;
 	tag = 2;
-	health = 1;
+	//health = 1;
 	//isFinish = 1;
 }
 
@@ -29,43 +29,45 @@ void Whip::RenderBoundingBox(Camera * camera)
 
 void Whip::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	if (_sprite->GetIndex() == 0 || _sprite->GetIndex() == 1 || _sprite->GetIndex() == 2)
+	if (_sprite->GetIndex() == 0 || _sprite->GetIndex() == 1 || _sprite->GetIndex() == 2 || _sprite->GetIndex() == 3)
 	{
-		left = x;
-		top = y;
-		right = x + _texture->FrameWidth-55;
-		bottom = y + _texture->FrameHeight-20;
+		
+		if (direction == -1)
+		{
+			left = x;
+			top = y;
+			right = x +60;
+			bottom = y + _texture->FrameHeight ;
+		}
+		else
+		{
+			left = x;
+			top = y;
+			right = x + _texture->FrameWidth - 55;
+			bottom = y + _texture->FrameHeight - 20;
+		}
 	}
-	else
+	/*else
 	{
 		left = x;
 		top = y;
 		right = x + _texture->FrameWidth;
 		bottom = y + _texture->FrameHeight;
-	}
+	}*/
+	
 
 }
 
 void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	
-	/*if (stopFrame != 3)
-	{
-		stopFrame = _sprite->GetIndex();
-	}
-	else
-	{
-		stopFrame = 0;
-	}*/
-	
-		//_sprite->SelectIndex(0);
-
+		int index = _sprite->GetIndex();
 		_sprite->Update(dt);
-		if (_sprite->GetIndex() == 3)
-		{
+		if (index == 3)
+		{		
+			if (index < 0 || index >= 2)//update main whip
+				_sprite->SelectIndex(0);
 			isFinish = true;
 		}
-
 	//CGameObject::Update(dt);
 	vector<LPGAMEOBJECT> coObjects_LargeCandle;
 	coObjects_LargeCandle.clear();
@@ -123,19 +125,19 @@ void Whip::CollisionWithLargeCandle(vector<LPGAMEOBJECT>* coObjects)
 	/*for (UINT i = 0; i < coEvents.size(); i++)
 		delete coEvents[i];*/
 }
-void Whip::Create(float simonX, float simonY, int simonTrend)
+void Whip::Create(float simonX, float simonY, int simondirection)
 {
 	this->x = simonX;
 	this->y = simonY;
-	this->trend = simonTrend;
+	this->direction = simondirection;
 	isFinish =false;
 	this->_sprite->SelectIndex(0);
 }
 void Whip::Render(Camera * camera)
 {
 	D3DXVECTOR2 pos = camera->Transform(x, y);
-	if (trend == -1)
-		_sprite->Draw(pos.x-70, pos.y+5);
+	if (direction == -1)
+		_sprite->Draw(pos.x-30, pos.y+5);
 	else
 		_sprite->DrawFlipX(pos.x-33, pos.y);
 	RenderBoundingBox(camera);

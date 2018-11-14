@@ -45,7 +45,7 @@ public:
 	float vx;
 	float vy;
 
-	int trend;
+	int direction;
 
 	int state;
 	bool isDead;
@@ -53,7 +53,7 @@ public:
 	
 	Texture * _texture;
 	Sprite * _sprite;
-	
+	Texture *texturebox = new Texture("textures\\bbox.png");
 
 public: 
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
