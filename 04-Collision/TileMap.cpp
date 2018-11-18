@@ -18,9 +18,6 @@ void TileMap::LoadMap()
 	TileTexture = new Texture("Resource/sprites/lv1.s", 10, 4, 40);
 	TileSprite = new Sprite(TileTexture, 100);
 
-
-
-
 }
 
 void TileMap::ReadFile(char * filename)
@@ -58,7 +55,7 @@ void TileMap::DrawMap(Camera *camera)
 		for (int j = 0; j < col+1; j++)
 		{
 			TileSprite->SelectIndex(tileMap[currentRow + i][currentCol + j]);
-			TileSprite->Draw(x+TileTexture->FrameHeight*j,y+TileTexture->FrameWidth*i);
+			TileSprite->Draw(x+TileTexture->FrameHeight*j,y+TileTexture->FrameWidth*i+75);
 		}
 	}
 

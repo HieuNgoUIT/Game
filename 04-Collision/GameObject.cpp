@@ -27,6 +27,7 @@ void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	
 }
 
+#include "Item.h"
 /*
 	Extension of original SweptAABB to deal with two moving objects
 */
@@ -37,6 +38,20 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 	float t, nx, ny;
 
 	coO->GetBoundingBox(sl, st, sr, sb);
+
+	/*if (dynamic_cast<Item*>(coO) != NULL)
+	{
+
+		DebugOut(L"[INFO] vx: %f\n", vx);
+		DebugOut(L"[INFO] vy: %f\n", vy);
+
+
+
+	}
+*/
+
+
+
 
 	// deal with moving object: m speed = original m speed - collide object speed
 	float svx, svy;
@@ -104,11 +119,11 @@ void CGameObject::FilterCollision(
 	{
 		LPCOLLISIONEVENT c = coEvents[i];
 
-		if (c->t < min_tx && c->nx != 0) {
+		if (c->t <= min_tx && c->nx != 0) {
 			min_tx = c->t; nx = c->nx; min_ix = i;
 		}
 
-		if (c->t < min_ty  && c->ny != 0) {
+		if (c->t <= min_ty  && c->ny != 0) {
 			min_ty = c->t; ny = c->ny; min_iy = i;
 		}
 	}
@@ -135,7 +150,7 @@ bool CGameObject::isColliding(LPGAMEOBJECT object, LPGAMEOBJECT other)
 void CGameObject::RenderBoundingBox(Camera *camera)
 {
 
-	return;
+	
 	
 	D3DXVECTOR3 p(x, y, 0);
 	RECT rect;

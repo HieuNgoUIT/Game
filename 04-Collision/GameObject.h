@@ -44,7 +44,7 @@ public:
 	int isCreated = 0;
 	float vx;
 	float vy;
-
+	bool isTake;
 	int direction;
 
 	int state;

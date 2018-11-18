@@ -75,6 +75,9 @@
     <ClInclude Include="TileMap.h">
       <Filter>Map</Filter>
     </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debug.cpp">
@@ -117,6 +120,9 @@
       <Filter>Objets</Filter>
     </ClCompile>
     <ClCompile Include="TileMap.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
       <Filter>Map</Filter>
     </ClCompile>
   </ItemGroup>

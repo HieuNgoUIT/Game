@@ -34,6 +34,7 @@
 #include "Camera.h"
 #include "LargeCandle.h"
 #include "Whip.h"
+#include "debug.h"
 //#include "Weapon.h"
 //#include "MorningStar.h"
 
@@ -57,7 +58,7 @@ public:
 	 void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 
 	 void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
-	 void UpdatewItem(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	// void UpdatewItem(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 
 	 void Render(Camera *camera);
 	 void RenderBoundingBox(Camera *camera);

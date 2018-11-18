@@ -53,6 +53,16 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 
 	CalcPotentialCollisions(coObjects, coEvents); // Lấy danh sách các va chạm
 
+
+	//DebugOut(L"[INFO] KeyUp: %d\n", coObjects->size());
+	for (int i = 0; i < coObjects->size(); i++) //aabb item
+	{
+		if (isColliding(this, coObjects->at(i)))
+		{
+			coObjects->at(i)->isDead = true;
+		}
+	}
+	
 												  // No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
@@ -67,21 +77,7 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 		// nếu ko va chạm thì min_tx,min_ty = 1.0, còn nếu có thì nó trả về thời gian va chạm. 
 		//Còn nx,ny là hướng va chạm,  = 0 nếu ko va chạm;
 
-		// block 
-		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		//y += min_ty * dy + ny * 0.4f; // ny = -1 thì hướng từ trên xuống....
-
-		if (nx != 0)
-		{
-			vx = 0; // nếu mà nx, ny <>0  thì nó va chạm rồi. mà chạm rồi thì dừng vận tốc cho nó đừng chạy nữa
-		}
-
-
-		if (ny != 0)
-		{
-			vy = 0;
-
-		}
+		
 
 
 		for (UINT i = 0; i < coEventsResult.size(); i++)
@@ -91,7 +87,7 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 			{
 				Item *item = dynamic_cast<Item *>(e->obj);
 				// jump on top >> kill Goomba and deflect a bit 
-				if (e->nx != 0)
+				if (e->t>0 && e->t <=1)
 				{
 					item->isDead = true;
 				}
@@ -221,16 +217,10 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			coObjects_Item.push_back(coObjects->at(i));
 	CollisionWithItem(&coObjects_Item);
 
-}
-void Simon::UpdatewItem(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
-{
-	/*vector<LPGAMEOBJECT> coObjects_Item;
-	coObjects_Item.clear();
-	for (int i = 0; i < coObjects->size(); i++)
-			coObjects_Item.push_back(coObjects->at(i));*/
-	CollisionWithItem(coObjects);
+	
 
 }
+
 
 void Simon::Render(Camera *camera)
 {

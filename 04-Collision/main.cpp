@@ -21,7 +21,7 @@
 #include <windows.h>
 #include <d3d9.h>
 #include <d3dx9.h>
-
+#include "Grid.h"
 #include "debug.h"
 #include "Game.h"
 #include "GameObject.h"
@@ -31,6 +31,7 @@
 #include "Brick.h"
 #include "LargeCandle.h"
 #include "Whip.h"
+#include "UI.h"
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"04 - Collision"
 
@@ -47,7 +48,6 @@ HWND hWnd;
 Brick *brick;
 Simon *simon;
 vector<LPGAMEOBJECT> objects;
-vector<LPGAMEOBJECT> items;
 Camera *camera;
 TileMap *tilemap;
 Sprite *sprite;
@@ -55,6 +55,9 @@ LargeCandle * largecandle;
 Texture *texture;
 Whip *whip;
 Item *item;
+Grid *grid;
+UI *ui;
+
 class CSampleKeyHander: public CKeyEventHandler
 {
 	virtual void KeyState(BYTE *states);
@@ -185,7 +188,7 @@ void LoadResources()
 	simon->SetPosition(SIMON_POSITION_DEFAULT);
 	//simon->SetPosition(0, 0);
 
-	brick = new Brick(0, 325, 1536, 32);
+	brick = new Brick(0, 400, 1536, 32);
 	objects.push_back(brick);
 
 	camera = new Camera(640,480);
@@ -195,10 +198,14 @@ void LoadResources()
 
 	largecandle = new LargeCandle(300, 265);
 	objects.push_back(largecandle);
-	/*largecandle = new LargeCandle(350, 200);
-	objects.push_back(largecandle);*/
 
-
+	largecandle = new LargeCandle(350, 200);
+	objects.push_back(largecandle);
+	/*grid = new Grid();
+	grid->ReadFileToGrid("Resource\\sprites\\QuadTree\\lv1.txt");*/
+	ui = new UI();
+	ui->Initialize( simon, 16);
+	
 }
 
 /*
@@ -207,10 +214,22 @@ void LoadResources()
 */
 void Update(DWORD dt)
 {
+	
+	ui->Update(16, 1000 - 1, 3, 1);
 	//tilemap->DrawMap(camera);
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
-	vector<LPGAMEOBJECT> coObjects;
+	vector<LPGAMEOBJECT> coObjects;	
+	//grid->GetListObject(objects, camera);
+	for (int i = 0; i<objects.size(); i++)
+	{
+		if (objects[i]->dropItem == true)
+		{
+			item = new Item(objects[i]->x, objects[i]->y);
+			objects.push_back(item);
+			objects[i]->SetDropItem(false);
+		}
+	}
 	for (int i = 0; i < objects.size(); i++)
 	{
 		coObjects.push_back(objects[i]);
@@ -218,22 +237,8 @@ void Update(DWORD dt)
 	for (int i = 0; i < objects.size(); i++)
 	{
 		objects[i]->Update(dt,&coObjects);
-	}
-	for (int i = 0; i<objects.size(); i++)
-	{
-		if (objects[i]->dropItem == true)
-		{
-			item = new Item(objects[i]->x, objects[i]->y);
-			items.push_back(item);
-			objects[i]->SetDropItem(false);
-		}
-	}
-	for (int i = 0; i < items.size(); i++)
-	{
-		items[i]->Update(dt, &coObjects);
-	}
-	simon->Update(dt, &coObjects);
-	simon->UpdatewItem(dt, &items);
+	}		
+	simon->Update(dt, &coObjects);	
 	camera->SetPosition(simon->x-320+60,0);
 	camera->Update();
 	
@@ -256,13 +261,12 @@ void Render()
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-
+		ui->Render();
 		tilemap->DrawMap(camera);
 
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render(camera);
-		for (int i = 0; i < items.size(); i++)
-			items[i]->Render(camera);
+		
 		simon->Render(camera);
 		//whip->Render(camera);
 
