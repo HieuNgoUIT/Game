@@ -9,7 +9,7 @@ public:
 	Whip();
 	~Whip();
 	bool isFinish;
-
+	int typeOfWhip;
 	void RenderBoundingBox(Camera* camera);
 	 void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	 void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);

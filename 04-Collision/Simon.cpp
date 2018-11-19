@@ -113,13 +113,17 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	int index = _sprite->GetIndex();
 
-	if (isSitting == true)
+	if (isSitting == true) //dang ngoi
 	{
 		_sprite->SelectIndex(SIMON_ANI_SITTING);
 		if (isAttacking == true)
 		{
-			if (index < 16 || index >= 18)
-				_sprite->SelectIndex(16);
+			/*if (index < SIMON_ANI_BEGIN_SITHITTING || index >= SIMON_ANI_END_SITHITTING)
+			{*/
+				_sprite->SelectIndex(SIMON_ANI_BEGIN_SITHITTING);
+				_sprite->Update(dt);
+			/*}*/
+				
 		}
 	}
 	else
@@ -128,11 +132,11 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			if (isJumping == false) // ko nhảy
 			{
 				if (index < SIMON_ANI_BEGIN_WALKING || index >= SIMON_ANI_END_WALKING)
-					_sprite->SelectIndex(1);
+					_sprite->SelectIndex(SIMON_ANI_BEGIN_WALKING);
 				if (isAttacking == true)
 				{
-					if (index < 5 || index >= 7)
-					_sprite->SelectIndex(5);
+					/*if (index < SIMON_ANI_BEGIN_HITTING || index > SIMON_ANI_END_HITTING)*/
+					_sprite->SelectIndex(SIMON_ANI_BEGIN_HITTING);
 				}
 
 				//cập nhật frame mới
@@ -142,8 +146,8 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				if (isAttacking == true)
 				{
-					if (index < 5 || index >= 7)
-						_sprite->SelectIndex(5);
+					/*if (index < 5 || index >= 7)*/
+						_sprite->SelectIndex(SIMON_ANI_BEGIN_HITTING);
 					_sprite->Update(dt);
 				}
 				else
@@ -157,16 +161,24 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		else
 			if (isJumping == true) // nếu ko đi mà chỉ nhảy
 			{
-				_sprite->SelectIndex(SIMON_ANI_JUMPING);
-			}
+				if (isAttacking == true)
+				{
+					/*if (index < 5 || index >= 7)*/
+					_sprite->SelectIndex(5);
+					_sprite->Update(dt);
+				}
+				else
+				{
+					_sprite->SelectIndex(SIMON_ANI_JUMPING);
+				}
+				
+			}			
 			else if (isAttacking == true)
 			{
-				if (index < 5 || index >= 7)
-					_sprite->SelectIndex(5);
+				/*if (index < 5 || index >= 7)*/
+				_sprite->SelectIndex(5);
 				_sprite->Update(dt);
-
-			}
-			else
+			}else
 			{
 				_sprite->SelectIndex(SiMON_ANI_IDLE);		// SIMON đứng yên
 
@@ -280,12 +292,12 @@ void Simon::Jump()
 }
 
 void Simon::Stop()
-{
+{/*
 	if (vx != 0)
 		vx -= dt * SIMON_GRAVITY*0.1*direction;
 	if (direction == 1 && vx < 0)
 		vx = 0;
-	if (direction == -1 && vx > 0)
+	if (direction == -1 && vx > 0)*/
 		vx = 0;
 	// tóm lại là vx = 0 :v
 
