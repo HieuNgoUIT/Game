@@ -7,6 +7,7 @@ Simon::Simon()
 	_texture = new Texture("Resource\\sprites\\simon.png", 8, 3, 24);
 	_sprite = new Sprite(_texture, 100);
 	whip = new Whip(x, y);
+	subwp = new SubWeapon(x, y);
 	tag = 1;
 
 	isWalking = 0;
@@ -60,6 +61,7 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 		if (isColliding(this, coObjects->at(i)))
 		{
 			coObjects->at(i)->isDead = true;
+			whip->typeOfWhip = 1;
 		}
 	}
 	
@@ -210,7 +212,12 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		//whip->isFinish = true;
 	}
-
+	if (throwSubwp == 1)
+	{
+		subwp->SetPosition(subwp->x, subwp->y);
+		subwp->Update(dt, coObjects);
+	}
+	
 	CGameObject::Update(dt);
 	vy += SIMON_GRAVITY * dt;// Simple fall down
 
@@ -248,6 +255,10 @@ void Simon::Render(Camera *camera)
 	if (whip->isFinish == false)
 	{
 		whip->Render(camera);
+	}
+	if (throwSubwp == 1)
+	{
+		subwp->Render(camera);
 	}
 	RenderBoundingBox(camera);
 }

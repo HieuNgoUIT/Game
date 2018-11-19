@@ -34,6 +34,9 @@
     <Filter Include="Map">
       <UniqueIdentifier>{c20797c8-cafd-45fc-a120-691817fe23c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sound">
+      <UniqueIdentifier>{b15a8cfd-7394-4be9-a3ef-222080225295}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debug.h">
@@ -77,6 +80,9 @@
     </ClInclude>
     <ClInclude Include="UI.h">
       <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="SubWeapon.h">
+      <Filter>Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +130,9 @@
     </ClCompile>
     <ClCompile Include="UI.cpp">
       <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="SubWeapon.cpp">
+      <Filter>Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -32,6 +32,7 @@
 #include "LargeCandle.h"
 #include "Whip.h"
 #include "UI.h"
+#include "Sound.h"
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"04 - Collision"
 
@@ -104,6 +105,11 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	if (KeyCode == DIK_X)
 	{		
 		simon->Attack();
+	}
+	if (KeyCode == DIK_RCONTROL)
+	{
+		simon->throwSubwp=1;
+		simon->subwp->SetPosition(simon->x, simon->y);
 	}
 }
 
@@ -201,6 +207,10 @@ void LoadResources()
 
 	largecandle = new LargeCandle(350, 200);
 	objects.push_back(largecandle);
+	/*Sound::GetInstance()->Stop(GAME_START_PROLOGUE);
+
+	if (!Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
+		Sound::GetInstance()->PlayLoop(STAGE_01_VAMPIRE_KILLER);*/
 	/*grid = new Grid();
 	grid->ReadFileToGrid("Resource\\sprites\\QuadTree\\lv1.txt");*/
 	ui = new UI();
@@ -374,6 +384,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	keyHandler = new CSampleKeyHander();
 	game->InitKeyboard(keyHandler);
 
+	//Sound::GetInstance()->loadSound(hWnd);
 
 	LoadResources();
 

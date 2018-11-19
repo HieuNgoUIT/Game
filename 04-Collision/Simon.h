@@ -39,6 +39,7 @@
 #include "LargeCandle.h"
 #include "Whip.h"
 #include "debug.h"
+#include "SubWeapon.h"
 //#include "Weapon.h"
 //#include "MorningStar.h"
 
@@ -50,9 +51,9 @@ public:
 	bool isJumping;
 	bool isSitting;
 	bool isAttacking;
-
+	bool throwSubwp;
 	Whip* whip;
-
+	SubWeapon *subwp;
 public:
 	Simon();
 	~Simon();
