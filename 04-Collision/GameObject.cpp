@@ -179,7 +179,7 @@ void CGameObject::AddAnimation(int aniId)
 }
 
 
-int CGameObject::GetType()
+int CGameObject::GetTag()
 {
 	return tag;
 }

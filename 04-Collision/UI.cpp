@@ -141,9 +141,9 @@ void UI::Update(int bossHP, int time, int life, int stage)
 	this->stage = stage;
 
 
-	/*std::string scoreString = std::to_string(simon->GetScore());
+	std::string scoreString = std::to_string(100);
 	while (scoreString.length() < 6)
-		scoreString = "0" + scoreString;*/
+		scoreString = "0" + scoreString;
 
 
 	std::string timeString = std::to_string(this->time);
@@ -156,10 +156,11 @@ void UI::Update(int bossHP, int time, int life, int stage)
 		stageString = "0" + stageString;
 
 
-	//information = "SCORE_" + scoreString + " TIME " + timeString + " STAGE " + stageString + "\n";
-	//information += "PLAYER                =" + std::to_string(simon->GetEnergy()) + "\n";
-	//information += "ENEMY                P=" + std::to_string(simon->GetLife()) + "\n";
+	information = "SCORE_" + scoreString + " TIME " + timeString + " STAGE " + stageString + "\n";
+	information += "PLAYER                =" + std::to_string(simon->useableHeart) + "\n";
+	information += "ENEMY                P=" + std::to_string(2) + "\n";
 
+	
 
 	/*switch (simon->currentWeapon)
 	{
@@ -190,21 +191,21 @@ void UI::Update(int bossHP, int time, int life, int stage)
 
 void UI::Render()
 {
-	RECT newRect;
-	SetRect(&newRect, 0, 0, 640, 116);
+	/*RECT newRect;
+	SetRect(&newRect, 0, 0, 640, 116);*/
 	//black->Draw(black->GetPosition(), newRect);
 	if (font)
 		font->DrawTextA(NULL, information.c_str(), -1, &rect, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
 
 
-	/*for (std::vector<Sprite*>::iterator i = noHPList->begin(); i != noHPList->end(); i++)
-	{
-		SetRect(&newRect, 0, 0, 8, 15);
-		(*i)->Render((*i)->GetPosition(), newRect);
-		D3DXVECTOR3 newPosition = (*i)->GetPosition();
-		newPosition.y = 67;
-		(*i)->Render(newPosition, newRect);
-	}*/
+	//for (std::vector<Sprite*>::iterator i = noHPList->begin(); i != noHPList->end(); i++)
+	//{
+	//	SetRect(&newRect, 0, 0, 8, 15);
+	//	(*i)->Render((*i)->GetPosition(), newRect);
+	//	D3DXVECTOR3 newPosition = (*i)->GetPosition();
+	//	newPosition.y = 67;
+	//	(*i)->Render(newPosition, newRect);
+	//}
 
 
 	int count = 0;
@@ -231,14 +232,14 @@ void UI::Render()
 	}*/
 
 
-	/*D3DXVECTOR3 newPosition = { 330, 45, 0 };
-	SetRect(&newRect, 0, 0, 70, 45);
-	(*enemyHPList)[0]->Render(newPosition, newRect);
+	//D3DXVECTOR3 newPosition = { 330, 45, 0 };
+	//SetRect(&newRect, 0, 0, 70, 45);
+	//(*enemyHPList)[0]->Render(newPosition, newRect);
 
-	SetRect(&newRect, 0, 0, 16, 16);
-	heart->Render(heart->GetPosition(), newRect);
+	//SetRect(&newRect, 0, 0, 16, 16);
+	heart->Draw(420,42);
 
-	weapon->Render(weapon->GetPosition());
+	/*weapon->Render(weapon->GetPosition());
 
 	switch (simon->GetNoSubWeapon()) {
 	case 2: upgrade1->Render(upgrade1->GetPosition()); break;

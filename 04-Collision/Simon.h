@@ -52,6 +52,7 @@ public:
 	bool isSitting;
 	bool isAttacking;
 	bool throwSubwp;
+	int useableHeart = 3;
 	Whip* whip;
 	SubWeapon *subwp;
 public:

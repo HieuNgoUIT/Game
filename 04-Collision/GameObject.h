@@ -83,7 +83,7 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	virtual void Render(Camera *camera)=0 ;
 	virtual void SetState(int state) { this->state = state; }
-	int GetType();
+	int GetTag();
 	void SetDropItem(bool x) { this->dropItem = x; }
 
 	~CGameObject();

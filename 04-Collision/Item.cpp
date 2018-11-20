@@ -7,7 +7,10 @@ Item::Item(int X, int Y)
 	_sprite = new Sprite(_texture, 100);
 	this->x = X;
 	this->y = Y;
-	tag = 69;
+	if (path == HEART_PATH)
+	{
+		tag = HEART_TAG;
+	}
 }
 char* Item::PathRandom()
 {

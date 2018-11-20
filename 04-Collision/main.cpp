@@ -1,6 +1,6 @@
 /* =============================================================
 	INTRODUCTION TO GAME PROGRAMMING SE102
-	
+
 	SAMPLE 04 - COLLISION
 
 	This sample illustrates how to:
@@ -8,14 +8,14 @@
 		1/ Implement SweptAABB algorithm between moving objects
 		2/ Implement a simple (yet effective) collision frame work
 
-	Key functions: 
+	Key functions:
 		CGame::SweptAABB
 		CGameObject::SweptAABBEx
 		CGameObject::CalcPotentialCollisions
 		CGameObject::FilterCollision
 
 		CGameObject::GetBoundingBox
-		
+
 ================================================================ */
 
 #include <windows.h>
@@ -59,15 +59,17 @@ Whip *whip;
 Item *item;
 Grid *grid;
 UI *ui;
+int mapSecond = 0;
+int mapTime = 0;
 
-class CSampleKeyHander: public CKeyEventHandler
+class CSampleKeyHander : public CKeyEventHandler
 {
 	virtual void KeyState(BYTE *states);
 	virtual void OnKeyDown(int KeyCode);
 	virtual void OnKeyUp(int KeyCode);
 };
 
-CSampleKeyHander * keyHandler; 
+CSampleKeyHander * keyHandler;
 
 void CSampleKeyHander::OnKeyDown(int KeyCode)
 {
@@ -104,14 +106,19 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	}
 
 	if (KeyCode == DIK_X)
-	{		
+	{
 		simon->Attack();
 	}
 	if (KeyCode == DIK_RCONTROL)
 	{
-		simon->throwSubwp=1;
-		simon->subwp->SetPosition(simon->x, simon->y);
+		if (simon->useableHeart != 0)
+		{
+			simon->throwSubwp = 1;
+			simon->subwp->SetPosition(simon->x, simon->y);
+			simon->useableHeart--;
+		}
 	}
+
 }
 
 void CSampleKeyHander::OnKeyUp(int KeyCode)
@@ -184,7 +191,7 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 }
 
 /*
-	Load all game resources 
+	Load all game resources
 	In this example: load textures, sprites, animations and mario object
 
 	TO-DO: Improve this function by loading texture,sprite,animation,object from file
@@ -198,7 +205,7 @@ void LoadResources()
 	//brick = new Brick(0, 400, 1536, 32);
 	//objects.push_back(brick);
 
-	camera = new Camera(640,480);
+	camera = new Camera(640, 480);
 
 	tilemap = new TileMap();
 	tilemap->LoadMap();
@@ -215,8 +222,8 @@ void LoadResources()
 	grid = new Grid();
 	grid->ReadFileToGrid("Resource\\sprites\\Grid\\lv1.txt");
 	ui = new UI();
-	ui->Initialize( simon, 16);
-	
+	ui->Initialize(simon, 16);
+
 }
 
 /*
@@ -225,14 +232,21 @@ void LoadResources()
 */
 void Update(DWORD dt)
 {
-	
-	ui->Update(16, 1000 - 1, 3, 1);
+	//countdown
+	mapSecond++;
+	if (mapSecond > 60)
+	{
+		mapTime++;
+		mapSecond = 0;
+	}
+	ui->Update(16, 1000 - mapTime, 3, 1);
+
 	//tilemap->DrawMap(camera);
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
-	vector<LPGAMEOBJECT> coObjects;	
+	vector<LPGAMEOBJECT> coObjects;
 	grid->GetListObject(objects, camera);
-	for (int i = 0; i<objects.size(); i++)
+	for (int i = 0; i < objects.size(); i++)
 	{
 		if (objects[i]->dropItem == true)
 		{
@@ -247,21 +261,21 @@ void Update(DWORD dt)
 	}
 	for (int i = 0; i < objects.size(); i++)
 	{
-		objects[i]->Update(dt);		
-	}	
+		objects[i]->Update(dt);
+	}
 	for (int i = 0; i < items.size(); i++)
 	{
 		items[i]->Update(dt);
 	}
-	simon->Update(dt, &coObjects,&items);	
-	camera->SetPosition(simon->x-320+60,0);
+	simon->Update(dt, &coObjects, &items);
+	camera->SetPosition(simon->x - 320 + 60, 0);
 	camera->Update();
-	
+
 
 }
 
 /*
-	Render a frame 
+	Render a frame
 */
 void Render()
 {
@@ -328,7 +342,7 @@ HWND CreateGameWindow(HINSTANCE hInstance, int nCmdShow, int ScreenWidth, int Sc
 			hInstance,
 			NULL);
 
-	if (!hWnd) 
+	if (!hWnd)
 	{
 		OutputDebugString(L"[ERROR] CreateWindow failed");
 		DWORD ErrCode = GetLastError();
@@ -369,12 +383,12 @@ int Run()
 			frameStart = now;
 
 			game->ProcessKeyboard();
-			
+
 			Update(dt);
 			Render();
 		}
 		else
-			Sleep(tickPerFrame - dt);	
+			Sleep(tickPerFrame - dt);
 	}
 
 	return 1;

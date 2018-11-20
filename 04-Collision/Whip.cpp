@@ -108,7 +108,7 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vector<LPGAMEOBJECT> coObjects_LargeCandle;
 	coObjects_LargeCandle.clear();
 	for (int i = 0; i < coObjects->size(); i++)
-		if (coObjects->at(i)->GetType() == 41)
+		if (coObjects->at(i)->GetTag() == 41)
 			coObjects_LargeCandle.push_back(coObjects->at(i));
 	CollisionWithLargeCandle(&coObjects_LargeCandle);
 }

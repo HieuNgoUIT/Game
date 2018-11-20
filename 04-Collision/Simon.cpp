@@ -225,14 +225,14 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 	vector<LPGAMEOBJECT> coObjects_Brick;
 	coObjects_Brick.clear();
 	for (int i = 0; i < coObjects->size(); i++)
-		if (coObjects->at(i)->GetType() == 21)
+		if (coObjects->at(i)->GetTag() == 21)
 			coObjects_Brick.push_back(coObjects->at(i));
 	CollisionWithBrick(&coObjects_Brick); // check Collision and update x, y for simon
 
 	vector<LPGAMEOBJECT> coObjects_Item;
 	coObjects_Item.clear();
 	for (int i = 0; i < coItems->size(); i++)
-		if (coItems->at(i)->GetType() == 69)
+		if (coItems->at(i)->GetTag() == 69)
 			coObjects_Item.push_back(coItems->at(i));
 	CollisionWithItem(&coObjects_Item);
 
