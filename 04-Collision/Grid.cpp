@@ -52,7 +52,7 @@ void Grid::GetListObject(vector<CGameObject*>& ListObj, Camera * camera)
 		{
 			for (int i = 0; i < cells[row + GRID_BASE][col + GRID_BASE].size(); i++)
 			{
-				if (cells[row + GRID_BASE][col + GRID_BASE].at(i)->isDead !=0) // còn tồn tại
+				if (cells[row + GRID_BASE][col + GRID_BASE].at(i)->isDead ==0) // còn tồn tại
 				{
 					if (cells[row + GRID_BASE][col + GRID_BASE].at(i)->isTake == false)
 					{
@@ -137,6 +137,7 @@ void Grid::Insert(int id, int type,  float x, float y, float w, float h)
 CGameObject * Grid::GetNewObject(int type, int x, int y,int w, int h)
 {
 	if (type == 12) return new Brick(x, y, w, h);
+	if (type == 10) return new LargeCandle(x, y);
 	return NULL;
 }
  

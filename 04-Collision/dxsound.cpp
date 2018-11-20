@@ -32,7 +32,7 @@ CSound *LoadSound(char* fileName)
 	CSound *wave;
 
 	//attempt to load wave file
-	result = dsound->Create(&wave, fileName);
+	result = dsound->Create(&wave, L"Resource//sound//usingwhip.wav");
 	if (result != DS_OK)
 		return 0;
 

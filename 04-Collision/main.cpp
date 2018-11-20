@@ -194,25 +194,25 @@ void LoadResources()
 	simon->SetPosition(SIMON_POSITION_DEFAULT);
 	//simon->SetPosition(0, 0);
 
-	brick = new Brick(0, 400, 1536, 32);
-	objects.push_back(brick);
+	//brick = new Brick(0, 400, 1536, 32);
+	//objects.push_back(brick);
 
 	camera = new Camera(640,480);
 
 	tilemap = new TileMap();
 	tilemap->LoadMap();
 
-	largecandle = new LargeCandle(300, 265);
-	objects.push_back(largecandle);
+	//largecandle = new LargeCandle(300, 265);
+	//objects.push_back(largecandle);
 
-	largecandle = new LargeCandle(350, 200);
-	objects.push_back(largecandle);
+	//largecandle = new LargeCandle(350, 200);
+	//objects.push_back(largecandle);
 	/*Sound::GetInstance()->Stop(GAME_START_PROLOGUE);
 
 	if (!Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
 		Sound::GetInstance()->PlayLoop(STAGE_01_VAMPIRE_KILLER);*/
-	/*grid = new Grid();
-	grid->ReadFileToGrid("Resource\\sprites\\QuadTree\\lv1.txt");*/
+	grid = new Grid();
+	grid->ReadFileToGrid("Resource\\sprites\\QuadTree\\lv1.txt");
 	ui = new UI();
 	ui->Initialize( simon, 16);
 	
@@ -230,7 +230,7 @@ void Update(DWORD dt)
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
 	vector<LPGAMEOBJECT> coObjects;	
-	//grid->GetListObject(objects, camera);
+	grid->GetListObject(objects, camera);
 	for (int i = 0; i<objects.size(); i++)
 	{
 		if (objects[i]->dropItem == true)

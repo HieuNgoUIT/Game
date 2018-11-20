@@ -10,7 +10,7 @@
 #include <string>
 #include "Brick.h"
 #include "debug.h"
-
+#include "LargeCandle.h"
 
 using namespace std;
 

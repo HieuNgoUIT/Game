@@ -10,7 +10,7 @@ LargeCandle::LargeCandle(int X,int Y)
 	this->y = Y;
 	tag = 41;
 	health = 1;
-	id = 161;
+	//id = 161;
 	item = new Item();
 }
 void LargeCandle::RenderBoundingBox(Camera * camera)
