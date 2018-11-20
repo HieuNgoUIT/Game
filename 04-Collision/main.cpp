@@ -49,6 +49,7 @@ HWND hWnd;
 Brick *brick;
 Simon *simon;
 vector<LPGAMEOBJECT> objects;
+vector<LPGAMEOBJECT> items;
 Camera *camera;
 TileMap *tilemap;
 Sprite *sprite;
@@ -212,7 +213,7 @@ void LoadResources()
 	if (!Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
 		Sound::GetInstance()->PlayLoop(STAGE_01_VAMPIRE_KILLER);*/
 	grid = new Grid();
-	grid->ReadFileToGrid("Resource\\sprites\\QuadTree\\lv1.txt");
+	grid->ReadFileToGrid("Resource\\sprites\\Grid\\lv1.txt");
 	ui = new UI();
 	ui->Initialize( simon, 16);
 	
@@ -236,7 +237,7 @@ void Update(DWORD dt)
 		if (objects[i]->dropItem == true)
 		{
 			item = new Item(objects[i]->x, objects[i]->y);
-			objects.push_back(item);
+			items.push_back(item);
 			objects[i]->SetDropItem(false);
 		}
 	}
@@ -246,9 +247,13 @@ void Update(DWORD dt)
 	}
 	for (int i = 0; i < objects.size(); i++)
 	{
-		objects[i]->Update(dt,&coObjects);
-	}		
-	simon->Update(dt, &coObjects);	
+		objects[i]->Update(dt);		
+	}	
+	for (int i = 0; i < items.size(); i++)
+	{
+		items[i]->Update(dt);
+	}
+	simon->Update(dt, &coObjects,&items);	
 	camera->SetPosition(simon->x-320+60,0);
 	camera->Update();
 	
@@ -276,7 +281,8 @@ void Render()
 
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render(camera);
-		
+		for (int i = 0; i < items.size(); i++)
+			items[i]->Render(camera);
 		simon->Render(camera);
 		//whip->Render(camera);
 

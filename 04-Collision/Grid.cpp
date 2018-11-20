@@ -52,14 +52,14 @@ void Grid::GetListObject(vector<CGameObject*>& ListObj, Camera * camera)
 		{
 			for (int i = 0; i < cells[row + GRID_BASE][col + GRID_BASE].size(); i++)
 			{
-				if (cells[row + GRID_BASE][col + GRID_BASE].at(i)->isDead ==0) // còn tồn tại
-				{
+				//if (cells[row + GRID_BASE][col + GRID_BASE].at(i)->isDead ==0) // còn tồn tại
+				//{
 					if (cells[row + GRID_BASE][col + GRID_BASE].at(i)->isTake == false)
 					{
 						ListObj.push_back(cells[row + GRID_BASE][col + GRID_BASE].at(i));
 						cells[row + GRID_BASE][col + GRID_BASE].at(i)->isTake = true;
 					}
-				}
+				/*}*/
 			}
 		}
 }

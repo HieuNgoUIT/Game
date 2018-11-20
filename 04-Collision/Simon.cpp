@@ -103,7 +103,7 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 			delete coEvents[i];
 	}
 }
-void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJECT>* coItems)
 {
 	/* Không cho lọt khỏi camera */
 	if (x < -10)
@@ -231,9 +231,9 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	vector<LPGAMEOBJECT> coObjects_Item;
 	coObjects_Item.clear();
-	for (int i = 0; i < coObjects->size(); i++)
-		if (coObjects->at(i)->GetType() == 69)
-			coObjects_Item.push_back(coObjects->at(i));
+	for (int i = 0; i < coItems->size(); i++)
+		if (coItems->at(i)->GetType() == 69)
+			coObjects_Item.push_back(coItems->at(i));
 	CollisionWithItem(&coObjects_Item);
 
 	

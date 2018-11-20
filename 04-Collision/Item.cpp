@@ -80,8 +80,8 @@ void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		CGameObject::Update(dt);
 		vy += 0.005 * dt;
 		y += dy;
-		if (y > 300)
-			y = 300;
+		if (y > 370)
+			y = 370;
 		//_sprite->Update(dt); // update animation
 
 	}
