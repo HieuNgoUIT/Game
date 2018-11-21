@@ -27,10 +27,14 @@ LargeCandle::~LargeCandle()
 }
 void LargeCandle::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	left = x;
-	top = y;
-	right = x + _texture->FrameWidth;
-	bottom = y + _texture->FrameHeight;
+	if (!isDead)
+	{
+		left = x;
+		top = y;
+		right = x + _texture->FrameWidth;
+		bottom = y + _texture->FrameHeight;
+	}
+	
 
 }
 

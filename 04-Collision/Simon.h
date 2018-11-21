@@ -52,7 +52,7 @@ public:
 	bool isSitting;
 	bool isAttacking;
 	bool throwSubwp;
-	int useableHeart = 3;
+	int useableHeart = 50;
 	Whip* whip;
 	SubWeapon *subwp;
 public:
@@ -81,7 +81,7 @@ public:
 	void CollisionWithBrick(vector<LPGAMEOBJECT> *coObjects = NULL);
 
 	void Attack();
-
+	void ThrowSubWp();
 
 };
 

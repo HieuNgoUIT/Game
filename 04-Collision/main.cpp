@@ -111,12 +111,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 	}
 	if (KeyCode == DIK_RCONTROL)
 	{
-		if (simon->useableHeart != 0)
-		{
-			simon->throwSubwp = 1;
-			simon->subwp->SetPosition(simon->x, simon->y);
-			simon->useableHeart--;
-		}
+		simon->ThrowSubWp();
 	}
 
 }
@@ -253,6 +248,7 @@ void Update(DWORD dt)
 			item = new Item(objects[i]->x, objects[i]->y);
 			items.push_back(item);
 			objects[i]->SetDropItem(false);
+			//objects[i]->isCreatedItem = true;//sau khi push item thi moi xoa khoi objects
 		}
 	}
 	for (int i = 0; i < objects.size(); i++)

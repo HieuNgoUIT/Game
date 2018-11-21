@@ -14,7 +14,7 @@ Simon::Simon()
 	isJumping = 0;
 	isSitting = 0;
 	isAttacking = 0;
-
+	direction = 1;
 	//Health = 16; // simon dính 16 phát là chết
 
 	//_ListWeapon.clear();
@@ -211,11 +211,20 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 			isAttacking = false;
 		}
 		//whip->isFinish = true;
-	}
-	if (throwSubwp == 1)
+	}//whip
+	//knife
+	if (throwSubwp == true)
 	{
-		subwp->SetPosition(subwp->x, subwp->y);
-		subwp->Update(dt, coObjects);
+		if (!subwp->isFinish) // chua finish thi update
+		{
+			subwp->SetPosition(subwp->x, subwp->y);
+			subwp->Update(dt, coObjects);
+		}
+		if (subwp->isFinish == true) //finish thi cho quang
+		{
+			throwSubwp = 0;
+		}
+		
 	}
 	
 	CGameObject::Update(dt);
@@ -409,4 +418,16 @@ void Simon::Attack()
 
 	isAttacking = true;
 	whip->Create(this->x, this->y, this->direction); // set vị trí weapon theo simon
+}
+
+void Simon::ThrowSubWp()
+{
+	if (throwSubwp == true) // đang tấn công thì thôi
+		return;
+	if (useableHeart != 0)
+	{
+		throwSubwp = 1;
+		subwp->Create(this->x, this->y, this->direction);
+		useableHeart--;
+	}
 }

@@ -2,11 +2,11 @@
 
 SubWeapon::SubWeapon(int X, int Y)
 {
-	_texture = new Texture("Resource\\sprites\\Sub_weapons\\KNIFE.png", 1, 1, 1);
+	_texture = new Texture("Resource\\sprites\\Sub_weapons\\KNIFE_ACTION.png", 1, 1, 1);
 	_sprite = new Sprite(_texture, 100);
 	x = X;
 	y = Y;
-	vx = 1.0f;
+	vx = 5.0f;
 	tag = 3;
 }
 
@@ -33,9 +33,22 @@ void SubWeapon::GetBoundingBox(float & left, float & top, float & right, float &
 
 void SubWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	remainingTime--;
+	if (remainingTime < 0)
+	{
+		this->isFinish = true;
+	}
 	CGameObject::Update(dt);
-	x += vx;
-	_sprite->Update(dt);
+	if (direction == -1)
+	{
+		x -= vx;
+	}
+	else
+	{
+		x += vx;
+	}
+	
+	//_sprite->Update(dt);
 	//CGameObject::Update(dt);
 	vector<LPGAMEOBJECT> coObjects_LargeCandle;
 	coObjects_LargeCandle.clear();
@@ -58,6 +71,7 @@ void SubWeapon::CollisionWithLargeCandle(vector<LPGAMEOBJECT>* coObjects)
 		if (isColliding(this, coObjects->at(i)))
 		{
 			coObjects->at(i)->isDead = true;
+			this->isFinish = true;//da ban xong
 
 		}
 
@@ -97,14 +111,23 @@ void SubWeapon::CollisionWithLargeCandle(vector<LPGAMEOBJECT>* coObjects)
 
 void SubWeapon::Create(float simonX, float simonY, int simondirection)
 {
+
+	this->x = simonX;
+	this->y = simonY;
+	this->direction = simondirection;
+	this->remainingTime = 150;//set thoi gian ton tai vu khi
+	this->isFinish = false;
 }
 
 void SubWeapon::Render(Camera * camera)
 {
+
 	D3DXVECTOR2 pos = camera->Transform(x, y);
 	if (direction == -1)
-		_sprite->Draw(pos.x , pos.y );
+		_sprite->Draw(pos.x, pos.y);
 	else
-		_sprite->DrawFlipX(pos.x , pos.y);
+		_sprite->DrawFlipX(pos.x, pos.y);
 	RenderBoundingBox(camera);
+
+
 }

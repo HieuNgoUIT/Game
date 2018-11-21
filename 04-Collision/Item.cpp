@@ -7,6 +7,7 @@ Item::Item(int X, int Y)
 	_sprite = new Sprite(_texture, 100);
 	this->x = X;
 	this->y = Y;
+	remainingTime = 500;
 	if (path == HEART_PATH)
 	{
 		tag = HEART_TAG;
@@ -80,11 +81,21 @@ void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (!isDead)
 	{
-		CGameObject::Update(dt);
-		vy += 0.005 * dt;
-		y += dy;
-		if (y > 370)
-			y = 370;
+		if (remainingTime < 0)
+		{
+			isDead = true;
+		}
+		else
+		{
+			CGameObject::Update(dt);
+			vy += 0.005 * dt;
+			y += dy;
+			if (y > 370)
+				y = 370;
+			remainingTime--;
+		}
+		
+
 		//_sprite->Update(dt); // update animation
 
 	}
