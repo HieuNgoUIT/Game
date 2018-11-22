@@ -6,7 +6,7 @@ SubWeapon::SubWeapon(int X, int Y)
 	_sprite = new Sprite(_texture, 100);
 	x = X;
 	y = Y;
-	vx = 5.0f;
+	vx = 10.0f;
 	tag = 3;
 }
 
@@ -115,7 +115,7 @@ void SubWeapon::Create(float simonX, float simonY, int simondirection)
 	this->x = simonX;
 	this->y = simonY;
 	this->direction = simondirection;
-	this->remainingTime = 150;//set thoi gian ton tai vu khi
+	this->remainingTime = 70;//set thoi gian ton tai vu khi
 	this->isFinish = false;
 }
 

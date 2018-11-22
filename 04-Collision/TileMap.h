@@ -44,7 +44,7 @@ private:
 public:
 	TileMap();
 	~TileMap();
-	void LoadMap();
+	void LoadMap(char* b, char* s);
 	void ReadFile(char * filename);
 	void DrawMap(Camera * camera);
 

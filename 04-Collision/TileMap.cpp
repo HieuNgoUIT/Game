@@ -12,10 +12,10 @@ TileMap::~TileMap()
 {
 }
 
-void TileMap::LoadMap()
+void TileMap::LoadMap(char* b,char* s)
 {
-	ReadFile("Resource/sprites/lv1.b");
-	TileTexture = new Texture("Resource/sprites/lv1.s", 10, 4, 40);
+	ReadFile(b);
+	TileTexture = new Texture(s, 10, 4, 40);
 	TileSprite = new Sprite(TileTexture, 100);
 
 }

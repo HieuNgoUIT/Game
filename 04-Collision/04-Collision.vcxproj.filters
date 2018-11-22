@@ -37,6 +37,9 @@
     <Filter Include="Sound">
       <UniqueIdentifier>{b15a8cfd-7394-4be9-a3ef-222080225295}</UniqueIdentifier>
     </Filter>
+    <Filter Include="States">
+      <UniqueIdentifier>{1dd7d74b-6d0c-4193-951a-d4344f235d5b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debug.h">
@@ -83,6 +86,18 @@
     </ClInclude>
     <ClInclude Include="SubWeapon.h">
       <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStateOne.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStateTwo.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStateManager.h">
+      <Filter>States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +148,18 @@
     </ClCompile>
     <ClCompile Include="SubWeapon.cpp">
       <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStateOne.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStateTwo.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStateManager.cpp">
+      <Filter>States</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

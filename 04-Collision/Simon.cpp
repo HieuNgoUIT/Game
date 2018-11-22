@@ -62,6 +62,7 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 		{
 			coObjects->at(i)->isDead = true;
 			whip->typeOfWhip = 1;
+			//this->useableHeart+=1;
 		}
 	}
 	

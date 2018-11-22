@@ -21,7 +21,7 @@
 #include <windows.h>
 #include <d3d9.h>
 #include <d3dx9.h>
-#include "Grid.h"
+
 #include "debug.h"
 #include "Game.h"
 #include "GameObject.h"
@@ -29,10 +29,9 @@
 #include "Simon.h"
 #include "TileMap.h"
 #include "Brick.h"
-#include "LargeCandle.h"
-#include "Whip.h"
-#include "UI.h"
 #include "Sound.h"
+#include "gamestatemanager.h"
+#include "GameStateManager.h"
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"04 - Collision"
 
@@ -44,23 +43,18 @@
 
 
 
-CGame *game;
+
 HWND hWnd;
-Brick *brick;
-Simon *simon;
-vector<LPGAMEOBJECT> objects;
-vector<LPGAMEOBJECT> items;
-Camera *camera;
-TileMap *tilemap;
-Sprite *sprite;
-LargeCandle * largecandle;
-Texture *texture;
-Whip *whip;
-Item *item;
-Grid *grid;
-UI *ui;
-int mapSecond = 0;
-int mapTime = 0;
+
+GameStateManager *gamestatemanager;
+
+
+//Whip *whip;
+//Item *item;
+//Grid *grid;
+//UI *ui;
+//int mapSecond = 0;
+//int mapTime = 0;
 
 class CSampleKeyHander : public CKeyEventHandler
 {
@@ -92,26 +86,26 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		DestroyWindow(hWnd); // thoát
 
 	if (KeyCode == DIK_Q)
-		simon->SetPosition(SIMON_POSITION_DEFAULT);
+		gamestatemanager->gamestate->simon->SetPosition(SIMON_POSITION_DEFAULT);
 
 	if (KeyCode == DIK_SPACE)
 	{
-		if (simon->isJumping == false)
-			simon->Jump();
+		if (gamestatemanager->gamestate->simon->isJumping == false)
+			gamestatemanager->gamestate->simon->Jump();
 	}
 
 	if (KeyCode == DIK_1)
 	{
-		DebugOut(L"[SIMON] X = %f , Y = %f \n", simon->x + 10, simon->y);
+		DebugOut(L"[SIMON] X = %f , Y = %f \n", gamestatemanager->gamestate->simon->x + 10, gamestatemanager->gamestate->simon->y);
 	}
 
 	if (KeyCode == DIK_X)
 	{
-		simon->Attack();
+		gamestatemanager->gamestate->simon->Attack();
 	}
 	if (KeyCode == DIK_RCONTROL)
 	{
-		simon->ThrowSubWp();
+		gamestatemanager->gamestate->simon->ThrowSubWp();
 	}
 
 }
@@ -131,44 +125,44 @@ void CSampleKeyHander::KeyState(BYTE *states)
 		mario->SetState(MARIO_STATE_WALKING_LEFT);
 	else
 		mario->SetState(MARIO_STATE_IDLE);*/
-	if (game->IsKeyDown(DIK_DOWN))
+	if (gamestatemanager->gamestate->game->IsKeyDown(DIK_DOWN))
 	{
-		simon->Sit();
+		gamestatemanager->gamestate->simon->Sit();
 
-		if (game->IsKeyDown(DIK_RIGHT))
-			simon->Right();
+		if (gamestatemanager->gamestate->game->IsKeyDown(DIK_RIGHT))
+			gamestatemanager->gamestate->simon->Right();
 
-		if (game->IsKeyDown(DIK_LEFT))
-			simon->Left();
+		if (gamestatemanager->gamestate->game->IsKeyDown(DIK_LEFT))
+			gamestatemanager->gamestate->simon->Left();
 
 		return;
 	}
 	else
-		simon->Stop();
+		gamestatemanager->gamestate->simon->Stop();
 
 
-	if (game->IsKeyDown(DIK_RIGHT))
+	if (gamestatemanager->gamestate->game->IsKeyDown(DIK_RIGHT))
 	{
-		simon->Right();
-		simon->Go();
-		if (simon->isAttacking == true)
+		gamestatemanager->gamestate->simon->Right();
+		gamestatemanager->gamestate->simon->Go();
+		if (gamestatemanager->gamestate->simon->isAttacking == true)
 		{
-			simon->Stop();
+			gamestatemanager->gamestate->simon->Stop();
 		}
 	}
 	else
-		if (game->IsKeyDown(DIK_LEFT))
+		if (gamestatemanager->gamestate->game->IsKeyDown(DIK_LEFT))
 		{
-			simon->Left();
-			simon->Go();
-			if (simon->isAttacking == true)
+			gamestatemanager->gamestate->simon->Left();
+			gamestatemanager->gamestate->simon->Go();
+			if (gamestatemanager->gamestate->simon->isAttacking == true)
 			{
-				simon->Stop();
+				gamestatemanager->gamestate->simon->Stop();
 			}
 		}
 		else
 		{
-			simon->Stop();
+			gamestatemanager->gamestate->simon->Stop();
 		}
 }
 
@@ -193,31 +187,32 @@ LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 */
 void LoadResources()
 {
-	simon = new Simon();
-	simon->SetPosition(SIMON_POSITION_DEFAULT);
-	//simon->SetPosition(0, 0);
 
-	//brick = new Brick(0, 400, 1536, 32);
-	//objects.push_back(brick);
+	//simon = new Simon();
+	//simon->SetPosition(SIMON_POSITION_DEFAULT);
+	////simon->SetPosition(0, 0);
 
-	camera = new Camera(640, 480);
+	////brick = new Brick(0, 400, 1536, 32);
+	////objects.push_back(brick);
 
-	tilemap = new TileMap();
-	tilemap->LoadMap();
+	//camera = new Camera(640, 480);
 
-	//largecandle = new LargeCandle(300, 265);
-	//objects.push_back(largecandle);
+	//tilemap = new TileMap();
+	//tilemap->LoadMap();
 
-	//largecandle = new LargeCandle(350, 200);
-	//objects.push_back(largecandle);
-	/*Sound::GetInstance()->Stop(GAME_START_PROLOGUE);
+	////largecandle = new LargeCandle(300, 265);
+	////objects.push_back(largecandle);
 
-	if (!Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
-		Sound::GetInstance()->PlayLoop(STAGE_01_VAMPIRE_KILLER);*/
-	grid = new Grid();
-	grid->ReadFileToGrid("Resource\\sprites\\Grid\\lv1.txt");
-	ui = new UI();
-	ui->Initialize(simon, 16);
+	////largecandle = new LargeCandle(350, 200);
+	////objects.push_back(largecandle);
+	///*Sound::GetInstance()->Stop(GAME_START_PROLOGUE);
+
+	//if (!Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
+	//	Sound::GetInstance()->PlayLoop(STAGE_01_VAMPIRE_KILLER);*/
+	//grid = new Grid();
+	//grid->ReadFileToGrid("Resource\\sprites\\Grid\\lv1.txt");
+	//ui = new UI();
+	//ui->Initialize(simon, 16);
 
 }
 
@@ -227,45 +222,45 @@ void LoadResources()
 */
 void Update(DWORD dt)
 {
-	//countdown
-	mapSecond++;
-	if (mapSecond > 60)
-	{
-		mapTime++;
-		mapSecond = 0;
-	}
-	ui->Update(16, 1000 - mapTime, 3, 1);
+	////countdown
+	//mapSecond++;
+	//if (mapSecond > 60)
+	//{
+	//	mapTime++;
+	//	mapSecond = 0;
+	//}
+	//ui->Update(16, 1000 - mapTime, 3, 1);
 
-	//tilemap->DrawMap(camera);
-	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
-	// TO-DO: This is a "dirty" way, need a more organized way 
-	vector<LPGAMEOBJECT> coObjects;
-	grid->GetListObject(objects, camera);
-	for (int i = 0; i < objects.size(); i++)
-	{
-		if (objects[i]->dropItem == true)
-		{
-			item = new Item(objects[i]->x, objects[i]->y);
-			items.push_back(item);
-			objects[i]->SetDropItem(false);
-			//objects[i]->isCreatedItem = true;//sau khi push item thi moi xoa khoi objects
-		}
-	}
-	for (int i = 0; i < objects.size(); i++)
-	{
-		coObjects.push_back(objects[i]);
-	}
-	for (int i = 0; i < objects.size(); i++)
-	{
-		objects[i]->Update(dt);
-	}
-	for (int i = 0; i < items.size(); i++)
-	{
-		items[i]->Update(dt);
-	}
-	simon->Update(dt, &coObjects, &items);
-	camera->SetPosition(simon->x - 320 + 60, 0);
-	camera->Update();
+	////tilemap->DrawMap(camera);
+	//// We know that Mario is the first object in the list hence we won't add him into the colliable object list
+	//// TO-DO: This is a "dirty" way, need a more organized way 
+	//vector<LPGAMEOBJECT> coObjects;
+	//grid->GetListObject(objects, camera);
+	//for (int i = 0; i < objects.size(); i++)
+	//{
+	//	if (objects[i]->dropItem == true)
+	//	{
+	//		item = new Item(objects[i]->x, objects[i]->y);
+	//		items.push_back(item);
+	//		objects[i]->SetDropItem(false);
+	//		//objects[i]->isCreatedItem = true;//sau khi push item thi moi xoa khoi objects
+	//	}
+	//}
+	//for (int i = 0; i < objects.size(); i++)
+	//{
+	//	coObjects.push_back(objects[i]);
+	//}
+	//for (int i = 0; i < objects.size(); i++)
+	//{
+	//	objects[i]->Update(dt);
+	//}
+	//for (int i = 0; i < items.size(); i++)
+	//{
+	//	items[i]->Update(dt);
+	//}
+	//simon->Update(dt, &coObjects, &items);
+	//camera->SetPosition(simon->x - 320 + 60, 0);
+	//camera->Update();
 
 
 }
@@ -275,33 +270,33 @@ void Update(DWORD dt)
 */
 void Render()
 {
-	LPDIRECT3DDEVICE9 d3ddv = game->GetDirect3DDevice();
-	LPDIRECT3DSURFACE9 bb = game->GetBackBuffer();
-	LPD3DXSPRITE spriteHandler = game->GetSpriteHandler();
+	//LPDIRECT3DDEVICE9 d3ddv = game->GetDirect3DDevice();
+	//LPDIRECT3DSURFACE9 bb = game->GetBackBuffer();
+	//LPD3DXSPRITE spriteHandler = game->GetSpriteHandler();
 
-	if (d3ddv->BeginScene())
-	{
-		// Clear back buffer with a color
-		d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
+	//if (d3ddv->BeginScene())
+	//{
+	//	// Clear back buffer with a color
+	//	d3ddv->ColorFill(bb, NULL, BACKGROUND_COLOR);
 
-		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
+	//	spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-		ui->Render();
-		tilemap->DrawMap(camera);
+	//	ui->Render();
+	//	tilemap->DrawMap(camera);
 
-		for (int i = 0; i < objects.size(); i++)
-			objects[i]->Render(camera);
-		for (int i = 0; i < items.size(); i++)
-			items[i]->Render(camera);
-		simon->Render(camera);
-		//whip->Render(camera);
+	//	for (int i = 0; i < objects.size(); i++)
+	//		objects[i]->Render(camera);
+	//	for (int i = 0; i < items.size(); i++)
+	//		items[i]->Render(camera);
+	//	simon->Render(camera);
+	//	//whip->Render(camera);
 
-		spriteHandler->End();
-		d3ddv->EndScene();
-	}
+	//	spriteHandler->End();
+	//	d3ddv->EndScene();
+	//}
 
-	// Display back buffer content to the screen
-	d3ddv->Present(NULL, NULL, NULL, NULL);
+	//// Display back buffer content to the screen
+	//d3ddv->Present(NULL, NULL, NULL, NULL);
 }
 
 HWND CreateGameWindow(HINSTANCE hInstance, int nCmdShow, int ScreenWidth, int ScreenHeight)
@@ -378,10 +373,11 @@ int Run()
 		{
 			frameStart = now;
 
-			game->ProcessKeyboard();
+			gamestatemanager->gamestate->game->ProcessKeyboard();
 
-			Update(dt);
-			Render();
+			gamestatemanager->Update(dt);
+			
+			gamestatemanager->Render();
 		}
 		else
 			Sleep(tickPerFrame - dt);
@@ -393,16 +389,18 @@ int Run()
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-	game = CGame::GetInstance();
-	game->Init(hWnd);
+	gamestatemanager = new GameStateManager(1);
+	//gamestatemanager->game = CGame::GetInstance();
+	gamestatemanager->gamestate->game->Init(hWnd);
 
 	keyHandler = new CSampleKeyHander();
-	game->InitKeyboard(keyHandler);
+	gamestatemanager->gamestate->game->InitKeyboard(keyHandler);
 
 	//Sound::GetInstance()->loadSound(hWnd);
+	gamestatemanager->LoadResources();
+	
 
-	LoadResources();
+	//LoadResources();
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 

@@ -46,7 +46,7 @@ public:
 	float vy;
 	bool isTake;
 	int direction;
-	bool isCreatedItem=false;
+	//bool isCreatedItem=false;
 	int state;
 	bool isDead;
 	DWORD dt; 
