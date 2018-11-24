@@ -5,6 +5,7 @@
 class GameStateManager {
 public:
 	GameState* gamestate;
+	int stateId;
 	void LoadResources();
 	void Update(DWORD dt);
 	void Render();

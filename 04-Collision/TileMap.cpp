@@ -12,23 +12,23 @@ TileMap::~TileMap()
 {
 }
 
-void TileMap::LoadMap(char* b,char* s)
+void TileMap::LoadMap(char* b,char* s,int row,int col,int total,int rowmaxtrix,int colmatrix)
 {
-	ReadFile(b);
-	TileTexture = new Texture(s, 10, 4, 40);
+	ReadFile(b,rowmaxtrix,  colmatrix);
+	TileTexture = new Texture(s, row, col, total);//10440  18472
 	TileSprite = new Sprite(TileTexture, 100);
 
 }
 
-void TileMap::ReadFile(char * filename)
+void TileMap::ReadFile(char * filename, int rowmaxtrix, int colmatrix)
 {
 	std::ifstream input;
 	input.open(filename, std::ios::in);
 	if (input)
 	{
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < rowmaxtrix; i++)//6  12 88
 		{
-			for (int j = 0; j < 24; j++)
+			for (int j = 0; j < colmatrix; j++)//24
 			{
 				input >>tileMap[i][j];
 			}

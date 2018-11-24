@@ -12,11 +12,12 @@ void GameStateOne::LoadResources()
 	camera = new Camera(640, 480);
 
 	tilemap = new TileMap();
-	tilemap->LoadMap("Resource/sprites/lv1.b", "Resource/sprites/lv1.s");
+	tilemap->LoadMap("Resource/sprites/lv1.b", "Resource/sprites/lv1.s",10,4,40,6,24);
 
 	//largecandle = new LargeCandle(300, 265);
 	//objects.push_back(largecandle);
-
+	checkpoint = new CheckPoint();
+	checkpoint->SetPosition(1366, 365);
 	//largecandle = new LargeCandle(350, 200);
 	//objects.push_back(largecandle);
 	/*Sound::GetInstance()->Stop(GAME_START_PROLOGUE);
@@ -27,6 +28,7 @@ void GameStateOne::LoadResources()
 	grid->ReadFileToGrid("Resource\\sprites\\Grid\\lv1.txt");
 	ui = new UI();
 	ui->Initialize(simon, 16);
+	game = CGame::GetInstance();
 }
 
 void GameStateOne::Update(DWORD dt)
@@ -69,6 +71,7 @@ void GameStateOne::Update(DWORD dt)
 	simon->Update(dt, &coObjects, &items);
 	camera->SetPosition(simon->x - 320 + 60, 0);
 	camera->Update();
+	CheckCollideWithCheckPoint(simon, checkpoint);
 }
 
 void GameStateOne::Render()

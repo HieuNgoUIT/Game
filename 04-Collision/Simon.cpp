@@ -246,6 +246,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 			coObjects_Item.push_back(coItems->at(i));
 	CollisionWithItem(&coObjects_Item);
 
+
 	
 
 }
@@ -410,6 +411,20 @@ void Simon::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++)
 		delete coEvents[i];
+}
+
+bool Simon::isCollisionWithCheckPoint(CheckPoint* checkPoint)
+{
+	//for (int i = 0; i < coObjects->size(); i++) //aabb item
+	//{
+		if (isColliding(this, checkPoint))
+		{
+			return true;
+		}
+	//}
+	return false;
+
+	
 }
 
 void Simon::Attack()

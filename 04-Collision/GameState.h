@@ -15,13 +15,16 @@ public:
 	Simon *simon;
 	Camera *camera;
 	CGame *game;
+	CheckPoint *checkpoint;
 	int mapSecond = 0;
 	int mapTime = 0;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> items;
+	bool isChangingState;
 	virtual void LoadResources();
 	virtual void Update(DWORD dt);
 	virtual void Render();
+	void CheckCollideWithCheckPoint(Simon *simon, CheckPoint *checkpoint);
 
 
 };

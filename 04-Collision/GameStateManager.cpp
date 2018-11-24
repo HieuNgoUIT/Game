@@ -8,6 +8,12 @@ void GameStateManager::LoadResources()
 
 void GameStateManager::Update(DWORD dt)
 {
+	if (gamestate->isChangingState)
+	{
+		gamestate = new GameStateTwo();		
+		gamestate->LoadResources();
+		gamestate->isChangingState = false;
+	}
 	gamestate->Update(dt);
 }
 

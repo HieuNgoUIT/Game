@@ -2,11 +2,13 @@
 
 void GameStateTwo::LoadResources()
 {
+	game = CGame::GetInstance();
 	camera = new Camera(640, 480);
-
+	simon = new Simon();
+	simon->SetPosition(SIMON_POSITION_DEFAULT);
 	tilemap = new TileMap();
 	tilemap = new TileMap();
-	tilemap->LoadMap("Resource/sprites/lv2.b", "Resource/sprites/lv2.s");
+	tilemap->LoadMap("Resource/sprites/lv2.b", "Resource/sprites/lv2.s",18,4,72,12,88);
 }
 
 void GameStateTwo::Update(DWORD dt)

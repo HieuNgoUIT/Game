@@ -115,6 +115,7 @@ bool UI::Initialize( Simon *simon, int bossHP)
 	information = "SCORE_000000 TIME 0000 STAGE 00\n";
 	information += "PLAYER                =62\n";
 	information += "ENEMY                P=3\n";
+	
 }
 
 
@@ -159,7 +160,7 @@ void UI::Update(int bossHP, int time, int life, int stage)
 	information = "SCORE_" + scoreString + " TIME " + timeString + " STAGE " + stageString + "\n";
 	information += "PLAYER                =" + std::to_string(simon->useableHeart) + "\n";
 	information += "ENEMY                P=" + std::to_string(2) + "\n";
-
+	information += "x:" + std::to_string(simon->x) + "y:" + std::to_string(simon->y);
 	
 
 	/*switch (simon->currentWeapon)

@@ -11,7 +11,7 @@
 #include "Brick.h"
 #include "debug.h"
 #include "LargeCandle.h"
-
+#include "CheckPoint.h"
 using namespace std;
 
 #define GRID_CELL_WIDTH 256
@@ -32,7 +32,7 @@ private:
 public:
 	void ReadFileToGrid(char * filename); // Đọc các object từ file
 	void GetListObject(vector<CGameObject*>& ListObj, Camera * camera);
-	void GetListObject(vector<CGameObject*> &ListObj, CGameObject * obj);
+	//void GetListObject(vector<CGameObject*> &ListObj, CGameObject * obj);
 
 
 	void Insert(int id, int type,  float x, float y, float w, float h); //Thêm object vào grid

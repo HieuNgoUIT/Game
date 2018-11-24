@@ -40,6 +40,7 @@
 #include "Whip.h"
 #include "debug.h"
 #include "SubWeapon.h"
+#include "CheckPoint.h"
 //#include "Weapon.h"
 //#include "MorningStar.h"
 
@@ -79,7 +80,7 @@ public:
 	void Stop();
 
 	void CollisionWithBrick(vector<LPGAMEOBJECT> *coObjects = NULL);
-
+	bool isCollisionWithCheckPoint(CheckPoint *checkpoint);
 	void Attack();
 	void ThrowSubWp();
 
