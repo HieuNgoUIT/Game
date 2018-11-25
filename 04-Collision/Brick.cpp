@@ -1,10 +1,17 @@
 #include "Brick.h"
 
 
-Brick::Brick(int X, int Y, int W, int H)
+Brick::Brick(int TYPE,int X, int Y, int W, int H)
 {
 	tag = 21;
-	_texture = new Texture("Resource\\sprites\\Ground\\2.png", 1, 1, 1);
+	if (TYPE == 12)
+	{
+		_texture = new Texture("Resource\\sprites\\Ground\\2.png", 1, 1, 1);
+	}
+	else
+	{
+		_texture = new Texture("Resource\\sprites\\Ground\\brick.png", 1, 1, 1);
+	}
 	_sprite = new Sprite(_texture, 1000);
 	this->x = X;
 	this->y = Y;

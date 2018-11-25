@@ -7,5 +7,6 @@ public:
 	void LoadResources();
 	void Update(DWORD dt);
 	void Render();
+	void KillAll();
 	GameStateOne();
 };

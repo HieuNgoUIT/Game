@@ -9,10 +9,52 @@ void GameStateTwo::LoadResources()
 	tilemap = new TileMap();
 	tilemap = new TileMap();
 	tilemap->LoadMap("Resource/sprites/lv2.b", "Resource/sprites/lv2.s",18,4,72,12,88);
+	grid = new Grid();
+	grid->ReadFileToGrid("Resource\\sprites\\Grid\\lv2.txt");
+	ui = new UI();
+	ui->Initialize(simon, 16);
 }
 
 void GameStateTwo::Update(DWORD dt)
 {
+
+	mapSecond++;
+	if (mapSecond > 60)
+	{
+		mapTime++;
+		mapSecond = 0;
+	}
+	ui->Update(16, 1000 - mapTime, 3, 1);
+
+
+	vector<LPGAMEOBJECT> coObjects;
+	grid->GetListObject(objects, camera);
+	for (int i = 0; i < objects.size(); i++)
+	{
+		if (objects[i]->dropItem == true)
+		{
+			item = new Item(objects[i]->x, objects[i]->y);
+			items.push_back(item);
+			objects[i]->SetDropItem(false);
+			//objects[i]->isCreatedItem = true;//sau khi push item thi moi xoa khoi objects
+		}
+	}
+	for (int i = 0; i < objects.size(); i++)
+	{
+		coObjects.push_back(objects[i]);
+	}
+	for (int i = 0; i < objects.size(); i++)
+	{
+		objects[i]->Update(dt);
+	}
+	for (int i = 0; i < items.size(); i++)
+	{
+		items[i]->Update(dt);
+	}
+	simon->Update(dt, &coObjects, &items);
+	camera->SetPosition(simon->x - 320 + 60, 0);
+	//camera->Update();
+	//CheckCollideWithCheckPoint(simon, checkpoint);
 }
 
 void GameStateTwo::Render()
@@ -28,14 +70,14 @@ void GameStateTwo::Render()
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-		//ui->Render();
+		ui->Render();
 		tilemap->DrawMap(camera);
 
-	/*	for (int i = 0; i < objects.size(); i++)
+		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render(camera);
 		for (int i = 0; i < items.size(); i++)
 			items[i]->Render(camera);
-		simon->Render(camera);*/
+		simon->Render(camera);
 		//whip->Render(camera);
 
 		spriteHandler->End();

@@ -111,7 +111,7 @@ bool UI::Initialize( Simon *simon, int bossHP)
 	if (!SUCCEEDED(result))
 		return false;
 
-	SetRect(&rect, 0, 20, 640, 480);
+	SetRect(&rect, 0, 2, 640, 480);
 	information = "SCORE_000000 TIME 0000 STAGE 00\n";
 	information += "PLAYER                =62\n";
 	information += "ENEMY                P=3\n";

@@ -41,9 +41,7 @@ void GameStateOne::Update(DWORD dt)
 	}
 	ui->Update(16, 1000 - mapTime, 3, 1);
 
-	//tilemap->DrawMap(camera);
-	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
-	// TO-DO: This is a "dirty" way, need a more organized way 
+	
 	vector<LPGAMEOBJECT> coObjects;
 	grid->GetListObject(objects, camera);
 	for (int i = 0; i < objects.size(); i++)
@@ -103,6 +101,16 @@ void GameStateOne::Render()
 
 	// Display back buffer content to the screen
 	d3ddv->Present(NULL, NULL, NULL, NULL);
+}
+
+void GameStateOne::KillAll()
+{
+	delete camera;
+	delete tilemap;
+	delete ui;
+	delete grid;
+	delete checkpoint;
+	delete simon;
 }
 
 GameStateOne::GameStateOne()

@@ -23,14 +23,7 @@
 #include <d3dx9.h>
 
 #include "debug.h"
-#include "Game.h"
-#include "GameObject.h"
-#include "Texture.h"
-#include "Simon.h"
-#include "TileMap.h"
-#include "Brick.h"
-#include "Sound.h"
-#include "gamestatemanager.h"
+
 #include "GameStateManager.h"
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"04 - Collision"
@@ -273,7 +266,7 @@ int Run()
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
-	gamestatemanager = new GameStateManager(1);
+	gamestatemanager = new GameStateManager(2);
 
 	gamestatemanager->gamestate->game->Init(hWnd);
 

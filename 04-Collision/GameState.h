@@ -25,6 +25,7 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	void CheckCollideWithCheckPoint(Simon *simon, CheckPoint *checkpoint);
+	virtual void KillAll();
 
 
 };

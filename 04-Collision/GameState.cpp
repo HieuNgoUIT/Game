@@ -23,3 +23,7 @@ void GameState::CheckCollideWithCheckPoint(Simon * simon, CheckPoint * checkpoin
 		
 	}
 }
+
+void GameState::KillAll()
+{
+}
