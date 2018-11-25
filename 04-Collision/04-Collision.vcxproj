@@ -134,6 +134,7 @@
     <ClInclude Include="GameStateOne.h" />
     <ClInclude Include="GameStateTwo.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="HiddenStair.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="LargeCandle.h" />
     <ClInclude Include="Simon.h" />
@@ -156,6 +157,7 @@
     <ClCompile Include="GameStateOne.cpp" />
     <ClCompile Include="GameStateTwo.cpp" />
     <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="HiddenStair.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="LargeCandle.cpp" />
     <ClCompile Include="main.cpp" />

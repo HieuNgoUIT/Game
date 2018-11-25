@@ -102,6 +102,9 @@
     <ClInclude Include="CheckPoint.h">
       <Filter>Objets</Filter>
     </ClInclude>
+    <ClInclude Include="HiddenStair.h">
+      <Filter>Objets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debug.cpp">
@@ -165,6 +168,9 @@
       <Filter>States</Filter>
     </ClCompile>
     <ClCompile Include="CheckPoint.cpp">
+      <Filter>Objets</Filter>
+    </ClCompile>
+    <ClCompile Include="HiddenStair.cpp">
       <Filter>Objets</Filter>
     </ClCompile>
   </ItemGroup>

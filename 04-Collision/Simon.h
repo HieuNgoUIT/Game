@@ -53,6 +53,7 @@ public:
 	bool isSitting;
 	bool isAttacking;
 	bool throwSubwp;
+	bool isOnStair;
 	int useableHeart = 50;
 	Whip* whip;
 	SubWeapon *subwp;
@@ -66,7 +67,7 @@ public:
 
 	 void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL, vector<LPGAMEOBJECT>* coItems=NULL);
 	// void UpdatewItem(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-
+	 void  CollisionWithStair(vector<LPGAMEOBJECT>* coObjects);
 	 void Render(Camera *camera);
 	 void RenderBoundingBox(Camera *camera);
 

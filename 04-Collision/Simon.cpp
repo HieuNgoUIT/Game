@@ -32,14 +32,14 @@ void Simon::GetBoundingBox(float & left, float & top, float & right, float & bot
 	{
 		left = x + 12;
 		top = y - 1; // không chỉnh lại y bởi vì hàm Sit() đã điều chỉnh
-		right = x + _texture->FrameHeight ;
-		bottom = y + _texture->FrameHeight  - 21;
+		right = x + _texture->FrameHeight;
+		bottom = y + _texture->FrameHeight - 21;
 	}
 	else
 	{
 		left = x + 12;
 		top = y - 1;
-		right = x + _texture->FrameWidth ;
+		right = x + _texture->FrameWidth;
 		bottom = y + _texture->FrameHeight - 3;
 	}
 
@@ -65,8 +65,8 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 			//this->useableHeart+=1;
 		}
 	}
-	
-												  // No collision occured, proceed normally
+
+	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
 		/*	x += dx;
@@ -80,7 +80,7 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 		// nếu ko va chạm thì min_tx,min_ty = 1.0, còn nếu có thì nó trả về thời gian va chạm. 
 		//Còn nx,ny là hướng va chạm,  = 0 nếu ko va chạm;
 
-		
+
 
 
 		for (UINT i = 0; i < coEventsResult.size(); i++)
@@ -90,7 +90,7 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 			{
 				Item *item = dynamic_cast<Item *>(e->obj);
 				// jump on top >> kill Goomba and deflect a bit 
-				if (e->t>0 && e->t <=1)
+				if (e->t > 0 && e->t <= 1)
 				{
 					item->isDead = true;
 				}
@@ -104,12 +104,13 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 			delete coEvents[i];
 	}
 }
+
 void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJECT>* coItems)
 {
 	/* Không cho lọt khỏi camera */
 	if (x < -10)
 		x = -10;
-	
+
 
 
 	/* Update về sprite */
@@ -123,10 +124,10 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 		{
 			/*if (index < SIMON_ANI_BEGIN_SITHITTING || index >= SIMON_ANI_END_SITHITTING)
 			{*/
-				_sprite->SelectIndex(SIMON_ANI_BEGIN_SITHITTING);
-				_sprite->Update(dt);
+			_sprite->SelectIndex(SIMON_ANI_BEGIN_SITHITTING);
+			_sprite->Update(dt);
 			/*}*/
-				
+
 		}
 	}
 	else
@@ -150,14 +151,14 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 				if (isAttacking == true)
 				{
 					/*if (index < 5 || index >= 7)*/
-						_sprite->SelectIndex(SIMON_ANI_BEGIN_HITTING);
+					_sprite->SelectIndex(SIMON_ANI_BEGIN_HITTING);
 					_sprite->Update(dt);
 				}
 				else
 				{
 					_sprite->SelectIndex(SIMON_ANI_JUMPING);
 				}
-				
+
 			}
 
 		}
@@ -174,14 +175,15 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 				{
 					_sprite->SelectIndex(SIMON_ANI_JUMPING);
 				}
-				
-			}			
+
+			}
 			else if (isAttacking == true)
 			{
 				/*if (index < 5 || index >= 7)*/
 				_sprite->SelectIndex(5);
 				_sprite->Update(dt);
-			}else
+			}
+			else
 			{
 				_sprite->SelectIndex(SiMON_ANI_IDLE);		// SIMON đứng yên
 
@@ -197,13 +199,13 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 		{
 			if (direction == -1)
 			{
-				whip->SetPosition(this->x-30, this->y); //set pos cho bbox whip
+				whip->SetPosition(this->x - 30, this->y); //set pos cho bbox whip
 			}
 			else
 			{
 				whip->SetPosition(this->x, this->y);
 			}
-			
+
 			whip->Update(dt, coObjects);
 
 		}
@@ -225,19 +227,47 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 		{
 			throwSubwp = 0;
 		}
+
+	}
+	if (isOnStair == true)
+	{
+		CGame *game = CGame::GetInstance();
+		if (game->IsKeyDown(DIK_UP))
+		{
+			x++;
+			y--;
+			vx = 0;
+			vy = 0;
+		}
+		if (game->IsKeyDown(DIK_DOWN))
+		{
+			x--;
+			y++;
+			vx = 0;
+			vy = 0;
+		}
 		
 	}
-	
+
 	CGameObject::Update(dt);
 	vy += SIMON_GRAVITY * dt;// Simple fall down
 
 
 	vector<LPGAMEOBJECT> coObjects_Brick;
 	coObjects_Brick.clear();
+	vector<LPGAMEOBJECT> coObjects_HiddenStair;
+	coObjects_HiddenStair.clear();
 	for (int i = 0; i < coObjects->size(); i++)
+	{
 		if (coObjects->at(i)->GetTag() == 21)
 			coObjects_Brick.push_back(coObjects->at(i));
+		if (coObjects->at(i)->GetTag() == 7)
+			coObjects_HiddenStair.push_back(coObjects->at(i));
+	}
+		
+	
 	CollisionWithBrick(&coObjects_Brick); // check Collision and update x, y for simon
+	CollisionWithStair(&coObjects_HiddenStair);
 
 	vector<LPGAMEOBJECT> coObjects_Item;
 	coObjects_Item.clear();
@@ -249,8 +279,26 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 
 	
 
+		
+
 }
 
+
+void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects)
+{
+	for (int i = 0; i < coObjects->size(); i++) //aabb item
+	{
+		if (isColliding(this, coObjects->at(i)))
+		{
+			CGame *game = CGame::GetInstance();
+			if(game->IsKeyDown(DIK_UP))
+			{
+				isOnStair = true;
+			}
+			
+		}
+	}
+}
 
 void Simon::Render(Camera *camera)
 {
@@ -320,7 +368,7 @@ void Simon::Stop()
 	if (direction == 1 && vx < 0)
 		vx = 0;
 	if (direction == -1 && vx > 0)*/
-		vx = 0;
+	vx = 0;
 	// tóm lại là vx = 0 :v
 
 
@@ -345,6 +393,18 @@ void Simon::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 
 	CalcPotentialCollisions(coObjects, coEvents); // Lấy danh sách các va chạm
 
+	if (isOnStair)
+	{
+		for (int i = 0; i < coObjects->size(); i++) //aabb item
+		{
+			if (isColliding(this, coObjects->at(i)))
+			{
+				isOnStair = false;
+
+			}
+		}
+	}
+												  
 												  // No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
@@ -417,14 +477,14 @@ bool Simon::isCollisionWithCheckPoint(CheckPoint* checkPoint)
 {
 	//for (int i = 0; i < coObjects->size(); i++) //aabb item
 	//{
-		if (isColliding(this, checkPoint))
-		{
-			return true;
-		}
+	if (isColliding(this, checkPoint))
+	{
+		return true;
+	}
 	//}
 	return false;
 
-	
+
 }
 
 void Simon::Attack()

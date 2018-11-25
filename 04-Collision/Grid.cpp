@@ -139,6 +139,7 @@ CGameObject * Grid::GetNewObject(int type, int x, int y,int w, int h)
 	if (type == 12) return new Brick(type,x, y, w, h);
 	if (type == -12) return new Brick(type, x, y, w, h);
 	if (type == 10) return new LargeCandle(x, y);
+	if (type == 7) return new HiddenStair(x, y);
 	//if (type == 11) return new CheckPoint(x, y);
 	return NULL;
 }

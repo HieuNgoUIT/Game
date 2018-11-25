@@ -12,6 +12,7 @@
 #include "debug.h"
 #include "LargeCandle.h"
 #include "CheckPoint.h"
+#include "HiddenStair.h"
 using namespace std;
 
 #define GRID_CELL_WIDTH 256
