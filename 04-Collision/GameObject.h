@@ -49,6 +49,7 @@ public:
 	//bool isCreatedItem=false;
 	int state;
 	bool isDead;
+	bool isLeft;
 	DWORD dt; 
 	
 	Texture * _texture;

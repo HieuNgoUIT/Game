@@ -52,7 +52,15 @@ void GameStateTwo::Update(DWORD dt)
 		items[i]->Update(dt);
 	}
 	simon->Update(dt, &coObjects, &items);
-	camera->SetPosition(simon->x - 320 + 60, 0);
+	
+	if (simon->y > 450)//y duoi nuoc
+	{
+		camera->SetPosition(simon->x - 320 + 60,450);
+	}
+	else
+	{
+		camera->SetPosition(simon->x - 320 + 60, 0);
+	}
 	//camera->Update();
 	//CheckCollideWithCheckPoint(simon, checkpoint);
 }

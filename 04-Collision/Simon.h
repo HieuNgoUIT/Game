@@ -8,7 +8,7 @@
 #define SIMON_GRAVITY 0.005f
 #define SIMON_VJUMP 0.8f
 
-#define SIMON_WALKING_SPEED 1.0f //0.12f 
+#define SIMON_WALKING_SPEED 0.2f //0.12f 
 
 
 
@@ -54,6 +54,10 @@ public:
 	bool isAttacking;
 	bool throwSubwp;
 	bool isOnStair;
+	bool isBottomStair;//check co dang o duoi ko
+	bool isWalkFromBot;//check dang tren cau thang
+	bool isWalkFromTop;
+	bool isTopStair;
 	int useableHeart = 50;
 	Whip* whip;
 	SubWeapon *subwp;

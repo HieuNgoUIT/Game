@@ -3,13 +3,15 @@
 HiddenStair::~HiddenStair()
 {
 }
-HiddenStair::HiddenStair(int X,int Y)
+HiddenStair::HiddenStair(int TYPE,int X,int Y,int direction,int isLeft)
 {
 	_texture = new Texture("Resource\\sprites\\Ground\\NULL.png", 1, 1, 1);
 	_sprite = new Sprite(_texture, 100);
 	this->x = X;
 	this->y = Y;
-	this->tag = 7;
+	this->tag = TYPE;
+	this->direction = direction;
+	
 }
 
 void HiddenStair::GetBoundingBox(float & left, float & top, float & right, float & bottom)
