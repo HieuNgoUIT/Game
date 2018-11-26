@@ -107,6 +107,7 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 
 void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJECT>* coItems)
 {
+	CGame *game = CGame::GetInstance();
 	/* Không cho lọt khỏi camera */
 	if (x < -10)
 		x = -10;
@@ -117,7 +118,16 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 #pragma region Sprite update
 	int index = _sprite->GetIndex();
 
-	if (isSitting == true) //dang ngoi
+	if (isOnStair) {
+		_sprite->SelectIndex(10);
+		if (game->IsKeyDown(DIK_UP) || game->IsKeyDown(DIK_DOWN))
+		{
+			_sprite->Update(dt);
+		}
+
+
+	}
+	else if (isSitting == true) //dang ngoi
 	{
 		_sprite->SelectIndex(SIMON_ANI_SITTING);
 		if (isAttacking == true)
@@ -232,10 +242,11 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 		}
 
 	}
+	//stair
 	if (isOnStair == true)
 	{
-		CGame *game = CGame::GetInstance();
-		if (game->IsKeyDown(DIK_UP) )
+		//bat dau tu ben duoi
+		if (game->IsKeyDown(DIK_UP) && !isWalkFromTop)
 		{
 			if (direction == 1 && isLeft == 0)
 			{
@@ -246,7 +257,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 				CGameObject::Update(dt);
 
 			}
-			else
+			else if (direction == -1 && isLeft)
 			{
 				vx = 0;
 				vy = 0;
@@ -255,9 +266,32 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 				CGameObject::Update(dt);
 			}
 
-		}
 
-		if (game->IsKeyDown(DIK_DOWN))
+
+		} //bat dau tu ben duoi
+		//di xuong o giua cau thang
+		if (game->IsKeyDown(DIK_DOWN) && isWalkFromBot) {
+			if (direction == -1 && isLeft == 0)
+			{
+				vx = 0;
+				vy = 0;
+				x--;
+				y++;
+				CGameObject::Update(dt);
+			}
+			else if (direction == 1 && isLeft == true)
+			{
+				vx = 0;
+				vy = 0;
+				x++;
+				y++;
+				CGameObject::Update(dt);
+			}
+
+		}//dang o giua cau thang
+
+		//bat dau tu ben tren
+		if (game->IsKeyDown(DIK_DOWN)&& !isWalkFromBot)
 		{
 			if (direction == 1 && isLeft == 0)
 			{
@@ -267,7 +301,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 				y++;
 				CGameObject::Update(dt);
 			}
-			else
+			else if(direction == -1 && isLeft )
 			{
 				vx = 0;
 				vy = 0;
@@ -276,8 +310,28 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 				CGameObject::Update(dt);
 			}
 
-		}
+		}//
+		//die len o giua cau thang
+		if (game->IsKeyDown(DIK_UP) && isWalkFromTop)
+		{
+			if (direction == 1 && isLeft == true)
+			{
+				vx = 0;
+				vy = 0;
+				x++;
+				y--;
+				CGameObject::Update(dt);
+			}
+			else if (direction == -1 && isLeft == false)
+			{
+				vx = 0;
+				vy = 0;
+				x--;
+				y--;
+				CGameObject::Update(dt);
+			}
 
+		}
 	}
 
 	if (!isOnStair)
@@ -321,21 +375,22 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 
 void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects)
 {
-	for (int i = 0; i < coObjects->size(); i++) //aabb item
+	for (int i = 0; i < coObjects->size(); i++) //check va cham stair duoi va tren
 	{
 		if (isColliding(this, coObjects->at(i)))
 		{
 			CGame *game = CGame::GetInstance();
-			if (game->IsKeyDown(DIK_UP))
+			if (game->IsKeyDown(DIK_UP)) //stair duoi
 			{
 				if (coObjects->at(i)->GetTag() == -7)
 				{
-					isOnStair = true;
-					isBottomStair = true;
-					isTopStair = false;
-					this->direction = coObjects->at(i)->direction;
+					isOnStair = true; //tren thang
+					isBottomStair = true; //bat dau tu duoi
+					isTopStair = false; //ko phai tren
+					this->direction = coObjects->at(i)->direction; //gan simon direction = sarit direction
 					this->isLeft = coObjects->at(i)->isLeft;
-					isWalkFromBot = true;
+					isWalkFromBot = true;// o giua cau thang nhung o duoi
+					isWalkFromTop = false; // o giua cau thang nhung o tren
 				}
 
 			}
@@ -348,6 +403,9 @@ void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects)
 					isBottomStair = false;
 					this->direction = coObjects->at(i)->direction;
 					this->isLeft = coObjects->at(i)->isLeft;
+					isWalkFromTop = true;
+					isWalkFromBot = false;
+
 				}
 
 			}
@@ -356,17 +414,19 @@ void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (isOnStair)
 	{
-		for (int i = 0; i < coObjects->size(); i++) //aabb item
+		for (int i = 0; i < coObjects->size(); i++)  //check va cham khi dang di chuyen
 		{
 			if (isColliding(this, coObjects->at(i)))
 			{
 				if (coObjects->at(i)->GetTag() == 7 && isBottomStair == true)
 				{
 					isOnStair = false;
+					isWalkFromBot = false;
 				}
 				if (coObjects->at(i)->GetTag() == -7 && isTopStair == true)
 				{
 					isOnStair = false;
+					isWalkFromTop = false;
 				}
 
 

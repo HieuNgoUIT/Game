@@ -137,19 +137,11 @@ void CSampleKeyHander::KeyState(BYTE *states)
 		gamestatemanager->gamestate->simon->Stop();
 
 
-	if (gamestatemanager->gamestate->game->IsKeyDown(DIK_RIGHT))
-	{
-		gamestatemanager->gamestate->simon->Right();
-		gamestatemanager->gamestate->simon->Go();
-		if (gamestatemanager->gamestate->simon->isAttacking == true)
+	/*if (!gamestatemanager->gamestate->simon->isOnStair)
+	{*/
+		if (gamestatemanager->gamestate->game->IsKeyDown(DIK_RIGHT))
 		{
-			gamestatemanager->gamestate->simon->Stop();
-		}
-	}
-	else
-		if (gamestatemanager->gamestate->game->IsKeyDown(DIK_LEFT))
-		{
-			gamestatemanager->gamestate->simon->Left();
+			gamestatemanager->gamestate->simon->Right();
 			gamestatemanager->gamestate->simon->Go();
 			if (gamestatemanager->gamestate->simon->isAttacking == true)
 			{
@@ -157,9 +149,21 @@ void CSampleKeyHander::KeyState(BYTE *states)
 			}
 		}
 		else
-		{
-			gamestatemanager->gamestate->simon->Stop();
-		}
+			if (gamestatemanager->gamestate->game->IsKeyDown(DIK_LEFT))
+			{
+				gamestatemanager->gamestate->simon->Left();
+				gamestatemanager->gamestate->simon->Go();
+				if (gamestatemanager->gamestate->simon->isAttacking == true)
+				{
+					gamestatemanager->gamestate->simon->Stop();
+				}
+			}
+			else
+			{
+				gamestatemanager->gamestate->simon->Stop();
+			}
+	/*}*/
+
 }
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -253,7 +257,7 @@ int Run()
 			gamestatemanager->gamestate->game->ProcessKeyboard();
 
 			gamestatemanager->Update(dt);
-			
+
 			gamestatemanager->Render();
 		}
 		else
@@ -273,11 +277,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	keyHandler = new CSampleKeyHander();
 	gamestatemanager->gamestate->game->InitKeyboard(keyHandler);
 
-	
-	gamestatemanager->LoadResources();
-	
 
-	
+	gamestatemanager->LoadResources();
+
+
+
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 
