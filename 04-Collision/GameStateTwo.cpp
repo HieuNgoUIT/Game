@@ -13,6 +13,8 @@ void GameStateTwo::LoadResources()
 	grid->ReadFileToGrid("Resource\\sprites\\Grid\\lv2.txt");
 	ui = new UI();
 	ui->Initialize(simon, 16);
+	door = new Door(3043, 120);
+
 }
 
 void GameStateTwo::Update(DWORD dt)
@@ -53,6 +55,7 @@ void GameStateTwo::Update(DWORD dt)
 	}
 	simon->Update(dt, &coObjects, &items);
 	
+	door->_sprite->SelectIndex(0);
 	if (simon->y > 450)//y duoi nuoc
 	{
 		camera->SetPosition(simon->x - 320 + 60,450);
@@ -60,8 +63,26 @@ void GameStateTwo::Update(DWORD dt)
 	else
 	{
 		camera->SetPosition(simon->x - 320 + 60, 0);
+	}//2674 300
+	/*if (simon->x > 2681)
+	{*/
+	
+	if (simon->isColliding(simon, door))
+	{
+		door->Update(dt);
+		if (simon->x > 2435)
+		{		
+			camera->SetPosition(simon->x-320+60, 0);
+		}
+		isCollideDoor = true;
 	}
-	//camera->Update();
+	if(!isCollideDoor)
+	{
+		camera->UpdateMap2();
+	}
+		
+	/*}*/
+	
 	//CheckCollideWithCheckPoint(simon, checkpoint);
 }
 
@@ -94,6 +115,15 @@ void GameStateTwo::Render()
 
 	// Display back buffer content to the screen
 	d3ddv->Present(NULL, NULL, NULL, NULL);
+}
+
+void GameStateTwo::CheckCollideWithDoor(Simon * simon, Door * door)
+{
+	if(simon->isColliding(simon, door))
+	{
+		
+	}
+	
 }
 
 GameStateTwo::GameStateTwo()

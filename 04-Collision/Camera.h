@@ -20,7 +20,7 @@ public:
 	~Camera();
 
 	void Update();
-
+	void UpdateMap2();
 	D3DXVECTOR2 Transform(int x, int y);
 
 	void SetPosition(int x, int y);

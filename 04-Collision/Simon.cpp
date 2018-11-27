@@ -248,6 +248,10 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 		//bat dau tu ben duoi
 		if (game->IsKeyDown(DIK_UP) && !isWalkFromTop)
 		{
+			if (direction == -1 && isLeft == 0)
+			{
+				direction = -direction;
+			}
 			if (direction == 1 && isLeft == 0)
 			{
 				vx = 0;
@@ -271,6 +275,9 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 		} //bat dau tu ben duoi
 		//di xuong o giua cau thang
 		if (game->IsKeyDown(DIK_DOWN) && isWalkFromBot) {
+			if (direction == 1 && isLeft == 0 || direction == -1 && isLeft == 1) { 
+				direction = -direction; // dang o giua cau thang, huong ben phai ma` ko qua trai thi` quay lai, tuong tu
+			}							// ben trai ma ko qua phai thi quay lai
 			if (direction == -1 && isLeft == 0)
 			{
 				vx = 0;
@@ -293,6 +300,10 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 		//bat dau tu ben tren
 		if (game->IsKeyDown(DIK_DOWN)&& !isWalkFromBot)
 		{
+			if (direction == 1 && isLeft == 1)
+			{
+				direction = -direction;
+			}
 			if (direction == 1 && isLeft == 0)
 			{
 				vx = 0;
@@ -314,6 +325,9 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 		//die len o giua cau thang
 		if (game->IsKeyDown(DIK_UP) && isWalkFromTop)
 		{
+			if (direction == -1 && isLeft == true || direction == 1 && isLeft == false) {
+				direction = -direction; //giua cau thang, qua trai
+			}
 			if (direction == 1 && isLeft == true)
 			{
 				vx = 0;

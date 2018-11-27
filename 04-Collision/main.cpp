@@ -137,8 +137,8 @@ void CSampleKeyHander::KeyState(BYTE *states)
 		gamestatemanager->gamestate->simon->Stop();
 
 
-	/*if (!gamestatemanager->gamestate->simon->isOnStair)
-	{*/
+	if (!gamestatemanager->gamestate->simon->isOnStair)
+	{
 		if (gamestatemanager->gamestate->game->IsKeyDown(DIK_RIGHT))
 		{
 			gamestatemanager->gamestate->simon->Right();
@@ -162,7 +162,7 @@ void CSampleKeyHander::KeyState(BYTE *states)
 			{
 				gamestatemanager->gamestate->simon->Stop();
 			}
-	/*}*/
+	}
 
 }
 

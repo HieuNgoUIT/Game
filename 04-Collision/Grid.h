@@ -13,6 +13,7 @@
 #include "LargeCandle.h"
 #include "CheckPoint.h"
 #include "HiddenStair.h"
+#include "Door.h"
 using namespace std;
 
 #define GRID_CELL_WIDTH 256

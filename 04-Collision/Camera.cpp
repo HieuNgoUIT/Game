@@ -29,6 +29,18 @@ void Camera::Update()
 	}
 }
 
+void Camera::UpdateMap2()
+{
+	if (_viewport.x < 0)
+	{
+		_viewport.x = 0;
+	}
+	if (_viewport.x > 2435)
+	{
+		_viewport.x = 2435;
+	}
+}
+
 D3DXVECTOR2 Camera::Transform(int x, int y)
 {
 
