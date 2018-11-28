@@ -254,7 +254,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 		//bat dau tu ben duoi
 		if (game->IsKeyDown(DIK_UP) && !isWalkFromTop)
 		{
-			if (direction == -1 && isLeft == 0)
+			if (direction == -1 && isLeft == 0 || direction == 1 && isLeft == 1)
 			{
 				direction = -direction;
 			}
@@ -306,7 +306,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 		//bat dau tu ben tren
 		if (game->IsKeyDown(DIK_DOWN)&& !isWalkFromBot)
 		{
-			if (direction == 1 && isLeft == 1)
+			if (direction == 1 && isLeft == true || direction == -1 && isLeft == false)
 			{
 				direction = -direction;
 			}
@@ -411,6 +411,8 @@ void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects)
 					this->isLeft = coObjects->at(i)->isLeft;
 					isWalkFromBot = true;// o giua cau thang nhung o duoi
 					isWalkFromTop = false; // o giua cau thang nhung o tren
+					this->y -= 25;
+					
 				}
 
 			}
@@ -425,6 +427,7 @@ void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects)
 					this->isLeft = coObjects->at(i)->isLeft;
 					isWalkFromTop = true;
 					isWalkFromBot = false;
+					this->y += 25;
 
 				}
 
@@ -448,7 +451,16 @@ void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects)
 					isOnStair = false;
 					isWalkFromTop = false;
 				}
+				if (coObjects->at(i)->GetTag() == -7 )
+				{
+					isOnStair = false;
+					
+				}
+				if (coObjects->at(i)->GetTag() == 7)
+				{
+					isOnStair = false;
 
+				}
 
 			}
 		}
@@ -556,20 +568,20 @@ void Simon::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 
 	CalcPotentialCollisions(coObjects, coEvents); // Lấy danh sách các va chạm
 
-	if (isOnStair)
-	{
-		for (int i = 0; i < coObjects->size(); i++) //aabb item
-		{
-			if (isColliding(this, coObjects->at(i)))
-			{
-				isOnStair = false;
-				this->y = y - 25;
+	//if (isOnStair)
+	//{
+	//	for (int i = 0; i < coObjects->size(); i++) //aabb item
+	//	{
+	//		if (isColliding(this, coObjects->at(i)))
+	//		{
+	//			isOnStair = false;
+	//			this->y = y - 25;
 
 
 
-			}
-		}
-	}
+	//		}
+	//	}
+	//}
 
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
