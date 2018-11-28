@@ -18,9 +18,10 @@ public:
 	
 	Camera(int w, int h/*, int b_left, int b_right*/);
 	~Camera();
-
+	void Go(DWORD dt);
 	void Update();
 	void UpdateMap2();
+	void UpdateMap21();
 	D3DXVECTOR2 Transform(int x, int y);
 
 	void SetPosition(int x, int y);

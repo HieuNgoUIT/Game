@@ -14,11 +14,56 @@ void GameStateTwo::LoadResources()
 	ui = new UI();
 	ui->Initialize(simon, 16);
 	door = new Door(3043, 120);
-
+	//2893 156
 }
 
 void GameStateTwo::Update(DWORD dt)
 {
+#pragma region Camera
+	if (simon->isColliding(simon, door)) //va cham voi door
+	{
+		door->Update(dt);
+		if (camera->GetViewport().x < 2800)
+		{
+			camera->Go(dt); //move camera
+		}
+		else
+		{
+			simon->AutoMove();
+		}
+	}
+	else //het va cham voi cua 
+	{
+		if (simon->y > 450)//y duoi nuoc
+		{
+			camera->SetPosition(simon->x - 320 + 60, 450);
+		}
+		else if (simon->x >3200) //man` 21
+		{
+			if (camera->GetViewport().x < 3025)
+			{
+				camera->Go(dt); //move camera sau khi simon di 1 ti
+				simon->isStage21 = true;
+			}
+			else
+			{
+				camera->SetPosition(simon->x - 320 + 60, 0); //update man 21
+				camera->UpdateMap21();
+			}
+
+		}
+		else if (simon->x <3000)
+		{
+			camera->SetPosition(simon->x - 320 + 60, 0);//update man 2
+			camera->UpdateMap2();
+		}
+	}
+
+	
+#pragma endregion
+
+	
+
 
 	mapSecond++;
 	if (mapSecond > 60)
@@ -55,31 +100,20 @@ void GameStateTwo::Update(DWORD dt)
 	}
 	simon->Update(dt, &coObjects, &items);
 	
-	door->_sprite->SelectIndex(0);
-	if (simon->y > 450)//y duoi nuoc
-	{
-		camera->SetPosition(simon->x - 320 + 60,450);
-	}
-	else
-	{
-		camera->SetPosition(simon->x - 320 + 60, 0);
-	}//2674 300
+	//door->_sprite->SelectIndex(0);
+	
+	//for(int i=0;i<3000;i++)
+	//{
+	//	//int i = 0;
+	//	camera->SetPosition(simon->x - 320 + 60+i, 0);
+	//	//i++;
+	//}
+
+
 	/*if (simon->x > 2681)
 	{*/
 	
-	if (simon->isColliding(simon, door))
-	{
-		door->Update(dt);
-		if (simon->x > 2435)
-		{		
-			camera->SetPosition(simon->x-320+60, 0);
-		}
-		isCollideDoor = true;
-	}
-	if(!isCollideDoor)
-	{
-		camera->UpdateMap2();
-	}
+	
 		
 	/*}*/
 	
@@ -108,7 +142,7 @@ void GameStateTwo::Render()
 			items[i]->Render(camera);
 		simon->Render(camera);
 		//whip->Render(camera);
-
+		door->Render(camera);
 		spriteHandler->End();
 		d3ddv->EndScene();
 	}

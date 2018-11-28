@@ -5,7 +5,7 @@
 class GameStateTwo :public GameState
 {
 public:
-	int test = 245;
+
 	Door * door;
 	bool isCollideDoor;
 	void LoadResources();

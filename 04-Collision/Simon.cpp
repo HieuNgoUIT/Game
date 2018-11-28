@@ -111,6 +111,12 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 	/* Không cho lọt khỏi camera */
 	if (x < -10)
 		x = -10;
+	/*if (x >3000)
+		x = 3000;*/
+	if (isStage21 && x < 3050)
+	{
+		x = 3050;
+	}
 
 
 
@@ -508,6 +514,14 @@ void Simon::Jump()
 		return;
 	vy -= SIMON_VJUMP;
 	isJumping = true;
+}
+
+void Simon::AutoMove()
+{
+	Go();
+	CGameObject::Update(dt);
+	x += dx;
+	_sprite->Update(dt);
 }
 
 void Simon::Stop()

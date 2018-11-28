@@ -17,6 +17,14 @@ Camera::~Camera()
 {
 }
 
+void Camera::Go(DWORD dt)
+{
+	float vx = 0.12f;
+	float	dx = vx * dt;
+	_viewport.x += dx;
+
+}
+
 void Camera::Update()
 {
 	if (_viewport.x < 0)
@@ -38,6 +46,14 @@ void Camera::UpdateMap2()
 	if (_viewport.x > 2435)
 	{
 		_viewport.x = 2435;
+	}
+}
+
+void Camera::UpdateMap21()
+{
+	if (_viewport.x < 3050)
+	{
+		_viewport.x = 3050;
 	}
 }
 

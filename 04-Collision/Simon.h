@@ -8,7 +8,7 @@
 #define SIMON_GRAVITY 0.005f
 #define SIMON_VJUMP 0.8f
 
-#define SIMON_WALKING_SPEED 1.0f //0.12f 
+#define SIMON_WALKING_SPEED 0.2f //0.12f 
 
 
 
@@ -58,6 +58,7 @@ public:
 	bool isWalkFromBot;//check dang tren cau thang
 	bool isWalkFromTop;
 	bool isTopStair;
+	bool isStage21;
 	int useableHeart = 50;
 	Whip* whip;
 	SubWeapon *subwp;
@@ -80,7 +81,7 @@ public:
 	void Go();
 	void Sit();
 	void Jump();
-
+	void AutoMove();
 
 	void Stop();
 
