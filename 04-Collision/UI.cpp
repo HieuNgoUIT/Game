@@ -159,7 +159,7 @@ void UI::Update(int bossHP, int time, int life, int stage)
 
 	information = "SCORE_" + scoreString + " TIME " + timeString + " STAGE " + stageString + "\n";
 	information += "PLAYER                =" + std::to_string(simon->useableHeart) + "\n";
-	information += "ENEMY                P=" + std::to_string(2) + "\n";
+	information += "ENEMY                P=" + std::to_string(simon->health) + "\n";
 	information += "x:" + std::to_string(simon->x) + "y:" + std::to_string(simon->y);
 	
 

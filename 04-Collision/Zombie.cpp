@@ -10,6 +10,7 @@ Zombie::Zombie(int X, int Y)
 	tag = 500;//enemy from 500
 	direction = -1;
 	vx = 1;
+	vy = 10;
 }
 
 Zombie::~Zombie()
@@ -38,7 +39,17 @@ void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		x += vx;
 	}
+	y += vy;
 	_sprite->Update(dt);
+
+	vector<LPGAMEOBJECT> coObjects_Brick;
+	coObjects_Brick.clear();
+	for (int i = 0; i < coObjects->size(); i++)
+	{
+		if (coObjects->at(i)->GetTag() == 41)
+			coObjects_Brick.push_back(coObjects->at(i));
+	}
+	CollisionWithBrick(&coObjects_Brick);
 }
 
 void Zombie::Render(Camera * camera)
@@ -53,4 +64,42 @@ void Zombie::Render(Camera * camera)
 			_sprite->DrawFlipX(pos.x, pos.y);
 		RenderBoundingBox(camera);
 	}
+}
+
+void Zombie::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
+{
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+
+	CalcPotentialCollisions(coObjects, coEvents); 
+	if (coEvents.size() == 0)
+	{
+		/*x += dx;
+		y += dy;*/
+	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny;
+
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+		
+		x += min_tx * dx + nx * 0.4f;		
+		y += min_ty * dy + ny * 0.4f; 
+
+		if (nx != 0)
+			vx = 0; 
+
+		if (ny != 0)
+		{
+			vy = 0;
+		
+		}
+
+	}
+
+	// clean up collision events
+	for (UINT i = 0; i < coEvents.size(); i++)
+		delete coEvents[i];
 }

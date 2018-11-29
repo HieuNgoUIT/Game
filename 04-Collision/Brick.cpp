@@ -3,7 +3,7 @@
 
 Brick::Brick(int TYPE,int X, int Y, int W, int H)
 {
-	tag = 21;
+	tag = 41;
 	if (TYPE == 12)
 	{
 		_texture = new Texture("Resource\\sprites\\Ground\\2.png", 1, 1, 1);

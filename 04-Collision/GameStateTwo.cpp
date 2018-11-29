@@ -92,7 +92,7 @@ void GameStateTwo::Update(DWORD dt)
 	}
 	for (int i = 0; i < objects.size(); i++)
 	{
-		objects[i]->Update(dt);
+		objects[i]->Update(dt, &coObjects);
 	}
 	for (int i = 0; i < items.size(); i++)
 	{

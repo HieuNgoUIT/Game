@@ -41,6 +41,7 @@
 #include "debug.h"
 #include "SubWeapon.h"
 #include "CheckPoint.h"
+#include "Zombie.h"
 //#include "Weapon.h"
 //#include "MorningStar.h"
 
@@ -65,8 +66,9 @@ public:
 public:
 	Simon();
 	~Simon();
-
-
+	int untouchable;
+	DWORD untouchable_start;
+	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 	void CollisionWithItem(vector<LPGAMEOBJECT>* coObjects);
 	 void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 
@@ -86,6 +88,7 @@ public:
 	void Stop();
 
 	void CollisionWithBrick(vector<LPGAMEOBJECT> *coObjects = NULL);
+	void CollisionWithZombie(vector<LPGAMEOBJECT> *coObjects = NULL);
 	bool isCollisionWithCheckPoint(CheckPoint *checkpoint);
 	void Attack();
 	void ThrowSubWp();
