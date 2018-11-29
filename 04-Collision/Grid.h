@@ -14,6 +14,8 @@
 #include "CheckPoint.h"
 #include "HiddenStair.h"
 #include "Door.h"
+#include "Candle.h"
+#include "Zombie.h"
 using namespace std;
 
 #define GRID_CELL_WIDTH 256

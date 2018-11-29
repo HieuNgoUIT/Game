@@ -107,10 +107,18 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//CGameObject::Update(dt);
 	vector<LPGAMEOBJECT> coObjects_LargeCandle;
 	coObjects_LargeCandle.clear();
+	vector<LPGAMEOBJECT> coObjects_Candle;
+	coObjects_Candle.clear();
 	for (int i = 0; i < coObjects->size(); i++)
-		if (coObjects->at(i)->GetTag() == 41)
+	{
+		if (coObjects->at(i)->GetTag() == 10)
 			coObjects_LargeCandle.push_back(coObjects->at(i));
+		if (coObjects->at(i)->GetTag() == 11)
+			coObjects_Candle.push_back(coObjects->at(i));
+	}
+		
 	CollisionWithLargeCandle(&coObjects_LargeCandle);
+	CollisionWithCandle(&coObjects_Candle);
 }
 void Whip::CollisionWithLargeCandle(vector<LPGAMEOBJECT>* coObjects)
 {
@@ -160,6 +168,17 @@ else
 // clean up collision events
 /*for (UINT i = 0; i < coEvents.size(); i++)
 	delete coEvents[i];*/
+}
+void Whip::CollisionWithCandle(vector<LPGAMEOBJECT>* coObjects)
+{
+	for (int i = 0; i < coObjects->size(); i++)
+	{
+		if (isColliding(this, coObjects->at(i)))
+		{
+			coObjects->at(i)->isDead = true;
+		}
+
+	}
 }
 void Whip::Create(float simonX, float simonY, int simondirection)
 {

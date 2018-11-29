@@ -108,6 +108,12 @@
     <ClInclude Include="Door.h">
       <Filter>Objets</Filter>
     </ClInclude>
+    <ClInclude Include="Candle.h">
+      <Filter>Objets</Filter>
+    </ClInclude>
+    <ClInclude Include="Zombie.h">
+      <Filter>Objets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debug.cpp">
@@ -177,6 +183,12 @@
       <Filter>Objets</Filter>
     </ClCompile>
     <ClCompile Include="Door.cpp">
+      <Filter>Objets</Filter>
+    </ClCompile>
+    <ClCompile Include="Candle.cpp">
+      <Filter>Objets</Filter>
+    </ClCompile>
+    <ClCompile Include="Zombie.cpp">
       <Filter>Objets</Filter>
     </ClCompile>
   </ItemGroup>

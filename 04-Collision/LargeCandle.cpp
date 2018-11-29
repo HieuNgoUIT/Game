@@ -8,8 +8,8 @@ LargeCandle::LargeCandle(int X,int Y)
 	_sprite = new Sprite(_texture, 100);
 	this->x = X;
 	this->y = Y;
-	tag = 41;
-	health = 1;
+	tag = 10;
+	//health = 1;
 	//id = 161;
 	item = new Item();
 }

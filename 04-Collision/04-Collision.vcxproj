@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Candle.h" />
     <ClInclude Include="CheckPoint.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="Door.h" />
@@ -145,10 +146,12 @@
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Whip.h" />
+    <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Candle.cpp" />
     <ClCompile Include="CheckPoint.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="Door.cpp" />
@@ -170,6 +173,7 @@
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Whip.cpp" />
+    <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
