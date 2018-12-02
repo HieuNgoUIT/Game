@@ -60,49 +60,67 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (isColliding(this, coObjects->at(i)))
 		{
+			if (coObjects->at(i)->tag == HEART_TAG)
+			{
+				this->useableHeart += 1;
+			}
+			else if (coObjects->at(i)->tag == WHIP_TAG)
+			{
+				whip->typeOfWhip = 1;
+			}
+			else if (coObjects->at(i)->tag == REDBAG_TAG)
+			{
+				this->score += 100;
+			}
+			else if (coObjects->at(i)->tag == BLUEBLAG_TAG)
+			{
+				this->score += 300;
+			}
 			coObjects->at(i)->isDead = true;
-			whip->typeOfWhip = 1;
-			//this->useableHeart+=1;
+			
+			
+			
 		}
 	}
 
 	// No collision occured, proceed normally
-	if (coEvents.size() == 0)
-	{
-		/*	x += dx;
-			y += dy;*/
-	}
-	else
-	{
-		float min_tx, min_ty, nx = 0, ny;
+	//if (coEvents.size() == 0)
+	//{
+	//	/*	x += dx;
+	//		y += dy;*/
+	//}
+	//else
+	//{
+	//	float min_tx, min_ty, nx = 0, ny;
 
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-		// nếu ko va chạm thì min_tx,min_ty = 1.0, còn nếu có thì nó trả về thời gian va chạm. 
-		//Còn nx,ny là hướng va chạm,  = 0 nếu ko va chạm;
-
-
+	//	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+	//	// nếu ko va chạm thì min_tx,min_ty = 1.0, còn nếu có thì nó trả về thời gian va chạm. 
+	//	//Còn nx,ny là hướng va chạm,  = 0 nếu ko va chạm;
 
 
-		for (UINT i = 0; i < coEventsResult.size(); i++)
-		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<Item *>(e->obj))
-			{
-				Item *item = dynamic_cast<Item *>(e->obj);
-				// jump on top >> kill Goomba and deflect a bit 
-				if (e->t > 0 && e->t <= 1)
-				{
-					item->isDead = true;
-				}
-			}
-		}
-		//}
 
 
-		// clean up collision events
-		for (UINT i = 0; i < coEvents.size(); i++)
-			delete coEvents[i];
-	}
+	//	for (UINT i = 0; i < coEventsResult.size(); i++)
+	//	{
+	//		LPCOLLISIONEVENT e = coEventsResult[i];
+	//		if (dynamic_cast<Item *>(e->obj))
+	//		{
+	//			Item *item = dynamic_cast<Item *>(e->obj);
+	//			// jump on top >> kill Goomba and deflect a bit 
+	//			if (e->t > 0 && e->t <= 1)
+	//			{
+	//				item->isDead = true;
+	//				this->useableHeart += 1;
+	//			}
+	//		}
+	//	}
+	//	//}
+
+
+	//	// clean up collision events
+	//	for (UINT i = 0; i < coEvents.size(); i++)
+	//		delete coEvents[i];
+	//}
 }
 
 void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJECT>* coItems)
@@ -395,12 +413,8 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 	CollisionWithBrick(&coObjects_Brick); // check Collision and update x, y for simon
 	CollisionWithStair(&coObjects_HiddenStair);
 
-	vector<LPGAMEOBJECT> coObjects_Item;
-	coObjects_Item.clear();
-	for (int i = 0; i < coItems->size(); i++)
-		if (coItems->at(i)->GetTag() == 69)
-			coObjects_Item.push_back(coItems->at(i));
-	CollisionWithItem(&coObjects_Item);
+	//check with item
+	CollisionWithItem(coItems);
 
 
 

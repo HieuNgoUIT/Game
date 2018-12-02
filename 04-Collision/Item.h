@@ -33,6 +33,7 @@ class Item :public CGameObject
 public:
 	
 	Item(int X, int Y);
+	Item(char* link,int X,int Y);
 	Item();
 	~Item();
 	char* PathRandom();

@@ -12,6 +12,15 @@ Item::Item(int X, int Y)
 	{
 		tag = HEART_TAG;
 	}
+	else if (path == REDBAG_PATH)
+	{
+		tag = REDBAG_TAG;
+	}
+	else if (path == BLUEBLAG_PATH)
+	{
+		tag = BLUEBLAG_TAG;
+	}
+
 }
 char* Item::PathRandom()
 {
@@ -61,6 +70,23 @@ char* Item::PathRandom()
 		break;
 	}
 }
+Item::Item(char* link,int X, int Y)
+{
+	_texture = new Texture(link, 1, 1, 1);
+	_sprite = new Sprite(_texture, 100);
+	this->x = X;
+	this->y = Y;
+	remainingTime = 500;
+	if (link == HEART_PATH)
+	{
+		tag = HEART_TAG;
+	}
+	if (link == WHIP_PATH)
+	{
+		tag = WHIP_TAG;
+	}
+}
+
 Item::Item()
 {
 }
@@ -71,10 +97,13 @@ Item::~Item()
 
 void Item::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	left = x;
-	top = y;
-	right = x + _texture->FrameWidth;
-	bottom = y + _texture->FrameHeight;
+	if (!isDead) {
+		left = x;
+		top = y;
+		right = x + _texture->FrameWidth;
+		bottom = y + _texture->FrameHeight;
+	}
+	
 }
 
 void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

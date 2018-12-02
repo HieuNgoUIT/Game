@@ -50,6 +50,7 @@ public:
 	int state;
 	bool isDead;
 	bool isLeft;
+	int currentPosMap1;
 	DWORD dt; 
 	
 	Texture * _texture;

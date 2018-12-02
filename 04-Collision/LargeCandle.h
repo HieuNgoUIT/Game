@@ -5,7 +5,7 @@ class LargeCandle:public CGameObject
 {
 public:
 	Item * item;
-	LargeCandle(int X,int Y);
+	LargeCandle(int X,int Y, int pos);
 	LargeCandle();
 	~LargeCandle();
 	void Delete();

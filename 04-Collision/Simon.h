@@ -61,6 +61,7 @@ public:
 	bool isTopStair;
 	bool isStage21;
 	int useableHeart = 50;
+	int score = 0;
 	Whip* whip;
 	SubWeapon *subwp;
 public:

@@ -2,16 +2,18 @@
 
 
 
-LargeCandle::LargeCandle(int X,int Y)
+LargeCandle::LargeCandle(int X,int Y,int pos)
 {
 	_texture = new Texture("Resource\\sprites\\Ground\\0.png", 2, 1, 2);
 	_sprite = new Sprite(_texture, 100);
 	this->x = X;
 	this->y = Y;
 	tag = 10;
+	currentPosMap1 = pos;
 	//health = 1;
 	//id = 161;
 	item = new Item();
+
 }
 void LargeCandle::RenderBoundingBox(Camera * camera)
 {

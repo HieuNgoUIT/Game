@@ -142,7 +142,7 @@ void UI::Update(int bossHP, int time, int life, int stage)
 	this->stage = stage;
 
 
-	std::string scoreString = std::to_string(100);
+	std::string scoreString = std::to_string(simon->score);
 	while (scoreString.length() < 6)
 		scoreString = "0" + scoreString;
 
