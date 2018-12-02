@@ -137,14 +137,15 @@ void Grid::Insert(int id, int type,  float x, float y, float w, float h)
 CGameObject * Grid::GetNewObject(int type, int x, int y,int w, int h)
 {
 	if (type == 12) return new Brick(type,x, y, w, h);
-	if (type == -12) return new Brick(type, x, y, w, h);
-	if (type == 10) return new LargeCandle(x, y,w);
-	if (type == 11) return new Candle(x, y);
-	if (type == 500) return new Zombie(x, y);
-	if (type == 501) return new Pander(x, y);
-	if (type == 502) return new Merman(x, y);
-	if (type == -7 || type ==7) return new HiddenStair(type,x, y,w,h);	
-	if (type == 80) return new Door(x, y);
+	else if (type == -12) return new Brick(type, x, y, w, h);
+	else if (type == 10) return new LargeCandle(x, y,w);
+	else if (type == 11) return new Candle(x, y);
+	else if (type == 500) return new Zombie(x, y);
+	else if (type == 501) return new Pander(x, y);
+	else if (type == 502) return new Merman(x, y);
+	else if (type == 503) return new Bat(x, y);
+	else if (type == -7 || type ==7) return new HiddenStair(type,x, y,w,h);
+	else if (type == 80) return new Door(x, y);
 	//if (type == 11) return new CheckPoint(x, y);
 	return NULL;
 }

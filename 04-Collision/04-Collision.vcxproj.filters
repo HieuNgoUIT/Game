@@ -40,6 +40,9 @@
     <Filter Include="States">
       <UniqueIdentifier>{1dd7d74b-6d0c-4193-951a-d4344f235d5b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objets\Enemies">
+      <UniqueIdentifier>{c3079758-5f27-4ccd-a454-07485b9990d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debug.h">
@@ -111,14 +114,17 @@
     <ClInclude Include="Candle.h">
       <Filter>Objets</Filter>
     </ClInclude>
-    <ClInclude Include="Zombie.h">
-      <Filter>Objets</Filter>
+    <ClInclude Include="Merman.h">
+      <Filter>Objets\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Pander.h">
-      <Filter>Objets</Filter>
+      <Filter>Objets\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="Merman.h">
-      <Filter>Objets</Filter>
+    <ClInclude Include="Zombie.h">
+      <Filter>Objets\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Bat.h">
+      <Filter>Objets\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -194,14 +200,17 @@
     <ClCompile Include="Candle.cpp">
       <Filter>Objets</Filter>
     </ClCompile>
-    <ClCompile Include="Zombie.cpp">
-      <Filter>Objets</Filter>
+    <ClCompile Include="Merman.cpp">
+      <Filter>Objets\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="Pander.cpp">
-      <Filter>Objets</Filter>
+      <Filter>Objets\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="Merman.cpp">
-      <Filter>Objets</Filter>
+    <ClCompile Include="Zombie.cpp">
+      <Filter>Objets\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Bat.cpp">
+      <Filter>Objets\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
