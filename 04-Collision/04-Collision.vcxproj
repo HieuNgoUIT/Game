@@ -139,6 +139,7 @@
     <ClInclude Include="HiddenStair.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="LargeCandle.h" />
+    <ClInclude Include="Pander.h" />
     <ClInclude Include="Simon.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SubWeapon.h" />
@@ -166,6 +167,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="LargeCandle.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Pander.cpp" />
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SubWeapon.cpp" />

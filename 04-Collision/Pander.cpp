@@ -1,23 +1,22 @@
-#include "Zombie.h"
-#pragma once
+#include "Pander.h"
 
-Zombie::Zombie(int X, int Y)
+Pander::Pander(int X, int Y)
 {
-	_texture = new Texture("Resource\\sprites\\Enemies\\ZOMBIE.png", 2, 1, 2);
+	_texture = new Texture("Resource\\sprites\\Enemies\\PANTHER.png", 4, 1, 4);
 	_sprite = new Sprite(_texture, 100);
 	this->x = X;
 	this->y = Y;
 	tag = 500;//enemy from 500
 	direction = -1;
-	vx = 1;
-	vy = 10;
+	/*vx = -0.1f;*/
+	//vy = 10;
 }
 
-Zombie::~Zombie()
+Pander::~Pander()
 {
 }
 
-void Zombie::GetBoundingBox(float & left, float & top, float & right, float & bottom)
+void Pander::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
 	if (!isDead)
 	{
@@ -28,11 +27,11 @@ void Zombie::GetBoundingBox(float & left, float & top, float & right, float & bo
 	}
 }
 
-void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Pander::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (isDead)
 	{
-		
+
 		reviveTime--;
 		if (reviveTime < 0)
 		{
@@ -41,21 +40,23 @@ void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		
-		CGameObject::Update(dt);
-		if (x < 10)
+		if (x < 1100)
 		{
 			direction = -direction;
 		}
-		if (direction == -1)
+		CGameObject::Update(dt);
+		vx = 0.2f*direction;
+		vy += 0.005f * dt;
+		
+		/*if (direction == -1)
 		{
 			x -= vx;
 		}
 		else
 		{
 			x += vx;
-		}
-		y += vy;
+		}*/
+		//y += vy;
 		_sprite->Update(dt);
 
 		vector<LPGAMEOBJECT> coObjects_Brick;
@@ -67,10 +68,10 @@ void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		CollisionWithBrick(&coObjects_Brick);
 	}
-	
+
 }
 
-void Zombie::Render(Camera * camera)
+void Pander::Render(Camera * camera)
 {
 	if (!isDead)
 	{
@@ -84,35 +85,34 @@ void Zombie::Render(Camera * camera)
 	}
 }
 
-void Zombie::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
+void Pander::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 {
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
 	coEvents.clear();
 
-	CalcPotentialCollisions(coObjects, coEvents); 
+	CalcPotentialCollisions(coObjects, coEvents);
 	if (coEvents.size() == 0)
 	{
-		/*x += dx;
-		y += dy;*/
+		x += dx;
+		y += dy;
 	}
 	else
 	{
 		float min_tx, min_ty, nx = 0, ny;
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-		
-		x += min_tx * dx + nx * 0.4f;		
-		y += min_ty * dy + ny * 0.4f; 
+
+		x += min_tx * dx + nx * 0.4f;
+		y += min_ty * dy + ny * 0.4f;
 
 		if (nx != 0)
-			vx = 0; 
+			vx = 0;
 
 		if (ny != 0)
 		{
 			vy = 0;
-		
 		}
 
 	}

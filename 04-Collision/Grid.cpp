@@ -141,6 +141,7 @@ CGameObject * Grid::GetNewObject(int type, int x, int y,int w, int h)
 	if (type == 10) return new LargeCandle(x, y);
 	if (type == 11) return new Candle(x, y);
 	if (type == 500) return new Zombie(x, y);
+	if (type == 501) return new Pander(x, y);
 	if (type == -7 || type ==7) return new HiddenStair(type,x, y,w,h);	
 	if (type == 80) return new Door(x, y);
 	//if (type == 11) return new CheckPoint(x, y);
