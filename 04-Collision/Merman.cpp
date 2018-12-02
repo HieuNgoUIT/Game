@@ -1,22 +1,22 @@
-#include "Pander.h"
+#include "Merman.h"
 
-Pander::Pander(int X, int Y)
+Merman::Merman(int X, int Y)
 {
-	_texture = new Texture("Resource\\sprites\\Enemies\\PANTHER.png", 4, 1, 4);
+	_texture = new Texture("Resource\\sprites\\Enemies\\MERMAN.png", 3, 1, 3);
 	_sprite = new Sprite(_texture, 100);
 	this->x = X;
 	this->y = Y;
 	tag = 500;//enemy from 500
-	direction = -1;
+	direction = 1;
 	/*vx = -0.1f;*/
 	//vy = 10;
 }
 
-Pander::~Pander()
+Merman::~Merman()
 {
 }
 
-void Pander::GetBoundingBox(float & left, float & top, float & right, float & bottom)
+void Merman::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
 	if (!isDead)
 	{
@@ -27,7 +27,7 @@ void Pander::GetBoundingBox(float & left, float & top, float & right, float & bo
 	}
 }
 
-void Pander::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Merman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (isDead)
 	{
@@ -40,24 +40,22 @@ void Pander::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		if (x < 1100)
-		{
-			direction = -direction;
-			x = 1150;
-		}
-		CGameObject::Update(dt);
-		vx = 0.2f*direction;
-		vy += 0.005f * dt;
 		
-		/*if (direction == -1)
+		CGameObject::Update(dt);
+		vx = 0.02f*direction;
+		
+		if (y < 500)
 		{
-			x -= vx;
+			isReachPoint = true;
+			vy = 0.05f*dt;
+			//y += dy;
 		}
-		else
+		if(!isReachPoint)
 		{
-			x += vx;
-		}*/
-		//y += vy;
+			vy -= 0.0005f * dt;
+			y += dy;
+		}
+		
 		_sprite->Update(dt);
 
 		vector<LPGAMEOBJECT> coObjects_Brick;
@@ -67,12 +65,16 @@ void Pander::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			if (coObjects->at(i)->GetTag() == 41)
 				coObjects_Brick.push_back(coObjects->at(i));
 		}
-		CollisionWithBrick(&coObjects_Brick);
+		if (isReachPoint)
+		{
+			CollisionWithBrick(&coObjects_Brick);
+		}
+		
 	}
 
 }
 
-void Pander::Render(Camera * camera)
+void Merman::Render(Camera * camera)
 {
 	if (!isDead)
 	{
@@ -86,7 +88,7 @@ void Pander::Render(Camera * camera)
 	}
 }
 
-void Pander::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
+void Merman::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 {
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;

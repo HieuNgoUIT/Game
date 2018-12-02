@@ -79,7 +79,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		DestroyWindow(hWnd); // thoát
 
 	if (KeyCode == DIK_Q)
-		gamestatemanager->gamestate->simon->SetPosition(1000,156);
+		gamestatemanager->gamestate->simon->SetPosition(3320,500);
 	if (KeyCode == DIK_M)
 	{
 		gamestatemanager->gamestate->isChangingState = true;

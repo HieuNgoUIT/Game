@@ -17,6 +17,7 @@
 #include "Candle.h"
 #include "Zombie.h"
 #include "Pander.h"
+#include "Merman.h"
 using namespace std;
 
 #define GRID_CELL_WIDTH 256

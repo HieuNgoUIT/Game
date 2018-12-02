@@ -134,7 +134,14 @@ void GameStateTwo::Render()
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 		ui->Render();
-		tilemap->DrawMap(camera);
+		if (simon->y > 450) {
+			tilemap->DrawMapWater(camera);		
+		}
+		else
+		{
+			tilemap->DrawMap(camera);
+		}
+		
 
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render(camera);
