@@ -26,7 +26,7 @@ void HitEffect::Update(DWORD dt)
 			isDoneRender = true;
 		}
 	}
-	
+
 }
 
 void HitEffect::Render(Camera* camera)

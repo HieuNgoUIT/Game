@@ -9,6 +9,8 @@ Bat::Bat(int X, int Y)
 	tag = 500;//enemy from 500
 	direction = -1;
 	currentPos = y;
+	startXpos = X;
+	startYpos = Y;
 	/*vx = -0.1f;*/
 	//vy = 10;
 }
@@ -36,6 +38,7 @@ void Bat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		reviveTime--;
 		if (reviveTime < 0)
 		{
+			RePosition();
 			this->isDead = false;
 		}
 
@@ -102,6 +105,14 @@ void Bat::Render(Camera * camera)
 	{
 		CGameObject::RenderEffect(camera);
 	}
+}
+
+void Bat::RePosition()
+{
+	this->x = startXpos;
+	this->reviveTime = 200;
+	this->hiteffect->isDoneRender = false;
+	this->deadffect->isDoneRender = false;
 }
 
 

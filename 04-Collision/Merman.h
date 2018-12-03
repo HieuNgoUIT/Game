@@ -3,6 +3,8 @@
 class Merman :public CGameObject
 {
 public:
+	float startXpos;
+	float startYpos;
 	Merman(int X, int Y);
 	~Merman();
 	bool isReachPoint;
@@ -11,4 +13,5 @@ public:
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	void Render(Camera * camera);
 	void CollisionWithBrick(vector<LPGAMEOBJECT> *coObjects = NULL);
+	void RePosition();
 };

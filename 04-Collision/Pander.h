@@ -3,6 +3,8 @@
 class Pander :public CGameObject
 {
 public:
+	float startXpos;
+	float startYpos;
 	Pander(int X, int Y);
 	~Pander();
 	float reviveTime = 70;
@@ -10,4 +12,5 @@ public:
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	void Render(Camera * camera);
 	void CollisionWithBrick(vector<LPGAMEOBJECT> *coObjects = NULL);
+	void RePosition();
 };

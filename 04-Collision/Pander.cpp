@@ -8,6 +8,8 @@ Pander::Pander(int X, int Y)
 	this->y = Y;
 	tag = 500;//enemy from 500
 	direction = -1;
+	startXpos = X;
+	startYpos = Y;
 	/*vx = -0.1f;*/
 	//vy = 10;
 }
@@ -35,6 +37,7 @@ void Pander::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		reviveTime--;
 		if (reviveTime < 0)
 		{
+			RePosition();
 			this->isDead = false;
 		}
 	}
@@ -125,4 +128,12 @@ void Pander::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++)
 		delete coEvents[i];
+}
+
+void Pander::RePosition()
+{
+	this->x = startXpos;
+	this->reviveTime = 200;
+	this->hiteffect->isDoneRender = false;
+	this->deadffect->isDoneRender = false;
 }

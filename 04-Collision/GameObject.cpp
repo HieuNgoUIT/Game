@@ -149,6 +149,8 @@ bool CGameObject::isColliding(LPGAMEOBJECT object, LPGAMEOBJECT other)
 }
 
 
+
+
 void CGameObject::RenderBoundingBox(Camera *camera)
 {
 

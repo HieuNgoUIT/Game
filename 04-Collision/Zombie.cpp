@@ -7,6 +7,8 @@ Zombie::Zombie(int X, int Y)
 	_sprite = new Sprite(_texture, 100);
 	this->x = X;
 	this->y = Y;
+	startXpos = X;
+	startYpos = Y;
 	tag = 500;//enemy from 500
 	direction = -1;
 	vx = 1;
@@ -36,7 +38,10 @@ void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		reviveTime--;
 		if (reviveTime < 0)
 		{
+			RePosition();
 			this->isDead = false;
+			
+			
 		}
 	}
 	else
@@ -126,4 +131,12 @@ void Zombie::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++)
 		delete coEvents[i];
+}
+
+void Zombie::RePosition()
+{
+	this->x = startXpos;
+	this->reviveTime = 200;
+	this->hiteffect->isDoneRender = false;
+	this->deadffect->isDoneRender = false;
 }

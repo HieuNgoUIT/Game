@@ -4,6 +4,8 @@
 class Bat :public CGameObject
 {
 public:
+	float startXpos;
+	float startYpos;
 	Bat(int X, int Y);
 	~Bat();
 	float currentPos;
@@ -13,5 +15,6 @@ public:
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	void Render(Camera * camera);
+	void RePosition();
 	
 };

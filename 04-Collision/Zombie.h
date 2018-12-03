@@ -3,11 +3,15 @@
 class Zombie :public CGameObject
 {
 public:
+	float startXpos;
+	float startYpos;
+	
 	Zombie(int X,int Y);
 	~Zombie();
-	float reviveTime=70;
+	float reviveTime=200;
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	void Render(Camera * camera);
 	void CollisionWithBrick(vector<LPGAMEOBJECT> *coObjects = NULL);
+	void RePosition();
 };
