@@ -31,7 +31,7 @@ void Merman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (isDead)
 	{
-
+		CGameObject::UpdateEffect(dt);
 		reviveTime--;
 		if (reviveTime < 0)
 		{
@@ -85,6 +85,10 @@ void Merman::Render(Camera * camera)
 		else
 			_sprite->DrawFlipX(pos.x, pos.y);
 		RenderBoundingBox(camera);
+	}
+	else
+	{
+		CGameObject::RenderEffect(camera);
 	}
 }
 

@@ -2,7 +2,7 @@
 
 
 
-LargeCandle::LargeCandle(int X,int Y,int pos)
+LargeCandle::LargeCandle(int X, int Y, int pos)
 {
 	_texture = new Texture("Resource\\sprites\\Ground\\0.png", 2, 1, 2);
 	_sprite = new Sprite(_texture, 100);
@@ -13,7 +13,7 @@ LargeCandle::LargeCandle(int X,int Y,int pos)
 	//health = 1;
 	//id = 161;
 	item = new Item();
-
+	
 }
 void LargeCandle::RenderBoundingBox(Camera * camera)
 {
@@ -36,7 +36,7 @@ void LargeCandle::GetBoundingBox(float & left, float & top, float & right, float
 		right = x + _texture->FrameWidth;
 		bottom = y + _texture->FrameHeight;
 	}
-	
+
 
 }
 
@@ -46,13 +46,19 @@ void LargeCandle::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		_sprite->Update(dt); // update animation
 	}
-	if (isDead && isCreated==0)
+	else
+	{
+		CGameObject::UpdateEffect(dt);
+	}
+	if (isDead && isCreated == 0)
 	{
 		dropItem = 1;
 		isCreated = 1;
+
 		//isCreated = 1;
 		//item->isCreated = 1;
-	}	
+	}
+	
 }
 
 void LargeCandle::Render(Camera * camera)
@@ -63,14 +69,14 @@ void LargeCandle::Render(Camera * camera)
 		_sprite->Draw(pos.x, pos.y);
 		RenderBoundingBox(camera);
 	}
-	/*if(item->GetIsCreated() ==1)
+	else
 	{
-		item->Render(camera);
-	}*/
-	
+		CGameObject::RenderEffect(camera);
+	}
+
 }
 
-void LargeCandle::Delete() 
+void LargeCandle::Delete()
 {
 	delete _texture;
 	delete _sprite;

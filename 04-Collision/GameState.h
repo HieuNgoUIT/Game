@@ -6,6 +6,7 @@
 #include "TileMap.h"
 #include "Camera.h"
 #include "Game.h"
+#include "HitEffect.h"
 class GameState {
 public:
 	Item * item;
@@ -16,6 +17,7 @@ public:
 	Camera *camera;
 	CGame *game;
 	CheckPoint *checkpoint;
+	HitEffect *hiteffect;
 	int mapSecond = 0;
 	int mapTime = 0;
 	vector<LPGAMEOBJECT> objects;

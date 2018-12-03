@@ -6,7 +6,8 @@
 #include "Texture.h"
 #include "Sprite.h"
 #include "Camera.h"
-
+#include "HitEffect.h"
+#include "DeadEffect.h"
 using namespace std;
 
 #define ID_TEX_BBOX -100		// special texture to draw object bounding box
@@ -52,7 +53,8 @@ public:
 	bool isLeft;
 	int currentPosMap1;
 	DWORD dt; 
-	
+	HitEffect *hiteffect;
+	DeadEffect *deadffect;
 	Texture * _texture;
 	Sprite * _sprite;
 	Texture *texturebox = new Texture("textures\\bbox.png");
@@ -85,6 +87,8 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	virtual void Render(Camera *camera)=0 ;
 	virtual void SetState(int state) { this->state = state; }
+	void UpdateEffect(DWORD dt);
+	void RenderEffect(Camera* camera);
 	int GetTag();
 	void SetDropItem(bool x) { this->dropItem = x; }
 

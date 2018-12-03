@@ -270,7 +270,7 @@ int Run()
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
-	gamestatemanager = new GameStateManager(1);
+	gamestatemanager = new GameStateManager(2);
 
 	gamestatemanager->gamestate->game->Init(hWnd);
 

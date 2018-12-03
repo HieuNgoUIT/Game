@@ -34,6 +34,10 @@ void Candle::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		_sprite->Update(dt); // update animation
 	}
+	else
+	{
+		CGameObject::UpdateEffect(dt);
+	}
 	if (isDead && isCreated == 0)
 	{
 		dropItem = 1;
@@ -50,5 +54,9 @@ void Candle::Render(Camera * camera)
 		D3DXVECTOR2 pos = camera->Transform(x, y);
 		_sprite->Draw(pos.x, pos.y);
 		RenderBoundingBox(camera);
+	}
+	else
+	{
+		CGameObject::RenderEffect(camera);
 	}
 }

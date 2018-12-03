@@ -12,6 +12,8 @@ CGameObject::CGameObject()
 {
 	x = y = 0;
 	vx = vy = 0;
+	hiteffect = new HitEffect();
+	deadffect = new DeadEffect();
 	//nx = 1;	
 	
 }
@@ -150,7 +152,7 @@ bool CGameObject::isColliding(LPGAMEOBJECT object, LPGAMEOBJECT other)
 void CGameObject::RenderBoundingBox(Camera *camera)
 {
 
-	//return;
+	return;
 	
 	D3DXVECTOR3 p(x, y, 0);
 	RECT rect;
@@ -178,6 +180,28 @@ void CGameObject::AddAnimation(int aniId)
 	animations.push_back(ani);*/
 }
 
+
+void CGameObject::UpdateEffect(DWORD dt)
+{
+	hiteffect->Update(dt);
+	deadffect->Update(dt);
+}
+
+void CGameObject::RenderEffect(Camera * camera)
+{
+	if (hiteffect->isDoneRender == false)
+	{
+		hiteffect->isVisible = true;
+		hiteffect->SetPosition(this->x, this->y);
+		hiteffect->Render(camera);
+	}
+	if (deadffect->isDoneRender == false)
+	{
+		deadffect->isVisible = true;
+		deadffect->SetPosition(this->x+10, this->y);
+		deadffect->Render(camera);
+	}
+}
 
 int CGameObject::GetTag()
 {

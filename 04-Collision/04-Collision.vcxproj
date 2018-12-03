@@ -129,6 +129,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Candle.h" />
     <ClInclude Include="CheckPoint.h" />
+    <ClInclude Include="DeadEffect.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="Game.h" />
@@ -139,6 +140,7 @@
     <ClInclude Include="GameStateTwo.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="HiddenStair.h" />
+    <ClInclude Include="HitEffect.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Knife.h" />
     <ClInclude Include="LargeCandle.h" />
@@ -160,6 +162,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Candle.cpp" />
     <ClCompile Include="CheckPoint.cpp" />
+    <ClCompile Include="DeadEffect.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -170,6 +173,7 @@
     <ClCompile Include="GameStateTwo.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="HiddenStair.cpp" />
+    <ClCompile Include="HitEffect.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Knife.cpp" />
     <ClCompile Include="LargeCandle.cpp" />

@@ -32,7 +32,7 @@ void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (isDead)
 	{
-		
+		CGameObject::UpdateEffect(dt);
 		reviveTime--;
 		if (reviveTime < 0)
 		{
@@ -82,6 +82,12 @@ void Zombie::Render(Camera * camera)
 			_sprite->DrawFlipX(pos.x, pos.y);
 		RenderBoundingBox(camera);
 	}
+	else
+	{
+		CGameObject::RenderEffect(camera);
+	}
+		
+	
 }
 
 void Zombie::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)

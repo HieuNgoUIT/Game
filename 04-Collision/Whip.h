@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "Zombie.h"
 #include "LargeCandle.h"
+#include "HitEffect.h"
 class Whip :public CGameObject
 {
 public:
