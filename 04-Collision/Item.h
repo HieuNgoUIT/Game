@@ -13,6 +13,8 @@
 #define SHEART_PATH "Resource\\sprites\\Items\\SMALL_HEART.png"
 #define STOPWATCH_PATH "Resource\\sprites\\Items\\STOP_WATCH.png"
 #define TRIPLE_PATH  "Resource\\sprites\\Items\\TRIPLE_SHOT.png"
+#define KNIFE_PATH "Resource\\sprites\\Items\\KNIFE.png"
+#define AXE_PATH "Resource\\sprites\\Items\\AXE.png"
 
 //ITEM TAG 
 #define HEART_TAG 69
@@ -28,6 +30,8 @@
 #define SHEART_TAG 111
 #define STOPWATCH_TAG 112
 #define TRIPLE_TAG  113
+#define KNIFE_TAG  114
+#define AXE_TAG  115
 class Item :public CGameObject
 {
 public:

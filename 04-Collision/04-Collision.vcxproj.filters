@@ -43,6 +43,9 @@
     <Filter Include="Objets\Enemies">
       <UniqueIdentifier>{c3079758-5f27-4ccd-a454-07485b9990d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Player\SubWp">
+      <UniqueIdentifier>{ca9f43ec-259f-46d2-9551-d995ca8c9efc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="debug.h">
@@ -87,9 +90,6 @@
     <ClInclude Include="UI.h">
       <Filter>Map</Filter>
     </ClInclude>
-    <ClInclude Include="SubWeapon.h">
-      <Filter>Player</Filter>
-    </ClInclude>
     <ClInclude Include="GameStateOne.h">
       <Filter>States</Filter>
     </ClInclude>
@@ -125,6 +125,15 @@
     </ClInclude>
     <ClInclude Include="Bat.h">
       <Filter>Objets\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="SubWeapon.h">
+      <Filter>Player\SubWp</Filter>
+    </ClInclude>
+    <ClInclude Include="Knife.h">
+      <Filter>Player\SubWp</Filter>
+    </ClInclude>
+    <ClInclude Include="Axe.h">
+      <Filter>Player\SubWp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -173,9 +182,6 @@
     <ClCompile Include="UI.cpp">
       <Filter>Map</Filter>
     </ClCompile>
-    <ClCompile Include="SubWeapon.cpp">
-      <Filter>Player</Filter>
-    </ClCompile>
     <ClCompile Include="GameStateOne.cpp">
       <Filter>States</Filter>
     </ClCompile>
@@ -211,6 +217,15 @@
     </ClCompile>
     <ClCompile Include="Bat.cpp">
       <Filter>Objets\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="SubWeapon.cpp">
+      <Filter>Player\SubWp</Filter>
+    </ClCompile>
+    <ClCompile Include="Knife.cpp">
+      <Filter>Player\SubWp</Filter>
+    </ClCompile>
+    <ClCompile Include="Axe.cpp">
+      <Filter>Player\SubWp</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

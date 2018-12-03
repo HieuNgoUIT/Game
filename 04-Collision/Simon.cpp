@@ -7,7 +7,7 @@ Simon::Simon()
 	_texture = new Texture("Resource\\sprites\\simon.png", 8, 3, 24);
 	_sprite = new Sprite(_texture, 100);
 	whip = new Whip(x, y);
-	subwp = new SubWeapon(x, y);
+	subwp = new SubWeapon(/*x, y*/);
 	tag = 1;
 
 	isWalking = 0;
@@ -75,6 +75,16 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 			else if (coObjects->at(i)->tag == BLUEBLAG_TAG)
 			{
 				this->score += 300;
+			}
+			else if (coObjects->at(i)->tag == KNIFE_TAG)
+			{
+				isSubwp = true;
+				subwp = new Knife(x,y);
+			}
+			else if (coObjects->at(i)->tag == AXE_TAG)
+			{
+				isSubwp = true;
+				subwp = new Axe(x, y);
 			}
 			coObjects->at(i)->isDead = true;
 			
@@ -798,12 +808,18 @@ void Simon::Attack()
 
 void Simon::ThrowSubWp()
 {
+	
 	if (throwSubwp == true) // đang tấn công thì thôi
 		return;
-	if (useableHeart != 0)
+	if (isSubwp)
 	{
-		throwSubwp = 1;
-		subwp->Create(this->x, this->y, this->direction);
-		useableHeart--;
+		if (useableHeart != 0)
+		{
+			throwSubwp = 1;
+			//subwp->isDead = false;
+			subwp->Create(this->x, this->y, this->direction);
+			useableHeart--;
+		}
 	}
+	
 }

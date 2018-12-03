@@ -70,7 +70,7 @@ char* Item::PathRandom()
 		break;
 	}
 }
-Item::Item(char* link,int X, int Y)
+Item::Item(char* link, int X, int Y)
 {
 	_texture = new Texture(link, 1, 1, 1);
 	_sprite = new Sprite(_texture, 100);
@@ -81,10 +81,19 @@ Item::Item(char* link,int X, int Y)
 	{
 		tag = HEART_TAG;
 	}
-	if (link == WHIP_PATH)
+	else if (link == WHIP_PATH)
 	{
 		tag = WHIP_TAG;
 	}
+	else if (link == KNIFE_PATH)
+	{
+		tag = KNIFE_TAG;
+	}
+	else if (link == AXE_PATH)
+	{
+		tag = AXE_TAG;
+	}
+
 }
 
 Item::Item()
@@ -103,7 +112,7 @@ void Item::GetBoundingBox(float & left, float & top, float & right, float & bott
 		right = x + _texture->FrameWidth;
 		bottom = y + _texture->FrameHeight;
 	}
-	
+
 }
 
 void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -123,7 +132,7 @@ void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				y = 370;
 			remainingTime--;
 		}
-		
+
 
 		//_sprite->Update(dt); // update animation
 

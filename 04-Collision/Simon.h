@@ -42,6 +42,8 @@
 #include "SubWeapon.h"
 #include "CheckPoint.h"
 #include "Zombie.h"
+#include "Knife.h"
+#include "Axe.h"
 //#include "Weapon.h"
 //#include "MorningStar.h"
 
@@ -60,10 +62,12 @@ public:
 	bool isWalkFromTop;
 	bool isTopStair;
 	bool isStage21;
+	//bool isKnife;
 	int useableHeart = 50;
 	int score = 0;
 	Whip* whip;
 	SubWeapon *subwp;
+	bool isSubwp;
 public:
 	Simon();
 	~Simon();

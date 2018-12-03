@@ -48,17 +48,21 @@ void GameStateOne::Update(DWORD dt)
 	{
 		if (objects[i]->dropItem == true)
 		{
-			if (objects[i]->currentPosMap1==0 || objects[i]->currentPosMap1 == 3|| objects[i]->currentPosMap1 == 4)
+			if (objects[i]->currentPosMap1==0 || objects[i]->currentPosMap1 == 3)
 			{
 				item = new Item(HEART_PATH, objects[i]->x, objects[i]->y);
 				items.push_back(item);
 			}
-			if (objects[i]->currentPosMap1 == 1 || objects[i]->currentPosMap1 == 2)
+			else if (objects[i]->currentPosMap1 == 1 || objects[i]->currentPosMap1 == 2)
 			{
 				item = new Item(WHIP_PATH, objects[i]->x, objects[i]->y);
 				items.push_back(item);
 			}
-			
+			else if (objects[i]->currentPosMap1 == 4)
+			{
+				item = new Item(KNIFE_PATH, objects[i]->x, objects[i]->y);
+				items.push_back(item);
+			}		
 			objects[i]->SetDropItem(false);
 			//objects[i]->isCreatedItem = true;//sau khi push item thi moi xoa khoi objects
 		}
