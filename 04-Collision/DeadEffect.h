@@ -4,7 +4,7 @@
 
 class DeadEffect {
 public:
-	int x, y;
+	float x, y;
 	float remainingTime = 10;
 	bool isVisible;
 	bool isDoneRender;

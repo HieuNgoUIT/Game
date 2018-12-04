@@ -1,6 +1,7 @@
 #pragma once
 #include <map>
 #include "dxsound.h"
+#include "dsutil.h"
 
 enum eSoundID
 {

@@ -803,6 +803,7 @@ void Simon::Attack()
 		return;
 
 	isAttacking = true;
+	Sound::GetInstance()->Play(USING_WHIP);
 	whip->Create(this->x, this->y, this->direction); // set vị trí weapon theo simon
 }
 

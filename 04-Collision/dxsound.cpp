@@ -23,16 +23,15 @@ int InitDirectSound(HWND hwnd)
 	return 1;
 }
 
-CSound *LoadSound(char* fileName)
+CSound *LoadSound(LPTSTR fileName)
 {
-	
 	HRESULT result;
 
 	//Create local reference to wave data
 	CSound *wave;
 
 	//attempt to load wave file
-	result = dsound->Create(&wave, L"Resource//sound//usingwhip.wav");
+	result = dsound->Create(&wave, fileName);
 	if (result != DS_OK)
 		return 0;
 

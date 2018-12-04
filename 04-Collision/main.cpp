@@ -21,7 +21,7 @@
 #include <windows.h>
 #include <d3d9.h>
 #include <d3dx9.h>
-
+#include "Sound.h"
 #include "debug.h"
 
 #include "GameStateManager.h"
@@ -270,6 +270,7 @@ int Run()
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
+	Sound::GetInstance()->loadSound(hWnd);
 	gamestatemanager = new GameStateManager(2);
 
 	gamestatemanager->gamestate->game->Init(hWnd);

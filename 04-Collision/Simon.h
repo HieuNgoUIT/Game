@@ -44,6 +44,7 @@
 #include "Zombie.h"
 #include "Knife.h"
 #include "Axe.h"
+#include "Sound.h"
 //#include "Weapon.h"
 //#include "MorningStar.h"
 

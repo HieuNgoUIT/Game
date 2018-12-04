@@ -85,7 +85,7 @@
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>d3dx9.lib;d3d9.lib;dxguid.lib;dxerr.lib;dinput8.lib;dsound.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dsound.lib;DxErr.lib;dinput8.lib;dxguid.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -132,6 +132,9 @@
     <ClInclude Include="DeadEffect.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="Door.h" />
+    <ClInclude Include="dsutil.h" />
+    <ClInclude Include="dxsound.h" />
+    <ClInclude Include="dxutil.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
@@ -147,6 +150,7 @@
     <ClInclude Include="Merman.h" />
     <ClInclude Include="Pander.h" />
     <ClInclude Include="Simon.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SubWeapon.h" />
     <ClInclude Include="Texture.h" />
@@ -165,6 +169,9 @@
     <ClCompile Include="DeadEffect.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="Door.cpp" />
+    <ClCompile Include="dsutil.cpp" />
+    <ClCompile Include="dxsound.cpp" />
+    <ClCompile Include="dxutil.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -181,6 +188,7 @@
     <ClCompile Include="Merman.cpp" />
     <ClCompile Include="Pander.cpp" />
     <ClCompile Include="Simon.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SubWeapon.cpp" />
     <ClCompile Include="Texture.cpp" />

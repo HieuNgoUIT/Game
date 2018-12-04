@@ -18,82 +18,82 @@ void Sound::loadSound(HWND hwnd)
 
 	CSound* sound = NULL;
 
-	sound = LoadSound("Resource//sound//usingwhip.wav");
+	sound = LoadSound(L"Resource//sound//usingwhip.wav");
 	listSound[eSoundID::USING_WHIP] = sound;
 
-	sound = LoadSound("Resource//sound//splashwater.wav");
+	sound = LoadSound(L"Resource//sound//splashwater.wav");
 	listSound[eSoundID::SLASH_WATER] = sound;
 
-	sound = LoadSound("Resource//sound//select.wav");
+	sound = LoadSound(L"Resource//sound//select.wav");
 	listSound[eSoundID::SELECT] = sound;
 
-	sound = LoadSound("Resource//sound//pause.wav");
+	sound = LoadSound(L"Resource//sound//pause.wav");
 	listSound[eSoundID::PAUSE] = sound;
 
-	sound = LoadSound("Resource//sound//opendoor.wav");
+	sound = LoadSound(L"Resource//sound//opendoor.wav");
 	listSound[eSoundID::OPEN_DOOR] = sound;
 
-	sound = LoadSound("Resource//sound//holywater.wav");
+	sound = LoadSound(L"Resource//sound//holywater.wav");
 	listSound[eSoundID::HOLY_WATER] = sound;
 
-	sound = LoadSound("Resource//sound//holycross.wav");
+	sound = LoadSound(L"Resource//sound//holycross.wav");
 	listSound[eSoundID::HOLY_CROSS] = sound;
 
-	sound = LoadSound("Resource//sound//hitcannon.wav");
+	sound = LoadSound(L"Resource//sound//hitcannon.wav");
 	listSound[eSoundID::HIT_CANNON] = sound;
 
-	sound = LoadSound("Resource//sound//hit.wav");
+	sound = LoadSound(L"Resource//sound//hit.wav");
 	listSound[eSoundID::HIT_SOUND] = sound;
 
-	sound = LoadSound("Resource//sound//fallingdownwatersurface.wav");
+	sound = LoadSound(L"Resource//sound//fallingdownwatersurface.wav");
 	listSound[eSoundID::FALLING_DOWN_WATER_SUFACE] = sound;
 
-	sound = LoadSound("Resource//sound//falling.wav");
+	sound = LoadSound(L"Resource//sound//falling.wav");
 	listSound[eSoundID::FALLING] = sound;
 
-	sound = LoadSound("Resource//sound//decreaseweaponusepoint.wav");
+	sound = LoadSound(L"Resource//sound//decreaseweaponusepoint.wav");
 	listSound[eSoundID::DECREASE_WEAPON_USE_POINT] = sound;
 
-	sound = LoadSound("Resource//sound//collectweapon.wav");
+	sound = LoadSound(L"Resource//sound//collectweapon.wav");
 	listSound[eSoundID::COLLECT_WEAPON] = sound;
 
-	sound = LoadSound("Resource//sound//collectitem.wav");
+	sound = LoadSound(L"Resource//sound//collectitem.wav");
 	listSound[eSoundID::COLLECT_ITEM] = sound;
 
-	sound = LoadSound("Resource//sound//gointocastle.wav");
+	sound = LoadSound(L"Resource//sound//gointocastle.wav");
 	listSound[eSoundID::GO_INTO_CASTLE] = sound;
 
-	sound = LoadSound("Resource//sound//hurted.wav");
+	sound = LoadSound(L"Resource//sound//hurted.wav");
 	listSound[eSoundID::SIMON_HURTED] = sound;
 
-	sound = LoadSound("Resource//music//Boss_Battle_Poison_Mind.wav");
+	sound = LoadSound(L"Resource//music//Boss_Battle_Poison_Mind.wav");
 	listSound[eSoundID::BOSS_BATTLE_POISON_MIND] = sound;
 
-	sound = LoadSound("Resource//music//Game_Over.wav");
+	sound = LoadSound(L"Resource//music//Game_Over.wav");
 	listSound[eSoundID::GAME_OVER] = sound;
 
-	sound = LoadSound("Resource//music//Game_Start_Prologue.wav");
+	sound = LoadSound(L"Resource//music//Game_Start_Prologue.wav");
 	listSound[eSoundID::GAME_START_PROLOGUE] = sound;
 
-	sound = LoadSound("Resource//music//Life_Lost.wav");
+	sound = LoadSound(L"Resource//music//Life_Lost.wav");
 	listSound[eSoundID::LIFE_LOST] = sound;
 
-	sound = LoadSound("Resource//music//Stage_01_Vampire_Killer.wav");
+	sound = LoadSound(L"Resource//music//Stage_01_Vampire_Killer.wav");
 	listSound[eSoundID::STAGE_01_VAMPIRE_KILLER] = sound;
 
-	sound = LoadSound("Resource//music//Stage_04_Stalker.wav");
+	sound = LoadSound(L"Resource//music//Stage_04_Stalker.wav");
 	listSound[eSoundID::STAGE_04_STALKER] = sound;
 
-	sound = LoadSound("Resource//music//Stage_Clear.wav");
+	sound = LoadSound(L"Resource//music//Stage_Clear.wav");
 	listSound[eSoundID::STAGE_CLEAR] = sound;
 
-	sound = LoadSound("Resource//music//Title_Theme_Prelude.wav");
+	sound = LoadSound(L"Resource//music//Title_Theme_Prelude.wav");
 	listSound[eSoundID::TITLE_THEME_PRELUDE] = sound;
 
-	sound = LoadSound("Resource//sound//eat_change_state_ball.wav");
+	sound = LoadSound(L"Resource//sound//eat_change_state_ball.wav");
 	listSound[eSoundID::EAT_CHANGE_STATE_BALL] = sound;
 
-	sound = LoadSound("Resource//sound//collectmoney.wav");
+	sound = LoadSound(L"Resource//sound//collectmoney.wav");
 	listSound[eSoundID::MONEY] = sound;
 }
 
