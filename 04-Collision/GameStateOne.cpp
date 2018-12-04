@@ -29,6 +29,8 @@ void GameStateOne::LoadResources()
 	ui = new UI();
 	ui->Initialize(simon, 16);
 	game = CGame::GetInstance();
+	if (!Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
+		Sound::GetInstance()->PlayLoop(STAGE_01_VAMPIRE_KILLER);
 }
 
 void GameStateOne::Update(DWORD dt)

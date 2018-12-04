@@ -137,6 +137,7 @@ void Whip::CollisionWithLargeCandle(vector<LPGAMEOBJECT>* coObjects)
 		if (isColliding(this, coObjects->at(i)))
 		{
 			coObjects->at(i)->isDead = true;
+			Sound::GetInstance()->Play(HIT_SOUND);
 			/*HitEffect *he = HitEffect::GetInstance();
 			he->Render(100, 100);*/
 

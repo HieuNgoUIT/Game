@@ -87,7 +87,7 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 				subwp = new Axe(x, y);
 			}
 			coObjects->at(i)->isDead = true;
-			
+			Sound::GetInstance()->Play(COLLECT_ITEM);
 			
 			
 		}
