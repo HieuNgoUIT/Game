@@ -18,8 +18,8 @@ void HiddenStair::GetBoundingBox(float & left, float & top, float & right, float
 {
 	left = x;
 	top = y;
-	right = x + _texture->FrameWidth;
-	bottom = y + _texture->FrameHeight;
+	right = x + _texture->FrameWidth-30;
+	bottom = y + _texture->FrameHeight+10;
 }
 
 void HiddenStair::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

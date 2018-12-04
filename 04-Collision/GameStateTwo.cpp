@@ -8,9 +8,9 @@ void GameStateTwo::LoadResources()
 	simon->SetPosition(SIMON_POSITION_DEFAULT);
 	tilemap = new TileMap();
 	tilemap = new TileMap();
-	tilemap->LoadMap("Resource/sprites/lv2.b", "Resource/sprites/lv2.s",18,4,72,12,88);
+	tilemap->LoadMap("Resource/sprites/Grid/lv2.b", "Resource/sprites/Grid/lv2.s", 20, 4, 80, 14, 90); // 18 4 72 12 88
 	grid = new Grid();
-	grid->ReadFileToGrid("Resource\\sprites\\Grid\\lv2.txt");
+	grid->ReadFileToGrid("Resource\\sprites\\Grid\\lv2.txt"); //20 4 80    14 90
 	ui = new UI();
 	ui->Initialize(simon, 16);
 	door = new Door(3043, 120);
@@ -38,7 +38,7 @@ void GameStateTwo::Update(DWORD dt)
 		{
 			camera->SetPosition(simon->x - 320 + 60, 450);
 		}
-		else if (simon->x >3200) //man` 21
+		else if (simon->x > 3200) //man` 21
 		{
 			if (camera->GetViewport().x < 3025)
 			{
@@ -52,17 +52,17 @@ void GameStateTwo::Update(DWORD dt)
 			}
 
 		}
-		else if (simon->x <3000)
+		else if (simon->x < 3000)
 		{
 			camera->SetPosition(simon->x - 320 + 60, 0);//update man 2
 			camera->UpdateMap2();
 		}
 	}
 
-	
+
 #pragma endregion
 
-	
+
 
 
 	mapSecond++;
@@ -99,9 +99,9 @@ void GameStateTwo::Update(DWORD dt)
 		items[i]->Update(dt);
 	}
 	simon->Update(dt, &coObjects, &items);
-	
+
 	//door->_sprite->SelectIndex(0);
-	
+
 	//for(int i=0;i<3000;i++)
 	//{
 	//	//int i = 0;
@@ -112,11 +112,11 @@ void GameStateTwo::Update(DWORD dt)
 
 	/*if (simon->x > 2681)
 	{*/
-	
-	
-		
+
+
+
 	/*}*/
-	
+
 	//CheckCollideWithCheckPoint(simon, checkpoint);
 }
 
@@ -134,14 +134,10 @@ void GameStateTwo::Render()
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 		ui->Render();
-		if (simon->y > 450) {
-			tilemap->DrawMapWater(camera);		
-		}
-		else
-		{
-			tilemap->DrawMap(camera);
-		}
-		
+
+		tilemap->DrawMap(camera);
+
+
 
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render(camera);
@@ -160,14 +156,14 @@ void GameStateTwo::Render()
 
 void GameStateTwo::CheckCollideWithDoor(Simon * simon, Door * door)
 {
-	if(simon->isColliding(simon, door))
+	if (simon->isColliding(simon, door))
 	{
-		
+
 	}
-	
+
 }
 
 GameStateTwo::GameStateTwo()
 {
-	
+
 }

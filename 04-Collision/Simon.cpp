@@ -452,7 +452,17 @@ void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects)
 					this->isLeft = coObjects->at(i)->isLeft;
 					isWalkFromBot = true;// o giua cau thang nhung o duoi
 					isWalkFromTop = false; // o giua cau thang nhung o tren
-					this->y -= 25;
+					if (coObjects->at(i)->direction == -1)
+					{
+						this->x = coObjects->at(i)->x-25;
+						this->y -= 25;
+					}
+					else
+					{
+						this->y -= 25;
+					}
+					
+					
 
 				}
 
@@ -468,6 +478,10 @@ void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects)
 					this->isLeft = coObjects->at(i)->isLeft;
 					isWalkFromTop = true;
 					isWalkFromBot = false;
+					if (coObjects->at(i)->direction == -1)
+					{
+						this->x -= 30;
+					}
 					this->y += 25;
 
 				}
@@ -486,6 +500,8 @@ void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects)
 				{
 					isOnStair = false;
 					isWalkFromBot = false;
+					this -> x = coObjects->at(i)->x;
+					this->y = coObjects->at(i)->y;
 				}
 				if (coObjects->at(i)->GetTag() == -7 && isTopStair == true)
 				{
