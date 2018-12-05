@@ -164,12 +164,13 @@ void CGameObject::RenderBoundingBox(Camera *camera)
 	float l, t, r, b;
 
 	GetBoundingBox(l, t, r, b);
-	rect.left = 0;
+	rect.left =0;
 	rect.top = 0;
 	rect.right = (int)r - (int)l;
 	rect.bottom = (int)b - (int)t;
 	
-	D3DXVECTOR2 pos=camera->Transform(x,y);
+	D3DXVECTOR2 pos=camera->Transform(l,t);
+	//D3DXVECTOR2 pos2 = camera->Transform(l, t);
 
 
 	CGame::GetInstance()->Draw(pos.x, pos.y, bbox, rect.left, rect.top, rect.right, rect.bottom, 100);

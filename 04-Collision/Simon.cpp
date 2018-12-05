@@ -35,11 +35,30 @@ void Simon::GetBoundingBox(float & left, float & top, float & right, float & bot
 		right = x + _texture->FrameHeight;
 		bottom = y + _texture->FrameHeight - 21;
 	}
+	else if (isOnStair)
+	{
+		if (direction == 1)
+		{
+			left = x - 20;
+			top = y - 60;
+			right = x + _texture->FrameWidth - 100;
+			bottom = y + _texture->FrameHeight - 3;
+		}
+		else
+		{
+			left = x + 12;
+			top = y - 1;
+			right = x + _texture->FrameWidth-15;
+			bottom = y + _texture->FrameHeight - 3;
+		}
+		
+	}
+
 	else
 	{
 		left = x + 12;
 		top = y - 1;
-		right = x + _texture->FrameWidth;
+		right = x + _texture->FrameWidth-15;
 		bottom = y + _texture->FrameHeight - 3;
 	}
 
@@ -48,7 +67,7 @@ void Simon::GetBoundingBox(float & left, float & top, float & right, float & bot
 void Simon::PreProcessOnStair(CGameObject *hiddenstair, Camera *camera)
 {
 
-	if (this->x < hiddenstair->x && hiddenstair->direction==-1) //stair trai qua phai
+	if (this->x < hiddenstair->x && hiddenstair->direction == -1) //stair trai qua phai
 	{
 		isCameraStair = true;
 		camera->StairGo(dt, hiddenstair->direction);
@@ -75,16 +94,16 @@ void Simon::PreProcessBeforeOnStair(CGameObject * hiddenstair, Camera * camera)
 	{
 		if (hiddenstair->direction == 1)
 		{
-			isCameraStair = true;
+			isCameraStair = true; //111 7 1433 280 -1 1
 			camera->StairGo(dt, hiddenstair->direction);
 			this->x = hiddenstair->x;
-			this->y -= 10;
+			this->y -= 20;
 		}
 		else
 		{
 			isCameraStair = true;
 			camera->StairGo(dt, hiddenstair->direction);
-			this->x = hiddenstair->x - 50;
+			this->x -= 20;
 			this->y -= 20;
 		}
 	}
@@ -94,19 +113,19 @@ void Simon::PreProcessBeforeOnStair(CGameObject * hiddenstair, Camera * camera)
 		{
 			isCameraStair = true;
 			camera->StairGo(dt, hiddenstair->direction);
-			this->x = hiddenstair->x+20;
+			this->x = hiddenstair->x + 20;
 			this->y += 20;
 		}
 		else
 		{
 			isCameraStair = true;
 			camera->StairGo(dt, hiddenstair->direction);
-			this->x = hiddenstair->x-30;
-			this->y += 30;
+			this->x = hiddenstair->x;
+			this->y += 20;
 		}
 	}
-	
-	
+
+
 
 
 	//this->x = hiddenstair->x+1;
@@ -548,7 +567,7 @@ void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects, Camera *camera)
 					this->isLeft = coObjects->at(i)->isLeft;
 					isWalkFromTop = true;
 					isWalkFromBot = false;
-					
+
 
 				}
 

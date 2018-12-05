@@ -123,7 +123,11 @@ void CSampleKeyHander::KeyState(BYTE *states)
 		mario->SetState(MARIO_STATE_IDLE);*/
 	if (gamestatemanager->gamestate->game->IsKeyDown(DIK_DOWN))
 	{
-		gamestatemanager->gamestate->simon->Sit();
+		if (gamestatemanager->gamestate->simon->isOnStair == false)
+		{
+			gamestatemanager->gamestate->simon->Sit();
+		}
+		
 
 		if (gamestatemanager->gamestate->game->IsKeyDown(DIK_RIGHT))
 			gamestatemanager->gamestate->simon->Right();
