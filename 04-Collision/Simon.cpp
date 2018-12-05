@@ -48,8 +48,12 @@ void Simon::GetBoundingBox(float & left, float & top, float & right, float & bot
 void Simon::PreProcessOnStair(CGameObject *hiddenstair, Camera *camera)
 {
 
-	if (this->x < hiddenstair->x)
+	if (this->x < hiddenstair->x && hiddenstair->direction==-1) //stair trai qua phai
 	{
+		isCameraStair = true;
+		camera->StairGo(dt, hiddenstair->direction);
+	}
+	else if (this->x > hiddenstair->x && hiddenstair->direction == 1) { //stair phai qua trai
 		isCameraStair = true;
 		camera->StairGo(dt, hiddenstair->direction);
 	}
@@ -57,7 +61,7 @@ void Simon::PreProcessOnStair(CGameObject *hiddenstair, Camera *camera)
 	{
 		isCameraStair = false;
 	}
-	vx = 0.05f * direction;
+	vx = 0.05f * -hiddenstair->direction;//- vi dung stair doi dien
 	dx = vx * dt;
 	x += dx;
 
