@@ -45,6 +45,70 @@ void Simon::GetBoundingBox(float & left, float & top, float & right, float & bot
 
 }
 
+void Simon::PreProcessOnStair(CGameObject *hiddenstair, Camera *camera)
+{
+
+	if (this->x < hiddenstair->x)
+	{
+		isCameraStair = true;
+		camera->StairGo(dt, hiddenstair->direction);
+	}
+	else
+	{
+		isCameraStair = false;
+	}
+	vx = 0.05f * direction;
+	dx = vx * dt;
+	x += dx;
+
+}
+
+void Simon::PreProcessBeforeOnStair(CGameObject * hiddenstair, Camera * camera)
+{
+	// xu ly truoc khi cham cau thang
+	//dieu chinh lai vi tri hop voi hidden stair
+	if (hiddenstair->tag == -7)
+	{
+		if (hiddenstair->direction == 1)
+		{
+			isCameraStair = true;
+			camera->StairGo(dt, hiddenstair->direction);
+			this->x = hiddenstair->x;
+			this->y -= 10;
+		}
+		else
+		{
+			isCameraStair = true;
+			camera->StairGo(dt, hiddenstair->direction);
+			this->x = hiddenstair->x - 50;
+			this->y -= 20;
+		}
+	}
+	else
+	{
+		if (hiddenstair->direction == 1)
+		{
+			isCameraStair = true;
+			camera->StairGo(dt, hiddenstair->direction);
+			this->x = hiddenstair->x+20;
+			this->y += 20;
+		}
+		else
+		{
+			isCameraStair = true;
+			camera->StairGo(dt, hiddenstair->direction);
+			this->x = hiddenstair->x-30;
+			this->y += 30;
+		}
+	}
+	
+	
+
+
+	//this->x = hiddenstair->x+1;
+
+}
+
 void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 {
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -79,7 +143,7 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 			else if (coObjects->at(i)->tag == KNIFE_TAG)
 			{
 				isSubwp = true;
-				subwp = new Knife(x,y);
+				subwp = new Knife(x, y);
 			}
 			else if (coObjects->at(i)->tag == AXE_TAG)
 			{
@@ -88,8 +152,8 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 			}
 			coObjects->at(i)->isDead = true;
 			Sound::GetInstance()->Play(COLLECT_ITEM);
-			
-			
+
+
 		}
 	}
 
@@ -133,7 +197,7 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 	//}
 }
 
-void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJECT>* coItems)
+void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJECT>* coItems)
 {
 	CGame *game = CGame::GetInstance();
 	/* Không cho lọt khỏi camera */
@@ -421,7 +485,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 
 	CollisionWithZombie(&coObjects_Zombie);
 	CollisionWithBrick(&coObjects_Brick); // check Collision and update x, y for simon
-	CollisionWithStair(&coObjects_HiddenStair);
+	CollisionWithStair(&coObjects_HiddenStair, camera);
 
 	//check with item
 	CollisionWithItem(coItems);
@@ -434,7 +498,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 }
 
 
-void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects)
+void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects, Camera *camera)
 {
 	for (int i = 0; i < coObjects->size(); i++) //check va cham stair duoi va tren
 	{
@@ -445,24 +509,21 @@ void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects)
 			{
 				if (coObjects->at(i)->GetTag() == -7)
 				{
-					isOnStair = true; //tren thang
+					PreProcessBeforeOnStair(coObjects->at(i), camera);
+					if (this->y <= coObjects->at(i)->y) // sau khi da dieu chinh vi tri thi cho no onstair
+					{
+						isOnStair = true; //tren thang
+						isCameraStair = false;//cho camera theo map lai bth
+					}
+
 					isBottomStair = true; //bat dau tu duoi
 					isTopStair = false; //ko phai tren
 					this->direction = coObjects->at(i)->direction; //gan simon direction = sarit direction
 					this->isLeft = coObjects->at(i)->isLeft;
 					isWalkFromBot = true;// o giua cau thang nhung o duoi
 					isWalkFromTop = false; // o giua cau thang nhung o tren
-					if (coObjects->at(i)->direction == -1)
-					{
-						this->x = coObjects->at(i)->x-25;
-						this->y -= 25;
-					}
-					else
-					{
-						this->y -= 25;
-					}
-					
-					
+
+
 
 				}
 
@@ -471,18 +532,19 @@ void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects)
 			{
 				if (coObjects->at(i)->GetTag() == 7)
 				{
-					isOnStair = true;
+					PreProcessBeforeOnStair(coObjects->at(i), camera);
+					if (this->y >= coObjects->at(i)->y)
+					{
+						isOnStair = true; //tren thang
+						isCameraStair = false;
+					}
 					isTopStair = true;
 					isBottomStair = false;
 					this->direction = coObjects->at(i)->direction;
 					this->isLeft = coObjects->at(i)->isLeft;
 					isWalkFromTop = true;
 					isWalkFromBot = false;
-					if (coObjects->at(i)->direction == -1)
-					{
-						this->x -= 30;
-					}
-					this->y += 25;
+					
 
 				}
 
@@ -498,22 +560,25 @@ void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects)
 			{
 				if (coObjects->at(i)->GetTag() == 7 && isBottomStair == true)
 				{
-					isOnStair = false;
+					PreProcessOnStair(coObjects->at(i), camera); // xu ly sau khi x > x stair thi tra ve iscamerastiar =false
 					isWalkFromBot = false;
-					this -> x = coObjects->at(i)->x;
-					this->y = coObjects->at(i)->y;
+
+					if (isCameraStair == false)
+					{
+						isOnStair = false;//xu ly camera lai bth theo map
+					}
 				}
 				if (coObjects->at(i)->GetTag() == -7 && isTopStair == true)
 				{
 					isOnStair = false;
 					isWalkFromTop = false;
 				}
-				if (coObjects->at(i)->GetTag() == -7)
+				if (coObjects->at(i)->GetTag() == -7 && isBottomStair == true) //bat dau o dau, cham o do
 				{
 					isOnStair = false;
 
 				}
-				if (coObjects->at(i)->GetTag() == 7)
+				if (coObjects->at(i)->GetTag() == 7 && isTopStair == true)//bat dau o dau, cham o do
 				{
 					isOnStair = false;
 
@@ -825,7 +890,7 @@ void Simon::Attack()
 
 void Simon::ThrowSubWp()
 {
-	
+
 	if (throwSubwp == true) // đang tấn công thì thôi
 		return;
 	if (isSubwp)
@@ -838,5 +903,5 @@ void Simon::ThrowSubWp()
 			useableHeart--;
 		}
 	}
-	
+
 }

@@ -20,6 +20,7 @@ void GameStateTwo::LoadResources()
 void GameStateTwo::Update(DWORD dt)
 {
 #pragma region Camera
+	
 	if (simon->isColliding(simon, door)) //va cham voi door
 	{
 		door->Update(dt);
@@ -52,7 +53,7 @@ void GameStateTwo::Update(DWORD dt)
 			}
 
 		}
-		else if (simon->x < 3000)
+		else if (simon->x < 3000 && simon->isCameraStair==false)
 		{
 			camera->SetPosition(simon->x - 320 + 60, 0);//update man 2
 			camera->UpdateMap2();
@@ -98,7 +99,7 @@ void GameStateTwo::Update(DWORD dt)
 	{
 		items[i]->Update(dt);
 	}
-	simon->Update(dt, &coObjects, &items);
+	simon->Update(dt,camera, &coObjects, &items);
 
 	//door->_sprite->SelectIndex(0);
 

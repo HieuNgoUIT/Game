@@ -81,7 +81,7 @@ void GameStateOne::Update(DWORD dt)
 	{
 		items[i]->Update(dt);
 	}
-	simon->Update(dt, &coObjects, &items);
+	simon->Update(dt,camera, &coObjects, &items);
 	camera->SetPosition(simon->x - 320 + 60, 0);
 	camera->Update();
 	CheckCollideWithCheckPoint(simon, checkpoint);

@@ -19,10 +19,24 @@ Camera::~Camera()
 
 void Camera::Go(DWORD dt)
 {
-	float vx = 0.12f;
+	float vx = 1.0f;
 	float	dx = vx * dt;
 	_viewport.x += dx;
 
+}
+
+void Camera::StairGo(DWORD dt, int stairDirection)
+{
+	if (stairDirection)
+	{
+		vx = 0.05f;
+	}
+	else
+	{
+		vx = -0.05f;
+	}
+	float	dx = vx * dt;
+	_viewport.x += dx;
 }
 
 void Camera::Update()

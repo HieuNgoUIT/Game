@@ -45,6 +45,7 @@
 #include "Knife.h"
 #include "Axe.h"
 #include "Sound.h"
+#include "HiddenStair.h"
 //#include "Weapon.h"
 //#include "MorningStar.h"
 
@@ -63,6 +64,8 @@ public:
 	bool isWalkFromTop;
 	bool isTopStair;
 	bool isStage21;
+	bool isCameraStair;
+	bool isDoneCameraStair;
 	//bool isKnife;
 	int useableHeart = 50;
 	int score = 0;
@@ -77,10 +80,11 @@ public:
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 	void CollisionWithItem(vector<LPGAMEOBJECT>* coObjects);
 	 void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-
-	 void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL, vector<LPGAMEOBJECT>* coItems=NULL);
+	 void PreProcessOnStair(CGameObject *hiddenstair,  Camera *camera);
+	 void PreProcessBeforeOnStair(CGameObject *hiddenstair, Camera *camera);
+	 void Update(DWORD dt,  Camera *camera, vector<LPGAMEOBJECT> *coObjects = NULL, vector<LPGAMEOBJECT>* coItems=NULL);
 	// void UpdatewItem(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	 void  CollisionWithStair(vector<LPGAMEOBJECT>* coObjects);
+	 void  CollisionWithStair(vector<LPGAMEOBJECT>* coObjects , Camera *camera);
 	 void Render(Camera *camera);
 	 void RenderBoundingBox(Camera *camera);
 
