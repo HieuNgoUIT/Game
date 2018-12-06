@@ -16,20 +16,20 @@ HiddenStair::HiddenStair(int TYPE,int X,int Y,int direction,int isLeft)
 
 void HiddenStair::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	if (tag == 7)
+	/*if (tag == 7)
 	{
 		left = x;
 		top = y;
-		right = x + _texture->FrameWidth -40;
-		bottom = y + _texture->FrameHeight + 10;
+		right = x + _texture->FrameWidth ;
+		bottom = y + _texture->FrameHeight ;
 	}
 	else
-	{
+	{*/
 		left = x;
 		top = y;
-		right = x + _texture->FrameWidth - 30;
-		bottom = y + _texture->FrameHeight + 10;
-	}
+		right = x + _texture->FrameWidth-20 ;
+		bottom = y + _texture->FrameHeight ;
+	/*}*/
 	
 }
 

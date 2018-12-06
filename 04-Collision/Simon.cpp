@@ -5,7 +5,7 @@
 Simon::Simon()
 {
 	_texture = new Texture("Resource\\sprites\\simon.png", 8, 3, 24);
-	_sprite = new Sprite(_texture, 200);
+	_sprite = new Sprite(_texture, 150);
 	whip = new Whip(x, y);
 	subwp = new SubWeapon(/*x, y*/);
 	tag = 1;
@@ -37,13 +37,13 @@ void Simon::GetBoundingBox(float & left, float & top, float & right, float & bot
 	}
 	else if (isOnStair)
 	{
-		if (direction == 1)
-		{
+		/*if (direction == 1)
+		{*/
 			left = x + 20;
 			top = y + 20;
 			right = x + _texture->FrameWidth;
 			bottom = y + _texture->FrameHeight - 3;
-		}
+	/*	}
 		else
 		{
 			left = x + 12;
@@ -51,7 +51,7 @@ void Simon::GetBoundingBox(float & left, float & top, float & right, float & bot
 			right = x + _texture->FrameWidth - 15;
 			bottom = y + _texture->FrameHeight - 3;
 		}
-
+*/
 	}
 
 	else
@@ -256,14 +256,16 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 		//_sprite->SelectIndex(10);
 		if (game->IsKeyDown(DIK_UP))
 		{
-			if (index < 12 || index >= 13)
+			if (index < 12 || index > 13)
 				_sprite->SelectIndex(12);
 			_sprite->Update(dt);
 
 		}
 		if (game->IsKeyDown(DIK_DOWN))
 		{
-			_sprite->SelectIndex(10);
+			if (index < 10 || index > 11)
+				_sprite->SelectIndex(10);
+			_sprite->Update(dt);
 		}
 
 
@@ -301,8 +303,10 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 			{
 				if (isAttacking == true)
 				{
-					/*if (index < 5 || index >= 7)*/
-					_sprite->SelectIndex(SIMON_ANI_BEGIN_HITTING);
+					if (index < 5 || index >= 8)
+					{
+						_sprite->SelectIndex(5);
+					}
 					_sprite->Update(dt);
 				}
 				else
@@ -318,8 +322,10 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 			{
 				if (isAttacking == true)
 				{
-					/*if (index < 5 || index >= 7)*/
-					_sprite->SelectIndex(5);
+					if (index < 5 || index >= 8)
+					{
+						_sprite->SelectIndex(5);
+					}
 					_sprite->Update(dt);
 				}
 				else
@@ -330,8 +336,11 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 			}
 			else if (isAttacking == true)
 			{
-				/*if (index < 5 || index >= 7)*/
-				_sprite->SelectIndex(5);
+				if (index < 5 || index >= 8)
+				{
+					_sprite->SelectIndex(5);
+				}
+				
 				_sprite->Update(dt);
 			}
 			else
@@ -557,6 +566,11 @@ void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects, Camera *camera)
 						this->x = coObjects->at(i)->x;
 						this->y -= 10;
 					}
+					else
+					{
+						this->x = coObjects->at(i)->x-20;
+						this->y -= 10;
+					}
 
 
 
@@ -581,8 +595,13 @@ void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects, Camera *camera)
 					isWalkFromBot = false;
 					if (direction == -1)
 					{
-						this->y += 10;
-						this->x = coObjects->at(i)->x - 10;
+						this->y += 25;
+						this->x = coObjects->at(i)->x - 50;
+					}
+					else
+					{
+						this->y += 25;
+						this->x = coObjects->at(i)->x + 50;
 					}
 
 				}
