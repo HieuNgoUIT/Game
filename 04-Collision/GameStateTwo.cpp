@@ -53,7 +53,7 @@ void GameStateTwo::Update(DWORD dt)
 			}
 
 		}
-		else if (simon->x < 3000 && simon->isCameraStair==false)
+		else if (simon->x < 3000 )//&& simon->isCameraStair==false)
 		{
 			camera->SetPosition(simon->x - 320 + 60, 0);//update man 2
 			camera->UpdateMap2();

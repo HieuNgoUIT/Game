@@ -101,7 +101,7 @@ void GameStateOne::Render()
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 		ui->Render();
-		tilemap->DrawMap(camera);
+		tilemap->DrawMaplvl1(camera);
 
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render(camera);

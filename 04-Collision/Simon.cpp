@@ -5,7 +5,7 @@
 Simon::Simon()
 {
 	_texture = new Texture("Resource\\sprites\\simon.png", 8, 3, 24);
-	_sprite = new Sprite(_texture, 100);
+	_sprite = new Sprite(_texture, 200);
 	whip = new Whip(x, y);
 	subwp = new SubWeapon(/*x, y*/);
 	tag = 1;
@@ -39,26 +39,26 @@ void Simon::GetBoundingBox(float & left, float & top, float & right, float & bot
 	{
 		if (direction == 1)
 		{
-			left = x - 20;
-			top = y - 60;
-			right = x + _texture->FrameWidth - 100;
+			left = x + 20;
+			top = y + 20;
+			right = x + _texture->FrameWidth;
 			bottom = y + _texture->FrameHeight - 3;
 		}
 		else
 		{
 			left = x + 12;
 			top = y - 1;
-			right = x + _texture->FrameWidth-15;
+			right = x + _texture->FrameWidth - 15;
 			bottom = y + _texture->FrameHeight - 3;
 		}
-		
+
 	}
 
 	else
 	{
 		left = x + 12;
 		top = y - 1;
-		right = x + _texture->FrameWidth-15;
+		right = x + _texture->FrameWidth - 15;
 		bottom = y + _texture->FrameHeight - 3;
 	}
 
@@ -67,7 +67,7 @@ void Simon::GetBoundingBox(float & left, float & top, float & right, float & bot
 void Simon::PreProcessOnStair(CGameObject *hiddenstair, Camera *camera)
 {
 
-	if (this->x < hiddenstair->x && hiddenstair->direction == -1) //stair trai qua phai
+	if (this->x < hiddenstair->x - 40 && hiddenstair->direction == -1) //stair trai qua phai
 	{
 		isCameraStair = true;
 		camera->StairGo(dt, hiddenstair->direction);
@@ -252,10 +252,18 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 		_sprite->SelectIndex(9);
 	}
 	else if (isOnStair) {
-		_sprite->SelectIndex(10);
-		if (game->IsKeyDown(DIK_UP) || game->IsKeyDown(DIK_DOWN))
+
+		//_sprite->SelectIndex(10);
+		if (game->IsKeyDown(DIK_UP))
 		{
+			if (index < 12 || index >= 13)
+				_sprite->SelectIndex(12);
 			_sprite->Update(dt);
+
+		}
+		if (game->IsKeyDown(DIK_DOWN))
+		{
+			_sprite->SelectIndex(10);
 		}
 
 
@@ -532,19 +540,23 @@ void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects, Camera *camera)
 			{
 				if (coObjects->at(i)->GetTag() == -7)
 				{
-					PreProcessBeforeOnStair(coObjects->at(i), camera);
-					if (this->y <= coObjects->at(i)->y) // sau khi da dieu chinh vi tri thi cho no onstair
-					{
-						isOnStair = true; //tren thang
-						isCameraStair = false;//cho camera theo map lai bth
-					}
-
+					//PreProcessBeforeOnStair(coObjects->at(i), camera);
+					//if (this->y <= coObjects->at(i)->y) // sau khi da dieu chinh vi tri thi cho no onstair
+					//{
+					isOnStair = true; //tren thang
+					//isCameraStair = false;//cho camera theo map lai bth
+				/*}*/
 					isBottomStair = true; //bat dau tu duoi
 					isTopStair = false; //ko phai tren
 					this->direction = coObjects->at(i)->direction; //gan simon direction = sarit direction
 					this->isLeft = coObjects->at(i)->isLeft;
 					isWalkFromBot = true;// o giua cau thang nhung o duoi
 					isWalkFromTop = false; // o giua cau thang nhung o tren
+					if (direction == 1)
+					{
+						this->x = coObjects->at(i)->x;
+						this->y -= 10;
+					}
 
 
 
@@ -555,19 +567,23 @@ void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects, Camera *camera)
 			{
 				if (coObjects->at(i)->GetTag() == 7)
 				{
-					PreProcessBeforeOnStair(coObjects->at(i), camera);
-					if (this->y >= coObjects->at(i)->y)
-					{
-						isOnStair = true; //tren thang
-						isCameraStair = false;
-					}
+					/*	PreProcessBeforeOnStair(coObjects->at(i), camera);
+						if (this->y >= coObjects->at(i)->y)
+						{*/
+					isOnStair = true; //tren thang
+				/*	isCameraStair = false;
+				}*/
 					isTopStair = true;
 					isBottomStair = false;
 					this->direction = coObjects->at(i)->direction;
 					this->isLeft = coObjects->at(i)->isLeft;
 					isWalkFromTop = true;
 					isWalkFromBot = false;
-
+					if (direction == -1)
+					{
+						this->y += 10;
+						this->x = coObjects->at(i)->x - 10;
+					}
 
 				}
 
@@ -583,13 +599,13 @@ void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects, Camera *camera)
 			{
 				if (coObjects->at(i)->GetTag() == 7 && isBottomStair == true)
 				{
-					PreProcessOnStair(coObjects->at(i), camera); // xu ly sau khi x > x stair thi tra ve iscamerastiar =false
+					//PreProcessOnStair(coObjects->at(i), camera); // xu ly sau khi x > x stair thi tra ve iscamerastiar =false
 					isWalkFromBot = false;
 
-					if (isCameraStair == false)
-					{
+					//if (isCameraStair == false)
+					//{
 						isOnStair = false;//xu ly camera lai bth theo map
-					}
+					//}
 				}
 				if (coObjects->at(i)->GetTag() == -7 && isTopStair == true)
 				{
