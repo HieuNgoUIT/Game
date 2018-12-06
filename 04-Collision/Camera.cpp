@@ -71,6 +71,14 @@ void Camera::UpdateMap21()
 	}
 }
 
+void Camera::UpdateWater()
+{
+	if (_viewport.x < 3250)
+	{
+		_viewport.x = 3250;
+	}
+}
+
 D3DXVECTOR2 Camera::Transform(int x, int y)
 {
 

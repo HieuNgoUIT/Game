@@ -470,6 +470,24 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 				y++;
 				CGameObject::Update(dt);
 			}
+			if (direction == 3 && isLeft==0)//truong hop db water
+			{
+				vx = 0;
+				vy = 0;
+				x=3230;
+				y=520;
+				direction = 1;
+				isLeft = 0;
+			}
+			if (direction == 3 && isLeft ==1)//truong hop db water
+			{
+				vx = 0;
+				vy = 0;
+				x = 3220;
+				y = 400;
+				direction = -1;
+				isLeft = 1;
+			}
 
 		}//
 		//die len o giua cau thang

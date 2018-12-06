@@ -97,7 +97,7 @@ void TileMap::DrawMapWater(Camera * camera)
 		for (int j = 0; j < col + 1; j++)
 		{
 			TileSprite->SelectIndex(tileMap[currentRow + i][currentCol + j]);
-			TileSprite->Draw(x + TileTexture->FrameHeight*j+110, y + TileTexture->FrameWidth*i );//75
+			TileSprite->Draw(x + TileTexture->FrameHeight*j, y + TileTexture->FrameWidth*i );//75
 		}
 	}
 }

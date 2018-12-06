@@ -38,6 +38,7 @@ void GameStateTwo::Update(DWORD dt)
 		if (simon->y > 450)//y duoi nuoc
 		{
 			camera->SetPosition(simon->x - 320 + 60, 450);
+			//camera->UpdateWater();
 		}
 		else if (simon->x > 3200) //man` 21
 		{

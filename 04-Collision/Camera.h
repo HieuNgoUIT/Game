@@ -23,6 +23,7 @@ public:
 	void Update();
 	void UpdateMap2();
 	void UpdateMap21();
+	void UpdateWater();
 	D3DXVECTOR2 Transform(int x, int y);
 
 	void SetPosition(int x, int y);
