@@ -19,25 +19,25 @@ Camera::~Camera()
 
 void Camera::Go(DWORD dt)
 {
-	float vx = 1.0f;
+	float vx = 0.15f;
 	float	dx = vx * dt;
 	_viewport.x += dx;
 
 }
 
-void Camera::StairGo(DWORD dt, int stairDirection)
-{
-	if (stairDirection)
-	{
-		vx = 0.05f;
-	}
-	else
-	{
-		vx = -0.05f;
-	}
-	float	dx = vx * dt;
-	_viewport.x += dx;
-}
+//void Camera::StairGo(DWORD dt, int stairDirection)
+//{
+//	if (stairDirection)
+//	{
+//		vx = 0.05f;
+//	}
+//	else
+//	{
+//		vx = -0.05f;
+//	}
+//	float	dx = vx * dt;
+//	_viewport.x += dx;
+//}
 
 void Camera::Update()
 {
@@ -53,21 +53,21 @@ void Camera::Update()
 
 void Camera::UpdateMap2()
 {
-	if (_viewport.x < 0)
+	if (_viewport.x < 60)
 	{
-		_viewport.x = 0;
+		_viewport.x =60;
 	}
-	if (_viewport.x > 2435)
+	if (_viewport.x > 2500)
 	{
-		_viewport.x = 2435;
+		_viewport.x = 2500;
 	}
 }
 
 void Camera::UpdateMap21()
 {
-	if (_viewport.x < 3050)
+	if (_viewport.x < 3150)
 	{
-		_viewport.x = 3050;
+		_viewport.x = 3150;
 	}
 }
 

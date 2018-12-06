@@ -55,7 +55,7 @@ void TileMap::DrawMap(Camera *camera)
 		for (int j = 0; j < col+1; j++)
 		{
 			TileSprite->SelectIndex(tileMap[currentRow + i][currentCol + j]);
-			TileSprite->Draw(x+TileTexture->FrameHeight*j-60,y+TileTexture->FrameWidth*i);//75
+			TileSprite->Draw(x+TileTexture->FrameHeight*j,y+TileTexture->FrameWidth*i);//75
 		}
 	}
 }
@@ -81,24 +81,24 @@ void TileMap::DrawMaplvl1(Camera * camera)
 	}
 }
 
-//void TileMap::DrawMapWater(Camera * camera)
-//{
-//	int row = 480 / 64;
-//	int	col = 640 / 64;
-//
-//	int currentRow = camera->GetViewport().y / 64;
-//	int currentCol = camera->GetViewport().x / 64;
-//
-//	x = -(int(camera->GetViewport().x) % TileTexture->FrameHeight);
-//	y = -(int(camera->GetViewport().y) % TileTexture->FrameHeight);
-//
-//	for (int i = 0; i < row; i++)
-//	{
-//		for (int j = 0; j < col + 1; j++)
-//		{
-//			TileSprite->SelectIndex(tileMap[currentRow + i][currentCol + j]);
-//			TileSprite->Draw(x + TileTexture->FrameHeight*j, y + TileTexture->FrameWidth*i );//75
-//		}
-//	}
-//}
+void TileMap::DrawMapWater(Camera * camera)
+{
+	int row = 480 / 64;
+	int	col = 640 / 64;
+
+	int currentRow = camera->GetViewport().y / 64;
+	int currentCol = camera->GetViewport().x / 64;
+
+	x = -(int(camera->GetViewport().x) % TileTexture->FrameHeight);
+	y = -(int(camera->GetViewport().y) % TileTexture->FrameHeight);
+
+	for (int i = 0; i < row; i++)
+	{
+		for (int j = 0; j < col + 1; j++)
+		{
+			TileSprite->SelectIndex(tileMap[currentRow + i][currentCol + j]);
+			TileSprite->Draw(x + TileTexture->FrameHeight*j+110, y + TileTexture->FrameWidth*i );//75
+		}
+	}
+}
 

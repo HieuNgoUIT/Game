@@ -13,7 +13,7 @@ void GameStateTwo::LoadResources()
 	grid->ReadFileToGrid("Resource\\sprites\\Grid\\lv2.txt"); //20 4 80    14 90
 	ui = new UI();
 	ui->Initialize(simon, 16);
-	door = new Door(3043, 120);
+	door = new Door(3115, 130);
 	//2893 156
 }
 
@@ -24,7 +24,7 @@ void GameStateTwo::Update(DWORD dt)
 	if (simon->isColliding(simon, door)) //va cham voi door
 	{
 		door->Update(dt);
-		if (camera->GetViewport().x < 2800)
+		if (camera->GetViewport().x < 2900)
 		{
 			camera->Go(dt); //move camera
 		}
@@ -41,7 +41,7 @@ void GameStateTwo::Update(DWORD dt)
 		}
 		else if (simon->x > 3200) //man` 21
 		{
-			if (camera->GetViewport().x < 3025)
+			if (camera->GetViewport().x < 3150)
 			{
 				camera->Go(dt); //move camera sau khi simon di 1 ti
 				simon->isStage21 = true;
@@ -135,8 +135,15 @@ void GameStateTwo::Render()
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 		ui->Render();
-
-		tilemap->DrawMap(camera);
+		if (simon->y > 450)//y duoi nuoc
+		{
+			tilemap->DrawMapWater(camera);
+		}
+		else
+		{
+			tilemap->DrawMap(camera);
+		}
+		
 
 
 

@@ -64,73 +64,73 @@ void Simon::GetBoundingBox(float & left, float & top, float & right, float & bot
 
 }
 
-void Simon::PreProcessOnStair(CGameObject *hiddenstair, Camera *camera)
-{
+//void Simon::PreProcessOnStair(CGameObject *hiddenstair, Camera *camera)
+//{
+//
+//	if (this->x < hiddenstair->x - 40 && hiddenstair->direction == -1) //stair trai qua phai
+//	{
+//		isCameraStair = true;
+//		camera->StairGo(dt, hiddenstair->direction);
+//	}
+//	else if (this->x > hiddenstair->x && hiddenstair->direction == 1) { //stair phai qua trai
+//		isCameraStair = true;
+//		camera->StairGo(dt, hiddenstair->direction);
+//	}
+//	else
+//	{
+//		isCameraStair = false;
+//	}
+//	vx = 0.05f * -hiddenstair->direction;//- vi dung stair doi dien
+//	dx = vx * dt;
+//	x += dx;
+//
+//}
 
-	if (this->x < hiddenstair->x - 40 && hiddenstair->direction == -1) //stair trai qua phai
-	{
-		isCameraStair = true;
-		camera->StairGo(dt, hiddenstair->direction);
-	}
-	else if (this->x > hiddenstair->x && hiddenstair->direction == 1) { //stair phai qua trai
-		isCameraStair = true;
-		camera->StairGo(dt, hiddenstair->direction);
-	}
-	else
-	{
-		isCameraStair = false;
-	}
-	vx = 0.05f * -hiddenstair->direction;//- vi dung stair doi dien
-	dx = vx * dt;
-	x += dx;
-
-}
-
-void Simon::PreProcessBeforeOnStair(CGameObject * hiddenstair, Camera * camera)
-{
-	// xu ly truoc khi cham cau thang
-	//dieu chinh lai vi tri hop voi hidden stair
-	if (hiddenstair->tag == -7)
-	{
-		if (hiddenstair->direction == 1)
-		{
-			isCameraStair = true; //111 7 1433 280 -1 1
-			camera->StairGo(dt, hiddenstair->direction);
-			this->x = hiddenstair->x;
-			this->y -= 20;
-		}
-		else
-		{
-			isCameraStair = true;
-			camera->StairGo(dt, hiddenstair->direction);
-			this->x -= 20;
-			this->y -= 20;
-		}
-	}
-	else
-	{
-		if (hiddenstair->direction == 1)
-		{
-			isCameraStair = true;
-			camera->StairGo(dt, hiddenstair->direction);
-			this->x = hiddenstair->x + 20;
-			this->y += 20;
-		}
-		else
-		{
-			isCameraStair = true;
-			camera->StairGo(dt, hiddenstair->direction);
-			this->x = hiddenstair->x;
-			this->y += 20;
-		}
-	}
-
-
-
-
-	//this->x = hiddenstair->x+1;
-
-}
+//void Simon::PreProcessBeforeOnStair(CGameObject * hiddenstair, Camera * camera)
+//{
+//	// xu ly truoc khi cham cau thang
+//	//dieu chinh lai vi tri hop voi hidden stair
+//	if (hiddenstair->tag == -7)
+//	{
+//		if (hiddenstair->direction == 1)
+//		{
+//			isCameraStair = true; //111 7 1433 280 -1 1
+//			camera->StairGo(dt, hiddenstair->direction);
+//			this->x = hiddenstair->x;
+//			this->y -= 20;
+//		}
+//		else
+//		{
+//			isCameraStair = true;
+//			camera->StairGo(dt, hiddenstair->direction);
+//			this->x -= 20;
+//			this->y -= 20;
+//		}
+//	}
+//	else
+//	{
+//		if (hiddenstair->direction == 1)
+//		{
+//			isCameraStair = true;
+//			camera->StairGo(dt, hiddenstair->direction);
+//			this->x = hiddenstair->x + 20;
+//			this->y += 20;
+//		}
+//		else
+//		{
+//			isCameraStair = true;
+//			camera->StairGo(dt, hiddenstair->direction);
+//			this->x = hiddenstair->x;
+//			this->y += 20;
+//		}
+//	}
+//
+//
+//
+//
+//	//this->x = hiddenstair->x+1;
+//
+//}
 
 void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 {
@@ -224,14 +224,14 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 {
 	CGame *game = CGame::GetInstance();
 	/* Không cho lọt khỏi camera */
-	if (x < -10)
-		x = -10;
+	if (x < 60)
+		x = 60;
 	/*if (x >3000)
 		x = 3000;*/
-	if (isStage21 && x < 3050)
+	/*if (isStage21 && x < 3050)
 	{
 		x = 3050;
-	}
+	}*/
 
 	if (GetTickCount() - untouchable_start > 5000)
 	{
@@ -600,8 +600,8 @@ void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects, Camera *camera)
 					}
 					else
 					{
-						this->y += 25;
-						this->x = coObjects->at(i)->x + 50;
+						this->y += 20;
+						this->x = coObjects->at(i)->x + 35;
 					}
 
 				}

@@ -19,7 +19,7 @@ public:
 	Camera(int w, int h/*, int b_left, int b_right*/);
 	~Camera();
 	void Go(DWORD dt);
-	void StairGo(DWORD dt,int stairDirection);
+	/*void StairGo(DWORD dt,int stairDirection);*/
 	void Update();
 	void UpdateMap2();
 	void UpdateMap21();
