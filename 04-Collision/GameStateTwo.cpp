@@ -5,10 +5,10 @@ void GameStateTwo::LoadResources()
 	game = CGame::GetInstance();
 	camera = new Camera(640, 480);
 	simon = new Simon();
-	simon->SetPosition(SIMON_POSITION_DEFAULT);
+	simon->SetPosition(SIMON_POSITION_DEFAULT); //33 4 14
 	tilemap = new TileMap();
 	tilemap = new TileMap();
-	tilemap->LoadMap("Resource/sprites/Grid/lv2.b", "Resource/sprites/Grid/lv2.s", 20, 4, 80, 14, 90); // 18 4 72 12 88
+	tilemap->LoadMap("Resource/sprites/Grid/test1.b", "Resource/sprites/Grid/test1.s", 34, 4, 136, 14, 90); 
 	grid = new Grid();
 	grid->ReadFileToGrid("Resource\\sprites\\Grid\\lv2.txt"); //20 4 80    14 90
 	ui = new UI();

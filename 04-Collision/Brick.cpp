@@ -22,11 +22,11 @@ Brick::Brick(int TYPE,int X, int Y, int W, int H)
 
 void Brick::Render(Camera *camera)
 {
-	D3DXVECTOR2 pos=camera->Transform(x, y);
+	/*D3DXVECTOR2 pos=camera->Transform(x, y);
 	for (int i = 0; i < (int)ceil(width / BRICK_FRAME_WIDTH); i++)
 		for (int j = 0; j < (int)ceil(height / BRICK_FRAME_HEIGHT); j++)
 			_sprite->Draw(pos.x + i * BRICK_FRAME_WIDTH, pos.y + j * BRICK_FRAME_HEIGHT);
-	CGameObject::RenderBoundingBox(camera);
+	CGameObject::RenderBoundingBox(camera);*/
 }
 
 

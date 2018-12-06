@@ -419,6 +419,20 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 				y--;
 				CGameObject::Update(dt);
 			}
+			//if (direction == 3 && isLeft == 1)//truong hop db water
+			//{
+			//	/*vx = 0;
+			//	vy = 0;
+			//	x = 3220;
+			//	y = 400;
+			//	direction = -1;
+			//	isLeft = 1;*/
+			//	vx = 0;
+			//	vy = 0;
+			//	x--;
+			//	y--;
+			//	CGameObject::Update(dt);
+			//}
 
 
 
@@ -470,24 +484,16 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 				y++;
 				CGameObject::Update(dt);
 			}
-			if (direction == 3 && isLeft==0)//truong hop db water
-			{
-				vx = 0;
-				vy = 0;
-				x=3230;
-				y=520;
-				direction = 1;
-				isLeft = 0;
-			}
-			if (direction == 3 && isLeft ==1)//truong hop db water
-			{
-				vx = 0;
-				vy = 0;
-				x = 3220;
-				y = 400;
-				direction = -1;
-				isLeft = 1;
-			}
+			//if (direction == 3 && isLeft==0)//truong hop db water
+			//{
+			//	vx = 0;
+			//	vy = 0;
+			//	x=3230;
+			//	y=520;
+			//	direction = 1;
+			//	isLeft = 0;
+			//}
+			
 
 		}//
 		//die len o giua cau thang
@@ -514,6 +520,16 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 			}
 
 		}
+
+		//if (y>450 )//truong hop db water
+		//{
+		//	vx = 0;
+		//	vy = 0;
+		//	x=3230;
+		//	y=520;
+		//	direction = 1;
+		//	isLeft = 0;
+		//}
 	}
 
 	if (!isOnStair)
