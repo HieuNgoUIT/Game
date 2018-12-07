@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "WaterEffect.h"
 class Merman :public CGameObject
 {
 public:
@@ -7,6 +8,9 @@ public:
 	float startYpos;
 	Merman(int X, int Y);
 	~Merman();
+	WaterEffect *watereffect;
+	WaterEffect *watereffect1;
+	WaterEffect *watereffect2;
 	bool isReachPoint;
 	float reviveTime = 70;
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);

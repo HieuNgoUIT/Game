@@ -10,6 +10,9 @@ Merman::Merman(int X, int Y)
 	direction = 1;
 	startXpos = X;
 	startYpos = Y;
+	watereffect = new WaterEffect();
+	watereffect1 = new WaterEffect();
+	watereffect2 = new WaterEffect();
 	/*vx = -0.1f;*/
 	//vy = 10;
 }
@@ -51,7 +54,10 @@ void Merman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			isReachPoint = true;
 			vy = 0.05f*dt;
-			//y += dy;
+			watereffect->SetPosition(this->x, this->y);
+			watereffect1->SetPosition(this->x-50, this->y-10);
+			watereffect2->SetPosition(this->x+50, this->y+10);
+			
 		}
 		if(!isReachPoint)
 		{
@@ -60,7 +66,9 @@ void Merman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		
 		_sprite->Update(dt);
-
+		watereffect->Update(dt);
+		watereffect1->Update(dt);
+		watereffect2->Update(dt);
 		vector<LPGAMEOBJECT> coObjects_Brick;
 		coObjects_Brick.clear();
 		for (int i = 0; i < coObjects->size(); i++)
@@ -87,6 +95,9 @@ void Merman::Render(Camera * camera)
 			_sprite->Draw(pos.x, pos.y);
 		else
 			_sprite->DrawFlipX(pos.x, pos.y);
+		watereffect->Render(camera);
+		watereffect1->Render(camera);
+		watereffect2->Render(camera);
 		RenderBoundingBox(camera);
 	}
 	else

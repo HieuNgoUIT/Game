@@ -136,14 +136,14 @@ void GameStateTwo::Render()
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 		ui->Render();
-		if (simon->y > 450)//y duoi nuoc
-		{
-			tilemap->DrawMapWater(camera);
-		}
-		else
-		{
+		//if (simon->y > 450)//y duoi nuoc
+		//{
+		//	tilemap->DrawMapWater(camera);
+		//}
+		//else
+		//{
 			tilemap->DrawMap(camera);
-		}
+		/*}*/
 		
 
 

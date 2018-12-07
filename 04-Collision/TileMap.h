@@ -48,7 +48,7 @@ public:
 	void ReadFile(char * filename, int rowmaxtrix, int colmatrix);
 	void DrawMap(Camera * camera);
 	void DrawMaplvl1(Camera * camera);
-	void DrawMapWater(Camera * camera);
+	/*void DrawMapWater(Camera * camera);*/
 
 };
 
