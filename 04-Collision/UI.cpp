@@ -83,6 +83,14 @@ bool UI::Initialize( Simon *simon, int bossHP)
 	tKnife = new Texture("Resource\\sprites\\UI\\KNIFE.png", 1, 1, 1);
 	knife = new Sprite(tKnife, 100);
 
+
+
+	tsimonHPList = new Texture("Resource\\sprites\\UI\\HP.png", 1, 1, 1);
+	simonHPList = new Sprite(tsimonHPList,100);
+
+	tnoHPList = new Texture("Resource\\sprites\\UI\\NoHP.png", 1, 1, 1);
+	noHPList = new Sprite(tnoHPList, 100);
+
 	/*stopWatch = new Sprite(350, 55);
 	stopWatch->Initialize(gDevice, "Resource\\sprites\\UI\\STOP_WATCH.png");
 
@@ -238,7 +246,15 @@ void UI::Render()
 	//(*enemyHPList)[0]->Render(newPosition, newRect);
 
 	//SetRect(&newRect, 0, 0, 16, 16);
-	heart->Draw(420,42);
+	for (int i = 0; i <= simon->health; i+=5)
+	{
+		simonHPList->Draw(i*2+130, 27);
+	}
+	for (int i = 0; i <=80- simon->health; i += 5)
+	{
+		noHPList->Draw(290-i*2, 27);
+	}
+	heart->Draw(420,27);
 
 	/*weapon->Render(weapon->GetPosition());
 

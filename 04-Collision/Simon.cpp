@@ -15,7 +15,7 @@ Simon::Simon()
 	isSitting = 0;
 	isAttacking = 0;
 	direction = 1;
-	health = 1; // simon dính 16 phát là chết
+	health = 80; // simon dính 16 phát là chết
 
 	//_ListWeapon.clear();
 	//_ListWeapon.push_back(new MorningStar());
@@ -238,22 +238,31 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 		untouchable_start = 0;
 		untouchable = 0;
 	}
+	if (GetTickCount() - beingHit_start > 500)
+	{
+		beingHit_start = 0;
+		beingHit = 0;
+	}
 
 	/* Update về sprite */
 #pragma region Sprite update
 	int index = _sprite->GetIndex();
 
-	/*if (health < 0)
-	{
-		_sprite->SelectIndex(8);
-	}*/
-	/*else*/ if (untouchable)
+
+	if (beingHit)
 	{
 		_sprite->SelectIndex(8);
 	}
-	else if (isOnStair) {
-
-	//_sprite->SelectIndex(10);
+	else if (isOnStair)
+	{
+		if (untouchable)
+		{
+			_sprite->SetARGB(255, 255, 255, 30);
+		}
+		else
+		{
+			_sprite->SetARGB();
+		}
 		if (game->IsKeyDown(DIK_UP))
 		{
 			if (index < 12 || index > 13)
@@ -283,71 +292,89 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 
 		}
 	}
-	else
-		if (isWalking == true) // đang di chuyển
+	else if (isWalking == true) // đang di chuyển
+	{
+		if (untouchable)
 		{
-			if (isJumping == false) // ko nhảy
-			{
-				if (index < SIMON_ANI_BEGIN_WALKING || index >= SIMON_ANI_END_WALKING)
-					_sprite->SelectIndex(SIMON_ANI_BEGIN_WALKING);
-				if (isAttacking == true)
-				{
-					/*if (index < SIMON_ANI_BEGIN_HITTING || index > SIMON_ANI_END_HITTING)*/
-					_sprite->SelectIndex(SIMON_ANI_BEGIN_HITTING);
-				}
-
-				//cập nhật frame mới
-				_sprite->Update(dt); // dt này được cập nhật khi gọi update; 
-			}
-			else
-			{
-				if (isAttacking == true)
-				{
-					if (index < 5 || index >= 8)
-					{
-						_sprite->SelectIndex(5);
-					}
-					_sprite->Update(dt);
-				}
-				else
-				{
-					_sprite->SelectIndex(SIMON_ANI_JUMPING);
-				}
-
-			}
-
+			_sprite->SetARGB(255, 255, 255, 30);
 		}
 		else
-			if (isJumping == true) // nếu ko đi mà chỉ nhảy
-			{
-				if (isAttacking == true)
-				{
-					if (index < 5 || index >= 8)
-					{
-						_sprite->SelectIndex(5);
-					}
-					_sprite->Update(dt);
-				}
-				else
-				{
-					_sprite->SelectIndex(SIMON_ANI_JUMPING);
-				}
+		{
+			_sprite->SetARGB();
+		}
+		if (isJumping == false) // ko nhảy
+		{
 
+			if (index < SIMON_ANI_BEGIN_WALKING || index >= SIMON_ANI_END_WALKING)
+				_sprite->SelectIndex(SIMON_ANI_BEGIN_WALKING);
+			if (isAttacking == true)
+			{
+				/*if (index < SIMON_ANI_BEGIN_HITTING || index > SIMON_ANI_END_HITTING)*/
+				_sprite->SelectIndex(SIMON_ANI_BEGIN_HITTING);
 			}
-			else if (isAttacking == true)
+			//cập nhật frame mới
+			_sprite->Update(dt); // dt này được cập nhật khi gọi update; 
+		}
+		else
+		{
+			if (isAttacking == true)
 			{
 				if (index < 5 || index >= 8)
 				{
 					_sprite->SelectIndex(5);
 				}
-
 				_sprite->Update(dt);
 			}
 			else
 			{
-				_sprite->SelectIndex(SiMON_ANI_IDLE);		// SIMON đứng yên
-
+				_sprite->SelectIndex(SIMON_ANI_JUMPING);
 			}
+
+		}
+
+	}
+	else
+	{
+		if (untouchable)
+		{
+			_sprite->SetARGB(255, 255, 255, 30);
+		}
+		else
+		{
+			_sprite->SetARGB();
+		}
+		if (isJumping == true) // nếu ko đi mà chỉ nhảy
+		{
+			if (isAttacking == true)
+			{
+				if (index < 5 || index >= 8)
+				{
+					_sprite->SelectIndex(5);
+				}
+				_sprite->Update(dt);
+			}
+			else
+			{
+				_sprite->SelectIndex(SIMON_ANI_JUMPING);
+			}
+
+		}
+		else if (isAttacking == true)
+		{
+			if (index < 5 || index >= 8)
+			{
+				_sprite->SelectIndex(5);
+			}
+
+			_sprite->Update(dt);
+		}
+		else
+		{
+			_sprite->SelectIndex(SiMON_ANI_IDLE);		// SIMON đứng yên
+
+		}
+	}
+
 
 	/* Update về sprite */
 
@@ -536,6 +563,7 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 	{
 		CGameObject::Update(dt);
 		vy += SIMON_GRAVITY * dt;// Simple fall down
+		//vx += 0.5f*dt;
 	}
 
 
@@ -873,20 +901,17 @@ void Simon::CollisionWithZombie(vector<LPGAMEOBJECT>* coObjects)
 		{
 			if (untouchable == 0)
 			{
-				vy = -1.0f;
+				vx = 0.5f*coObjects->at(i)->direction;
+				vy = -0.5f;
+				CGameObject::Update(dt);
 				y += dy;
-				if (direction == 1)
-				{
-					vx = -10.0f;
-				}
-				else
-				{
-					vx = 10.0f;
-				}
 				x += dx;
+				//dx = vx * dt;			
 				StartUntouchable();
-				health--;
+				StartBeingHit();
+				health-=10;
 			}
+
 		}
 	}
 

@@ -113,7 +113,7 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 
 void CSampleKeyHander::KeyState(BYTE *states)
 {
-	if (gamestatemanager->gamestate->simon->untouchable) return;
+	
 	if (gamestatemanager->gamestate->game->IsKeyDown(DIK_DOWN))
 	{
 		if (gamestatemanager->gamestate->simon->isOnStair == false)
@@ -136,6 +136,7 @@ void CSampleKeyHander::KeyState(BYTE *states)
 
 	if (!gamestatemanager->gamestate->simon->isOnStair)
 	{
+		if (gamestatemanager->gamestate->simon->beingHit) return;
 		if (gamestatemanager->gamestate->game->IsKeyDown(DIK_RIGHT))
 		{
 			gamestatemanager->gamestate->simon->Right();

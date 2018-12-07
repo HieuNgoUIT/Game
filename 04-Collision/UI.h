@@ -15,13 +15,15 @@ private:
 
 	std::string information;
 
-	std::vector<Sprite*> *simonHPLists;
+
 	Texture * tsimonHPList;
 	Sprite* simonHPList;
-	std::vector<Sprite*> *enemyHPLists;
+
+	
 	Texture * tenemyHPList;
 	Sprite* enemyHPList;
-	std::vector<Sprite*> *noHPLists;
+
+	
 	Texture * tnoHPList;
 	Sprite* noHPList;
 

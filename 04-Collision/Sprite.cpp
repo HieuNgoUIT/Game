@@ -131,7 +131,7 @@ void Sprite::Draw(int X, int Y)
 		&srect,
 		NULL,
 		&p,
-		D3DCOLOR_XRGB(R, G, B)
+		D3DCOLOR_ARGB(R, G, B, A)
 	);
 
 

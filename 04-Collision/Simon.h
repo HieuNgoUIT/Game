@@ -78,7 +78,10 @@ public:
 	~Simon();
 	int untouchable;
 	DWORD untouchable_start;
+	int beingHit;
+	DWORD beingHit_start;
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
+	void StartBeingHit() { beingHit = 1; beingHit_start = GetTickCount(); }
 	void CollisionWithItem(vector<LPGAMEOBJECT>* coObjects);
 	 void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	// void PreProcessOnStair(CGameObject *hiddenstair,  Camera *camera);
