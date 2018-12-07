@@ -43,14 +43,17 @@ void Pander::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		if (x < 1100)
+		if (x < startXpos-300)
 		{
 			direction = -direction;
-			x = 1150;
+			x += 10;
 		}
-		CGameObject::Update(dt);
+		
 		vx = 0.2f*direction;
-		vy += 0.005f * dt;
+		vy = 0.05f * dt;
+		CGameObject::Update(dt);
+	//	x += dx;
+		//y += dy;
 		
 		/*if (direction == -1)
 		{
@@ -115,13 +118,13 @@ void Pander::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 		x += min_tx * dx + nx * 0.4f;
 		y += min_ty * dy + ny * 0.4f;
 
-		if (nx != 0)
-			vx = 0;
+		//if (nx != 0)
+		//	vx = 0;
 
-		if (ny != 0)
-		{
-			vy = 0;
-		}
+		//if (ny != 0)
+		//{
+		//	vy = 0;
+		//}
 
 	}
 

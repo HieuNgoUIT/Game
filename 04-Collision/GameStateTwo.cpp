@@ -8,7 +8,7 @@ void GameStateTwo::LoadResources()
 	simon->SetPosition(SIMON_POSITION_DEFAULT); //33 4 14
 	tilemap = new TileMap();
 	tilemap = new TileMap();
-	tilemap->LoadMap("Resource/sprites/Grid/test1.b", "Resource/sprites/Grid/test1.s", 34, 4, 136, 14, 90); 
+	tilemap->LoadMap("Resource/sprites/Grid/test1.b", "Resource/sprites/Grid/test1.s", 34, 4, 136, 14, 90);
 	grid = new Grid();
 	grid->ReadFileToGrid("Resource\\sprites\\Grid\\lv2.txt"); //20 4 80    14 90
 	ui = new UI();
@@ -20,7 +20,7 @@ void GameStateTwo::LoadResources()
 void GameStateTwo::Update(DWORD dt)
 {
 #pragma region Camera
-	
+
 	if (simon->isColliding(simon, door)) //va cham voi door
 	{
 		door->Update(dt);
@@ -38,7 +38,7 @@ void GameStateTwo::Update(DWORD dt)
 		if (simon->y > 450)//y duoi nuoc
 		{
 			camera->SetPosition(simon->x - 320 + 60, 450);
-			//camera->UpdateWater();
+			camera->UpdateWater();
 		}
 		else if (simon->x > 3200) //man` 21
 		{
@@ -54,7 +54,7 @@ void GameStateTwo::Update(DWORD dt)
 			}
 
 		}
-		else if (simon->x < 3000 )//&& simon->isCameraStair==false)
+		else if (simon->x < 3000)//&& simon->isCameraStair==false)
 		{
 			camera->SetPosition(simon->x - 320 + 60, 0);//update man 2
 			camera->UpdateMap2();
@@ -100,7 +100,7 @@ void GameStateTwo::Update(DWORD dt)
 	{
 		items[i]->Update(dt);
 	}
-	simon->Update(dt,camera, &coObjects, &items);
+	simon->Update(dt, camera, &coObjects, &items);
 
 	//door->_sprite->SelectIndex(0);
 
@@ -142,9 +142,9 @@ void GameStateTwo::Render()
 		//}
 		//else
 		//{
-			tilemap->DrawMap(camera);
+		tilemap->DrawMap(camera);
 		/*}*/
-		
+
 
 
 

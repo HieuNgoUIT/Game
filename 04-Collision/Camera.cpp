@@ -69,6 +69,10 @@ void Camera::UpdateMap21()
 	{
 		_viewport.x = 3150;
 	}
+	if (_viewport.x > 5069)
+	{
+		_viewport.x = 5069;
+	}
 }
 
 void Camera::UpdateWater()
@@ -76,6 +80,10 @@ void Camera::UpdateWater()
 	if (_viewport.x < 3250)
 	{
 		_viewport.x = 3250;
+	}
+	if (_viewport.x > 3642)
+	{
+		_viewport.x = 3642;
 	}
 }
 
