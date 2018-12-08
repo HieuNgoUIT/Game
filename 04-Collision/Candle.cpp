@@ -28,7 +28,7 @@ void Candle::GetBoundingBox(float & left, float & top, float & right, float & bo
 	}
 }
 
-void Candle::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Candle::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 {
 
 	if (!isDead)

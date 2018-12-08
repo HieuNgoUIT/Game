@@ -18,7 +18,7 @@ CGameObject::CGameObject()
 	
 }
 
-void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+void CGameObject::Update(DWORD dt, float simonx ,vector<LPGAMEOBJECT> *coObjects )
 {
 	if (!isDead)
 	{

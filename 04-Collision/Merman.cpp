@@ -31,7 +31,7 @@ void Merman::GetBoundingBox(float & left, float & top, float & right, float & bo
 	}
 }
 
-void Merman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Merman::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 {
 	if (isDead)
 	{

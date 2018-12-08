@@ -92,16 +92,33 @@ void GameStateTwo::Update(DWORD dt)
 			coObjects.push_back(objects[i]); //neu ma rot item =false thi` da~ chet' nen ko push vao co0bject nua
 		}	
 	}
-	for (int i = 0; i < objects.size(); i++)
+	if (!simon->isStopwatch)
 	{
-		objects[i]->Update(dt, &coObjects);
+		for (int i = 0; i < objects.size(); i++)
+		{
+			objects[i]->Update(dt, simon->x, &coObjects);
+		}
 	}
+	else
+	{
+
+	}
+	
 	for (int i = 0; i < items.size(); i++)
 	{
 		items[i]->Update(dt);
 	}
 	simon->Update(dt, camera, &coObjects, &items);
-
+	if (simon->isRosary)
+	{
+		for (int i = 0; i < objects.size(); i++)
+			if (objects[i]->tag == 500)
+			{
+				objects[i]->isDead = true;
+			}
+			
+		simon->isRosary = false;
+	}
 }
 
 void GameStateTwo::Render()
@@ -129,7 +146,7 @@ void GameStateTwo::Render()
 
 
 
-
+	
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render(camera);
 		for (int i = 0; i < items.size(); i++)

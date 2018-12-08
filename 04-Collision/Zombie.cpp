@@ -30,7 +30,7 @@ void Zombie::GetBoundingBox(float & left, float & top, float & right, float & bo
 	}
 }
 
-void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Zombie::Update(DWORD dt,  float simonx, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (isDead)
 	{
@@ -46,31 +46,34 @@ void Zombie::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		
-		CGameObject::Update(dt);
-		if (x < 10)
+		if (simonx > startXpos-640 && simonx < startXpos+640)
 		{
-			direction = -direction;
-		}
-		if (direction == -1)
-		{
-			x -= vx;
-		}
-		else
-		{
-			x += vx;
-		}
-		y += vy;
-		_sprite->Update(dt);
+			CGameObject::Update(dt);
+			if (x < 10)
+			{
+				direction = -direction;
+			}
+			if (direction == -1)
+			{
+				x -= vx;
+			}
+			else
+			{
+				x += vx;
+			}
+			y += vy;
+			_sprite->Update(dt);
 
-		vector<LPGAMEOBJECT> coObjects_Brick;
-		coObjects_Brick.clear();
-		for (int i = 0; i < coObjects->size(); i++)
-		{
-			if (coObjects->at(i)->GetTag() == 41)
-				coObjects_Brick.push_back(coObjects->at(i));
+			vector<LPGAMEOBJECT> coObjects_Brick;
+			coObjects_Brick.clear();
+			for (int i = 0; i < coObjects->size(); i++)
+			{
+				if (coObjects->at(i)->GetTag() == 41)
+					coObjects_Brick.push_back(coObjects->at(i));
+			}
+			CollisionWithBrick(&coObjects_Brick);
 		}
-		CollisionWithBrick(&coObjects_Brick);
+		
 	}
 	
 }

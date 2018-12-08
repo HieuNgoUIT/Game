@@ -29,7 +29,7 @@ void Pander::GetBoundingBox(float & left, float & top, float & right, float & bo
 	}
 }
 
-void Pander::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Pander::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 {
 	if (isDead)
 	{
@@ -43,37 +43,30 @@ void Pander::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		if (x < startXpos-300)
+		if (simonx > startXpos - 200 && simonx < startXpos + 640)
 		{
-			direction = -direction;
-			x += 10;
-		}
-		
-		vx = 0.2f*direction;
-		vy = 0.05f * dt;
-		CGameObject::Update(dt);
-	//	x += dx;
-		//y += dy;
-		
-		/*if (direction == -1)
-		{
-			x -= vx;
-		}
-		else
-		{
-			x += vx;
-		}*/
-		//y += vy;
-		_sprite->Update(dt);
+			if (x < startXpos - 300)
+			{
+				direction = -direction;
+				x += 10;
+			}
 
-		vector<LPGAMEOBJECT> coObjects_Brick;
-		coObjects_Brick.clear();
-		for (int i = 0; i < coObjects->size(); i++)
-		{
-			if (coObjects->at(i)->GetTag() == 41)
-				coObjects_Brick.push_back(coObjects->at(i));
+			vx = 0.2f*direction;
+			vy = 0.05f * dt;
+			CGameObject::Update(dt);
+
+			_sprite->Update(dt);
+
+			vector<LPGAMEOBJECT> coObjects_Brick;
+			coObjects_Brick.clear();
+			for (int i = 0; i < coObjects->size(); i++)
+			{
+				if (coObjects->at(i)->GetTag() == 41)
+					coObjects_Brick.push_back(coObjects->at(i));
+			}
+			CollisionWithBrick(&coObjects_Brick);
 		}
-		CollisionWithBrick(&coObjects_Brick);
+		
 	}
 
 }

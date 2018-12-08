@@ -97,6 +97,14 @@ Item::Item(char* link, int X, int Y)
 	{
 		tag = HOLYWATER_TAG;
 	}
+	else if (link == ROSARY_PATH)
+	{
+		tag = ROSARY_TAG;
+	}
+	else if (link == STOPWATCH_PATH)
+	{
+		tag = STOPWATCH_TAG;
+	}
 
 }
 
@@ -119,7 +127,7 @@ void Item::GetBoundingBox(float & left, float & top, float & right, float & bott
 
 }
 
-void Item::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Item::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 {
 	if (!isDead)
 	{

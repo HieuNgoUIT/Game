@@ -30,7 +30,7 @@ void Bat::GetBoundingBox(float & left, float & top, float & right, float & botto
 	}
 }
 
-void Bat::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Bat::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 {
 	if (isDead)
 	{

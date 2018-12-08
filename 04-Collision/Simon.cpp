@@ -178,6 +178,14 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 				isSubwp = true;
 				subwp = new HolyWater(x, y);
 			}
+			else if (coObjects->at(i)->tag == ROSARY_TAG)
+			{
+				isRosary = true;
+			}
+			else if (coObjects->at(i)->tag == STOPWATCH_TAG)
+			{
+				isStopwatch = true;
+			}
 			coObjects->at(i)->isDead = true;
 			Sound::GetInstance()->Play(COLLECT_ITEM);
 
