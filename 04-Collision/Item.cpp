@@ -93,6 +93,10 @@ Item::Item(char* link, int X, int Y)
 	{
 		tag = AXE_TAG;
 	}
+	else if (link == HOLYWATER_PATH)
+	{
+		tag = HOLYWATER_TAG;
+	}
 
 }
 

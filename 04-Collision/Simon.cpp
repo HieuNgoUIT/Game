@@ -173,6 +173,11 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 				isSubwp = true;
 				subwp = new Axe(x, y);
 			}
+			else if (coObjects->at(i)->tag == HOLYWATER_TAG)
+			{
+				isSubwp = true;
+				subwp = new HolyWater(x, y);
+			}
 			coObjects->at(i)->isDead = true;
 			Sound::GetInstance()->Play(COLLECT_ITEM);
 
@@ -1053,6 +1058,7 @@ void Simon::ThrowSubWp()
 			throwSubwp = 1;
 			//subwp->isDead = false;
 			subwp->Create(this->x, this->y, this->direction);
+			subwp->_sprite->SelectIndex(0);
 			useableHeart--;
 		}
 	}

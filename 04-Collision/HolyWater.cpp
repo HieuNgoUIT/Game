@@ -6,7 +6,7 @@ HolyWater::~HolyWater()
 HolyWater::HolyWater(int X, int Y)
 {
 	_texture = new Texture("Resource\\sprites\\Sub_weapons\\HOLY_WATER_ACTION.png", 3, 1, 3);
-	_sprite = new Sprite(_texture, 100);
+	_sprite = new Sprite(_texture, 300);
 	x = X;
 	y = Y;
 	tag = 3;
@@ -16,17 +16,11 @@ HolyWater::HolyWater(int X, int Y)
 void HolyWater::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
-
-	remainingTime--;
-	if (remainingTime < 0)
-	{
-		this->isFinish = true;
-		this->CheckTop = false;
-	}
 	if (!isFinish)
 	{
-		vx = 0.4f*direction;
-		vy = 0.05f*dt;
+		
+		vx = 0.04f*direction;
+		vy = 0.005f*dt;
 		CGameObject::Update(dt);
 		//x += dx;
 		//y += dy;
@@ -74,14 +68,25 @@ void HolyWater::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 		if (nx != 0)
 		{
 			vx = 0;
-			this->isFinish = true;
+			vy = 0;
+			_sprite->Update(dt);
+			if (_sprite->GetIndex() >= 2)
+			{
+				this->isFinish = true;
+			}
 		}
 			// nếu mà nx, ny <>0  thì nó va chạm rồi. mà chạm rồi thì dừng vận tốc cho nó đừng chạy nữa
 
 		if (ny != 0)
 		{
+			vx = 0;
 			vy = 0;
-			this->isFinish = true;
+			_sprite->Update(dt);
+			if (_sprite->GetIndex() >= 2)
+			{
+				this->isFinish = true;
+			}
+			
 		}
 
 		//// Collision logic with Goombas
