@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "WaterEffect.h"
+#include "Sound.h"
 class Merman :public CGameObject
 {
 public:

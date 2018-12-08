@@ -4,7 +4,8 @@
 
 class WaterEffect {
 public:
-	int x, y;
+	float x, y;
+	float vx, vy, dx, dy;
 	float remainingTime = 10;
 	bool isVisible;
 	bool isDoneRender;
@@ -13,7 +14,7 @@ public:
 	WaterEffect();
 	~WaterEffect();
 
-	void Update(DWORD dt);
+	void Update(DWORD dt,int direction);
 	void Render(Camera *camera);
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 };

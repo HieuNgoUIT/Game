@@ -13,8 +13,7 @@ Merman::Merman(int X, int Y)
 	watereffect = new WaterEffect();
 	watereffect1 = new WaterEffect();
 	watereffect2 = new WaterEffect();
-	/*vx = -0.1f;*/
-	//vy = 10;
+
 }
 
 Merman::~Merman()
@@ -46,29 +45,34 @@ void Merman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		
+
 		CGameObject::Update(dt);
 		vx = 0.02f*direction;
-		
+		if (y > 700)
+		{
+			Sound::GetInstance()->Play(SLASH_WATER);
+			watereffect->SetPosition(this->x + 5, this->y -50);
+			watereffect1->SetPosition(this->x + 10, this->y - 60);
+			watereffect2->SetPosition(this->x + 20, this->y - 70);
+		}
 		if (y < 500)
 		{
+
 			isReachPoint = true;
 			vy = 0.05f*dt;
-			watereffect->SetPosition(this->x, this->y);
-			watereffect1->SetPosition(this->x-50, this->y-10);
-			watereffect2->SetPosition(this->x+50, this->y+10);
-			
+
+
 		}
-		if(!isReachPoint)
+		if (!isReachPoint)
 		{
 			vy -= 0.0005f * dt;
 			y += dy;
 		}
-		
+
 		_sprite->Update(dt);
-		watereffect->Update(dt);
-		watereffect1->Update(dt);
-		watereffect2->Update(dt);
+		watereffect->Update(dt, this->direction);
+		watereffect1->Update(dt, -this->direction);
+		watereffect2->Update(dt, this->direction);
 		vector<LPGAMEOBJECT> coObjects_Brick;
 		coObjects_Brick.clear();
 		for (int i = 0; i < coObjects->size(); i++)
@@ -80,7 +84,7 @@ void Merman::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			CollisionWithBrick(&coObjects_Brick);
 		}
-		
+
 	}
 
 }
@@ -95,9 +99,15 @@ void Merman::Render(Camera * camera)
 			_sprite->Draw(pos.x, pos.y);
 		else
 			_sprite->DrawFlipX(pos.x, pos.y);
-		watereffect->Render(camera);
-		watereffect1->Render(camera);
-		watereffect2->Render(camera);
+		if (isReachPoint)
+		{
+			watereffect->Render(camera);
+			watereffect1->Render(camera);
+			watereffect2->Render(camera);
+		}
+	
+
+
 		RenderBoundingBox(camera);
 	}
 	else

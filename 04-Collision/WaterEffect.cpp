@@ -16,9 +16,14 @@ WaterEffect::WaterEffect()
 
 
 
-void WaterEffect::Update(DWORD dt)
+void WaterEffect::Update(DWORD dt,int direction)
 {
-	y++;
+	vx = 0.005f*direction;
+	vy = 0.1f;
+	dx = vx * dt;
+	dy = vy * dt;
+	x += dx;
+	y += dy;
 
 }
 
