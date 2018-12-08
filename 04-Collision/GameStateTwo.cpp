@@ -87,10 +87,10 @@ void GameStateTwo::Update(DWORD dt)
 			objects[i]->SetDropItem(false);
 			//objects[i]->isCreatedItem = true;//sau khi push item thi moi xoa khoi objects
 		}
-	}
-	for (int i = 0; i < objects.size(); i++)
-	{
-		coObjects.push_back(objects[i]);
+		else
+		{
+			coObjects.push_back(objects[i]); //neu ma rot item =false thi` da~ chet' nen ko push vao co0bject nua
+		}	
 	}
 	for (int i = 0; i < objects.size(); i++)
 	{
@@ -102,24 +102,6 @@ void GameStateTwo::Update(DWORD dt)
 	}
 	simon->Update(dt, camera, &coObjects, &items);
 
-	//door->_sprite->SelectIndex(0);
-
-	//for(int i=0;i<3000;i++)
-	//{
-	//	//int i = 0;
-	//	camera->SetPosition(simon->x - 320 + 60+i, 0);
-	//	//i++;
-	//}
-
-
-	/*if (simon->x > 2681)
-	{*/
-
-
-
-	/*}*/
-
-	//CheckCollideWithCheckPoint(simon, checkpoint);
 }
 
 void GameStateTwo::Render()
