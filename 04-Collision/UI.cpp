@@ -10,8 +10,8 @@ UI::UI()
 
 UI::~UI()
 {
-	delete[] simonHPList;
-	delete[] enemyHPList;
+//	delete[] simonHPList;
+	//delete[] enemyHPList;
 }
 
 

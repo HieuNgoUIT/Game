@@ -82,7 +82,7 @@ void GameStateTwo::Update(DWORD dt)
 	{
 		if (objects[i]->dropItem == true)
 		{
-			item = new Item(objects[i]->x, objects[i]->y);
+			item = new Item(objects[i]->itemLink,objects[i]->x, objects[i]->y);
 			items.push_back(item);
 			objects[i]->SetDropItem(false);
 			//objects[i]->isCreatedItem = true;//sau khi push item thi moi xoa khoi objects

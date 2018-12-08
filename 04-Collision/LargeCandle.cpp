@@ -2,22 +2,40 @@
 
 
 
-LargeCandle::LargeCandle(int X, int Y, int pos)
+LargeCandle::LargeCandle(int X, int Y, int numberItem)
 {
 	_texture = new Texture("Resource\\sprites\\Ground\\0.png", 2, 1, 2);
 	_sprite = new Sprite(_texture, 100);
 	this->x = X;
 	this->y = Y;
 	tag = 10;
-	currentPosMap1 = pos;
-	//health = 1;
-	//id = 161;
+	itemNumber = numberItem;
+	itemLink = ConvertItemNumbertoString(itemNumber);
+	
 	item = new Item();
 	
 }
 void LargeCandle::RenderBoundingBox(Camera * camera)
 {
 	CGameObject::RenderBoundingBox(camera);
+}
+char * LargeCandle::ConvertItemNumbertoString(int number)
+{
+	switch (number)
+	{
+	case 2:
+		return "Resource\\sprites\\Items\\BIG_HEART.png";
+		break;	
+	case 8:
+		return "Resource\\sprites\\Items\\MORNING_STAR.png";
+		break;
+	case 14:
+		return "Resource\\sprites\\Items\\KNIFE.png";
+		break;
+	default:
+		break;
+	}
+	
 }
 LargeCandle::LargeCandle()
 {

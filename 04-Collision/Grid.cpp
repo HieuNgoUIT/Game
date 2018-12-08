@@ -139,7 +139,7 @@ CGameObject * Grid::GetNewObject(int type, int x, int y,int w, int h)
 	if (type == 12) return new Brick(type,x, y, w, h);
 	else if (type == -12) return new Brick(type, x, y, w, h);
 	else if (type == 10) return new LargeCandle(x, y,w);
-	else if (type == 11) return new Candle(x, y);
+	else if (type == 11) return new Candle(x, y,w);
 	else if (type == 500) return new Zombie(x, y);
 	else if (type == 501) return new Pander(x, y);
 	else if (type == 502) return new Merman(x, y);

@@ -159,6 +159,9 @@
     <ClInclude Include="WaterEffect.h">
       <Filter>Objets\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="HolyWater.h">
+      <Filter>Player\SubWp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debug.cpp">
@@ -271,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="WaterEffect.cpp">
       <Filter>Objets\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="HolyWater.cpp">
+      <Filter>Player\SubWp</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

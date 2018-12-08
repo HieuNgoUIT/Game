@@ -51,7 +51,8 @@ public:
 	int state;
 	bool isDead;
 	bool isLeft;
-	int currentPosMap1;
+	char* itemLink;
+	int itemNumber;
 	DWORD dt; 
 	HitEffect *hiteffect;
 	DeadEffect *deadffect;

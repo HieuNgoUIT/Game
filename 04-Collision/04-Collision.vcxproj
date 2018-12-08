@@ -144,6 +144,7 @@
     <ClInclude Include="Grid.h" />
     <ClInclude Include="HiddenStair.h" />
     <ClInclude Include="HitEffect.h" />
+    <ClInclude Include="HolyWater.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Knife.h" />
     <ClInclude Include="LargeCandle.h" />
@@ -182,6 +183,7 @@
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="HiddenStair.cpp" />
     <ClCompile Include="HitEffect.cpp" />
+    <ClCompile Include="HolyWater.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Knife.cpp" />
     <ClCompile Include="LargeCandle.cpp" />

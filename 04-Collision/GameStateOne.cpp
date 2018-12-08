@@ -12,7 +12,7 @@ void GameStateOne::LoadResources()
 	camera = new Camera(640, 480);
 
 	tilemap = new TileMap();
-	tilemap->LoadMap("Resource/sprites/lv1.b", "Resource/sprites/lv1.s",10,4,40,6,24);
+	tilemap->LoadMap("Resource/sprites/lv1.b", "Resource/sprites/lv1.s", 10, 4, 40, 6, 24);
 
 	//largecandle = new LargeCandle(300, 265);
 	//objects.push_back(largecandle);
@@ -43,32 +43,20 @@ void GameStateOne::Update(DWORD dt)
 	}
 	ui->Update(16, 1000 - mapTime, 3, 1);
 
-	
+
 	vector<LPGAMEOBJECT> coObjects;
 	grid->GetListObject(objects, camera);
 	for (int i = 0; i < objects.size(); i++)
 	{
 		if (objects[i]->dropItem == true)
 		{
-			if (objects[i]->currentPosMap1==0 || objects[i]->currentPosMap1 == 3)
-			{
-				item = new Item(HEART_PATH, objects[i]->x, objects[i]->y);
-				items.push_back(item);
-			}
-			else if (objects[i]->currentPosMap1 == 1 || objects[i]->currentPosMap1 == 2)
-			{
-				item = new Item(WHIP_PATH, objects[i]->x, objects[i]->y);
-				items.push_back(item);
-			}
-			else if (objects[i]->currentPosMap1 == 4)
-			{
-				item = new Item(KNIFE_PATH, objects[i]->x, objects[i]->y);
-				items.push_back(item);
-			}		
-			objects[i]->SetDropItem(false);
-			//objects[i]->isCreatedItem = true;//sau khi push item thi moi xoa khoi objects
+			item = new Item(objects[i]->itemLink, objects[i]->x, objects[i]->y);
+			items.push_back(item);
 		}
+		objects[i]->SetDropItem(false);
+		//objects[i]->isCreatedItem = true;//sau khi push item thi moi xoa khoi objects
 	}
+
 	for (int i = 0; i < objects.size(); i++)
 	{
 		coObjects.push_back(objects[i]);
@@ -81,7 +69,7 @@ void GameStateOne::Update(DWORD dt)
 	{
 		items[i]->Update(dt);
 	}
-	simon->Update(dt,camera, &coObjects, &items);
+	simon->Update(dt, camera, &coObjects, &items);
 	camera->SetPosition(simon->x - 320 + 60, 0);
 	camera->Update();
 	CheckCollideWithCheckPoint(simon, checkpoint);
@@ -130,5 +118,5 @@ void GameStateOne::KillAll()
 
 GameStateOne::GameStateOne()
 {
-	
+
 }

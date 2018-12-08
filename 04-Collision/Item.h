@@ -36,11 +36,11 @@ class Item :public CGameObject
 {
 public:
 	
-	Item(int X, int Y);
-	Item(char* link,int X,int Y);
 	Item();
+	Item(char* link,int X,int Y);
+//	Item();
 	~Item();
-	char* PathRandom();
+	/*char* PathRandom();*/
 	float remainingTime;
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);

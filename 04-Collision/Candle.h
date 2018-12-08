@@ -4,9 +4,10 @@
 class Candle :public CGameObject {
 public:
 	Item * item;
-	Candle(int X, int Y);
+	Candle(int X, int Y,int numberItem);
 	~Candle();
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	void Render(Camera * camera);
+	char* ConvertItemNumbertoString(int number);
 };

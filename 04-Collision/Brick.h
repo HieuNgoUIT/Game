@@ -11,11 +11,12 @@ class Brick : public CGameObject
 protected:
 	int width;
 	int height;
-
+	int type;
 public:
 	Brick(int TYPE,int X, int Y, int W, int H);
 	void Render(Camera *camera);
 	virtual void GetBoundingBox(float &l, float &t, float &r, float &b);
+	
 };
 
 
