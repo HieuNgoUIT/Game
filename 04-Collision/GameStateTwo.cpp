@@ -4,9 +4,8 @@ void GameStateTwo::LoadResources()
 {
 	game = CGame::GetInstance();
 	camera = new Camera(640, 480);
-	simon = new Simon();
+	simon = Simon::GetInstance();
 	simon->SetPosition(SIMON_POSITION_DEFAULT); //33 4 14
-	tilemap = new TileMap();
 	tilemap = new TileMap();
 	tilemap->LoadMap("Resource/sprites/Grid/test1.b", "Resource/sprites/Grid/test1.s", 34, 4, 136, 14, 90);
 	grid = new Grid();

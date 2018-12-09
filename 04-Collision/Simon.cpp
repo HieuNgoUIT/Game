@@ -1,6 +1,14 @@
 ﻿#include "Simon.h"
 
+Simon * Simon::sinstance = NULL;
 
+
+Simon * Simon::GetInstance()
+{
+	if(sinstance == NULL) 
+		sinstance = new Simon();
+	return sinstance;
+}
 
 Simon::Simon()
 {

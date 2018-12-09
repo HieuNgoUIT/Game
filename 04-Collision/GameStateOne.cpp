@@ -2,7 +2,7 @@
 
 void GameStateOne::LoadResources()
 {
-	simon = new Simon();
+	simon = Simon::GetInstance();
 	simon->SetPosition(SIMON_POSITION_DEFAULT);
 	//simon->SetPosition(0, 0);
 
@@ -113,7 +113,7 @@ void GameStateOne::KillAll()
 	delete ui;
 	delete grid;
 	delete checkpoint;
-	delete simon;
+
 }
 
 GameStateOne::GameStateOne()

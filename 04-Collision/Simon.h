@@ -54,7 +54,8 @@
 class Simon : public CGameObject
 {
 public:
-	
+	static Simon * sinstance;
+	static Simon * GetInstance();
 	bool isWalking;
 	bool isJumping;
 	bool isSitting;

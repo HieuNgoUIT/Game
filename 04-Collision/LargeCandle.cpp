@@ -4,6 +4,7 @@
 
 LargeCandle::LargeCandle(int X, int Y, int numberItem)
 {
+	
 	_texture = new Texture("Resource\\sprites\\Ground\\0.png", 2, 1, 2);
 	_sprite = new Sprite(_texture, 100);
 	this->x = X;
@@ -58,7 +59,7 @@ void LargeCandle::GetBoundingBox(float & left, float & top, float & right, float
 
 }
 
-void LargeCandle::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void LargeCandle::Update(DWORD dt,float simonx, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (!isDead)
 	{

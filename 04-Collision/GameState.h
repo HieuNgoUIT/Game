@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Game.h"
 #include "HitEffect.h"
+#include "debug.h"
 class GameState {
 public:
 	Item * item;
