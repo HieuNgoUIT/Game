@@ -60,20 +60,7 @@ CSampleKeyHander * keyHandler;
 
 void CSampleKeyHander::OnKeyDown(int KeyCode)
 {
-	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-	////switch (KeyCode)
-	////{
-	////case DIK_SPACE:
-	////	mario->SetState(MARIO_STATE_JUMP);
-	////	break;
-	////case DIK_A: // reset
-	////	mario->SetState(MARIO_STATE_IDLE);
-	////	mario->SetLevel(MARIO_LEVEL_BIG);
-	////	mario->SetPosition(50.0f,0.0f);
-	////	mario->SetSpeed(0, 0);
-	////	break;
-	////}
-	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
+	
 
 	if (KeyCode == DIK_ESCAPE)
 		DestroyWindow(hWnd); // thoát
@@ -269,7 +256,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 {
 	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
 	Sound::GetInstance()->loadSound(hWnd);
-	gamestatemanager = new GameStateManager(2);
+	gamestatemanager = new GameStateManager(1);
 
 	gamestatemanager->gamestate->game->Init(hWnd);
 

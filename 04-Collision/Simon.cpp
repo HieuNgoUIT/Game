@@ -5,7 +5,7 @@ Simon * Simon::sinstance = NULL;
 
 Simon * Simon::GetInstance()
 {
-	if(sinstance == NULL) 
+	if (sinstance == NULL)
 		sinstance = new Simon();
 	return sinstance;
 }
@@ -161,15 +161,15 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 			}
 			else if (coObjects->at(i)->tag == WHIP_TAG)
 			{
-				whip->typeOfWhip = 1;
+				whip->typeOfWhip += 1;
 			}
 			else if (coObjects->at(i)->tag == REDBAG_TAG)
 			{
-				scores+=100;
+				scores += 100;
 			}
 			else if (coObjects->at(i)->tag == BLUEBLAG_TAG)
 			{
-				scores +=  100;
+				scores += 100;
 			}
 			else if (coObjects->at(i)->tag == KNIFE_TAG)
 			{
@@ -409,14 +409,9 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 	{
 		if (whip->isFinish == false)
 		{
-			if (direction == -1)
-			{
-				whip->SetPosition(this->x - 30, this->y); //set pos cho bbox whip
-			}
-			else
-			{
-				whip->SetPosition(this->x, this->y);
-			}
+
+			whip->SetPosition(this->x, this->y); //set pos cho bbox whip
+
 
 			whip->Update(dt, coObjects);
 
@@ -931,7 +926,7 @@ void Simon::CollisionWithZombie(vector<LPGAMEOBJECT>* coObjects)
 				//dx = vx * dt;			
 				StartUntouchable();
 				StartBeingHit();
-				health-=10;
+				health -= 10;
 			}
 
 		}

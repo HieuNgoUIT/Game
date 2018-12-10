@@ -50,4 +50,8 @@ public:
 	int GetIsCreated();
 	void RenderBoundingBox(Camera* camera);
 	void CollisionWithBrick(vector<LPGAMEOBJECT> *coObjects = NULL);
+	bool CheckLeft = false;
+	bool CheckRight = false;
+	float currentPos;
+	bool isGrounded;
 };

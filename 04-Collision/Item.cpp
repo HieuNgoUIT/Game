@@ -77,6 +77,7 @@ Item::Item(char* link, int X, int Y)
 	this->x = X;
 	this->y = Y;
 	remainingTime = 500;
+	currentPos = x;
 	if (link == HEART_PATH)
 	{
 		tag = HEART_TAG;
@@ -131,7 +132,7 @@ void Item::GetBoundingBox(float & left, float & top, float & right, float & bott
 
 }
 
-void Item::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
+void Item::Update(DWORD dt, float simonx, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (!isDead)
 	{
@@ -139,13 +140,47 @@ void Item::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 		{
 			isDead = true;
 		}
+		else if (tag == HEART_TAG)
+		{
+
+			CGameObject::Update(dt);
+
+			if (x > currentPos + 35)
+			{
+				CheckRight = true;
+				CheckLeft = false;
+			}
+			if (x < currentPos - 35)
+			{
+				CheckRight = false;
+				CheckLeft = true;
+			}
+			if (CheckRight)
+			{
+				vx = -0.05f;
+
+			}
+			if (CheckLeft)
+			{
+				vx = 0.05f;
+
+			}
+			if (!CheckLeft && !CheckRight)
+			{
+				vx = 0.05f;
+			}
+			vy = 0.05f;
+
+
+		}
 		else
 		{
 			CGameObject::Update(dt);
-			vy = 0.005 * dt;
-			
+			vy = 0.1f;
+
 			remainingTime--;
 		}
+
 
 
 		vector<LPGAMEOBJECT> coObjects_Brick;
@@ -196,14 +231,20 @@ void Item::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
-		x += min_tx * dx + nx * 0.4f;
+		//x += min_tx * dx + nx * 0.4f;
 		y += min_ty * dy + ny * 0.4f;
 
 		//if (nx != 0)
-		//	vx = 0;
+		//{
+		//	//vx = 0;
+		//	vy = 0;
+		//	//isGrounded = true;
+		//}
 
 		//if (ny != 0)
 		//{
+		//	isGrounded = true;
+		//	vx = 0;
 		//	vy = 0;
 		//}
 
