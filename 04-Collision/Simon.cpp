@@ -175,6 +175,7 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 			{
 				isSubwp = true;
 				subwp = new Knife(x, y);
+				isrenderKnife = true;
 			}
 			else if (coObjects->at(i)->tag == AXE_TAG)
 			{

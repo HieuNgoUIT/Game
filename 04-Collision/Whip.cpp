@@ -194,7 +194,8 @@ void Whip::CollisionWithZombie(vector<LPGAMEOBJECT>* coObjects)
 		if (isColliding(this, coObjects->at(i)))
 		{
 			coObjects->at(i)->isDead = true;
-
+			/*Simon *simon = Simon::GetInstance();
+			simon->score += 100;*/
 		}
 
 	}

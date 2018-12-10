@@ -15,6 +15,8 @@ private:
 
 	std::string information;
 
+	Texture * tredEdge;
+	Sprite* redEdge;
 
 	Texture * tsimonHPList;
 	Sprite* simonHPList;

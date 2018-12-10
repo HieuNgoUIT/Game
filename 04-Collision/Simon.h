@@ -69,6 +69,7 @@ public:
 	bool isStage21;
 	bool isRosary;
 	bool isStopwatch;
+	bool isrenderKnife;
 	//bool isCameraStair;
 	bool isDoneCameraStair;
 	//bool isKnife;

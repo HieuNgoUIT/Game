@@ -67,7 +67,7 @@ void GameStateOne::Update(DWORD dt)
 	}
 	for (int i = 0; i < items.size(); i++)
 	{
-		items[i]->Update(dt);
+		items[i]->Update(dt,0 ,&coObjects);
 	}
 	simon->Update(dt, camera, &coObjects, &items);
 	camera->SetPosition(simon->x - 320 + 60, 0);

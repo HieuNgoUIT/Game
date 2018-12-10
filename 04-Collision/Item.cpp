@@ -138,15 +138,20 @@ void Item::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 		else
 		{
 			CGameObject::Update(dt);
-			vy += 0.005 * dt;
-			y += dy;
-			if (y > 370)
-				y = 370;
+			vy = 0.005 * dt;
+			
 			remainingTime--;
 		}
 
 
-		//_sprite->Update(dt); // update animation
+		vector<LPGAMEOBJECT> coObjects_Brick;
+		coObjects_Brick.clear();
+		for (int i = 0; i < coObjects->size(); i++)
+		{
+			if (coObjects->at(i)->GetTag() == 41)
+				coObjects_Brick.push_back(coObjects->at(i));
+		}
+		CollisionWithBrick(&coObjects_Brick);
 
 	}
 }
@@ -167,4 +172,40 @@ void Item::Render(Camera * camera)
 int Item::GetIsCreated()
 {
 	return isCreated;
+}
+void Item::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
+{
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+
+	CalcPotentialCollisions(coObjects, coEvents);
+	if (coEvents.size() == 0)
+	{
+		x += dx;
+		y += dy;
+	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny;
+
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+		x += min_tx * dx + nx * 0.4f;
+		y += min_ty * dy + ny * 0.4f;
+
+		//if (nx != 0)
+		//	vx = 0;
+
+		//if (ny != 0)
+		//{
+		//	vy = 0;
+		//}
+
+	}
+
+	// clean up collision events
+	for (UINT i = 0; i < coEvents.size(); i++)
+		delete coEvents[i];
 }

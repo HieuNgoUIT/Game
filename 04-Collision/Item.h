@@ -49,4 +49,5 @@ public:
 	virtual void Render(Camera * camera);
 	int GetIsCreated();
 	void RenderBoundingBox(Camera* camera);
+	void CollisionWithBrick(vector<LPGAMEOBJECT> *coObjects = NULL);
 };

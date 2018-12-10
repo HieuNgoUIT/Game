@@ -26,6 +26,9 @@ bool UI::Initialize( Simon *simon, int bossHP)
 	tBlack = new Texture("Resource\\sprites\\UI\\black.png", 1, 1, 1);
 	black = new Sprite(tBlack, 100);
 
+
+	tredEdge = new Texture("Resource\\sprites\\UI\\redEdge.bmp", 1, 1, 1);
+	redEdge = new Sprite(tredEdge, 100);
 	/*simonHPLists = new std::vector<Sprite*>();
 	for (int i = 0; i < 16; i++)
 	{
@@ -255,7 +258,11 @@ void UI::Render()
 		noHPList->Draw(290-i*2, 27);
 	}
 	heart->Draw(420,27);
-
+	redEdge->Draw(320, 27);
+	if (simon->isrenderKnife)
+	{
+		knife->Draw(345, 45);
+	}
 	/*weapon->Render(weapon->GetPosition());
 
 	switch (simon->GetNoSubWeapon()) {
