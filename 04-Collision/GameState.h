@@ -24,6 +24,7 @@ public:
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> items;
 	bool isChangingState;
+	
 	virtual void LoadResources();
 	virtual void Update(DWORD dt);
 	virtual void Render();

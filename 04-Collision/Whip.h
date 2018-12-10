@@ -8,6 +8,8 @@
 class Whip :public CGameObject
 {
 public:
+	static int score;
+	static int GetScore();
 	Whip(int X, int Y);
 	Whip();
 	~Whip();

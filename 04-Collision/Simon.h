@@ -74,7 +74,8 @@ public:
 	bool isDoneCameraStair;
 	//bool isKnife;
 	int useableHeart = 50;
-	int score = 0;
+	int scores;
+	int life = 3;
 	Whip* whip;
 	SubWeapon *subwp;
 	bool isSubwp;

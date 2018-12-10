@@ -165,11 +165,11 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 			}
 			else if (coObjects->at(i)->tag == REDBAG_TAG)
 			{
-				this->score += 100;
+				scores+=100;
 			}
 			else if (coObjects->at(i)->tag == BLUEBLAG_TAG)
 			{
-				this->score += 300;
+				scores +=  100;
 			}
 			else if (coObjects->at(i)->tag == KNIFE_TAG)
 			{
@@ -614,7 +614,7 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 	//check with item
 	CollisionWithItem(coItems);
 
-
+	//scores += Whip::GetScore();
 
 
 

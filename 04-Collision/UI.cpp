@@ -153,7 +153,7 @@ void UI::Update(int bossHP, int time, int life, int stage)
 	this->stage = stage;
 
 
-	std::string scoreString = std::to_string(simon->score);
+	std::string scoreString = std::to_string(simon->scores+whip->score);
 	while (scoreString.length() < 6)
 		scoreString = "0" + scoreString;
 
@@ -170,7 +170,7 @@ void UI::Update(int bossHP, int time, int life, int stage)
 
 	information = "SCORE_" + scoreString + " TIME " + timeString + " STAGE " + stageString + "\n";
 	information += "PLAYER                =" + std::to_string(simon->useableHeart) + "\n";
-	information += "ENEMY                P=" + std::to_string(simon->health) + "\n";
+	information += "ENEMY                P=" + std::to_string(simon->life) + "\n";
 	information += "x:" + std::to_string(simon->x) + "y:" + std::to_string(simon->y);
 	
 

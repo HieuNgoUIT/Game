@@ -1,5 +1,10 @@
 ﻿#include "Whip.h"
+int  Whip::score = 0;
 
+int Whip::GetScore()
+{
+	return score;
+}
 Whip::Whip(int X, int Y)
 {
 	_texture = new Texture("Resource\\sprites\\Weapons\\whip1.png", 4, 3, 12);
@@ -194,6 +199,7 @@ void Whip::CollisionWithZombie(vector<LPGAMEOBJECT>* coObjects)
 		if (isColliding(this, coObjects->at(i)))
 		{
 			coObjects->at(i)->isDead = true;
+			this->score += 100;
 			/*Simon *simon = Simon::GetInstance();
 			simon->score += 100;*/
 		}

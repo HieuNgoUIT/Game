@@ -5,14 +5,14 @@
 #include "Sprite.h"
 #include <vector>
 #include "Simon.h"
-
+#include "Whip.h"
 class UI
 {
 private:
 	ID3DXFont *font;
 	RECT rect;
 	Simon *simon;
-
+	Whip *whip;
 	std::string information;
 
 	Texture * tredEdge;

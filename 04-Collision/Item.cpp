@@ -105,6 +105,10 @@ Item::Item(char* link, int X, int Y)
 	{
 		tag = STOPWATCH_TAG;
 	}
+	else if (link == REDBAG_PATH)
+	{
+		tag = REDBAG_TAG;
+	}
 
 }
 

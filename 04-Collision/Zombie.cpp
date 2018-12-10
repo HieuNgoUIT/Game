@@ -35,6 +35,7 @@ void Zombie::Update(DWORD dt,  float simonx, vector<LPGAMEOBJECT>* coObjects)
 	if (isDead)
 	{
 		CGameObject::UpdateEffect(dt);
+		
 		reviveTime--;
 		if (reviveTime < 0)
 		{
