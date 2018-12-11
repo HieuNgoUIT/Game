@@ -67,6 +67,10 @@ public:
 	bool isWalkFromTop;
 	bool isTopStair;
 	bool isStage21;
+	bool isStage22;
+	bool isFightingBoss;
+	bool isStage1;
+	bool isStage2;
 	bool isRosary;
 	bool isStopwatch;
 	bool isrenderKnife;

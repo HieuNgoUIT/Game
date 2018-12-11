@@ -5,6 +5,9 @@ class Pander :public CGameObject
 public:
 	float startXpos;
 	float startYpos;
+	bool doJump;
+	bool isGrounded;
+	bool CheckTop;
 	Pander(int X, int Y);
 	~Pander();
 	float reviveTime = 70;

@@ -69,6 +69,18 @@ void Camera::UpdateMap21()
 	{
 		_viewport.x = 3150;
 	}
+	if (_viewport.x > 3532)
+	{
+		_viewport.x = 3532;
+	}
+}
+
+void Camera::UpdateMap22()
+{
+	if (_viewport.x < 4154)
+	{
+		_viewport.x = 4154;
+	}
 	if (_viewport.x > 5069)
 	{
 		_viewport.x = 5069;

@@ -7,6 +7,7 @@ class GameStateTwo :public GameState
 public:
 
 	Door * door;
+	Door * door2;
 	bool isCollideDoor;
 	void LoadResources();
 	void Update(DWORD dt);

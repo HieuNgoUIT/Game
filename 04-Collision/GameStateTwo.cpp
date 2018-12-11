@@ -13,6 +13,9 @@ void GameStateTwo::LoadResources()
 	ui = new UI();
 	ui->Initialize(simon, 16);
 	door = new Door(3115, 130);
+	door2 = new Door(4129, 130);
+	simon->isStage1 = false;
+	simon->isStage2 = true;
 	//2893 156
 }
 
@@ -32,6 +35,19 @@ void GameStateTwo::Update(DWORD dt)
 			simon->AutoMove();
 		}
 	}
+	else if (simon->isColliding(simon, door2))
+	{
+		door->Update(dt);
+		if (camera->GetViewport().x < 4000)
+		{
+			camera->Go(dt); //move camera
+		}
+		else
+		{
+			simon->AutoMove();
+			simon->isStage21 = false;
+		}
+	}
 	else //het va cham voi cua 
 	{
 		if (simon->y > 450)//y duoi nuoc
@@ -39,12 +55,13 @@ void GameStateTwo::Update(DWORD dt)
 			camera->SetPosition(simon->x - 320 + 60, 450);
 			camera->UpdateWater();
 		}
-		else if (simon->x > 3200) //man` 21
+		else if (simon->x > 3200 && simon->x <4160) //man` 21
 		{
 			if (camera->GetViewport().x < 3150)
 			{
 				camera->Go(dt); //move camera sau khi simon di 1 ti
 				simon->isStage21 = true;
+				simon->isStage2 = false;
 			}
 			else
 			{
@@ -58,9 +75,38 @@ void GameStateTwo::Update(DWORD dt)
 			camera->SetPosition(simon->x - 320 + 60, 0);//update man 2
 			camera->UpdateMap2();
 		}
+		else if (simon->x > 4300)// man 22
+		{
+			if (camera->GetViewport().x < 4154)
+			{
+				camera->Go(dt); //move camera sau khi simon di 1 ti
+				simon->isStage21 = false;
+				simon->isStage22 = true;
+				
+			}
+			else
+			{
+				if (!simon->isFightingBoss)
+				{
+					camera->SetPosition(simon->x - 320 + 60, 0); //update man 22
+					camera->UpdateMap22();
+				}
+				else
+				{
+					camera->SetPosition(5065, 0);//boss
+				}
+				
+			}
+		}
+		
 	}
 
-
+	
+	//else //het va cham voi cua 
+	//{
+	//	camera->SetPosition(simon->x - 320 + 60, 0);//update man 2
+	//	camera->UpdateMap2();
+	//}
 #pragma endregion
 
 
@@ -81,7 +127,7 @@ void GameStateTwo::Update(DWORD dt)
 	{
 		if (objects[i]->dropItem == true)
 		{
-			item = new Item(objects[i]->itemLink,objects[i]->x, objects[i]->y);
+			item = new Item(objects[i]->itemLink, objects[i]->x, objects[i]->y);
 			items.push_back(item);
 			objects[i]->SetDropItem(false);
 			//objects[i]->isCreatedItem = true;//sau khi push item thi moi xoa khoi objects
@@ -89,7 +135,7 @@ void GameStateTwo::Update(DWORD dt)
 		else
 		{
 			coObjects.push_back(objects[i]); //neu ma rot item =false thi` da~ chet' nen ko push vao co0bject nua
-		}	
+		}
 	}
 	if (!simon->isStopwatch)
 	{
@@ -102,7 +148,7 @@ void GameStateTwo::Update(DWORD dt)
 	{
 
 	}
-	
+
 	for (int i = 0; i < items.size(); i++)
 	{
 		items[i]->Update(dt, 0, &coObjects);
@@ -115,7 +161,7 @@ void GameStateTwo::Update(DWORD dt)
 			{
 				objects[i]->isDead = true;
 			}
-			
+
 		simon->isRosary = false;
 	}
 }
@@ -145,7 +191,7 @@ void GameStateTwo::Render()
 
 
 
-	
+
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render(camera);
 		for (int i = 0; i < items.size(); i++)

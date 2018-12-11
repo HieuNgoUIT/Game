@@ -5,7 +5,7 @@ void GameStateOne::LoadResources()
 	simon = Simon::GetInstance();
 	simon->SetPosition(SIMON_POSITION_DEFAULT);
 	//simon->SetPosition(0, 0);
-
+	simon->isStage1 = true;
 	//brick = new Brick(0, 400, 1536, 32);
 	//objects.push_back(brick);
 

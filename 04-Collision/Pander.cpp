@@ -10,6 +10,7 @@ Pander::Pander(int X, int Y)
 	direction = -1;
 	startXpos = X;
 	startYpos = Y;
+	doJump = true;
 	/*vx = -0.1f;*/
 	//vy = 10;
 }
@@ -45,17 +46,47 @@ void Pander::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (simonx > startXpos - 200 && simonx < startXpos + 640)
 		{
-			if (x < startXpos - 300)
+			if (doJump)
+			{
+				if (!CheckTop)
+				{
+					vy = -0.1f;
+					vx = -0.3f;
+				}
+				if (y < startYpos - 50)
+				{
+					CheckTop = true;
+				}
+				if (CheckTop)
+				{
+					vy = 0.5f;
+				}
+				if (isGrounded)
+				{
+					doJump = false;
+					direction = -direction;
+				}
+				CGameObject::Update(dt);
+				_sprite->SelectIndex(3);
+				
+				
+			}
+			else
+			{
+				vx = 0.2f*direction;
+				//vy = 0.05f * dt;
+				CGameObject::Update(dt);
+
+				_sprite->Update(dt);
+			}
+			/*if (x < startXpos - 300)
 			{
 				direction = -direction;
 				x += 10;
-			}
+			}*/
 
-			vx = 0.2f*direction;
-			vy = 0.05f * dt;
-			CGameObject::Update(dt);
-
-			_sprite->Update(dt);
+			
+			
 
 			vector<LPGAMEOBJECT> coObjects_Brick;
 			coObjects_Brick.clear();
@@ -114,10 +145,10 @@ void Pander::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 		//if (nx != 0)
 		//	vx = 0;
 
-		//if (ny != 0)
-		//{
-		//	vy = 0;
-		//}
+		if (ny != 0)
+		{
+			isGrounded = true;
+		}
 
 	}
 

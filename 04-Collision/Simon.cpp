@@ -245,15 +245,75 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJECT>* coItems)
 {
 	CGame *game = CGame::GetInstance();
-	/* Không cho lọt khỏi camera */
-	if (x < 60)
-		x = 60;
-	/*if (x >3000)
-		x = 3000;*/
-		/*if (isStage21 && x < 3050)
+#pragma region boundaries
+	if (isStage1)
+	{
+		if (x < 5)
+		{
+			x = 5;
+		}
+		if (x >1420)
+		{
+			x = 1420;
+		}
+	}
+	if (isStage2)
+	{
+		if (x < 50)
+		{
+			x = 50;
+		}
+		if (x >3050 && y>170)
 		{
 			x = 3050;
-		}*/
+		}
+	}
+	if (isStage21)
+	{
+		if (x < 3150)
+		{
+			x = 3150;
+		}
+		if (x >4094 && y>170)
+		{
+			x = 4094;
+		}
+		if (y > 450)
+		{
+			if (x < 3240)
+			{
+				x = 3240;
+			}
+			if (x > 4220)
+			{
+				x = 4220;
+			}
+		}//water
+
+	}
+	if (isStage22) {
+		if (x < 4170)
+		{
+			x = 4170;
+		}
+		if (x >5640)
+		{
+			x = 5640;
+		}
+	}
+	if (x > 5600) isFightingBoss = true;
+	if (isFightingBoss)
+	{
+		if (x < 5060)
+		{
+			x = 5060;
+		}
+	}
+#pragma endregion
+
+	/* Không cho lọt khỏi camera */
+	
+	
 
 	if (GetTickCount() - untouchable_start > 5000)
 	{

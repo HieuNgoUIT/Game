@@ -66,7 +66,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		DestroyWindow(hWnd); // thoát
 
 	if (KeyCode == DIK_Q)
-		gamestatemanager->gamestate->simon->SetPosition(3468,100);
+		gamestatemanager->gamestate->simon->SetPosition(4000,100);
 	if (KeyCode == DIK_M)
 	{
 		gamestatemanager->gamestate->isChangingState = true;
@@ -256,7 +256,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 {
 	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
 	Sound::GetInstance()->loadSound(hWnd);
-	gamestatemanager = new GameStateManager(1);
+	gamestatemanager = new GameStateManager(2);
 
 	gamestatemanager->gamestate->game->Init(hWnd);
 
