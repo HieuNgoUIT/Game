@@ -74,6 +74,7 @@ public:
 	bool isRosary;
 	bool isStopwatch;
 	bool isrenderKnife;
+	bool isCollideDor;
 	//bool isCameraStair;
 	bool isDoneCameraStair;
 	//bool isKnife;

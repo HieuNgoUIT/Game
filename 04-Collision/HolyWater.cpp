@@ -10,7 +10,7 @@ HolyWater::HolyWater(int X, int Y)
 	x = X;
 	y = Y;
 	tag = 3;
-	currentPos = y;
+	//currentPos = y;
 	//isDead = false;
 }
 void HolyWater::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -18,9 +18,21 @@ void HolyWater::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (!isFinish)
 	{
+		if (!CheckTop)
+		{
+			vy =- 0.5f;
+			vx = direction * 0.9f;
+		}
+		if (y < currentPos - 20)
+		{
+			CheckTop = true;
+		}
+		if (CheckTop)
+		{
+			vx = 0.04f*direction;
+			vy = 0.15f;
+		}
 		
-		vx = 0.04f*direction;
-		vy = 0.005f*dt;
 		CGameObject::Update(dt);
 		//x += dx;
 		//y += dy;
@@ -34,7 +46,13 @@ void HolyWater::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			
 		}	
 		CollisionWithBrick(&coObjects_Brick); // check Collision and update x, y for simon
-	
+
+		vector<LPGAMEOBJECT> coObjects_LargeCandle;
+		coObjects_LargeCandle.clear();
+		for (int i = 0; i < coObjects->size(); i++)
+			if (coObjects->at(i)->GetTag() == 500)
+				coObjects_LargeCandle.push_back(coObjects->at(i));
+		CollisionWithLargeCandle(&coObjects_LargeCandle);
 	}
 
 
@@ -62,7 +80,7 @@ void HolyWater::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 		//Còn nx,ny là hướng va chạm,  = 0 nếu ko va chạm;
 
 		// block 
-		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+		//x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
 		y += min_ty * dy + ny * 0.4f; // ny = -1 thì hướng từ trên xuống....
 
 		if (nx != 0)
@@ -133,6 +151,7 @@ void HolyWater::Create(float simonX, float simonY, int simondirection)
 {
 	this->x = simonX;
 	this->y = simonY;
+	this->currentPos = simonY;
 	this->direction = simondirection;
 	this->remainingTime = 100;//set thoi gian ton tai vu khi
 	this->isFinish = false;

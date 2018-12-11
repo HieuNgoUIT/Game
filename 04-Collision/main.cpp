@@ -66,7 +66,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		DestroyWindow(hWnd); // thoát
 
 	if (KeyCode == DIK_Q)
-		gamestatemanager->gamestate->simon->SetPosition(4000,100);
+		gamestatemanager->gamestate->simon->SetPosition(3000,100);
 	if (KeyCode == DIK_M)
 	{
 		gamestatemanager->gamestate->isChangingState = true;
@@ -100,43 +100,34 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 
 void CSampleKeyHander::KeyState(BYTE *states)
 {
-	
-	if (gamestatemanager->gamestate->game->IsKeyDown(DIK_DOWN))
+	if (!gamestatemanager->gamestate->simon->isCollideDor)//va cham voi cua
 	{
-		if (gamestatemanager->gamestate->simon->isOnStair == false)
+		if (gamestatemanager->gamestate->game->IsKeyDown(DIK_DOWN))
 		{
-			gamestatemanager->gamestate->simon->Sit();
-		}
-		
-
-		if (gamestatemanager->gamestate->game->IsKeyDown(DIK_RIGHT))
-			gamestatemanager->gamestate->simon->Right();
-
-		if (gamestatemanager->gamestate->game->IsKeyDown(DIK_LEFT))
-			gamestatemanager->gamestate->simon->Left();
-
-		return;
-	}
-	else
-		gamestatemanager->gamestate->simon->Stop();
-
-
-	if (!gamestatemanager->gamestate->simon->isOnStair)
-	{
-		if (gamestatemanager->gamestate->simon->beingHit) return;
-		if (gamestatemanager->gamestate->game->IsKeyDown(DIK_RIGHT))
-		{
-			gamestatemanager->gamestate->simon->Right();
-			gamestatemanager->gamestate->simon->Go();
-			if (gamestatemanager->gamestate->simon->isAttacking == true)
+			if (gamestatemanager->gamestate->simon->isOnStair == false)
 			{
-				gamestatemanager->gamestate->simon->Stop();
+				gamestatemanager->gamestate->simon->Sit();
 			}
+
+
+			if (gamestatemanager->gamestate->game->IsKeyDown(DIK_RIGHT))
+				gamestatemanager->gamestate->simon->Right();
+
+			if (gamestatemanager->gamestate->game->IsKeyDown(DIK_LEFT))
+				gamestatemanager->gamestate->simon->Left();
+
+			return;
 		}
 		else
-			if (gamestatemanager->gamestate->game->IsKeyDown(DIK_LEFT))
+			gamestatemanager->gamestate->simon->Stop();
+
+
+		if (!gamestatemanager->gamestate->simon->isOnStair)
+		{
+			if (gamestatemanager->gamestate->simon->beingHit) return;
+			if (gamestatemanager->gamestate->game->IsKeyDown(DIK_RIGHT))
 			{
-				gamestatemanager->gamestate->simon->Left();
+				gamestatemanager->gamestate->simon->Right();
 				gamestatemanager->gamestate->simon->Go();
 				if (gamestatemanager->gamestate->simon->isAttacking == true)
 				{
@@ -144,10 +135,22 @@ void CSampleKeyHander::KeyState(BYTE *states)
 				}
 			}
 			else
-			{
-				gamestatemanager->gamestate->simon->Stop();
-			}
+				if (gamestatemanager->gamestate->game->IsKeyDown(DIK_LEFT))
+				{
+					gamestatemanager->gamestate->simon->Left();
+					gamestatemanager->gamestate->simon->Go();
+					if (gamestatemanager->gamestate->simon->isAttacking == true)
+					{
+						gamestatemanager->gamestate->simon->Stop();
+					}
+				}
+				else
+				{
+					gamestatemanager->gamestate->simon->Stop();
+				}
+		}
 	}
+	
 
 }
 

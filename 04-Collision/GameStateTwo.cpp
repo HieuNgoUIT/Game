@@ -25,6 +25,8 @@ void GameStateTwo::Update(DWORD dt)
 
 	if (simon->isColliding(simon, door)) //va cham voi door
 	{
+		simon->isCollideDor = true;
+		simon->Stop();
 		door->Update(dt);
 		if (camera->GetViewport().x < 2900)
 		{
@@ -33,10 +35,13 @@ void GameStateTwo::Update(DWORD dt)
 		else
 		{
 			simon->AutoMove();
+			simon->isCollideDor = false;
 		}
 	}
 	else if (simon->isColliding(simon, door2))
 	{
+		simon->isCollideDor = true;
+		simon->Stop();
 		door->Update(dt);
 		if (camera->GetViewport().x < 4000)
 		{
@@ -45,11 +50,13 @@ void GameStateTwo::Update(DWORD dt)
 		else
 		{
 			simon->AutoMove();
+			simon->isCollideDor = false;
 			simon->isStage21 = false;
 		}
 	}
 	else //het va cham voi cua 
 	{
+		
 		if (simon->y > 450)//y duoi nuoc
 		{
 			camera->SetPosition(simon->x - 320 + 60, 450);

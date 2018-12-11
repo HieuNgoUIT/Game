@@ -46,6 +46,10 @@ void Pander::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (simonx > startXpos - 200 && simonx < startXpos + 640)
 		{
+			allowToDo = true;
+		}
+		if (allowToDo)
+		{
 			if (doJump)
 			{
 				if (!CheckTop)

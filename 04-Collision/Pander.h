@@ -8,6 +8,7 @@ public:
 	bool doJump;
 	bool isGrounded;
 	bool CheckTop;
+	bool allowToDo;
 	Pander(int X, int Y);
 	~Pander();
 	float reviveTime = 70;

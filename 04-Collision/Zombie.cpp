@@ -1,7 +1,7 @@
 #include "Zombie.h"
 #pragma once
 
-Zombie::Zombie(int X, int Y)
+Zombie::Zombie(int X, int Y,int direction)
 {
 	_texture = new Texture("Resource\\sprites\\Enemies\\ZOMBIE.png", 2, 1, 2);
 	_sprite = new Sprite(_texture, 100);
@@ -10,7 +10,8 @@ Zombie::Zombie(int X, int Y)
 	startXpos = X;
 	startYpos = Y;
 	tag = 500;//enemy from 500
-	direction = -1;
+	//direction = -1;
+	this->direction = direction;
 	vx = 1;
 	vy = 10;
 }
@@ -49,8 +50,9 @@ void Zombie::Update(DWORD dt,  float simonx, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (simonx > startXpos-640 && simonx < startXpos+640)
 		{
+
 			CGameObject::Update(dt);
-			if (x < 10)
+			if (x<startXpos-640 || x>startXpos + 640)
 			{
 				direction = -direction;
 			}
