@@ -3,7 +3,7 @@
 Merman::Merman(int X, int Y)
 {
 	_texture = new Texture("Resource\\sprites\\Enemies\\MERMAN.png", 3, 1, 3);
-	_sprite = new Sprite(_texture, 100);
+	_sprite = new Sprite(_texture, 200);
 	this->x = X;
 	this->y = Y;
 	tag = 500;//enemy from 500
@@ -45,45 +45,52 @@ void Merman::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-
-		CGameObject::Update(dt);
-		vx = 0.02f*direction;
-		if (y > 700)
+		if (simonx > startXpos - 50 && simonx < startXpos + 50)
 		{
-			Sound::GetInstance()->Play(SLASH_WATER);
-			watereffect->SetPosition(this->x + 5, this->y -50);
-			watereffect1->SetPosition(this->x + 10, this->y - 60);
-			watereffect2->SetPosition(this->x + 20, this->y - 70);
+			allowToDo = true;
 		}
-		if (y < 500)
+		if (allowToDo)
 		{
+			CGameObject::Update(dt);
+			vx = 0.02f*direction;
+			if (y > 700)
+			{
+				Sound::GetInstance()->Play(SLASH_WATER);
+				watereffect->SetPosition(this->x + 5, this->y - 50);
+				watereffect1->SetPosition(this->x + 10, this->y - 60);
+				watereffect2->SetPosition(this->x + 20, this->y - 70);
+			}
+			if (y < 500)
+			{
 
-			isReachPoint = true;
-			vy = 0.05f*dt;
+				isReachPoint = true;
+				vy = 0.05f*dt;
 
 
-		}
-		if (!isReachPoint)
-		{
-			vy -= 0.0005f * dt;
-			y += dy;
-		}
+			}
+			if (!isReachPoint)
+			{
+				vy -= 0.0005f * dt;
+				y += dy;
+			}
 
-		_sprite->Update(dt);
-		watereffect->Update(dt, this->direction);
-		watereffect1->Update(dt, -this->direction);
-		watereffect2->Update(dt, this->direction);
-		vector<LPGAMEOBJECT> coObjects_Brick;
-		coObjects_Brick.clear();
-		for (int i = 0; i < coObjects->size(); i++)
-		{
-			if (coObjects->at(i)->GetTag() == 41)
-				coObjects_Brick.push_back(coObjects->at(i));
+			_sprite->Update(dt);
+			watereffect->Update(dt, this->direction);
+			watereffect1->Update(dt, -this->direction);
+			watereffect2->Update(dt, this->direction);
+			vector<LPGAMEOBJECT> coObjects_Brick;
+			coObjects_Brick.clear();
+			for (int i = 0; i < coObjects->size(); i++)
+			{
+				if (coObjects->at(i)->GetTag() == 41)
+					coObjects_Brick.push_back(coObjects->at(i));
+			}
+			if (isReachPoint)
+			{
+				CollisionWithBrick(&coObjects_Brick);
+			}
 		}
-		if (isReachPoint)
-		{
-			CollisionWithBrick(&coObjects_Brick);
-		}
+	
 
 	}
 

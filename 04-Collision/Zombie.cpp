@@ -51,20 +51,18 @@ void Zombie::Update(DWORD dt,  float simonx, vector<LPGAMEOBJECT>* coObjects)
 		if (simonx > startXpos-640 && simonx < startXpos+640)
 		{
 
-			CGameObject::Update(dt);
+			
 			if (x<startXpos-640 || x>startXpos + 640)
 			{
 				direction = -direction;
 			}
-			if (direction == -1)
-			{
-				x -= vx;
-			}
-			else
-			{
-				x += vx;
-			}
-			y += vy;
+			
+			vx = 0.05f*direction;
+			vy = 0.1f;
+			
+			
+			CGameObject::Update(dt);
+			//y += vy;
 			_sprite->Update(dt);
 
 			vector<LPGAMEOBJECT> coObjects_Brick;
@@ -111,8 +109,8 @@ void Zombie::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 	CalcPotentialCollisions(coObjects, coEvents); 
 	if (coEvents.size() == 0)
 	{
-		/*x += dx;
-		y += dy;*/
+		x += dx;
+		y += dy;
 	}
 	else
 	{

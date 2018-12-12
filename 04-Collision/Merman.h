@@ -7,13 +7,14 @@ class Merman :public CGameObject
 public:
 	float startXpos;
 	float startYpos;
+	bool allowToDo;
 	Merman(int X, int Y);
 	~Merman();
 	WaterEffect *watereffect;
 	WaterEffect *watereffect1;
 	WaterEffect *watereffect2;
 	bool isReachPoint;
-	float reviveTime = 70;
+	float reviveTime = 500;
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void Update(DWORD dt, float simonx , vector<LPGAMEOBJECT> *coObjects = NULL);
 	void Render(Camera * camera);

@@ -176,20 +176,32 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 				isSubwp = true;
 				subwp = new Knife(x, y);
 				isrenderKnife = true;
+				isrenderHolyWater = false;
+				isrenderAxe = false;
+			
 			}
 			else if (coObjects->at(i)->tag == AXE_TAG)
 			{
 				isSubwp = true;
 				subwp = new Axe(x, y);
+				isrenderKnife = false;
+				isrenderHolyWater = false;
+				isrenderAxe = true;
+				
 			}
 			else if (coObjects->at(i)->tag == HOLYWATER_TAG)
 			{
 				isSubwp = true;
 				subwp = new HolyWater(x, y);
+				isrenderKnife = false;
+				isrenderHolyWater = true;
+				isrenderAxe = false;
+				
 			}
 			else if (coObjects->at(i)->tag == ROSARY_TAG)
 			{
 				isRosary = true;
+				
 			}
 			else if (coObjects->at(i)->tag == STOPWATCH_TAG)
 			{
@@ -252,7 +264,7 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 		{
 			x = 5;
 		}
-		if (x >1420)
+		if (x > 1420)
 		{
 			x = 1420;
 		}
@@ -263,7 +275,7 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 		{
 			x = 50;
 		}
-		if (x >3050 && y>170)
+		if (x > 3050 && y > 170)
 		{
 			x = 3050;
 		}
@@ -274,7 +286,7 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 		{
 			x = 3150;
 		}
-		if (x >4094 && y>170)
+		if (x > 4094 && y > 170 && y < 450)
 		{
 			x = 4094;
 		}
@@ -296,7 +308,7 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 		{
 			x = 4170;
 		}
-		if (x >5640)
+		if (x > 5640)
 		{
 			x = 5640;
 		}
@@ -312,8 +324,8 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 #pragma endregion
 
 	/* Không cho lọt khỏi camera */
-	
-	
+
+
 
 	if (GetTickCount() - untouchable_start > 5000)
 	{
@@ -330,8 +342,28 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 #pragma region Sprite update
 	int index = _sprite->GetIndex();
 
+	if (throwSubwp == true)
+	{
 
-	if (beingHit)
+		if (index < 5 || index >= 8)
+		{
+			_sprite->SelectIndex(5);
+		}
+
+		if (countupdatesprite == 0)
+		{
+			_sprite->Update(dt);
+			if (index >= 8) countupdatesprite = 1;
+		}
+		else
+		{
+			_sprite->SelectIndex(0);
+		}
+
+
+
+	}
+	else if (beingHit)
 	{
 		_sprite->SelectIndex(8);
 	}
@@ -345,19 +377,38 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 		{
 			_sprite->SetARGB();
 		}
-		if (game->IsKeyDown(DIK_UP))
+
+		if (isAttacking == true)
+		{
+			if (direction == 1) //di len
+			{
+				if (index < 21 || index >= 23)
+					_sprite->SelectIndex(21);
+
+			}
+			else
+			{
+				if (index < 18 || index > 20)
+					_sprite->SelectIndex(18);
+			}
+
+			_sprite->Update(dt);
+		}
+		else if (game->IsKeyDown(DIK_UP))
 		{
 			if (index < 12 || index > 13)
 				_sprite->SelectIndex(12);
 			_sprite->Update(dt);
 
 		}
-		if (game->IsKeyDown(DIK_DOWN))
+		else if (game->IsKeyDown(DIK_DOWN))
 		{
 			if (index < 10 || index > 11)
 				_sprite->SelectIndex(10);
 			_sprite->Update(dt);
 		}
+
+
 
 
 	}
@@ -1132,6 +1183,7 @@ void Simon::ThrowSubWp()
 			subwp->Create(this->x, this->y, this->direction);
 			subwp->_sprite->SelectIndex(0);
 			useableHeart--;
+			countupdatesprite = 0;
 		}
 	}
 

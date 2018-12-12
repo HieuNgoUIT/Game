@@ -101,8 +101,8 @@ void GameStateTwo::Update(DWORD dt)
 				}
 				else
 				{
-					//camera->SetPosition(5065, 0);//boss
-					camera->SetPosition(boss->x - 320 + 60, 0);
+					camera->SetPosition(5065, 0);//boss
+					//camera->SetPosition(boss->x - 320 + 60, 0);
 				}
 				
 			}

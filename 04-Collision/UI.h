@@ -46,6 +46,7 @@ private:
 	Sprite* stopWatch;
 	Texture * tStopWatch;
 	
+
 	Sprite* upgrade1;
 	Texture * tUpGrade1;
 	Sprite* upgrade2;

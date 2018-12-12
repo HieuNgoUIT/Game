@@ -86,6 +86,8 @@ bool UI::Initialize( Simon *simon, int bossHP)
 	tKnife = new Texture("Resource\\sprites\\UI\\KNIFE.png", 1, 1, 1);
 	knife = new Sprite(tKnife, 100);
 
+	
+
 
 
 	tsimonHPList = new Texture("Resource\\sprites\\UI\\HP.png", 1, 1, 1);
@@ -263,6 +265,15 @@ void UI::Render()
 	{
 		knife->Draw(345, 45);
 	}
+	if (simon->isrenderAxe)
+	{
+		axe->Draw(345, 45);
+	}
+	if (simon->isrenderHolyWater)
+	{
+		holyWater->Draw(345, 45);
+	}
+	
 	/*weapon->Render(weapon->GetPosition());
 
 	switch (simon->GetNoSubWeapon()) {

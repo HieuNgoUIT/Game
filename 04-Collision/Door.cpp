@@ -3,7 +3,7 @@
 Door::Door(int X,int Y)
 {
 	_texture = new Texture("Resource\\sprites\\Ground\\door2.bmp", 3, 1, 3);
-	_sprite = new Sprite(_texture, 100);
+	_sprite = new Sprite(_texture, 1000);
 	this->x = X;
 	this->y = Y;
 }

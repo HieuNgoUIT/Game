@@ -47,40 +47,48 @@ void Bat::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 	{
 
 		CGameObject::Update(dt);
-		
-		if (y >currentPos+35)
+		if (simonx > startXpos - 400 && simonx < startXpos + 320)
 		{
-			CheckBot = true;
-			CheckTop = false;
+			allowToDo = true;
 		}
-		if (y <currentPos - 35)
+		if (allowToDo)
 		{
-			CheckTop = true;
-			CheckBot = false;
-		}
-		if (CheckBot)
-		{
-			vy = -0.005f*dt;
-			
-		}
-		if (CheckTop)
-		{
-			vy = 0.005f*dt;
-			
-		}
-		if (!CheckBot && !CheckTop)
-		{
-			vy = -0.005f*dt;
-		}
+			if (y >currentPos + 35)
+			{
+				CheckBot = true;
+				CheckTop = false;
+			}
+			if (y <currentPos - 35)
+			{
+				CheckTop = true;
+				CheckBot = false;
+			}
+			if (CheckBot)
+			{
+				vy = -0.005f*dt;
 
-		vx = 0.1f*direction;
-		x += dx;
-		y += dy;
+			}
+			if (CheckTop)
+			{
+				vy = 0.005f*dt;
+
+			}
+			if (!CheckBot && !CheckTop)
+			{
+				vy = -0.005f*dt;
+			}
+
+			vx = 0.1f*direction;
+			x += dx;
+			y += dy;
+			_sprite->Update(dt);
+		}
+		
 		
 	}
 	
 
-	_sprite->Update(dt);
+	
 
 
 
