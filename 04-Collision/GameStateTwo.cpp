@@ -16,6 +16,7 @@ void GameStateTwo::LoadResources()
 	door2 = new Door(4129, 130);
 	simon->isStage1 = false;
 	simon->isStage2 = true;
+	boss = new Boss(5300, 100);
 	//2893 156
 }
 
@@ -100,7 +101,8 @@ void GameStateTwo::Update(DWORD dt)
 				}
 				else
 				{
-					camera->SetPosition(5065, 0);//boss
+					//camera->SetPosition(5065, 0);//boss
+					camera->SetPosition(boss->x - 320 + 60, 0);
 				}
 				
 			}
@@ -171,6 +173,11 @@ void GameStateTwo::Update(DWORD dt)
 
 		simon->isRosary = false;
 	}
+	if (simon->isFightingBoss)
+	{
+		boss->Update(dt, simon->x,simon->y);
+	}
+
 }
 
 void GameStateTwo::Render()
@@ -204,6 +211,7 @@ void GameStateTwo::Render()
 		for (int i = 0; i < items.size(); i++)
 			items[i]->Render(camera);
 		simon->Render(camera);
+		boss->Render(camera);
 		//whip->Render(camera);
 		door->Render(camera);
 		spriteHandler->End();
