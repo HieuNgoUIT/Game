@@ -50,10 +50,13 @@ void Boss::Update(DWORD dt, float simonx, float simony, vector<LPGAMEOBJECT>* co
 
 void Boss::Render(Camera * camera)
 {
-
-	D3DXVECTOR2 pos = camera->Transform(x, y);
-
-	_sprite->Draw(pos.x, pos.y);
+	if (!isDead)
+	{
+		D3DXVECTOR2 pos = camera->Transform(x, y);
+		_sprite->Draw(pos.x, pos.y);
+		RenderBoundingBox(camera);
+	}
+	
 
 }
 
@@ -67,11 +70,33 @@ void Boss::RePosition()
 
 void Boss::GoStartPosition(DWORD dt, float simonx, float simony)
 {
+	if (CheckTop) // bat dau o checktop
+	{
+		if (/*x > 5100 ||*/ y < 240) //di qua ben trai
+		{
+			vx = -0.07f;
+			vy = 0.05f;
+			CGameObject::Update(dt);
+			x += dx;
+			y += dy;
+		}
+		else if (waittingtimebeforeattack > 0)
+		{
+			waittingtimebeforeattack--;
+		}
+		else
+		{
+			CheckLeft = true;  //chuyen qua ham tan cong
+			positionyToHit = simony;
+			positionxToHit = simonx;
+			CheckTop = false;
+		}
 
+
+	}
 	if (CheckRight)
 	{
 		vy = -0.05f;
-
 		vx = -0.05f;
 		CGameObject::Update(dt);
 		x += dx;
@@ -80,27 +105,11 @@ void Boss::GoStartPosition(DWORD dt, float simonx, float simony)
 
 	if (y < 110)
 	{
+		waittingtimebeforeattack = 300;
 		CheckTop = true;
 		CheckRight = false;
 	}
-	if (CheckTop) // bat dau o checktop
-	{
-		if (x > 5100 || y < 240) //di qua ben trai
-		{
-			vx = -0.07f;
-			vy = 0.05f;
-			CGameObject::Update(dt);
-			x += dx;
-			y += dy;
-		}
-		else
-		{
-			CheckLeft = true;  //chuyen qua ham tan cong
-			CheckTop = false;
-		}
-
-
-	}
+	
 
 
 
@@ -115,7 +124,7 @@ void Boss::GoSimonPosition(DWORD dt, float simonx, float simony)
 	if (CheckLeft)
 	{
 
-		if (y < 400 && x < 5350)
+		if (y < 400 )
 		{
 			vy = 0.05f;
 			vx = 0.05f;
@@ -132,7 +141,7 @@ void Boss::GoSimonPosition(DWORD dt, float simonx, float simony)
 	}
 	if (CheckBot)
 	{
-		if (x < 5600)
+		if (x < positionxToHit && y>positionyToHit)
 		{
 			vy = -0.03f;
 			vx = 0.07f;

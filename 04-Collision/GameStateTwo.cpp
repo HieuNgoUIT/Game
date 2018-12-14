@@ -17,6 +17,7 @@ void GameStateTwo::LoadResources()
 	simon->isStage1 = false;
 	simon->isStage2 = true;
 	boss = new Boss(5300, 100);
+	//objects.push_back(boss);
 	//2893 156
 }
 
@@ -131,6 +132,7 @@ void GameStateTwo::Update(DWORD dt)
 
 
 	vector<LPGAMEOBJECT> coObjects;
+	coObjects.push_back(boss);
 	grid->GetListObject(objects, camera);
 	for (int i = 0; i < objects.size(); i++)
 	{

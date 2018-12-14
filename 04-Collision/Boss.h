@@ -6,10 +6,13 @@ class Boss :public CGameObject
 public:
 	float startXpos;
 	float startYpos;
+	float positionyToHit;
+	float positionxToHit;
 	Boss(int X, int Y);
 	~Boss();
 	float lastSimonx;
 	float lastSimony;
+	float waittingtimebeforeattack=300;
 	float currentPos;
 	bool CheckBot;
 	bool CheckTop;
