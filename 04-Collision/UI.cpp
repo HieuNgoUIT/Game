@@ -15,13 +15,12 @@ UI::~UI()
 }
 
 
-bool UI::Initialize( Simon *simon, int bossHP)
+bool UI::Initialize( Simon *simon, Boss *boss)
 {
-	this->bossHP = bossHP;
+	this->boss = boss;
 	this->simon = simon;
 
-	/*black = new Sprite(0, 0);
-	black->Initialize(gDevice, "Resource\\sprites\\UI\\black.png");*/
+	
 
 	tBlack = new Texture("Resource\\sprites\\UI\\black.png", 1, 1, 1);
 	black = new Sprite(tBlack, 100);
@@ -29,59 +28,27 @@ bool UI::Initialize( Simon *simon, int bossHP)
 
 	tredEdge = new Texture("Resource\\sprites\\UI\\redEdge.bmp", 1, 1, 1);
 	redEdge = new Sprite(tredEdge, 100);
-	/*simonHPLists = new std::vector<Sprite*>();
-	for (int i = 0; i < 16; i++)
-	{
-		tsimonHPList = new Texture("Resource\\sprites\\UI\\HP.png", 1, 1, 1);
-		simonHPList = new Sprite(tsimonHPList, 100);
-		
-		Sprite* sprite = new Sprite(120 + 12 * (i + 1), 43);
-		sprite->Initialize(gDevice, "Resource\\sprites\\UI\\HP.png");
-
-		simonHPList->push_back(sprite);
-	}
-	enemyHPList = new std::vector<Sprite*>();
-	for (int i = 0; i < 16; i++)
-	{
-		Sprite* sprite = new Sprite(120 + 12 * (i + 1), 67);
-		sprite->Initialize(gDevice, "Resource\\sprites\\UI\\EnemyHP.png");
-		enemyHPList->push_back(sprite);
-	}
-	noHPList = new std::vector<Sprite*>();
-	for (int i = 0; i < 16; i++)
-	{
-		Sprite* sprite = new Sprite(120 + 12 * (i + 1), 43);
-		sprite->Initialize(gDevice, "Resource\\sprites\\UI\\NoHP.png");
-		noHPList->push_back(sprite);
-	}*/
-
-	/*heart = new Sprite(420, 43);
-	heart->Initialize(gDevice, "Resource\\sprites\\UI\\Heart.png");
-*/
+	
 
 	tHeart = new Texture("Resource\\sprites\\UI\\Heart.png", 1, 1, 1);
 	heart = new Sprite(tHeart, 100);
 
-	/*axe = new Sprite(350, 55);
-	axe->Initialize(gDevice, "Resource\\sprites\\UI\\AXE.png");*/
+
 
 	tAxe = new Texture("Resource\\sprites\\UI\\AXE.png", 1, 1, 1);
 	axe = new Sprite(tAxe, 100);
 
-	/*holyWater = new Sprite(350, 55);
-	holyWater->Initialize(gDevice, "Resource\\sprites\\UI\\HOLY_WATER.png");*/
+
 
 	tHolyWater = new Texture("Resource\\sprites\\UI\\HOLY_WATER.png", 1, 1, 1);
 	holyWater = new Sprite(tHolyWater, 100);
 
-	/*cross = new Sprite(350, 55);
-	cross->Initialize(gDevice, "Resource\\sprites\\UI\\CROSS.png");
-*/
+	
+
 	tCross = new Texture("Resource\\sprites\\UI\\CROSS.png", 1, 1, 1);
 	cross = new Sprite(tCross, 100);
 
-	/*knife = new Sprite(350, 55);
-	knife->Initialize(gDevice, "Resource\\sprites\\UI\\KNIFE.png");*/
+	
 
 	tKnife = new Texture("Resource\\sprites\\UI\\KNIFE.png", 1, 1, 1);
 	knife = new Sprite(tKnife, 100);
@@ -93,26 +60,13 @@ bool UI::Initialize( Simon *simon, int bossHP)
 	tsimonHPList = new Texture("Resource\\sprites\\UI\\HP.png", 1, 1, 1);
 	simonHPList = new Sprite(tsimonHPList,100);
 
+	tenemyHPList = new Texture("Resource\\sprites\\UI\\EnemyHP.png", 1, 1, 1);
+	enemyHPList = new Sprite(tenemyHPList, 100);
+
 	tnoHPList = new Texture("Resource\\sprites\\UI\\NoHP.png", 1, 1, 1);
 	noHPList = new Sprite(tnoHPList, 100);
 
-	/*stopWatch = new Sprite(350, 55);
-	stopWatch->Initialize(gDevice, "Resource\\sprites\\UI\\STOP_WATCH.png");
-
-	tBlack = new Texture("Resource\\sprites\\UI\\black.png", 1, 1, 1);
-	black = new Sprite(tBlack, 100);
-
-	upgrade1 = new Sprite(500, 55);
-	upgrade1->Initialize(gDevice, "Resource\\sprites\\UI\\DOUBLE_SHOOT_UI.png");
-
-	tBlack = new Texture("Resource\\sprites\\UI\\black.png", 1, 1, 1);
-	black = new Sprite(tBlack, 100);
-
-	upgrade2 = new Sprite(500, 55);
-	upgrade2->Initialize(gDevice, "Resource\\sprites\\UI\\TRIPLE_SHOOT_UI.png");
-
-	tBlack = new Texture("Resource\\sprites\\UI\\black.png", 1, 1, 1);
-	black = new Sprite(tBlack, 100);*/
+	
 	LPDIRECT3DDEVICE9 G_Device = CGame::GetInstance()->GetDirect3DDevice();
 	font = NULL;
 	AddFontResourceEx(L"Resource\\font\\prstart.ttf", FR_PRIVATE, NULL);
@@ -132,7 +86,7 @@ bool UI::Initialize( Simon *simon, int bossHP)
 }
 
 
-void UI::Update(int bossHP, int time, int life, int stage)
+void UI::Update( int time, int life, int stage)
 {
 
 #pragma region Calculate boss HP in UI
@@ -212,45 +166,7 @@ void UI::Render()
 		font->DrawTextA(NULL, information.c_str(), -1, &rect, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
 
 
-	//for (std::vector<Sprite*>::iterator i = noHPList->begin(); i != noHPList->end(); i++)
-	//{
-	//	SetRect(&newRect, 0, 0, 8, 15);
-	//	(*i)->Render((*i)->GetPosition(), newRect);
-	//	D3DXVECTOR3 newPosition = (*i)->GetPosition();
-	//	newPosition.y = 67;
-	//	(*i)->Render(newPosition, newRect);
-	//}
-
-
-	int count = 0;
-	/*for (std::vector<Sprite*>::iterator i = simonHPList->begin(); i != simonHPList->end(); i++)
-	{
-		if (count < simon->GetHP())
-		{
-			SetRect(&newRect, 0, 0, 8, 15);
-			(*i)->Render((*i)->GetPosition(), newRect);
-		}
-		count++;
-	}*/
-
-
-	count = 0;
-	/*for (std::vector<Sprite*>::iterator i = enemyHPList->begin(); i != enemyHPList->end(); i++)
-	{
-		if (count < uiHP)
-		{
-			SetRect(&newRect, 0, 0, 8, 15);
-			(*i)->Render((*i)->GetPosition(), newRect);
-		}
-		count++;
-	}*/
-
-
-	//D3DXVECTOR3 newPosition = { 330, 45, 0 };
-	//SetRect(&newRect, 0, 0, 70, 45);
-	//(*enemyHPList)[0]->Render(newPosition, newRect);
-
-	//SetRect(&newRect, 0, 0, 16, 16);
+	
 	for (int i = 0; i <= simon->health; i+=5)
 	{
 		simonHPList->Draw(i*2+130, 27);
@@ -259,6 +175,16 @@ void UI::Render()
 	{
 		noHPList->Draw(290-i*2, 27);
 	}
+
+	for (int i = 0; i <= boss->health; i += 5)
+	{
+		enemyHPList->Draw(i * 2 + 130, 50);
+	}
+	for (int i = 0; i <=80- boss->health; i += 5)
+	{
+		noHPList->Draw(290 - i * 2, 50);
+	}
+
 	heart->Draw(420,27);
 	redEdge->Draw(320, 27);
 	if (simon->isrenderKnife)

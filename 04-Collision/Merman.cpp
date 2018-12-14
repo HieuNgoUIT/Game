@@ -13,6 +13,7 @@ Merman::Merman(int X, int Y)
 	watereffect = new WaterEffect();
 	watereffect1 = new WaterEffect();
 	watereffect2 = new WaterEffect();
+	health = 10;
 
 }
 
@@ -22,7 +23,7 @@ Merman::~Merman()
 
 void Merman::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	if (!isDead)
+	if (health>0)
 	{
 		left = x;
 		top = y;
@@ -33,7 +34,7 @@ void Merman::GetBoundingBox(float & left, float & top, float & right, float & bo
 
 void Merman::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 {
-	if (isDead)
+	if (health<=0)
 	{
 		CGameObject::UpdateEffect(dt);
 		reviveTime--;
@@ -98,7 +99,7 @@ void Merman::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 
 void Merman::Render(Camera * camera)
 {
-	if (!isDead)
+	if (health>0)
 	{
 
 		D3DXVECTOR2 pos = camera->Transform(x, y);
@@ -166,4 +167,5 @@ void Merman::RePosition()
 	this->reviveTime = 200;
 	this->hiteffect->isDoneRender = false;
 	this->deadffect->isDoneRender = false;
+	health = 10;
 }

@@ -8,6 +8,7 @@ Boss::Boss(int X, int Y)
 	this->y = Y;
 	tag = 500;//enemy from 500
 	CheckTop = true;
+	health = 80;
 	//	direction = -1;
 		//currentPos = y;
 		//startXpos = X;
@@ -33,6 +34,8 @@ void Boss::GetBoundingBox(float & left, float & top, float & right, float & bott
 
 void Boss::Update(DWORD dt, float simonx, float simony, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (x < 5060)
+		x = 5060;
 	GoStartPosition(dt, simonx, simony);
 	GoSimonPosition(dt, simonx, simony);
 
@@ -74,8 +77,8 @@ void Boss::GoStartPosition(DWORD dt, float simonx, float simony)
 	{
 		if (/*x > 5100 ||*/ y < 240) //di qua ben trai
 		{
-			vx = -0.07f;
-			vy = 0.05f;
+			vx = -0.1f;
+			vy = 0.1f;
 			CGameObject::Update(dt);
 			x += dx;
 			y += dy;
@@ -96,8 +99,8 @@ void Boss::GoStartPosition(DWORD dt, float simonx, float simony)
 	}
 	if (CheckRight)
 	{
-		vy = -0.05f;
-		vx = -0.05f;
+		vy = -0.2f;
+		vx = -0.2f;
 		CGameObject::Update(dt);
 		x += dx;
 		y += dy;
@@ -126,8 +129,8 @@ void Boss::GoSimonPosition(DWORD dt, float simonx, float simony)
 
 		if (y < 400 )
 		{
-			vy = 0.05f;
-			vx = 0.05f;
+			vy = 0.3f;
+			vx = 0.3f;
 			CGameObject::Update(dt);
 			x += dx;
 			y += dy;
@@ -143,8 +146,8 @@ void Boss::GoSimonPosition(DWORD dt, float simonx, float simony)
 	{
 		if (x < positionxToHit && y>positionyToHit)
 		{
-			vy = -0.03f;
-			vx = 0.07f;
+			vy = -0.1f;
+			vx = 0.2f;
 			CGameObject::Update(dt);
 			x += dx;
 			y += dy;

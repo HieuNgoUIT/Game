@@ -11,6 +11,7 @@ Pander::Pander(int X, int Y)
 	startXpos = X;
 	startYpos = Y;
 	doJump = true;
+	health = 10;
 	/*vx = -0.1f;*/
 	//vy = 10;
 }
@@ -21,7 +22,7 @@ Pander::~Pander()
 
 void Pander::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	if (!isDead)
+	if (health>0)
 	{
 		left = x;
 		top = y;
@@ -32,7 +33,7 @@ void Pander::GetBoundingBox(float & left, float & top, float & right, float & bo
 
 void Pander::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 {
-	if (isDead)
+	if (health<=0)
 	{
 		CGameObject::UpdateEffect(dt);
 		reviveTime--;
@@ -108,7 +109,7 @@ void Pander::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 
 void Pander::Render(Camera * camera)
 {
-	if (!isDead)
+	if (health>0)
 	{
 
 		D3DXVECTOR2 pos = camera->Transform(x, y);
@@ -167,4 +168,5 @@ void Pander::RePosition()
 	this->reviveTime = 200;
 	this->hiteffect->isDoneRender = false;
 	this->deadffect->isDoneRender = false;
+	health = 10;
 }

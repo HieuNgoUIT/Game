@@ -14,6 +14,7 @@ Zombie::Zombie(int X, int Y,int direction)
 	this->direction = direction;
 	vx = 1;
 	vy = 10;
+	health = 10;
 }
 
 Zombie::~Zombie()
@@ -22,7 +23,7 @@ Zombie::~Zombie()
 
 void Zombie::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	if (!isDead)
+	if (health>0)
 	{
 		left = x;
 		top = y;
@@ -33,7 +34,7 @@ void Zombie::GetBoundingBox(float & left, float & top, float & right, float & bo
 
 void Zombie::Update(DWORD dt,  float simonx, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (isDead)
+	if (health<=0)
 	{
 		CGameObject::UpdateEffect(dt);
 		
@@ -81,7 +82,7 @@ void Zombie::Update(DWORD dt,  float simonx, vector<LPGAMEOBJECT>* coObjects)
 
 void Zombie::Render(Camera * camera)
 {
-	if (!isDead)
+	if (health>0)
 	{
 
 		D3DXVECTOR2 pos = camera->Transform(x, y);
@@ -143,4 +144,5 @@ void Zombie::RePosition()
 	this->reviveTime = 200;
 	this->hiteffect->isDoneRender = false;
 	this->deadffect->isDoneRender = false;
+	health = 10;
 }

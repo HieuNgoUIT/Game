@@ -8,6 +8,7 @@ public:
 	float startYpos;
 	float positionyToHit;
 	float positionxToHit;
+	//int heath;
 	Boss(int X, int Y);
 	~Boss();
 	float lastSimonx;

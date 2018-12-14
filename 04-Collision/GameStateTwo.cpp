@@ -6,17 +6,18 @@ void GameStateTwo::LoadResources()
 	camera = new Camera(640, 480);
 	simon = Simon::GetInstance();
 	simon->SetPosition(SIMON_POSITION_DEFAULT); //33 4 14
+	boss = new Boss(5300, 100);
 	tilemap = new TileMap();
 	tilemap->LoadMap("Resource/sprites/Grid/test1.b", "Resource/sprites/Grid/test1.s", 34, 4, 136, 14, 90);
 	grid = new Grid();
 	grid->ReadFileToGrid("Resource\\sprites\\Grid\\lv2.txt"); //20 4 80    14 90
 	ui = new UI();
-	ui->Initialize(simon, 16);
+	ui->Initialize(simon, boss);
 	door = new Door(3115, 130);
 	door2 = new Door(4129, 130);
 	simon->isStage1 = false;
 	simon->isStage2 = true;
-	boss = new Boss(5300, 100);
+	
 	//objects.push_back(boss);
 	//2893 156
 }
@@ -128,7 +129,7 @@ void GameStateTwo::Update(DWORD dt)
 		mapTime++;
 		mapSecond = 0;
 	}
-	ui->Update(16, 1000 - mapTime, 3, 1);
+	ui->Update( 1000 - mapTime, 3, 1);
 
 
 	vector<LPGAMEOBJECT> coObjects;

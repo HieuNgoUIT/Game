@@ -6,12 +6,14 @@
 #include <vector>
 #include "Simon.h"
 #include "Whip.h"
+#include "Boss.h"
 class UI
 {
 private:
 	ID3DXFont *font;
 	RECT rect;
 	Simon *simon;
+	Boss *boss;
 	Whip *whip;
 	std::string information;
 
@@ -67,7 +69,7 @@ private:
 public:
 	UI();
 	~UI();
-	bool Initialize( Simon *simon, int bossHP);
-	void Update(int bossHP, int time, int life, int stage);
+	bool Initialize( Simon *simon, Boss *boss);
+	void Update( int time, int life, int stage);
 	void Render();
 };

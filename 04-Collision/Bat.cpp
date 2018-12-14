@@ -13,6 +13,7 @@ Bat::Bat(int X, int Y)
 	startYpos = Y;
 	/*vx = -0.1f;*/
 	//vy = 10;
+	health = 10;
 }
 
 Bat::~Bat()
@@ -21,7 +22,7 @@ Bat::~Bat()
 
 void Bat::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	if (!isDead)
+	if (health>0)
 	{
 		left = x;
 		top = y;
@@ -32,7 +33,7 @@ void Bat::GetBoundingBox(float & left, float & top, float & right, float & botto
 
 void Bat::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 {
-	if (isDead)
+	if (health<=0)
 	{
 		CGameObject::UpdateEffect(dt);
 		reviveTime--;
@@ -99,7 +100,7 @@ void Bat::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 
 void Bat::Render(Camera * camera)
 {
-	if (!isDead)
+	if (health>0)
 	{
 
 		D3DXVECTOR2 pos = camera->Transform(x, y);
@@ -121,6 +122,7 @@ void Bat::RePosition()
 	this->reviveTime = 200;
 	this->hiteffect->isDoneRender = false;
 	this->deadffect->isDoneRender = false;
+	health = 10;
 }
 
 

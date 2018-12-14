@@ -27,7 +27,7 @@ void GameStateOne::LoadResources()
 	grid = new Grid();
 	grid->ReadFileToGrid("Resource\\sprites\\Grid\\lv1.txt");
 	ui = new UI();
-	ui->Initialize(simon, 16);
+	ui->Initialize(simon,NULL);
 	game = CGame::GetInstance();
 	if (!Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
 		Sound::GetInstance()->PlayLoop(STAGE_01_VAMPIRE_KILLER);
@@ -41,7 +41,7 @@ void GameStateOne::Update(DWORD dt)
 		mapTime++;
 		mapSecond = 0;
 	}
-	ui->Update(16, 1000 - mapTime, 3, 1);
+	ui->Update(1000 - mapTime, 3, 1);
 
 
 	vector<LPGAMEOBJECT> coObjects;
