@@ -175,15 +175,18 @@ void UI::Render()
 	{
 		noHPList->Draw(290-i*2, 27);
 	}
-
-	for (int i = 0; i <= boss->health; i += 5)
+	if (boss != NULL)
 	{
-		enemyHPList->Draw(i * 2 + 130, 50);
+		for (int i = 0; i <= boss->health; i += 5)
+		{
+			enemyHPList->Draw(i * 2 + 130, 50);
+		}
+		for (int i = 0; i <= 80 - boss->health; i += 5)
+		{
+			noHPList->Draw(290 - i * 2, 50);
+		}
 	}
-	for (int i = 0; i <=80- boss->health; i += 5)
-	{
-		noHPList->Draw(290 - i * 2, 50);
-	}
+	
 
 	heart->Draw(420,27);
 	redEdge->Draw(320, 27);

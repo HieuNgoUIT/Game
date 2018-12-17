@@ -17,7 +17,8 @@ void GameStateTwo::LoadResources()
 	door2 = new Door(4129, 130);
 	simon->isStage1 = false;
 	simon->isStage2 = true;
-	
+	if (!Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
+		Sound::GetInstance()->PlayLoop(STAGE_01_VAMPIRE_KILLER);
 	//objects.push_back(boss);
 	//2893 156
 }
@@ -171,7 +172,7 @@ void GameStateTwo::Update(DWORD dt)
 		for (int i = 0; i < objects.size(); i++)
 			if (objects[i]->tag == 500)
 			{
-				objects[i]->isDead = true;
+				objects[i]->health -= 10;
 			}
 
 		simon->isRosary = false;
@@ -179,6 +180,18 @@ void GameStateTwo::Update(DWORD dt)
 	if (simon->isFightingBoss)
 	{
 		boss->Update(dt, simon->x,simon->y);
+		if (Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
+		{
+			Sound::GetInstance()->Stop(STAGE_01_VAMPIRE_KILLER);
+			Sound::GetInstance()->Play(BOSS_BATTLE_POISON_MIND);
+		}
+		if (Sound::GetInstance()->IsPLaying(STAGE_CLEAR))
+		{
+			Sound::GetInstance()->Stop(BOSS_BATTLE_POISON_MIND);
+		}
+		//Sound::GetInstance()->Play(BOSS_BATTLE_POISON_MIND);
+			
+		
 	}
 
 }

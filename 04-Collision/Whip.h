@@ -1,10 +1,9 @@
 #pragma once
 #include "GameObject.h"
-#include "Zombie.h"
 #include "LargeCandle.h"
 #include "HitEffect.h"
 #include "Sound.h"
-
+#include "Boss.h"
 class Whip :public CGameObject
 {
 public:
@@ -20,7 +19,8 @@ public:
 	 void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
 	 void CollisionWithLargeCandle(vector<LPGAMEOBJECT>* coObjects);
 	 void CollisionWithCandle(vector<LPGAMEOBJECT>* coObjects);
-	 void CollisionWithZombie(vector<LPGAMEOBJECT> *coObjects = NULL);
+	 void CollisionWithEnemy(vector<LPGAMEOBJECT> *coObjects = NULL);
+	
 	 void Create(float simonX, float simonY, int simondirection);
  void Render(Camera * camera);
 };

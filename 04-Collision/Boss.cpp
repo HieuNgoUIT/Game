@@ -1,5 +1,9 @@
 #include "Boss.h"
 
+Boss::Boss()
+{
+}
+
 Boss::Boss(int X, int Y)
 {
 	_texture = new Texture("Resource\\sprites\\Bosses\\VAMPIRE_BAT.png", 3, 1, 3);
@@ -23,7 +27,7 @@ Boss::~Boss()
 
 void Boss::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	if (!isDead)
+	if (!untouchable)
 	{
 		left = x;
 		top = y;
@@ -34,15 +38,34 @@ void Boss::GetBoundingBox(float & left, float & top, float & right, float & bott
 
 void Boss::Update(DWORD dt, float simonx, float simony, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (x < 5060)
-		x = 5060;
-	GoStartPosition(dt, simonx, simony);
-	GoSimonPosition(dt, simonx, simony);
+	if (health > 0)
+	{
 
-	int index = _sprite->GetIndex();
-	if (index == 0)
-		_sprite->SelectIndex(1);
-	_sprite->Update(dt);
+		if (GetTickCount() - untouchable_start > 500)
+		{
+			untouchable_start = 0;
+			untouchable = 0;
+		}
+		if (x < 5060)
+			x = 5060;
+		GoStartPosition(dt, simonx, simony);
+		GoSimonPosition(dt, simonx, simony);
+
+		int index = _sprite->GetIndex();
+		if (index == 0)
+			_sprite->SelectIndex(1);
+		_sprite->Update(dt);
+
+	}
+	else
+	{
+		isDead = true;
+		if (Sound::GetInstance()->IsPLaying(BOSS_BATTLE_POISON_MIND))
+		{
+			Sound::GetInstance()->Stop(BOSS_BATTLE_POISON_MIND);
+		}
+		Sound::GetInstance()->Play(STAGE_CLEAR);
+	}
 
 
 
@@ -59,17 +82,10 @@ void Boss::Render(Camera * camera)
 		_sprite->Draw(pos.x, pos.y);
 		RenderBoundingBox(camera);
 	}
-	
+
 
 }
 
-void Boss::RePosition()
-{
-	this->x = startXpos;
-	this->reviveTime = 200;
-	this->hiteffect->isDoneRender = false;
-	this->deadffect->isDoneRender = false;
-}
 
 void Boss::GoStartPosition(DWORD dt, float simonx, float simony)
 {
@@ -108,11 +124,11 @@ void Boss::GoStartPosition(DWORD dt, float simonx, float simony)
 
 	if (y < 110)
 	{
-		waittingtimebeforeattack = 300;
+		waittingtimebeforeattack = 200;
 		CheckTop = true;
 		CheckRight = false;
 	}
-	
+
 
 
 
@@ -127,7 +143,7 @@ void Boss::GoSimonPosition(DWORD dt, float simonx, float simony)
 	if (CheckLeft)
 	{
 
-		if (y < 400 )
+		if (y < 400)
 		{
 			vy = 0.3f;
 			vx = 0.3f;
@@ -147,7 +163,7 @@ void Boss::GoSimonPosition(DWORD dt, float simonx, float simony)
 		if (x < positionxToHit && y>positionyToHit)
 		{
 			vy = -0.1f;
-			vx = 0.2f;
+			vx = 0.1f;
 			CGameObject::Update(dt);
 			x += dx;
 			y += dy;

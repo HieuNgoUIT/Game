@@ -114,13 +114,14 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 	_sprite->Update(dt);
-	//CGameObject::Update(dt);
+	
 	vector<LPGAMEOBJECT> coObjects_LargeCandle;
 	coObjects_LargeCandle.clear();
 	vector<LPGAMEOBJECT> coObjects_Candle;
 	coObjects_Candle.clear();
 	vector<LPGAMEOBJECT> coObjects_Zombie;
 	coObjects_Zombie.clear();
+	LPGAMEOBJECT boss;
 	for (int i = 0; i < coObjects->size(); i++)
 	{
 		if (coObjects->at(i)->GetTag() == 10)
@@ -129,10 +130,13 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			coObjects_Candle.push_back(coObjects->at(i));
 		if (coObjects->at(i)->GetTag() == 500)
 			coObjects_Zombie.push_back(coObjects->at(i));
+		if (coObjects->at(i)->GetTag() == 501)
+			boss = coObjects->at(i);
 	}
-	CollisionWithZombie(&coObjects_Zombie);
+	CollisionWithEnemy(&coObjects_Zombie);
 	CollisionWithLargeCandle(&coObjects_LargeCandle);
 	CollisionWithCandle(&coObjects_Candle);
+
 }
 void Whip::CollisionWithLargeCandle(vector<LPGAMEOBJECT>* coObjects)
 {
@@ -197,7 +201,7 @@ void Whip::CollisionWithCandle(vector<LPGAMEOBJECT>* coObjects)
 
 	}
 }
-void Whip::CollisionWithZombie(vector<LPGAMEOBJECT>* coObjects)
+void Whip::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObjects)
 {
 	for (int i = 0; i < coObjects->size(); i++)
 	{
@@ -205,6 +209,13 @@ void Whip::CollisionWithZombie(vector<LPGAMEOBJECT>* coObjects)
 		{
 			coObjects->at(i)->health -= 10;
 			this->score += 100;
+			if (dynamic_cast<Boss *>(coObjects->at(i)))
+			{
+				Boss *boss = dynamic_cast<Boss *>(coObjects->at(i));
+				boss->StartUntouchable();
+				Sound::GetInstance()->Play(HIT_SOUND);
+			}
+			
 			/*Simon *simon = Simon::GetInstance();
 			simon->score += 100;*/
 		}
@@ -284,6 +295,7 @@ void Whip::CollisionWithZombie(vector<LPGAMEOBJECT>* coObjects)
 	//for (UINT i = 0; i < coEvents.size(); i++)
 	//	delete coEvents[i];
 }
+
 void Whip::Create(float simonX, float simonY, int simondirection)
 {
 	this->x = simonX;

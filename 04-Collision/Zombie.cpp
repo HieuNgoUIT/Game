@@ -49,7 +49,7 @@ void Zombie::Update(DWORD dt,  float simonx, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		if (simonx > startXpos-640 && simonx < startXpos+640)
+		if (simonx > startXpos-640 && simonx < startXpos+320)
 		{
 
 			
@@ -59,7 +59,7 @@ void Zombie::Update(DWORD dt,  float simonx, vector<LPGAMEOBJECT>* coObjects)
 			}
 			
 			vx = 0.05f*direction;
-			vy = 0.1f;
+			vy = 0.5f;
 			
 			
 			CGameObject::Update(dt);

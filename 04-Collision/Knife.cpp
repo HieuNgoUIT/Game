@@ -34,7 +34,7 @@ void Knife::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	for (int i = 0; i < coObjects->size(); i++)
 		if (coObjects->at(i)->GetTag() == 10)
 			coObjects_LargeCandle.push_back(coObjects->at(i));
-	CollisionWithLargeCandle(&coObjects_LargeCandle);
+	CollisionWithEnemy(&coObjects_LargeCandle);
 }
 void Knife::Create(float simonX, float simonY, int simondirection)
 {

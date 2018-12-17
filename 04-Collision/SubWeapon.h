@@ -14,7 +14,7 @@ public:
 	/*void RenderBoundingBox(Camera* camera);*/
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
-	void CollisionWithLargeCandle(vector<LPGAMEOBJECT>* coObjects);
+	void CollisionWithEnemy(vector<LPGAMEOBJECT>* coObjects);
 	virtual void Create(float simonX, float simonY, int simondirection);
 	void Render(Camera * camera);
 	

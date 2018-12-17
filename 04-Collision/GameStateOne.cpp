@@ -108,11 +108,11 @@ void GameStateOne::Render()
 
 void GameStateOne::KillAll()
 {
-	delete camera;
+	/*delete camera;
 	delete tilemap;
 	delete ui;
 	delete grid;
-	delete checkpoint;
+	delete checkpoint;*/
 
 }
 

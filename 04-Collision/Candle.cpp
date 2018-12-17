@@ -111,6 +111,9 @@ char * Candle::ConvertItemNumbertoString(int number)
 	case 15:
 		return "Resource\\sprites\\Items\\HOLY_WATER.png";
 		break;
+	case 16:
+		return "Resource\\sprites\\Items\\AXE.png";
+		break;
 	default:
 		break;
 	}

@@ -1,5 +1,6 @@
 #pragma once
 #include "SubWeapon.h"
+#include "Sound.h"
 class HolyWater :public SubWeapon {
 public:
 	bool CheckTop;

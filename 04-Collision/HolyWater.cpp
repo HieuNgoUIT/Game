@@ -38,21 +38,23 @@ void HolyWater::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		//y += dy;
 		vector<LPGAMEOBJECT> coObjects_Brick;
 		coObjects_Brick.clear();
+		vector<LPGAMEOBJECT> coObjects_Enemy;
+		coObjects_Enemy.clear();
 		
 		for (int i = 0; i < coObjects->size(); i++)
 		{
 			if (coObjects->at(i)->GetTag() == 41)
 				coObjects_Brick.push_back(coObjects->at(i));
+			if(coObjects->at(i)->GetTag() == 500)
+				coObjects_Enemy.push_back(coObjects->at(i));
+			
 			
 		}	
 		CollisionWithBrick(&coObjects_Brick); // check Collision and update x, y for simon
-
-		vector<LPGAMEOBJECT> coObjects_LargeCandle;
-		coObjects_LargeCandle.clear();
-		for (int i = 0; i < coObjects->size(); i++)
-			if (coObjects->at(i)->GetTag() == 500)
-				coObjects_LargeCandle.push_back(coObjects->at(i));
-		CollisionWithLargeCandle(&coObjects_LargeCandle);
+		CollisionWithEnemy(&coObjects_Enemy);
+		
+		/*for (int i = 0; i < coObjects->size(); i++)
+			i*/
 	}
 
 
@@ -156,5 +158,6 @@ void HolyWater::Create(float simonX, float simonY, int simondirection)
 	this->remainingTime = 100;//set thoi gian ton tai vu khi
 	this->isFinish = false;
 	this->CheckTop = false;
+	Sound::GetInstance()->Play(HOLY_WATER);
 
 }

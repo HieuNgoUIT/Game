@@ -41,7 +41,7 @@ void SubWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	
 }
 
-void SubWeapon::CollisionWithLargeCandle(vector<LPGAMEOBJECT>* coObjects)
+void SubWeapon::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObjects)
 {
 	/*vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -53,7 +53,7 @@ void SubWeapon::CollisionWithLargeCandle(vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (isColliding(this, coObjects->at(i)))
 		{
-			coObjects->at(i)->isDead = true;
+			coObjects->at(i)->health -= 10;
 			this->isFinish = true;//da ban xong
 
 		}
