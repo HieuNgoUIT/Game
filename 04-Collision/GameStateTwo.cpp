@@ -164,6 +164,11 @@ void GameStateTwo::Update(DWORD dt)
 		for (int i = 0; i < objects.size(); i++)
 		{
 			objects[i]->Update(dt, simon->x, &coObjects);
+			if (dynamic_cast<Zombie *>(objects[i]))
+			{
+				Zombie *boss = dynamic_cast<Zombie *>(objects[i]);
+				boss->Update(dt,camera, simon->x, &coObjects);
+			}
 		}
 	}
 	else

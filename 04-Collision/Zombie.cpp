@@ -32,7 +32,7 @@ void Zombie::GetBoundingBox(float & left, float & top, float & right, float & bo
 	}
 }
 
-void Zombie::Update(DWORD dt,  float simonx, vector<LPGAMEOBJECT>* coObjects)
+void Zombie::Update(DWORD dt, Camera *camera,  float simonx, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (health<=0)
 	{
@@ -41,7 +41,7 @@ void Zombie::Update(DWORD dt,  float simonx, vector<LPGAMEOBJECT>* coObjects)
 		reviveTime--;
 		if (reviveTime < 0)
 		{
-			RePosition();
+			RePosition(camera);
 			this->isDead = false;
 			
 			
@@ -49,7 +49,7 @@ void Zombie::Update(DWORD dt,  float simonx, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		if (simonx > startXpos-640 && simonx < startXpos+320)
+		if (simonx > startXpos-640 && simonx < startXpos+640)
 		{
 
 			
@@ -138,10 +138,19 @@ void Zombie::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 		delete coEvents[i];
 }
 
-void Zombie::RePosition()
+void Zombie::RePosition(Camera *camera)
 {
-	this->x = startXpos;
-	this->reviveTime = 500;
+	//this->x = startXpos;
+	if (startXpos > camera->GetViewport().x)
+	{
+		this->x = camera->GetViewport().x+640;
+	}
+	else
+	{
+		this->x = camera->GetViewport().x ;
+		this->direction = -direction;
+	}
+	this->reviveTime = rand() % 100 + 1;
 	this->hiteffect->isDoneRender = false;
 	this->deadffect->isDoneRender = false;
 	health = 10;
