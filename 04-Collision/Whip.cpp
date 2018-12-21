@@ -35,42 +35,42 @@ void Whip::RenderBoundingBox(Camera * camera)
 
 void Whip::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	if (typeOfWhip <2)
+	if (typeOfWhip < 2)
 	{
 
 		if (direction == -1)
 		{
-			left = x-45;
-			top = y+20;
-			right = x ;
-			bottom = y + _texture->FrameHeight-30;
+			left = x - 45;
+			top = y + 20;
+			right = x;
+			bottom = y + _texture->FrameHeight - 30;
 		}
 		else
 		{
-			left = x+50;
-			top = y+20;
-			right = x + _texture->FrameWidth- _texture->FrameHeight/2-20;
-			bottom = y + _texture->FrameHeight-30 ;
+			left = x + 50;
+			top = y + 20;
+			right = x + _texture->FrameWidth - _texture->FrameHeight / 2 - 20;
+			bottom = y + _texture->FrameHeight - 30;
 		}
 	}
-	else 
+	else
 	{
 		if (direction == -1)
 		{
 			left = x - 80;
-			top = y+20;
+			top = y + 20;
 			right = x;
-			bottom = y + _texture->FrameHeight-30;
+			bottom = y + _texture->FrameHeight - 30;
 		}
 		else
 		{
-			left = x+50;
-			top = y+20;
-			right = x + _texture->FrameWidth-20;
+			left = x + 50;
+			top = y + 20;
+			right = x + _texture->FrameWidth - 20;
 			bottom = y + _texture->FrameHeight - 30;
 		}
 	}
-	
+
 
 
 }
@@ -78,7 +78,7 @@ void Whip::GetBoundingBox(float & left, float & top, float & right, float & bott
 void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	int index = _sprite->GetIndex();
-	
+
 
 	if (typeOfWhip == 0)
 	{
@@ -90,7 +90,7 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
-	
+
 	if (typeOfWhip == 1)
 	{
 		if (index < 4 || index >= 7)
@@ -101,20 +101,20 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			isFinish = true;
 		}
-	}	
+	}
 	if (typeOfWhip == 2)
 	{
 		if (index < 8 || index >= 11)
 		{
 			_sprite->SelectIndex(8);
 		}
-		if (index ==11)
+		if (index == 11)
 		{
 			isFinish = true;
 		}
 	}
 	_sprite->Update(dt);
-	
+
 	vector<LPGAMEOBJECT> coObjects_LargeCandle;
 	coObjects_LargeCandle.clear();
 	vector<LPGAMEOBJECT> coObjects_Candle;
@@ -140,12 +140,7 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 void Whip::CollisionWithLargeCandle(vector<LPGAMEOBJECT>* coObjects)
 {
-	/*vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
 
-	coEvents.clear();*/
-
-	//CalcPotentialCollisions(coObjects, coEvents); // Lấy danh sách các va chạm
 	for (int i = 0; i < coObjects->size(); i++)
 	{
 		if (isColliding(this, coObjects->at(i)))
@@ -203,6 +198,16 @@ void Whip::CollisionWithCandle(vector<LPGAMEOBJECT>* coObjects)
 }
 void Whip::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObjects)
 {
+	//
+	//vector<LPCOLLISIONEVENT> coEvents;
+	//vector<LPCOLLISIONEVENT> coEventsResult;
+
+	//coEvents.clear();
+
+	//CalcPotentialCollisions(coObjects, coEvents); // Lấy danh sách các va chạm
+	//											  // No collision occured, proceed normally
+	//if (coEvents.size() == 0)
+	//{
 	for (int i = 0; i < coObjects->size(); i++)
 	{
 		if (isColliding(this, coObjects->at(i)))
@@ -215,39 +220,12 @@ void Whip::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObjects)
 				boss->StartUntouchable();
 				Sound::GetInstance()->Play(HIT_SOUND);
 			}
-			
+
 			/*Simon *simon = Simon::GetInstance();
 			simon->score += 100;*/
 		}
 
 	}
-	//vector<LPCOLLISIONEVENT> coEvents;
-	//vector<LPCOLLISIONEVENT> coEventsResult;
-
-	//coEvents.clear();
-
-	//CalcPotentialCollisions(coObjects, coEvents); // Lấy danh sách các va chạm
-
-	//											  //if (isOnStair)
-	//											  //{
-	//											  //	for (int i = 0; i < coObjects->size(); i++) //aabb item
-	//											  //	{
-	//											  //		if (isColliding(this, coObjects->at(i)))
-	//											  //		{
-	//											  //			isOnStair = false;
-	//											  //			this->y = y - 25;
-
-
-
-	//											  //		}
-	//											  //	}
-	//											  //}
-
-	//											  // No collision occured, proceed normally
-	//if (coEvents.size() == 0)
-	//{
-	//	/*x += dx;
-	//	y += dy;*/
 	//}
 	//else
 	//{
@@ -261,32 +239,30 @@ void Whip::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObjects)
 	//	//	x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
 	//	//y += min_ty * dy + ny * 0.4f; // ny = -1 thì hướng từ trên xuống....
 
-	//	if (nx != 0)
-	//		vx = 0; // nếu mà nx, ny <>0  thì nó va chạm rồi. mà chạm rồi thì dừng vận tốc cho nó đừng chạy nữa
+	//	//if (nx != 0)
+	//	//	coObjects->at(i)->health -= 10; // nếu mà nx, ny <>0  thì nó va chạm rồi. mà chạm rồi thì dừng vận tốc cho nó đừng chạy nữa
 
-	//	if (ny != 0)
-	//	{
-	//		vy = 0;
-	//		
-	//	}
+	//	//if (ny != 0)
+	//	//{
+	//	//	coObjects->at(i)->health -= 10;
+	//	//	
+	//	//}
 
 	//	// Collision logic with Goombas
 	//	for (UINT i = 0; i < coEventsResult.size(); i++)
 	//	{
 	//		LPCOLLISIONEVENT e = coEventsResult[i];
-	//		if (dynamic_cast<Zombie *>(e->obj))
+
+	//		// jump on top >> kill Goomba and deflect a bit 
+	//		if (e->ny < 0)
 	//		{
-	//			Zombie *zombie = dynamic_cast<Zombie *>(e->obj);
-	//			// jump on top >> kill Goomba and deflect a bit 
-	//			if (e->ny < 0)
-	//			{
-	//				zombie->isDead = true;
-	//			}
-	//			else if (e->nx != 0)
-	//			{
-	//				zombie->isDead = true;
-	//			}
+	//			e->obj->health -= 10;
 	//		}
+	//		else if (e->nx != 0)
+	//		{
+	//			e->obj->health -= 10;
+	//		}
+
 	//	}
 	//}
 
@@ -308,8 +284,8 @@ void Whip::Render(Camera * camera)
 {
 	D3DXVECTOR2 pos = camera->Transform(x, y);
 	if (direction == -1)
-		_sprite->Draw(pos.x-75 , pos.y );
+		_sprite->Draw(pos.x - 75, pos.y);
 	else
-		_sprite->DrawFlipX(pos.x-25 , pos.y);
+		_sprite->DrawFlipX(pos.x - 25, pos.y);
 	RenderBoundingBox(camera);
 }

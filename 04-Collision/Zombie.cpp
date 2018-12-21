@@ -141,7 +141,7 @@ void Zombie::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 void Zombie::RePosition()
 {
 	this->x = startXpos;
-	this->reviveTime = 200;
+	this->reviveTime = 500;
 	this->hiteffect->isDoneRender = false;
 	this->deadffect->isDoneRender = false;
 	health = 10;

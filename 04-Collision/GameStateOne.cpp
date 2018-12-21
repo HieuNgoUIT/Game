@@ -4,26 +4,19 @@ void GameStateOne::LoadResources()
 {
 	simon = Simon::GetInstance();
 	simon->SetPosition(SIMON_POSITION_DEFAULT);
-	//simon->SetPosition(0, 0);
+	
 	simon->isStage1 = true;
-	//brick = new Brick(0, 400, 1536, 32);
-	//objects.push_back(brick);
+	
 
 	camera = new Camera(640, 480);
 
 	tilemap = new TileMap();
 	tilemap->LoadMap("Resource/sprites/lv1.b", "Resource/sprites/lv1.s", 10, 4, 40, 6, 24);
 
-	//largecandle = new LargeCandle(300, 265);
-	//objects.push_back(largecandle);
+	
 	checkpoint = new CheckPoint();
 	checkpoint->SetPosition(1366, 365);
-	//largecandle = new LargeCandle(350, 200);
-	//objects.push_back(largecandle);
-	/*Sound::GetInstance()->Stop(GAME_START_PROLOGUE);
-
-	if (!Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
-	Sound::GetInstance()->PlayLoop(STAGE_01_VAMPIRE_KILLER);*/
+	
 	grid = new Grid();
 	grid->ReadFileToGrid("Resource\\sprites\\Grid\\lv1.txt");
 	ui = new UI();
@@ -54,7 +47,6 @@ void GameStateOne::Update(DWORD dt)
 			items.push_back(item);
 		}
 		objects[i]->SetDropItem(false);
-		//objects[i]->isCreatedItem = true;//sau khi push item thi moi xoa khoi objects
 	}
 
 	for (int i = 0; i < objects.size(); i++)
@@ -115,6 +107,26 @@ void GameStateOne::KillAll()
 	{
 		delete(test[i]);
 	}*/
+	//grid->DeleteObjects();
+	delete grid;
+	grid = NULL;
+
+	delete tilemap;
+	tilemap = NULL;
+
+	delete ui;
+	ui = NULL;
+	for (int i = 0; i < objects.size(); i++)
+	{
+		delete objects[i];
+		objects[i] = NULL;
+	}
+	for (int i = 0; i < items.size(); i++)
+	{
+		delete items[i];
+		items[i] = NULL;
+	}
+	
 }
 
 GameStateOne::GameStateOne()

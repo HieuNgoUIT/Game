@@ -13,8 +13,9 @@ Merman::Merman(int X, int Y)
 	watereffect = new WaterEffect();
 	watereffect1 = new WaterEffect();
 	watereffect2 = new WaterEffect();
+	//fireball = new FireBall(x, y);
 	health = 10;
-
+	fireball = new FireBall(x, y);
 }
 
 Merman::~Merman()
@@ -23,7 +24,7 @@ Merman::~Merman()
 
 void Merman::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	if (health>0)
+	if (health > 0)
 	{
 		left = x;
 		top = y;
@@ -32,9 +33,9 @@ void Merman::GetBoundingBox(float & left, float & top, float & right, float & bo
 	}
 }
 
-void Merman::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
+void Merman::Update(DWORD dt, float simonx, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (health<=0)
+	if (health <= 0)
 	{
 		CGameObject::UpdateEffect(dt);
 		reviveTime--;
@@ -74,8 +75,36 @@ void Merman::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 				vy -= 0.0005f * dt;
 				y += dy;
 			}
+			attackTime--;
+			if (attackTime < 0 && !isAttack)
+			{
+				isAttack = true;
+				bulletTime = 200;
+				fireball->health = 10;
+				fireball->SetPosition(this->x, this->y);
+			}
+			if (isAttack)
+			{
+				this->vx = 0;
+				_sprite->SelectIndex(0);
+				fireball->Update(dt, simonx);
+				bulletTime--;
+				if (bulletTime < 0)
+				{
+					isAttack = false;
+					attackTime = 300;
+				}
+			}
+			else
+			{
+				_sprite->Update(dt);
+			}
+			
+			
 
-			_sprite->Update(dt);
+
+
+			
 			watereffect->Update(dt, this->direction);
 			watereffect1->Update(dt, -this->direction);
 			watereffect2->Update(dt, this->direction);
@@ -91,7 +120,7 @@ void Merman::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 				CollisionWithBrick(&coObjects_Brick);
 			}
 		}
-	
+
 
 	}
 
@@ -99,7 +128,7 @@ void Merman::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 
 void Merman::Render(Camera * camera)
 {
-	if (health>0)
+	if (health > 0)
 	{
 
 		D3DXVECTOR2 pos = camera->Transform(x, y);
@@ -113,7 +142,11 @@ void Merman::Render(Camera * camera)
 			watereffect1->Render(camera);
 			watereffect2->Render(camera);
 		}
-	
+		if (attackTime < 0)
+		{
+			fireball->Render(camera);
+		}
+
 
 
 		RenderBoundingBox(camera);

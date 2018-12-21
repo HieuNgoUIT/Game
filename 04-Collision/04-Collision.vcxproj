@@ -136,6 +136,7 @@
     <ClInclude Include="dsutil.h" />
     <ClInclude Include="dxsound.h" />
     <ClInclude Include="dxutil.h" />
+    <ClInclude Include="FireBall.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
@@ -176,6 +177,7 @@
     <ClCompile Include="dsutil.cpp" />
     <ClCompile Include="dxsound.cpp" />
     <ClCompile Include="dxutil.cpp" />
+    <ClCompile Include="FireBall.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameState.cpp" />

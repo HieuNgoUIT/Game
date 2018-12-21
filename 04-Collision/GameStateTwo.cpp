@@ -60,13 +60,13 @@ void GameStateTwo::Update(DWORD dt)
 	}
 	else //het va cham voi cua 
 	{
-		
+
 		if (simon->y > 450)//y duoi nuoc
 		{
 			camera->SetPosition(simon->x - 320 + 60, 450);
 			camera->UpdateWater();
 		}
-		else if (simon->x > 3200 && simon->x <4160) //man` 21
+		else if (simon->x > 3200 && simon->x < 4160) //man` 21
 		{
 			if (camera->GetViewport().x < 3150)
 			{
@@ -93,7 +93,7 @@ void GameStateTwo::Update(DWORD dt)
 				camera->Go(dt); //move camera sau khi simon di 1 ti
 				simon->isStage21 = false;
 				simon->isStage22 = true;
-				
+
 			}
 			else
 			{
@@ -107,13 +107,13 @@ void GameStateTwo::Update(DWORD dt)
 					camera->SetPosition(5065, 0);//boss
 					//camera->SetPosition(boss->x - 320 + 60, 0);
 				}
-				
+
 			}
 		}
-		
+
 	}
 
-	
+
 	//else //het va cham voi cua 
 	//{
 	//	camera->SetPosition(simon->x - 320 + 60, 0);//update man 2
@@ -130,7 +130,7 @@ void GameStateTwo::Update(DWORD dt)
 		mapTime++;
 		mapSecond = 0;
 	}
-	ui->Update( 1000 - mapTime, 3, 1);
+	ui->Update(1000 - mapTime, 3, 1);
 
 
 	vector<LPGAMEOBJECT> coObjects;
@@ -145,11 +145,20 @@ void GameStateTwo::Update(DWORD dt)
 			objects[i]->SetDropItem(false);
 			//objects[i]->isCreatedItem = true;//sau khi push item thi moi xoa khoi objects
 		}
+		else if (dynamic_cast<Merman *>(objects[i]))
+		{
+			Merman *boss = dynamic_cast<Merman *>(objects[i]);
+			coObjects.push_back(boss);
+			coObjects.push_back(boss->fireball);
+			objects.push_back(boss->fireball);		
+		}
 		else
 		{
 			coObjects.push_back(objects[i]); //neu ma rot item =false thi` da~ chet' nen ko push vao co0bject nua
 		}
 	}
+
+
 	if (!simon->isStopwatch)
 	{
 		for (int i = 0; i < objects.size(); i++)
@@ -179,7 +188,7 @@ void GameStateTwo::Update(DWORD dt)
 	}
 	if (simon->isFightingBoss)
 	{
-		boss->Update(dt, simon->x,simon->y);
+		boss->Update(dt, simon->x, simon->y);
 		if (Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
 		{
 			Sound::GetInstance()->Stop(STAGE_01_VAMPIRE_KILLER);
@@ -190,8 +199,8 @@ void GameStateTwo::Update(DWORD dt)
 			Sound::GetInstance()->Stop(BOSS_BATTLE_POISON_MIND);
 		}
 		//Sound::GetInstance()->Play(BOSS_BATTLE_POISON_MIND);
-			
-		
+
+
 	}
 
 }

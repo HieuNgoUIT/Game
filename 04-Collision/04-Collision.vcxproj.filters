@@ -165,6 +165,9 @@
     <ClInclude Include="Boss.h">
       <Filter>Objets\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="FireBall.h">
+      <Filter>Objets\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debug.cpp">
@@ -282,6 +285,9 @@
       <Filter>Player\SubWp</Filter>
     </ClCompile>
     <ClCompile Include="Boss.cpp">
+      <Filter>Objets\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="FireBall.cpp">
       <Filter>Objets\Enemies</Filter>
     </ClCompile>
   </ItemGroup>

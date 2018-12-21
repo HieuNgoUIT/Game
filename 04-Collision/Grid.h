@@ -23,7 +23,7 @@ using namespace std;
 
 #define GRID_CELL_WIDTH 256
 #define GRID_CELL_HEIGHT 224
-#define GRID_BASE 0
+
 
 
 
@@ -37,12 +37,12 @@ private:
 	void ResetTake();
  
 public:
-	void ReadFileToGrid(char * filename); // Đọc các object từ file
+	void ReadFileToGrid(char * filename); 
 	void GetListObject(vector<CGameObject*>& ListObj, Camera * camera);
-	//void GetListObject(vector<CGameObject*> &ListObj, CGameObject * obj);
+	
 
-
-	void Insert(int id, int type,  float x, float y, float w, float h); //Thêm object vào grid
+	void DeleteObjects();
+	void Insert(int id, int type,  float x, float y, float w, float h); 
 
 	CGameObject * GetNewObject(int type, int x, int y, int w, int h);
 

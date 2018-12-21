@@ -50,16 +50,14 @@ void Grid::GetListObject(vector<CGameObject*>& ListObj, Camera * camera)
 	for (int row = rowTop; row <= rowBottom; row++)
 		for (int col = colLeft; col <= colRight; col++)
 		{
-			for (int i = 0; i < cells[row + GRID_BASE][col + GRID_BASE].size(); i++)
+			for (int i = 0; i < cells[row ][col ].size(); i++)
 			{
-				//if (cells[row + GRID_BASE][col + GRID_BASE].at(i)->isDead ==0 /*&& cells[row + GRID_BASE][col + GRID_BASE].at(i)->isCreatedItem == 0*/) // còn tồn tại
-				//{
-					if (cells[row + GRID_BASE][col + GRID_BASE].at(i)->isTake == false)
+					if (cells[row][col].at(i)->isTake == false)
 					{
-						ListObj.push_back(cells[row + GRID_BASE][col + GRID_BASE].at(i));
-						cells[row + GRID_BASE][col + GRID_BASE].at(i)->isTake = true;
+						ListObj.push_back(cells[row ][col ].at(i));
+						cells[row][col].at(i)->isTake = true;
 					}
-				/*}*/
+
 			}
 		}
 }
@@ -104,6 +102,15 @@ void Grid::ResetTake()
 	}
 }
  
+void Grid::DeleteObjects()
+{
+	for (int i = 0; i < listObjectGame.size(); i++)
+	{
+		delete(listObjectGame[i]);
+	}
+
+}
+
 void Grid::Insert(int id, int type,  float x, float y, float w, float h)
 { 
 	int Top = floor( y / (float)GRID_CELL_HEIGHT);
@@ -115,11 +122,10 @@ void Grid::Insert(int id, int type,  float x, float y, float w, float h)
 	CGameObject * dataObject = GetNewObject(type, x, y, w, h); 
 	if (dataObject == NULL)
 	{
-		DebugOut(L"[Insert Object GRID Fail] : Bo tay roi :v Khong tao duoc object!\n");
+		DebugOut(L"[Insert Object GRID Fail] ");
 		return;
 	} 
 	dataObject->id=id;
-	//dataObject->SetTrend(trend);
 	dataObject->isTake = false;
 
 	listObjectGame.push_back(dataObject);
@@ -128,7 +134,7 @@ void Grid::Insert(int id, int type,  float x, float y, float w, float h)
 	{
 		for (int col = Left; col <= Right; col++)
 		{
-			cells[row + GRID_BASE][col + GRID_BASE].push_back(dataObject);
+			cells[row ][col].push_back(dataObject);
 		}
 	}
 
@@ -136,17 +142,14 @@ void Grid::Insert(int id, int type,  float x, float y, float w, float h)
 
 CGameObject * Grid::GetNewObject(int type, int x, int y,int w, int h)
 {
-	if (type == 12) return new Brick(type,x, y, w, h);
-	else if (type == -12) return new Brick(type, x, y, w, h);
-	else if (type == 10) return new LargeCandle(x, y,w);
-	else if (type == 11) return new Candle(x, y,w);
-	else if (type == 500) return new Zombie(x,y,w);
+	if (type == 12 || type == -12) return new Brick(type,x, y, w, h);
+	else if (type == 10) return new LargeCandle(x, y,w); //x,y,typeitem
+	else if (type == 11) return new Candle(x, y,w);//x,y,typeitem
+	else if (type == 500) return new Zombie(x,y,w); //x,y,direction
 	else if (type == 501) return new Pander(x, y);
 	else if (type == 502) return new Merman(x, y);
 	else if (type == 503) return new Bat(x, y);
-	else if (type == -7 || type ==7) return new HiddenStair(type,x, y,w,h);
-	else if (type == 80) return new Door(x, y);
-	//if (type == 11) return new CheckPoint(x, y);
+	else if (type == -7 || type ==7) return new HiddenStair(type,x, y,w,h);//type,x,y,direction,isleft
 	return NULL;
 }
  
