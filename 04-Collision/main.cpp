@@ -61,34 +61,29 @@ CSampleKeyHander * keyHandler;
 void CSampleKeyHander::OnKeyDown(int KeyCode)
 {
 	
-
+	if (gamestatemanager->GetSimon()->beingHit) return;
 	if (KeyCode == DIK_ESCAPE)
 		DestroyWindow(hWnd); // thoát
 
 	if (KeyCode == DIK_Q)
-		gamestatemanager->gamestate->simon->SetPosition(4000,100);
+		gamestatemanager->GetSimon()->SetPosition(4000,100);
 	if (KeyCode == DIK_M)
 	{
 		gamestatemanager->gamestate->isChangingState = true;
 	}
 	if (KeyCode == DIK_SPACE)
 	{
-		if (gamestatemanager->gamestate->simon->isJumping == false)
-			gamestatemanager->gamestate->simon->Jump();
-	}
-
-	if (KeyCode == DIK_1)
-	{
-		DebugOut(L"[SIMON] X = %f , Y = %f \n", gamestatemanager->gamestate->simon->x + 10, gamestatemanager->gamestate->simon->y);
+		if (gamestatemanager->GetSimon()->isJumping == false)
+			gamestatemanager->GetSimon()->Jump();
 	}
 
 	if (KeyCode == DIK_X)
 	{
-		gamestatemanager->gamestate->simon->Attack();
+		gamestatemanager->GetSimon()->Attack();
 	}
 	if (KeyCode == DIK_RCONTROL)
 	{
-		gamestatemanager->gamestate->simon->ThrowSubWp();
+		gamestatemanager->GetSimon()->ThrowSubWp();
 	}
 
 }
@@ -100,53 +95,53 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 
 void CSampleKeyHander::KeyState(BYTE *states)
 {
-	if (!gamestatemanager->gamestate->simon->isCollideDor)//va cham voi cua
+	if (!gamestatemanager->GetSimon()->isCollideDor)//va cham voi cua
 	{
 		if (gamestatemanager->gamestate->game->IsKeyDown(DIK_DOWN))
 		{
-			if (gamestatemanager->gamestate->simon->isOnStair == false)
+			if (gamestatemanager->GetSimon()->isOnStair == false)
 			{
-				gamestatemanager->gamestate->simon->Sit();
+				gamestatemanager->GetSimon()->Sit();
 			}
 
 
 			if (gamestatemanager->gamestate->game->IsKeyDown(DIK_RIGHT))
-				gamestatemanager->gamestate->simon->Right();
+				gamestatemanager->GetSimon()->Right();
 
 			if (gamestatemanager->gamestate->game->IsKeyDown(DIK_LEFT))
-				gamestatemanager->gamestate->simon->Left();
+				gamestatemanager->GetSimon()->Left();
 
 			return;
 		}
 		else
-			gamestatemanager->gamestate->simon->Stop();
+			gamestatemanager->GetSimon()->Stop();
 
 
-		if (!gamestatemanager->gamestate->simon->isOnStair)
+		if (!gamestatemanager->GetSimon()->isOnStair)
 		{
-			if (gamestatemanager->gamestate->simon->beingHit) return;
+			if (gamestatemanager->GetSimon()->beingHit) return;
 			if (gamestatemanager->gamestate->game->IsKeyDown(DIK_RIGHT))
 			{
-				gamestatemanager->gamestate->simon->Right();
-				gamestatemanager->gamestate->simon->Go();
-				if (gamestatemanager->gamestate->simon->isAttacking == true)
+				gamestatemanager->GetSimon()->Right();
+				gamestatemanager->GetSimon()->Go();
+				if (gamestatemanager->GetSimon()->isAttacking == true)
 				{
-					gamestatemanager->gamestate->simon->Stop();
+					gamestatemanager->GetSimon()->Stop();
 				}
 			}
 			else
 				if (gamestatemanager->gamestate->game->IsKeyDown(DIK_LEFT))
 				{
-					gamestatemanager->gamestate->simon->Left();
-					gamestatemanager->gamestate->simon->Go();
-					if (gamestatemanager->gamestate->simon->isAttacking == true)
+					gamestatemanager->GetSimon()->Left();
+					gamestatemanager->GetSimon()->Go();
+					if (gamestatemanager->GetSimon()->isAttacking == true)
 					{
-						gamestatemanager->gamestate->simon->Stop();
+						gamestatemanager->GetSimon()->Stop();
 					}
 				}
 				else
 				{
-					gamestatemanager->gamestate->simon->Stop();
+					gamestatemanager->GetSimon()->Stop();
 				}
 		}
 	}
@@ -259,7 +254,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 {
 	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
 	Sound::GetInstance()->loadSound(hWnd);
-	gamestatemanager = new GameStateManager(1);
+	gamestatemanager = new GameStateManager(1); // man 1
 
 	gamestatemanager->gamestate->game->Init(hWnd);
 

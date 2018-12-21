@@ -124,7 +124,7 @@ void Boss::GoStartPosition(DWORD dt, float simonx, float simony)
 
 	if (y < 110)
 	{
-		waittingtimebeforeattack = 200;
+		waittingtimebeforeattack = 125;
 		CheckTop = true;
 		CheckRight = false;
 	}

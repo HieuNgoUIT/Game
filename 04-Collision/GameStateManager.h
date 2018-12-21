@@ -2,6 +2,7 @@
 #include "GameStateOne.h"
 #include "GameStateTwo.h"
 #include "GameState.h"
+#include "Simon.h"
 class GameStateManager {
 public:
 	GameState* gamestate;
@@ -10,4 +11,5 @@ public:
 	void Update(DWORD dt);
 	void Render();
 	GameStateManager(int stateId);
+	Simon* GetSimon();
 };

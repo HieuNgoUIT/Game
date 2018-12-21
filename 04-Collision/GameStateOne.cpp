@@ -108,12 +108,13 @@ void GameStateOne::Render()
 
 void GameStateOne::KillAll()
 {
-	/*delete camera;
-	delete tilemap;
-	delete ui;
-	delete grid;
-	delete checkpoint;*/
-
+	/*vector<LPGAMEOBJECT> test;
+	Camera *cameratest = new Camera(1536,384);
+	grid->GetListObject(test, cameratest);
+	for (int i = 0; i < test.size(); i++)
+	{
+		delete(test[i]);
+	}*/
 }
 
 GameStateOne::GameStateOne()

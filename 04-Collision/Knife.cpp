@@ -32,7 +32,7 @@ void Knife::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vector<LPGAMEOBJECT> coObjects_LargeCandle;
 	coObjects_LargeCandle.clear();
 	for (int i = 0; i < coObjects->size(); i++)
-		if (coObjects->at(i)->GetTag() == 10)
+		if (coObjects->at(i)->GetTag() == 500)
 			coObjects_LargeCandle.push_back(coObjects->at(i));
 	CollisionWithEnemy(&coObjects_LargeCandle);
 }

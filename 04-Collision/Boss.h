@@ -14,7 +14,7 @@ public:
 	~Boss();
 	float lastSimonx;
 	float lastSimony;
-	float waittingtimebeforeattack=200;
+	float waittingtimebeforeattack=125;
 	float currentPos;
 	bool CheckBot;
 	bool CheckTop;

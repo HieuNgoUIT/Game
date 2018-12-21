@@ -36,3 +36,8 @@ GameStateManager::GameStateManager(int stateId)
 	}
 	gamestate->game = CGame::GetInstance();
 }
+
+Simon* GameStateManager::GetSimon()
+{
+	return this->gamestate->simon;
+}

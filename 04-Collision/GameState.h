@@ -30,6 +30,7 @@ public:
 	virtual void Render();
 	void CheckCollideWithCheckPoint(Simon *simon, CheckPoint *checkpoint);
 	virtual void KillAll();
+	
 
 
 };
