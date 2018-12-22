@@ -169,4 +169,5 @@ void Pander::RePosition()
 	this->hiteffect->isDoneRender = false;
 	this->deadffect->isDoneRender = false;
 	health = 10;
+	allowToDo = 0;
 }

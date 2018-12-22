@@ -86,7 +86,7 @@ public:
 	//bool isCameraStair;
 	bool isDoneCameraStair;
 	//bool isKnife;
-	int useableHeart = 50;
+	int useableHeart = 5;
 	int scores;
 	int life = 3;
 	int countupdatesprite;

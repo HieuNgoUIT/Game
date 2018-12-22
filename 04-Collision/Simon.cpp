@@ -441,15 +441,24 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 	}
 	else if (isSitting == true) //dang ngoi
 	{
-		_sprite->SelectIndex(SIMON_ANI_SITTING);
+		
 		if (isAttacking == true)
 		{
 			/*if (index < SIMON_ANI_BEGIN_SITHITTING || index >= SIMON_ANI_END_SITHITTING)
 			{*/
-			_sprite->SelectIndex(SIMON_ANI_BEGIN_SITHITTING);
+			if (index < 15 || index >= 18)
+			{
+				_sprite->SelectIndex(15);
+			}
 			_sprite->Update(dt);
+			//_sprite->SelectIndex(SIMON_ANI_BEGIN_SITHITTING);
+			//_sprite->Update(dt);
 			/*}*/
 
+		}
+		else
+		{
+			_sprite->SelectIndex(SIMON_ANI_SITTING);
 		}
 	}
 	else if (isWalking == true) // đang di chuyển
