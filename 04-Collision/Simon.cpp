@@ -23,7 +23,7 @@ Simon::Simon()
 	isSitting = 0;
 	isAttacking = 0;
 	direction = 1;
-	health = 80; // simon dính 16 phát là chết
+	health = 80; // dinh 8 lan, =80 tai vi render thanh mau 16x5
 
 	//_ListWeapon.clear();
 	//_ListWeapon.push_back(new MorningStar());
@@ -70,6 +70,33 @@ void Simon::GetBoundingBox(float & left, float & top, float & right, float & bot
 		bottom = y + _texture->FrameHeight - 3;
 	}
 
+}
+
+void Simon::ResetLife()
+{
+	if (health < 0)
+	{
+		if (isStage2)
+		{
+
+			this->SetPosition(50, 100);
+		}
+		else if (isStage21)
+		{
+
+			this->SetPosition(3000, 100);
+		}
+		else if (isStage22)
+		{
+
+			this->isFightingBoss = false;
+			this->SetPosition(4301, 100);
+		}
+
+		health = 80;
+		untouchable = 0;
+		life--;
+	}
 }
 
 //void Simon::PreProcessOnStair(CGameObject *hiddenstair, Camera *camera)
@@ -178,7 +205,7 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 				isrenderKnife = true;
 				isrenderHolyWater = false;
 				isrenderAxe = false;
-			
+
 			}
 			else if (coObjects->at(i)->tag == AXE_TAG)
 			{
@@ -187,7 +214,7 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 				isrenderKnife = false;
 				isrenderHolyWater = false;
 				isrenderAxe = true;
-				
+
 			}
 			else if (coObjects->at(i)->tag == HOLYWATER_TAG)
 			{
@@ -196,12 +223,12 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 				isrenderKnife = false;
 				isrenderHolyWater = true;
 				isrenderAxe = false;
-				
+
 			}
 			else if (coObjects->at(i)->tag == ROSARY_TAG)
 			{
 				isRosary = true;
-				
+
 			}
 			else if (coObjects->at(i)->tag == STOPWATCH_TAG)
 			{
@@ -694,7 +721,7 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 		//vx += 0.5f*dt;
 	}
 
-
+	ResetLife();
 
 	vector<LPGAMEOBJECT> coObjects_Brick;
 	coObjects_Brick.clear();

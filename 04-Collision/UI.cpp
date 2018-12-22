@@ -78,7 +78,7 @@ bool UI::Initialize( Simon *simon, Boss *boss)
 	if (!SUCCEEDED(result))
 		return false;
 
-	SetRect(&rect, 0, 2, 640, 480);
+	SetRect(&rect, 0,10, 640, 480);
 	information = "SCORE_000000 TIME 0000 STAGE 00\n";
 	information += "PLAYER                =62\n";
 	information += "ENEMY                P=3\n";
@@ -127,7 +127,7 @@ void UI::Update( int time, int life, int stage)
 	information = "SCORE_" + scoreString + " TIME " + timeString + " STAGE " + stageString + "\n";
 	information += "PLAYER                =" + std::to_string(simon->useableHeart) + "\n";
 	information += "ENEMY                P=" + std::to_string(simon->life) + "\n";
-	information += "x:" + std::to_string(simon->x) + "y:" + std::to_string(simon->y);
+	//information += "x:" + std::to_string(simon->x) + "y:" + std::to_string(simon->y);
 	
 
 	/*switch (simon->currentWeapon)
@@ -169,26 +169,26 @@ void UI::Render()
 	
 	for (int i = 0; i <= simon->health; i+=5)
 	{
-		simonHPList->Draw(i*2+130, 27);
+		simonHPList->Draw(i*2+130, 37);
 	}
 	for (int i = 0; i <=80- simon->health; i += 5)
 	{
-		noHPList->Draw(290-i*2, 27);
+		noHPList->Draw(290-i*2, 37);
 	}
 	if (boss != NULL)
 	{
 		for (int i = 0; i <= boss->health; i += 5)
 		{
-			enemyHPList->Draw(i * 2 + 130, 50);
+			enemyHPList->Draw(i * 2 + 130, 60);
 		}
 		for (int i = 0; i <= 80 - boss->health; i += 5)
 		{
-			noHPList->Draw(290 - i * 2, 50);
+			noHPList->Draw(290 - i * 2, 60);
 		}
 	}
 	
 
-	heart->Draw(420,27);
+	heart->Draw(420,37);
 	redEdge->Draw(320, 27);
 	if (simon->isrenderKnife)
 	{

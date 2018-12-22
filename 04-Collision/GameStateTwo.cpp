@@ -101,10 +101,15 @@ void GameStateTwo::Update(DWORD dt)
 				{
 					camera->SetPosition(simon->x - 320 + 60, 0); //update man 22
 					camera->UpdateMap22();
+					
 				}
 				else
 				{
 					camera->SetPosition(5065, 0);//boss
+					if (simon->health < 0)
+					{
+						boss->ResetPosition();
+					}
 					//camera->SetPosition(boss->x - 320 + 60, 0);
 				}
 

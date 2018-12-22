@@ -38,7 +38,7 @@ void Boss::GetBoundingBox(float & left, float & top, float & right, float & bott
 
 void Boss::Update(DWORD dt, float simonx, float simony, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (health > 0)
+	if (health >= 0)
 	{
 
 		if (GetTickCount() - untouchable_start > 500)
@@ -184,6 +184,17 @@ void Boss::GoSimonPosition(DWORD dt, float simonx, float simony)
 
 
 
+}
+
+void Boss::ResetPosition()
+{
+	health = 80;
+	SetPosition(5300, 100);
+	_sprite->SelectIndex(0);
+	CheckTop = true;
+	CheckBot = false;
+	CheckLeft = false;
+	CheckRight = false;
 }
 
 

@@ -81,7 +81,7 @@ void Merman::Update(DWORD dt, float simonx, vector<LPGAMEOBJECT>* coObjects)
 				isAttack = true;
 				bulletTime = 200;
 				fireball->health = 10;
-				fireball->SetPosition(this->x, this->y);
+				fireball->SetPosition(this->x, this->y+10);
 			}
 			if (isAttack)
 			{

@@ -66,11 +66,13 @@ public:
 	bool isWalkFromBot;//check dang tren cau thang
 	bool isWalkFromTop;
 	bool isTopStair;
-	bool isStage21;
-	bool isStage22;
+	
 	bool isFightingBoss;
+
 	bool isStage1;
-	bool isStage2;
+	bool isStage2;//canh dau
+	bool isStage21;//after 1 dooor
+	bool isStage22;//after 2 door
 	bool isRosary;
 	bool isStopwatch;
 
@@ -87,7 +89,7 @@ public:
 	int useableHeart = 50;
 	int scores;
 	int life = 3;
-	int countupdatesprite ;
+	int countupdatesprite;
 	Whip* whip;
 	SubWeapon *subwp;
 	bool isSubwp;
@@ -101,14 +103,15 @@ public:
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 	void StartBeingHit() { beingHit = 1; beingHit_start = GetTickCount(); }
 	void CollisionWithItem(vector<LPGAMEOBJECT>* coObjects);
-	 void GetBoundingBox(float &left, float &top, float &right, float &bottom);
+	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
+	void ResetLife();
 	// void PreProcessOnStair(CGameObject *hiddenstair,  Camera *camera);
 	// void PreProcessBeforeOnStair(CGameObject *hiddenstair, Camera *camera);
-	 void Update(DWORD dt,  Camera *camera, vector<LPGAMEOBJECT> *coObjects = NULL, vector<LPGAMEOBJECT>* coItems=NULL);
+	void Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT> *coObjects = NULL, vector<LPGAMEOBJECT>* coItems = NULL);
 	// void UpdatewItem(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	 void  CollisionWithStair(vector<LPGAMEOBJECT>* coObjects , Camera *camera);
-	 void Render(Camera *camera);
-	 void RenderBoundingBox(Camera *camera);
+	void  CollisionWithStair(vector<LPGAMEOBJECT>* coObjects, Camera *camera);
+	void Render(Camera *camera);
+	void RenderBoundingBox(Camera *camera);
 
 	void Left();  // set lại hướng của simon
 	void Right(); // set lại hướng của simon

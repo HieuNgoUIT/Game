@@ -31,4 +31,5 @@ public:
 	int untouchable;
 	DWORD untouchable_start;
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
+	void ResetPosition();
 };

@@ -12,8 +12,7 @@ Pander::Pander(int X, int Y)
 	startYpos = Y;
 	doJump = true;
 	health = 10;
-	/*vx = -0.1f;*/
-	//vy = 10;
+	
 }
 
 Pander::~Pander()
@@ -165,6 +164,7 @@ void Pander::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 void Pander::RePosition()
 {
 	this->x = startXpos;
+	this->y = startYpos;
 	this->reviveTime = 200;
 	this->hiteffect->isDoneRender = false;
 	this->deadffect->isDoneRender = false;
