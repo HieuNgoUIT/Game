@@ -41,6 +41,7 @@ void Merman::Update(DWORD dt, float simonx, vector<LPGAMEOBJECT>* coObjects)
 		reviveTime--;
 		if (reviveTime < 0)
 		{
+			isReachPoint = false;
 			RePosition();
 			this->isDead = false;
 		}
@@ -197,6 +198,7 @@ void Merman::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 void Merman::RePosition()
 {
 	this->x = startXpos;
+	this->y = startYpos;
 	this->reviveTime = 200;
 	this->hiteffect->isDoneRender = false;
 	this->deadffect->isDoneRender = false;

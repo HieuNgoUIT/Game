@@ -19,8 +19,9 @@ public:
 	CGame *game;
 	CheckPoint *checkpoint;
 	HitEffect *hiteffect;
-	int mapSecond = 0;
-	int mapTime = 0;
+	float mapSecond = 0;
+	float mapTime = 0;
+	float WatchTime = 300;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> items;
 	bool isChangingState;

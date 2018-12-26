@@ -35,41 +35,45 @@ void Whip::RenderBoundingBox(Camera * camera)
 
 void Whip::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	if (typeOfWhip < 2)
+	if (_sprite->GetIndex() == 2 || _sprite->GetIndex() == 6 || _sprite->GetIndex() == 10) // set frame cuoi moi getbb
 	{
+		if (typeOfWhip < 2)
+		{
 
-		if (direction == -1)
-		{
-			left = x - 45;
-			top = y + 20;
-			right = x;
-			bottom = y + _texture->FrameHeight - 30;
+			if (direction == -1)
+			{
+				left = x - 45;
+				top = y + 20;
+				right = x;
+				bottom = y + _texture->FrameHeight - 30;
+			}
+			else
+			{
+				left = x + 50;
+				top = y + 20;
+				right = x + _texture->FrameWidth - _texture->FrameHeight / 2 - 20;
+				bottom = y + _texture->FrameHeight - 30;
+			}
 		}
 		else
 		{
-			left = x + 50;
-			top = y + 20;
-			right = x + _texture->FrameWidth - _texture->FrameHeight / 2 - 20;
-			bottom = y + _texture->FrameHeight - 30;
+			if (direction == -1)
+			{
+				left = x - 80;
+				top = y + 20;
+				right = x;
+				bottom = y + _texture->FrameHeight - 30;
+			}
+			else
+			{
+				left = x + 50;
+				top = y + 20;
+				right = x + _texture->FrameWidth - 20;
+				bottom = y + _texture->FrameHeight - 30;
+			}
 		}
 	}
-	else
-	{
-		if (direction == -1)
-		{
-			left = x - 80;
-			top = y + 20;
-			right = x;
-			bottom = y + _texture->FrameHeight - 30;
-		}
-		else
-		{
-			left = x + 50;
-			top = y + 20;
-			right = x + _texture->FrameWidth - 20;
-			bottom = y + _texture->FrameHeight - 30;
-		}
-	}
+	
 
 
 

@@ -2,12 +2,14 @@
 #include "GameObject.h"
 #include "debug.h"
 #include "Sound.h"
+#include "Item.h"
 class Boss :public CGameObject
 {
 public:
 	
 	float positionyToHit;
 	float positionxToHit;
+	Item *item;
 	//int heath;
 	Boss();
 	Boss(int X, int Y);

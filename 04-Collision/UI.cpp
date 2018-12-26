@@ -188,7 +188,7 @@ void UI::Render()
 	}
 	
 
-	heart->Draw(420,37);
+	heart->Draw(420,27);
 	redEdge->Draw(320, 27);
 	if (simon->isrenderKnife)
 	{

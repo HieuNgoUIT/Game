@@ -178,9 +178,12 @@ void GameStateTwo::Update(DWORD dt)
 	}
 	else
 	{
-
+		WatchTime--;
 	}
-
+	if (WatchTime < 0)
+	{
+		simon->isStopwatch = false;
+	}
 	for (int i = 0; i < items.size(); i++)
 	{
 		items[i]->Update(dt, 0, &coObjects);
@@ -198,7 +201,7 @@ void GameStateTwo::Update(DWORD dt)
 	}
 	if (simon->isFightingBoss)
 	{
-		boss->Update(dt, simon->x, simon->y);
+		boss->Update(dt, simon->x, simon->y, &coObjects);
 		if (Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
 		{
 			Sound::GetInstance()->Stop(STAGE_01_VAMPIRE_KILLER);

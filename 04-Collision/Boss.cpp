@@ -12,7 +12,8 @@ Boss::Boss(int X, int Y)
 	this->y = Y;
 	tag = 500;//enemy from 500
 	CheckTop = true;
-	health = 80;
+	health = 10;
+	item = new Item("Resource\\sprites\\Items\\13.png", x, 240);
 	//	direction = -1;
 		//currentPos = y;
 		//startXpos = X;
@@ -60,6 +61,7 @@ void Boss::Update(DWORD dt, float simonx, float simony, vector<LPGAMEOBJECT>* co
 	else
 	{
 		isDead = true;
+		item->Update(dt,NULL, coObjects);
 		if (Sound::GetInstance()->IsPLaying(BOSS_BATTLE_POISON_MIND))
 		{
 			Sound::GetInstance()->Stop(BOSS_BATTLE_POISON_MIND);
@@ -81,6 +83,10 @@ void Boss::Render(Camera * camera)
 		D3DXVECTOR2 pos = camera->Transform(x, y);
 		_sprite->Draw(pos.x, pos.y);
 		RenderBoundingBox(camera);
+	}
+	else
+	{
+		item->Render(camera);
 	}
 
 

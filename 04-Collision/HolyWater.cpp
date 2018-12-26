@@ -20,8 +20,8 @@ void HolyWater::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (!CheckTop)
 		{
-			vy =- 0.5f;
-			vx = direction * 0.9f;
+			vy =- 0.1f;
+			vx = direction * 0.1f;
 		}
 		if (y < currentPos - 20)
 		{
@@ -152,7 +152,7 @@ void HolyWater::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 void HolyWater::Create(float simonX, float simonY, int simondirection)
 {
 	this->x = simonX;
-	this->y = simonY;
+	this->y = simonY+20;
 	this->currentPos = simonY;
 	this->direction = simondirection;
 	this->remainingTime = 100;//set thoi gian ton tai vu khi
