@@ -3,7 +3,7 @@
 void GameStateTwo::LoadResources()
 {
 	game = CGame::GetInstance();
-	camera = new Camera(640, 480);
+	camera = new Camera(SCREEN_WIDTH, SCREEN_HEIGHT);
 	simon = Simon::GetInstance();
 	simon->SetPosition(SIMON_POSITION_DEFAULT); //33 4 14
 	boss = new Boss(5300, 100);
@@ -19,8 +19,7 @@ void GameStateTwo::LoadResources()
 	simon->isStage2 = true;
 	if (!Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
 		Sound::GetInstance()->PlayLoop(STAGE_01_VAMPIRE_KILLER);
-	//objects.push_back(boss);
-	//2893 156
+	
 }
 
 void GameStateTwo::Update(DWORD dt)
@@ -139,7 +138,7 @@ void GameStateTwo::Update(DWORD dt)
 
 
 	vector<LPGAMEOBJECT> coObjects;
-	coObjects.push_back(boss);
+	
 	grid->GetListObject(objects, camera);
 	for (int i = 0; i < objects.size(); i++)
 	{
@@ -162,7 +161,7 @@ void GameStateTwo::Update(DWORD dt)
 			coObjects.push_back(objects[i]); //neu ma rot item =false thi` da~ chet' nen ko push vao co0bject nua
 		}
 	}
-
+	coObjects.push_back(boss);
 
 	if (!simon->isStopwatch)
 	{
@@ -171,8 +170,8 @@ void GameStateTwo::Update(DWORD dt)
 			objects[i]->Update(dt, simon->x, &coObjects);
 			if (dynamic_cast<Zombie *>(objects[i]))
 			{
-				Zombie *boss = dynamic_cast<Zombie *>(objects[i]);
-				boss->Update(dt,camera, simon->x, &coObjects);
+				Zombie *zombie = dynamic_cast<Zombie *>(objects[i]);
+				zombie->Update(dt,camera, simon->x, &coObjects);
 			}
 		}
 	}
@@ -188,11 +187,11 @@ void GameStateTwo::Update(DWORD dt)
 	{
 		items[i]->Update(dt, 0, &coObjects);
 	}
-	simon->Update(dt, camera, &coObjects, &items);
+	simon->Update(dt, &coObjects, &items);
 	if (simon->isRosary)
 	{
 		for (int i = 0; i < objects.size(); i++)
-			if (objects[i]->tag == 500)
+			if (objects[i]->tag == ENEMY_TAG)
 			{
 				objects[i]->health -= 10;
 			}
@@ -232,17 +231,8 @@ void GameStateTwo::Render()
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 		ui->Render();
-		//if (simon->y > 450)//y duoi nuoc
-		//{
-		//	tilemap->DrawMapWater(camera);
-		//}
-		//else
-		//{
+		
 		tilemap->DrawMap(camera);
-		/*}*/
-
-
-
 
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render(camera);
@@ -250,7 +240,6 @@ void GameStateTwo::Render()
 			items[i]->Render(camera);
 		simon->Render(camera);
 		boss->Render(camera);
-		//whip->Render(camera);
 		door->Render(camera);
 		spriteHandler->End();
 		d3ddv->EndScene();

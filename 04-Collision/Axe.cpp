@@ -52,7 +52,7 @@ void Axe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vector<LPGAMEOBJECT> coObjects_LargeCandle;
 	coObjects_LargeCandle.clear();
 	for (int i = 0; i < coObjects->size(); i++)
-		if (coObjects->at(i)->GetTag() == 500)
+		if (coObjects->at(i)->GetTag() == ENEMY_TAG)
 			coObjects_LargeCandle.push_back(coObjects->at(i));
 	CollisionWithEnemy(&coObjects_LargeCandle);
 }

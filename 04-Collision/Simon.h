@@ -112,9 +112,9 @@ public:
 	void ResetLife();
 	// void PreProcessOnStair(CGameObject *hiddenstair,  Camera *camera);
 	// void PreProcessBeforeOnStair(CGameObject *hiddenstair, Camera *camera);
-	void Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT> *coObjects = NULL, vector<LPGAMEOBJECT>* coItems = NULL);
+	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL, vector<LPGAMEOBJECT>* coItems = NULL);
 	// void UpdatewItem(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	void  CollisionWithStair(vector<LPGAMEOBJECT>* coObjects, Camera *camera);
+	void  CollisionWithStair(vector<LPGAMEOBJECT>* coObjects);
 	void Render(Camera *camera);
 	void RenderBoundingBox(Camera *camera);
 

@@ -3,16 +3,16 @@
 
 Brick::Brick(int TYPE,int X, int Y, int W, int H)
 {
-	tag = 41;
-	if (TYPE == 12)
+	tag = BRICK_TAG;
+	if (TYPE == BRICK_TYPE1)
 	{
 		_texture = new Texture("Resource\\sprites\\Ground\\2.png", 1, 1, 1);
-		type = 12;
+		type = BRICK_TYPE1;
 	}
 	else
 	{
 		_texture = new Texture("Resource\\sprites\\Ground\\brick.png", 1, 1, 1);
-		type = -12;
+		type = BRICK_TYPE2;
 	}
 	_sprite = new Sprite(_texture, 1000);
 	this->x = X;
@@ -24,15 +24,15 @@ Brick::Brick(int TYPE,int X, int Y, int W, int H)
 
 void Brick::Render(Camera *camera)
 {
-	if (type == 12)
+	if (type == BRICK_TYPE1)
 	{
 		D3DXVECTOR2 pos = camera->Transform(x, y);
 		for (int i = 0; i < (int)ceil(width / BRICK_FRAME_WIDTH); i++)
 			for (int j = 0; j < (int)ceil(height / BRICK_FRAME_HEIGHT); j++)
 				_sprite->Draw(pos.x + i * BRICK_FRAME_WIDTH, pos.y + j * BRICK_FRAME_HEIGHT);
-		CGameObject::RenderBoundingBox(camera);
+		
 	}
-	
+	CGameObject::RenderBoundingBox(camera);
 }
 
 

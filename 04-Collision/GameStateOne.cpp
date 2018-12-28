@@ -8,7 +8,7 @@ void GameStateOne::LoadResources()
 	simon->isStage1 = true;
 	
 
-	camera = new Camera(640, 480);
+	camera = new Camera(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	tilemap = new TileMap();
 	tilemap->LoadMap("Resource/sprites/lv1.b", "Resource/sprites/lv1.s", 10, 4, 40, 6, 24);
@@ -61,7 +61,7 @@ void GameStateOne::Update(DWORD dt)
 	{
 		items[i]->Update(dt,0 ,&coObjects);
 	}
-	simon->Update(dt, camera, &coObjects, &items);
+	simon->Update(dt, &coObjects, &items);
 	camera->SetPosition(simon->x - 320 + 60, 0);
 	camera->Update();
 	CheckCollideWithCheckPoint(simon, checkpoint);

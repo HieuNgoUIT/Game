@@ -132,10 +132,9 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			coObjects_LargeCandle.push_back(coObjects->at(i));
 		if (coObjects->at(i)->GetTag() == 11)
 			coObjects_Candle.push_back(coObjects->at(i));
-		if (coObjects->at(i)->GetTag() == 500)
+		if (coObjects->at(i)->GetTag() == ENEMY_TAG)
 			coObjects_Zombie.push_back(coObjects->at(i));
-		if (coObjects->at(i)->GetTag() == 501)
-			boss = coObjects->at(i);
+		
 	}
 	CollisionWithEnemy(&coObjects_Zombie);
 	CollisionWithLargeCandle(&coObjects_LargeCandle);

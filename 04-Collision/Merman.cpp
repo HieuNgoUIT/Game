@@ -6,7 +6,7 @@ Merman::Merman(int X, int Y)
 	_sprite = new Sprite(_texture, 200);
 	this->x = X;
 	this->y = Y;
-	tag = 500;//enemy from 500
+	tag = ENEMY_TAG;//enemy from 500
 	direction = 1;
 	startXpos = X;
 	startYpos = Y;
@@ -113,7 +113,7 @@ void Merman::Update(DWORD dt, float simonx, vector<LPGAMEOBJECT>* coObjects)
 			coObjects_Brick.clear();
 			for (int i = 0; i < coObjects->size(); i++)
 			{
-				if (coObjects->at(i)->GetTag() == 41)
+				if (coObjects->at(i)->GetTag() == BRICK_TAG)
 					coObjects_Brick.push_back(coObjects->at(i));
 			}
 			if (isReachPoint)

@@ -43,9 +43,9 @@ void HolyWater::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		
 		for (int i = 0; i < coObjects->size(); i++)
 		{
-			if (coObjects->at(i)->GetTag() == 41)
+			if (coObjects->at(i)->GetTag() == BRICK_TAG)
 				coObjects_Brick.push_back(coObjects->at(i));
-			if(coObjects->at(i)->GetTag() == 500)
+			if(coObjects->at(i)->GetTag() == ENEMY_TAG)
 				coObjects_Enemy.push_back(coObjects->at(i));
 			
 			

@@ -9,7 +9,7 @@ Zombie::Zombie(int X, int Y, int direction)
 	this->y = Y;
 	startXpos = X;
 	startYpos = Y;
-	tag = 500;//enemy from 500
+	tag = ENEMY_TAG;//enemy from 500
 	//direction = -1;
 	this->direction = direction;
 	vx = 1;
@@ -51,7 +51,7 @@ void Zombie::Update(DWORD dt, Camera *camera, float simonx, vector<LPGAMEOBJECT>
 	{
 		/*if (simonx > startXpos-640 && simonx < startXpos+640)
 		{*/
-		if (x<startXpos - 640 || x>startXpos + 640)
+		if (x<startXpos - SCREEN_WIDTH || x>startXpos + SCREEN_WIDTH)
 		{
 			direction = -direction; //doi huong khi di het 1 window
 		}
@@ -66,7 +66,7 @@ void Zombie::Update(DWORD dt, Camera *camera, float simonx, vector<LPGAMEOBJECT>
 		coObjects_Brick.clear();
 		for (int i = 0; i < coObjects->size(); i++)
 		{
-			if (coObjects->at(i)->GetTag() == 41)
+			if (coObjects->at(i)->GetTag() == BRICK_TAG)
 				coObjects_Brick.push_back(coObjects->at(i));
 		}
 		CollisionWithBrick(&coObjects_Brick);
@@ -139,7 +139,7 @@ void Zombie::RePosition(Camera *camera)
 	//this->x = startXpos;
 	if (startXpos > camera->GetViewport().x)
 	{
-		this->x = camera->GetViewport().x + 640;
+		this->x = camera->GetViewport().x + SCREEN_WIDTH;
 	}
 	else
 	{

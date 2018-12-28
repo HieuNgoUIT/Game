@@ -6,7 +6,7 @@ Bat::Bat(int X, int Y)
 	_sprite = new Sprite(_texture, 100);
 	this->x = X;
 	this->y = Y;
-	tag = 500;//enemy from 500
+	tag = ENEMY_TAG;//enemy from 500
 	direction = -1;
 	currentPos = y;
 	startXpos = X;

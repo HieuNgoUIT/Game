@@ -187,7 +187,7 @@ void Item::Update(DWORD dt, float simonx, vector<LPGAMEOBJECT>* coObjects)
 		coObjects_Brick.clear();
 		for (int i = 0; i < coObjects->size(); i++)
 		{
-			if (coObjects->at(i)->GetTag() == 41)
+			if (coObjects->at(i)->GetTag() == BRICK_TAG)
 				coObjects_Brick.push_back(coObjects->at(i));
 		}
 		CollisionWithBrick(&coObjects_Brick);

@@ -142,14 +142,14 @@ void Grid::Insert(int id, int type,  float x, float y, float w, float h)
 
 CGameObject * Grid::GetNewObject(int type, int x, int y,int w, int h)
 {
-	if (type == 12 || type == -12) return new Brick(type,x, y, w, h);
-	else if (type == 10) return new LargeCandle(x, y,w); //x,y,typeitem
-	else if (type == 11) return new Candle(x, y,w);//x,y,typeitem
-	else if (type == 500) return new Zombie(x,y,w); //x,y,direction
-	else if (type == 501) return new Pander(x, y);
-	else if (type == 502) return new Merman(x, y);
-	else if (type == 503) return new Bat(x, y);
-	else if (type == -7 || type ==7) return new HiddenStair(type,x, y,w,h);//type,x,y,direction,isleft
+	if (type == BRICK_TYPE1 || type == BRICK_TYPE2) return new Brick(type,x, y, w, h);
+	else if (type == LARGECANDLE_TYPE ) return new LargeCandle(x, y,w); //x,y,typeitem
+	else if (type == CANDLE_TYPE ) return new Candle(x, y,w);//x,y,typeitem
+	else if (type == ZOMBIE_TYPE ) return new Zombie(x,y,w); //x,y,direction
+	else if (type == PANDER_TYPE) return new Pander(x, y);
+	else if (type == MERMAID_TYPE ) return new Merman(x, y);
+	else if (type == BAT_TYPE) return new Bat(x, y);
+	else if (type == BOTSTAIR || type ==TOPSTAIR) return new HiddenStair(type,x, y,w,h);//type,x,y,direction,isleft
 	return NULL;
 }
  

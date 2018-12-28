@@ -8,7 +8,7 @@
 #include <fstream>
 #include <iostream>
 #include <iosfwd>
-
+#include "debug.h"
 #define TILE_FRAME_WIDTH 64
 #define TILE_FRAME_HEIGHT 64
 

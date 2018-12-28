@@ -10,7 +10,7 @@ Boss::Boss(int X, int Y)
 	_sprite = new Sprite(_texture, 100);
 	this->x = X;
 	this->y = Y;
-	tag = 500;//enemy from 500
+	tag = ENEMY_TAG;//enemy from 500
 	CheckTop = true;
 	health = 80;
 	item = new Item("Resource\\sprites\\Items\\13.png", x, 240);

@@ -76,7 +76,7 @@ bool UI::Initialize( Simon *simon, Boss *boss)
 	if (!SUCCEEDED(result))
 		return false;
 
-	SetRect(&rect, 0,10, 640, 480);
+	SetRect(&rect, 0,10, SCREEN_WIDTH, SCREEN_HEIGHT);
 	information = "SCORE_000000 TIME 0000 STAGE 00\n";
 	information += "PLAYER                =62\n";
 	information += "ENEMY                P=3\n";

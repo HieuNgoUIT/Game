@@ -7,7 +7,7 @@ FireBall::FireBall(int X, int Y)
 	this->x = X;
 	this->y = Y;
 	health = 10;
-	tag = 500;
+	tag = ENEMY_TAG;
 }
 
 FireBall::~FireBall()
