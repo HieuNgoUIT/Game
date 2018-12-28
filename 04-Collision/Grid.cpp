@@ -150,6 +150,7 @@ CGameObject * Grid::GetNewObject(int type, int x, int y,int w, int h)
 	else if (type == MERMAID_TYPE ) return new Merman(x, y);
 	else if (type == BAT_TYPE) return new Bat(x, y);
 	else if (type == BOTSTAIR || type ==TOPSTAIR) return new HiddenStair(type,x, y,w,h);//type,x,y,direction,isleft
+	else if (type == BREAKABLEBRICK_TYPE1 || type == BREAKABLEBRICK_TYPE2) return new BreakableBrick(type, x, y, w, h);
 	return NULL;
 }
  

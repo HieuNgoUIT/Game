@@ -12,14 +12,10 @@ Boss::Boss(int X, int Y)
 	this->y = Y;
 	tag = ENEMY_TAG;//enemy from 500
 	CheckTop = true;
-	health = 80;
+	health = 10;
 	item = new Item("Resource\\sprites\\Items\\13.png", x, 240);
-	//	direction = -1;
-		//currentPos = y;
-		//startXpos = X;
-	//	startYpos = Y;
-		/*vx = -0.1f;*/
-		//vy = 10;
+	deadffect->remainingTime = 500;//boss thi cho render lau 1 ti
+	
 }
 
 Boss::~Boss()
@@ -28,13 +24,17 @@ Boss::~Boss()
 
 void Boss::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	if (!untouchable)
+	if (health >= 0)
 	{
-		left = x;
-		top = y;
-		right = x + _texture->FrameWidth;
-		bottom = y + _texture->FrameHeight;
+		if (!untouchable)
+		{
+			left = x;
+			top = y;
+			right = x + _texture->FrameWidth;
+			bottom = y + _texture->FrameHeight;
+		}
 	}
+	
 }
 
 void Boss::Update(DWORD dt, float simonx, float simony, vector<LPGAMEOBJECT>* coObjects)
@@ -62,6 +62,7 @@ void Boss::Update(DWORD dt, float simonx, float simony, vector<LPGAMEOBJECT>* co
 	{
 		isDead = true;
 		item->Update(dt,NULL, coObjects);
+		deadffect->Update(dt);
 		if (Sound::GetInstance()->IsPLaying(BOSS_BATTLE_POISON_MIND))
 		{
 			Sound::GetInstance()->Stop(BOSS_BATTLE_POISON_MIND);
@@ -86,7 +87,14 @@ void Boss::Render(Camera * camera)
 	}
 	else
 	{
+		if (deadffect->isDoneRender == false)
+		{
+			deadffect->isVisible = true;
+			deadffect->SetPosition(this->x , this->y);
+			deadffect->Render(camera);
+		}
 		item->Render(camera);
+
 	}
 
 

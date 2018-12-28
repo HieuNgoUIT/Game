@@ -256,7 +256,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 {
 	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
 	Sound::GetInstance()->loadSound(hWnd);
-	gamestatemanager = new GameStateManager(1); // man 1
+	gamestatemanager = new GameStateManager(2); // man 1
 
 	gamestatemanager->gamestate->game->Init(hWnd);
 

@@ -674,7 +674,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 
 	for (int i = 0; i < coObjects->size(); i++)
 	{
-		if (coObjects->at(i)->GetTag() == BRICK_TAG)
+		if (coObjects->at(i)->GetTag() == BRICK_TAG || coObjects->at(i)->GetTag() == BREAKABLEBRICK_TAG)
 			coObjects_Brick.push_back(coObjects->at(i));
 		if (coObjects->at(i)->GetTag() == BOTSTAIR || coObjects->at(i)->GetTag() == TOPSTAIR)
 			coObjects_HiddenStair.push_back(coObjects->at(i));

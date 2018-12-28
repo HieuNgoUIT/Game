@@ -168,6 +168,12 @@
     <ClInclude Include="FireBall.h">
       <Filter>Objets\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="BreakableBrick.h">
+      <Filter>Objets</Filter>
+    </ClInclude>
+    <ClInclude Include="BrickEffect.h">
+      <Filter>Objets\Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debug.cpp">
@@ -289,6 +295,12 @@
     </ClCompile>
     <ClCompile Include="FireBall.cpp">
       <Filter>Objets\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="BreakableBrick.cpp">
+      <Filter>Objets</Filter>
+    </ClCompile>
+    <ClCompile Include="BrickEffect.cpp">
+      <Filter>Objets\Effect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

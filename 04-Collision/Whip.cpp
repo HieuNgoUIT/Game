@@ -132,7 +132,7 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			coObjects_LargeCandle.push_back(coObjects->at(i));
 		if (coObjects->at(i)->GetTag() == 11)
 			coObjects_Candle.push_back(coObjects->at(i));
-		if (coObjects->at(i)->GetTag() == ENEMY_TAG)
+		if (coObjects->at(i)->GetTag() == ENEMY_TAG || coObjects->at(i)->GetTag() == BREAKABLEBRICK_TAG)
 			coObjects_Zombie.push_back(coObjects->at(i));
 		
 	}
