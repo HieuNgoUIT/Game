@@ -7,7 +7,6 @@ TileMap::TileMap()
 	
 }
 
-//153 4
 TileMap::~TileMap()
 {
 }

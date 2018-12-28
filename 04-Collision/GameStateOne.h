@@ -9,4 +9,5 @@ public:
 	void Render();
 	void KillAll();
 	GameStateOne();
+	~GameStateOne();
 };

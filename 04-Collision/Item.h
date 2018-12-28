@@ -40,18 +40,19 @@ public:
 	
 	Item();
 	Item(char* link,int X,int Y);
-//	Item();
 	~Item();
-	/*char* PathRandom();*/
+
 	float remainingTime;
+	bool CheckLeft = false;
+	bool CheckRight = false;
+	float currentPos;
+	bool isGrounded;
+
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	virtual void Update(DWORD dt, float simonx = 0, vector<LPGAMEOBJECT> *coObjects = NULL);
 	virtual void Render(Camera * camera);
 	int GetIsCreated();
 	void RenderBoundingBox(Camera* camera);
 	void CollisionWithBrick(vector<LPGAMEOBJECT> *coObjects = NULL);
-	bool CheckLeft = false;
-	bool CheckRight = false;
-	float currentPos;
-	bool isGrounded;
+	
 };

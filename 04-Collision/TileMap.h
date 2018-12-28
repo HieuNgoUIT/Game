@@ -1,15 +1,10 @@
 ﻿#ifndef __MAP_H__
 #define __MAP_H__
 
-
 #include <stdio.h>
-
 #include "Texture.h"
 #include "Sprite.h"
-
-
 #include "Camera.h"
-
 #include <fstream>
 #include <iostream>
 #include <iosfwd>

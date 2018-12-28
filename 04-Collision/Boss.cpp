@@ -12,7 +12,7 @@ Boss::Boss(int X, int Y)
 	this->y = Y;
 	tag = 500;//enemy from 500
 	CheckTop = true;
-	health = 10;
+	health = 80;
 	item = new Item("Resource\\sprites\\Items\\13.png", x, 240);
 	//	direction = -1;
 		//currentPos = y;

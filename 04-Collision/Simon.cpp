@@ -749,7 +749,7 @@ void Simon::Update(DWORD dt, Camera *camera, vector<LPGAMEOBJECT>* coObjects, ve
 			coObjects_Zombie.push_back(coObjects->at(i));
 	}
 
-	CollisionWithZombie(&coObjects_Zombie);
+	CollisionWithEnemy(&coObjects_Zombie);
 	CollisionWithBrick(&coObjects_Brick); // check Collision and update x, y for simon
 	CollisionWithStair(&coObjects_HiddenStair, camera);
 
@@ -1057,7 +1057,7 @@ void Simon::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 		delete coEvents[i];
 }
 
-void Simon::CollisionWithZombie(vector<LPGAMEOBJECT>* coObjects)
+void Simon::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObjects)
 {
 	for (int i = 0; i < coObjects->size(); i++)
 	{

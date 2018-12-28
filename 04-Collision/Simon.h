@@ -56,23 +56,27 @@ class Simon : public CGameObject
 public:
 	static Simon * sinstance;
 	static Simon * GetInstance();
+
 	bool isWalking;
 	bool isJumping;
 	bool isSitting;
 	bool isAttacking;
 	bool throwSubwp;
-	bool isOnStair;
+	bool isSubwp;//co subwp ko
+	bool isOnStair;//tren thang
+
 	bool isBottomStair;//check co dang o duoi ko
-	bool isWalkFromBot;//check dang tren cau thang
+	bool isWalkFromBot;//check dang tren cau thang, dung de xy ly cau thang
 	bool isWalkFromTop;
 	bool isTopStair;
-	
+
 	bool isFightingBoss;
 
 	bool isStage1;
 	bool isStage2;//canh dau
 	bool isStage21;//after 1 dooor
 	bool isStage22;//after 2 door
+
 	bool isRosary;
 	bool isStopwatch;
 
@@ -82,24 +86,25 @@ public:
 	bool isrenderRosary;
 
 	bool isCollideDor;
-
-	//bool isCameraStair;
-	bool isDoneCameraStair;
-	//bool isKnife;
+	//bool isDoneCameraStair;
+	
 	int useableHeart = 5;
 	int scores;
 	int life = 3;
 	int countupdatesprite;
+
 	Whip* whip;
 	SubWeapon *subwp;
-	bool isSubwp;
+
 public:
 	Simon();
 	~Simon();
+
 	int untouchable;
 	DWORD untouchable_start;
 	int beingHit;
 	DWORD beingHit_start;
+
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 	void StartBeingHit() { beingHit = 1; beingHit_start = GetTickCount(); }
 	void CollisionWithItem(vector<LPGAMEOBJECT>* coObjects);
@@ -123,8 +128,9 @@ public:
 	void Stop();
 
 	void CollisionWithBrick(vector<LPGAMEOBJECT> *coObjects = NULL);
-	void CollisionWithZombie(vector<LPGAMEOBJECT> *coObjects = NULL);
+	void CollisionWithEnemy(vector<LPGAMEOBJECT> *coObjects = NULL);
 	bool isCollisionWithCheckPoint(CheckPoint *checkpoint);
+
 	void Attack();
 	void ThrowSubWp();
 

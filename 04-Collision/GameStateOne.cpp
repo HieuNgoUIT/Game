@@ -133,3 +133,7 @@ GameStateOne::GameStateOne()
 {
 
 }
+
+GameStateOne::~GameStateOne()
+{
+}

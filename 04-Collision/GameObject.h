@@ -39,20 +39,19 @@ public:
 	int health;
 	float x; 
 	float y;
-	bool dropItem;
+	bool dropItem; //danh cho item
 	float dx;	// dx = vx*dt
 	float dy;	// dy = vy*dt
-	int isCreated = 0;
+	int isCreated = 0; // danh cho item
 	float vx;
 	float vy;
-	bool isTake;
+	bool isTake;//grid
 	int direction;
-	//bool isCreatedItem=false;
-	int state;
 	bool isDead;
 	bool isLeft;
 	char* itemLink;
 	int itemNumber;
+
 	DWORD dt; 
 	HitEffect *hiteffect;
 	DeadEffect *deadffect;
@@ -65,10 +64,17 @@ public:
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
 	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
-
-	//int GetState() { return this->state; }
-
 	void RenderBoundingBox( Camera *camera);
+	void UpdateEffect(DWORD dt);
+	void RenderEffect(Camera* camera);
+	int GetTag();
+	void SetDropItem(bool x) { this->dropItem = x; }
+	bool isColliding(LPGAMEOBJECT object, LPGAMEOBJECT other);
+	void AddAnimation(int aniId);
+
+	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
+	virtual void Update(DWORD dt, float simonx = 0, vector<LPGAMEOBJECT> *coObjects = NULL);
+	virtual void Render(Camera *camera) = 0;
 
 	LPCOLLISIONEVENT SweptAABBEx(LPGAMEOBJECT coO);
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT> *coObjects, vector<LPCOLLISIONEVENT> &coEvents);
@@ -79,20 +85,9 @@ public:
 		float &min_ty, 
 		float &nx, 
 		float &ny);
-	bool isColliding(LPGAMEOBJECT object, LPGAMEOBJECT other);
-	void AddAnimation(int aniId);
+	
 
 	CGameObject();
-
-	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
-	virtual void Update(DWORD dt, float simonx = 0, vector<LPGAMEOBJECT> *coObjects = NULL);
-	virtual void Render(Camera *camera)=0 ;
-	virtual void SetState(int state) { this->state = state; }
-	void UpdateEffect(DWORD dt);
-	void RenderEffect(Camera* camera);
-	int GetTag();
-	void SetDropItem(bool x) { this->dropItem = x; }
-
 	~CGameObject();
 };
 

@@ -10,8 +10,6 @@ UI::UI()
 
 UI::~UI()
 {
-//	delete[] simonHPList;
-	//delete[] enemyHPList;
 }
 
 
@@ -127,41 +125,12 @@ void UI::Update( int time, int life, int stage)
 	information = "SCORE_" + scoreString + " TIME " + timeString + " STAGE " + stageString + "\n";
 	information += "PLAYER                =" + std::to_string(simon->useableHeart) + "\n";
 	information += "ENEMY                P=" + std::to_string(simon->life) + "\n";
-	//information += "x:" + std::to_string(simon->x) + "y:" + std::to_string(simon->y);
 	
-
-	/*switch (simon->currentWeapon)
-	{
-	case ITEM_AXE:
-		weapon = nullptr;
-		weapon = axe;
-		break;
-	case ITEM_HOLY_WATER:
-		weapon = nullptr;
-		weapon = holyWater;
-		break;
-	case ITEM_CROSS:
-		weapon = nullptr;
-		weapon = cross;
-		break;
-	case ITEM_KNIFE:
-		weapon = nullptr;
-		weapon = knife;
-		break;
-	case ITEM_STOP_WATCH:
-		weapon = nullptr;
-		weapon = stopWatch;
-		break;
-	default:
-		break;
-	}*/
 }
 
 void UI::Render()
 {
-	/*RECT newRect;
-	SetRect(&newRect, 0, 0, 640, 116);*/
-	//black->Draw(black->GetPosition(), newRect);
+	
 	if (font)
 		font->DrawTextA(NULL, information.c_str(), -1, &rect, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
 
@@ -203,10 +172,5 @@ void UI::Render()
 		holyWater->Draw(345, 45);
 	}
 	
-	/*weapon->Render(weapon->GetPosition());
 
-	switch (simon->GetNoSubWeapon()) {
-	case 2: upgrade1->Render(upgrade1->GetPosition()); break;
-	case 3: upgrade2->Render(upgrade2->GetPosition()); break;
-	}*/
 }

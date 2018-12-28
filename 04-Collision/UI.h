@@ -57,7 +57,6 @@ private:
 	int simonHP;
 	int bossHP;
 	int uiHP;
-
 	int score;
 	int time;
 	int item;

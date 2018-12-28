@@ -62,6 +62,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 {
 	
 	if (gamestatemanager->GetSimon()->beingHit) return;
+
 	if (KeyCode == DIK_ESCAPE)
 		DestroyWindow(hWnd); // thoát
 
@@ -117,14 +118,15 @@ void CSampleKeyHander::KeyState(BYTE *states)
 			gamestatemanager->GetSimon()->Stop();
 
 
-		if (!gamestatemanager->GetSimon()->isOnStair)
+		if (!gamestatemanager->GetSimon()->isOnStair)// ko tren stair
 		{
-			if (gamestatemanager->GetSimon()->beingHit) return;
+			if (gamestatemanager->GetSimon()->beingHit) return; 
+
 			if (gamestatemanager->gamestate->game->IsKeyDown(DIK_RIGHT))
 			{
 				gamestatemanager->GetSimon()->Right();
 				gamestatemanager->GetSimon()->Go();
-				if (gamestatemanager->GetSimon()->isAttacking == true)
+				if (gamestatemanager->GetSimon()->isAttacking == true)//atttack thi stop
 				{
 					gamestatemanager->GetSimon()->Stop();
 				}
