@@ -159,7 +159,7 @@ void CGameObject::RenderBoundingBox(Camera *camera)
 	D3DXVECTOR3 p(x, y, 0);
 	RECT rect;
 	
-	LPDIRECT3DTEXTURE9 bbox = texturebox->texture;
+	//LPDIRECT3DTEXTURE9 bbox = texturebox->texture;
 
 	float l, t, r, b;
 
@@ -173,7 +173,7 @@ void CGameObject::RenderBoundingBox(Camera *camera)
 	//D3DXVECTOR2 pos2 = camera->Transform(l, t);
 
 
-	CGame::GetInstance()->Draw(pos.x, pos.y, bbox, rect.left, rect.top, rect.right, rect.bottom, 100);
+	//CGame::GetInstance()->Draw(pos.x, pos.y, bbox, rect.left, rect.top, rect.right, rect.bottom, 100);
 }
 
 

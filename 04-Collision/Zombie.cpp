@@ -3,8 +3,8 @@
 
 Zombie::Zombie(int X, int Y, int direction)
 {
-	_texture = new Texture("Resource\\sprites\\Enemies\\ZOMBIE.png", 2, 1, 2);
-	_sprite = new Sprite(_texture, 100);
+//	_texture = new Texture("Resource\\sprites\\Enemies\\ZOMBIE.png", 2, 1, 2);
+//	_sprite = new Sprite(_texture, 100);
 	this->x = X;
 	this->y = Y;
 	startXpos = X;

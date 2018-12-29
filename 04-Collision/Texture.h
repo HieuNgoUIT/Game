@@ -31,4 +31,5 @@ protected:
 	void Load(int R, int G, int B);
 };
 
+
 #endif

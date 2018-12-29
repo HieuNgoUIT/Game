@@ -72,8 +72,8 @@
 //}
 Item::Item(char* link, int X, int Y)
 {
-	_texture = new Texture(link, 1, 1, 1);
-	_sprite = new Sprite(_texture, 100);
+//	_texture = new Texture(link, 1, 1, 1);
+//	_sprite = new Sprite(_texture, 100);
 	this->x = X;
 	this->y = Y;
 	remainingTime = 500;

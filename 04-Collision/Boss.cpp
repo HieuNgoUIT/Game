@@ -6,8 +6,8 @@ Boss::Boss()
 
 Boss::Boss(int X, int Y)
 {
-	_texture = new Texture("Resource\\sprites\\Bosses\\VAMPIRE_BAT.png", 3, 1, 3);
-	_sprite = new Sprite(_texture, 100);
+//	_texture = new Texture("Resource\\sprites\\Bosses\\VAMPIRE_BAT.png", 3, 1, 3);
+//	_sprite = new Sprite(_texture, 100);
 	this->x = X;
 	this->y = Y;
 	tag = ENEMY_TAG;//enemy from 500

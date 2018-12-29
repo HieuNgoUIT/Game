@@ -5,8 +5,8 @@ Axe::~Axe()
 }
 Axe::Axe(int X, int Y)
 {
-	_texture = new Texture("Resource\\sprites\\Sub_weapons\\AXE_ACTION.png", 4, 1, 4);
-	_sprite = new Sprite(_texture, 100);
+//	_texture = new Texture("Resource\\sprites\\Sub_weapons\\AXE_ACTION.png", 4, 1, 4);
+//	_sprite = new Sprite(_texture, 100);
 	x = X;
 	y = Y;
 	tag = 3;

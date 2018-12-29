@@ -159,6 +159,7 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SubWeapon.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Textures.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="WaterEffect.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SubWeapon.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Textures.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="WaterEffect.cpp" />

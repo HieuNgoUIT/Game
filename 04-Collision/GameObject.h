@@ -9,6 +9,7 @@
 #include "HitEffect.h"
 #include "DeadEffect.h"
 #include "debug.h"
+#include "Textures.h"
 using namespace std;
 
 #define ID_TEX_BBOX -100		// special texture to draw object bounding box
@@ -35,6 +36,7 @@ struct CCollisionEvent
 class CGameObject
 {
 public:
+	int texId;
 	int tag;
 	int id; // ID của object
 	int health;
@@ -56,9 +58,13 @@ public:
 	DWORD dt; 
 	HitEffect *hiteffect;
 	DeadEffect *deadffect;
+
 	Texture * _texture;
 	Sprite * _sprite;
-	Texture *texturebox = new Texture("textures\\bbox.png");
+
+	//Texture *texturebox = new Texture("textures\\bbox.png");
+
+	//Textures *texs = new Textures();
 
 public: 
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }

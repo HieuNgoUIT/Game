@@ -2,8 +2,8 @@
 
 CheckPoint::CheckPoint()
 {
-	_texture = new Texture("Resource\\sprites\\Ground\\NULL.png",1, 1,1);
-	_sprite = new Sprite(_texture, 100);
+//	_texture = new Texture("Resource\\sprites\\Ground\\NULL.png",1, 1,1);
+//	_sprite = new Sprite(_texture, 100);
 	//x = X;
 	//y = Y;
 }
@@ -16,8 +16,8 @@ void CheckPoint::GetBoundingBox(float & left, float & top, float & right, float 
 {
 	left = x;
 	top = y;
-	right = x + _texture->FrameWidth;
-	bottom = y + _texture->FrameHeight;
+//	right = x + _texture->FrameWidth;
+	//bottom = y + _texture->FrameHeight;
 }
 
 void CheckPoint::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

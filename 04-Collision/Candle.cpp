@@ -2,8 +2,8 @@
 
 Candle::Candle(int X, int Y, int numberItem)
 {
-	_texture = new Texture("Resource\\sprites\\Ground\\1.png", 2, 1, 2);
-	_sprite = new Sprite(_texture, 100);
+//	_texture = new Texture("Resource\\sprites\\Ground\\1.png", 2, 1, 2);
+//	_sprite = new Sprite(_texture, 100);
 	this->x = X;
 	this->y = Y;
 	tag =11;
@@ -24,7 +24,7 @@ void Candle::GetBoundingBox(float & left, float & top, float & right, float & bo
 		left = x;
 		top = y;
 		right = x + _texture->FrameWidth;
-		bottom = y + _texture->FrameHeight;
+	bottom = y + _texture->FrameHeight;
 	}
 }
 

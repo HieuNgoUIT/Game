@@ -12,8 +12,8 @@ Simon * Simon::GetInstance()
 
 Simon::Simon()
 {
-	_texture = new Texture("Resource\\sprites\\simon.png", 8, 3, 24);
-	_sprite = new Sprite(_texture, 150);
+//	_texture = new Texture("Resource\\sprites\\simon.png", 8, 3, 24);
+	//_sprite = new Sprite(_texture, 150);
 	whip = new Whip(x, y);
 	subwp = new SubWeapon(/*x, y*/);
 	tag = 1;
@@ -40,8 +40,8 @@ void Simon::GetBoundingBox(float & left, float & top, float & right, float & bot
 	{
 		left = x + 12;
 		top = y - 1; // không chỉnh lại y bởi vì hàm Sit() đã điều chỉnh
-		right = x + _texture->FrameHeight;
-		bottom = y + _texture->FrameHeight - 21;
+//		right = x + _texture->FrameHeight;
+//		bottom = y + _texture->FrameHeight - 21;
 	}
 	else if (isOnStair)
 	{

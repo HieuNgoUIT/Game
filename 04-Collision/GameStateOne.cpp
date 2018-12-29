@@ -2,9 +2,25 @@
 
 void GameStateOne::LoadResources()
 {
+	Textures * textures = Textures::GetInstance();
+	textures->Add(10,"Resource\\sprites\\Ground\\0.png", 2, 1, 2);
+	textures->Add(12, "Resource\\sprites\\Ground\\2.png", 1, 1, 1);
+	textures->Add(1, "Resource\\sprites\\simon.png", 8, 3, 24);
+	textures->Add(2, "Resource\\sprites\\Weapons\\whip1.png", 4, 3, 12);
+
+	
+	//_sprite = new Sprite(_texture, 100);
+
+
+
+
+
 	simon = Simon::GetInstance();
 	simon->SetPosition(SIMON_POSITION_DEFAULT);
-	
+	simon->_texture = textures->Get(1);
+	simon->_sprite = new Sprite(textures->Get(1), 150);
+	simon->whip->_sprite= new Sprite(textures->Get(2), 100);
+	simon->whip->_texture= textures->Get(2);
 	simon->isStage1 = true;
 	
 
@@ -19,6 +35,15 @@ void GameStateOne::LoadResources()
 	
 	grid = new Grid();
 	grid->ReadFileToGrid("Resource\\sprites\\Grid\\lv1.txt");
+
+	vector<CGameObject*> test;
+	test = grid->getListObject();
+	for (int i = 0; i < test.size(); i++)
+	{
+		test.at(i)->_sprite = new Sprite(textures->Get(test.at(i)->texId), 100);
+		test.at(i)->_texture = textures->Get(test.at(i)->texId);
+	}
+
 	ui = new UI();
 	ui->Initialize(simon,NULL);
 	game = CGame::GetInstance();

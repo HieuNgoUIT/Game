@@ -1,6 +1,6 @@
 #pragma once
 #include "GameState.h"
-
+#include "Textures.h"
 class GameStateOne :public GameState
 {
 public:

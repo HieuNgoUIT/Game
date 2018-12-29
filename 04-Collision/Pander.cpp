@@ -2,8 +2,8 @@
 
 Pander::Pander(int X, int Y)
 {
-	_texture = new Texture("Resource\\sprites\\Enemies\\PANTHER.png", 4, 1, 4);
-	_sprite = new Sprite(_texture, 100);
+//	_texture = new Texture("Resource\\sprites\\Enemies\\PANTHER.png", 4, 1, 4);
+//	_sprite = new Sprite(_texture, 100);
 	this->x = X;
 	this->y = Y;
 	tag = ENEMY_TAG;//enemy from 500

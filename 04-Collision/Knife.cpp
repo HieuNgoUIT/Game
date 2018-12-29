@@ -5,8 +5,8 @@ Knife::~Knife()
 }
 Knife::Knife(int X,int Y)
 {
-	_texture = new Texture("Resource\\sprites\\Sub_weapons\\KNIFE_ACTION.png", 1, 1, 1);
-	_sprite = new Sprite(_texture, 100);
+//	_texture = new Texture("Resource\\sprites\\Sub_weapons\\KNIFE_ACTION.png", 1, 1, 1);
+//	_sprite = new Sprite(_texture, 100);
 	x = X;
 	y = Y;
 	vx = 10.0f;

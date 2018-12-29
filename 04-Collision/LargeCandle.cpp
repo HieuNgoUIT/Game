@@ -2,11 +2,13 @@
 
 
 
-LargeCandle::LargeCandle(int X, int Y, int numberItem)
+LargeCandle::LargeCandle(int type,int X, int Y, int numberItem)
 {
 	
-	_texture = new Texture("Resource\\sprites\\Ground\\0.png", 2, 1, 2);
-	_sprite = new Sprite(_texture, 100);
+	//_texture = new Texture("Resource\\sprites\\Ground\\0.png", 2, 1, 2);
+	//_texture = texs->Get(1);
+	//_sprite = new Sprite(_texture, 100);
+	texId = type;
 	this->x = X;
 	this->y = Y;
 	tag = 10;
@@ -52,8 +54,8 @@ void LargeCandle::GetBoundingBox(float & left, float & top, float & right, float
 	{
 		left = x;
 		top = y;
-		right = x + _texture->FrameWidth;
-		bottom = y + _texture->FrameHeight;
+		right = x +64;
+		bottom = y + 64;
 	}
 
 
@@ -97,6 +99,6 @@ void LargeCandle::Render(Camera * camera)
 
 void LargeCandle::Delete()
 {
-	delete _texture;
-	delete _sprite;
+//	delete _texture;
+	//delete _sprite;
 }

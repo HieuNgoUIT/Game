@@ -5,8 +5,8 @@ HiddenStair::~HiddenStair()
 }
 HiddenStair::HiddenStair(int TYPE,int X,int Y,int direction,int isLeft)
 {
-	_texture = new Texture("Resource\\sprites\\Ground\\NULL.png", 1, 1, 1);
-	_sprite = new Sprite(_texture, 100);
+//	_texture = new Texture("Resource\\sprites\\Ground\\NULL.png", 1, 1, 1);
+//	_sprite = new Sprite(_texture, 100);
 	this->x = X;
 	this->y = Y;
 	this->tag = TYPE;

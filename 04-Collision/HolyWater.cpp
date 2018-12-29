@@ -5,8 +5,8 @@ HolyWater::~HolyWater()
 }
 HolyWater::HolyWater(int X, int Y)
 {
-	_texture = new Texture("Resource\\sprites\\Sub_weapons\\HOLY_WATER_ACTION.png", 3, 1, 3);
-	_sprite = new Sprite(_texture, 300);
+//	_texture = new Texture("Resource\\sprites\\Sub_weapons\\HOLY_WATER_ACTION.png", 3, 1, 3);
+//	_sprite = new Sprite(_texture, 300);
 	x = X;
 	y = Y;
 	tag = 3;

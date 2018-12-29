@@ -41,7 +41,7 @@ public:
 	void ReadFileToGrid(char * filename); 
 	void GetListObject(vector<CGameObject*>& ListObj, Camera * camera);
 	
-
+	vector<CGameObject*> getListObject();
 	void DeleteObjects();
 	void Insert(int id, int type,  float x, float y, float w, float h); 
 

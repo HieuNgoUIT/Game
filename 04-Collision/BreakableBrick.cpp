@@ -6,14 +6,14 @@ BreakableBrick::BreakableBrick(int TYPE, int X, int Y, int W, int H)
 	tag = BREAKABLEBRICK_TAG;
 	if (TYPE == BREAKABLEBRICK_TYPE1)
 	{
-		_texture = new Texture("Resource\\sprites\\Ground\\Brick.png", 1, 1, 1);
+//		_texture = new Texture("Resource\\sprites\\Ground\\Brick.png", 1, 1, 1);
 	}
 	else
 	{
-		_texture = new Texture("Resource\\sprites\\Ground\\8.png", 1, 1, 1);
+//		_texture = new Texture("Resource\\sprites\\Ground\\8.png", 1, 1, 1);
 	}
 	
-	_sprite = new Sprite(_texture, 1000);
+//	_sprite = new Sprite(_texture, 1000);
 	this->x = X;
 	this->y = Y;
 	this->width = W;

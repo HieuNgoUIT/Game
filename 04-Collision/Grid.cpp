@@ -102,6 +102,11 @@ void Grid::ResetTake()
 	}
 }
  
+vector<CGameObject*> Grid::getListObject()
+{
+	return listObject;
+}
+
 void Grid::DeleteObjects()
 {
 	for (int i = 0; i < listObject.size(); i++)
@@ -143,7 +148,7 @@ void Grid::Insert(int id, int type,  float x, float y, float w, float h)
 CGameObject * Grid::CreateObject(int type, int x, int y,int w, int h)
 {
 	if (type == BRICK_TYPE1 || type == BRICK_TYPE2) return new Brick(type,x, y, w, h);
-	else if (type == LARGECANDLE_TYPE ) return new LargeCandle(x, y,w); //x,y,typeitem
+	else if (type == LARGECANDLE_TYPE ) return new LargeCandle(type,x, y,w); //x,y,typeitem
 	else if (type == CANDLE_TYPE ) return new Candle(x, y,w);//x,y,typeitem
 	else if (type == ZOMBIE_TYPE ) return new Zombie(x,y,w); //x,y,direction
 	else if (type == PANDER_TYPE) return new Pander(x, y);
