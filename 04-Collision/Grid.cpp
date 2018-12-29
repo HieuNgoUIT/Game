@@ -12,7 +12,7 @@ Grid::~Grid()
 
 void Grid::ReadFileToGrid(char * filename)
 {
-	listObjectGame.clear();
+	listObject.clear();
 
 	std::ifstream input;
 	input.open(filename, std::ifstream::in);
@@ -96,17 +96,17 @@ void Grid::GetListObject(vector<CGameObject*>& ListObj, Camera * camera)
 
 void Grid::ResetTake()
 {
-	for (int i = 0; i < listObjectGame.size(); i++)
+	for (int i = 0; i < listObject.size(); i++)
 	{
-		listObjectGame[i]->isTake = false;
+		listObject[i]->isTake = false;
 	}
 }
  
 void Grid::DeleteObjects()
 {
-	for (int i = 0; i < listObjectGame.size(); i++)
+	for (int i = 0; i < listObject.size(); i++)
 	{
-		delete(listObjectGame[i]);
+		delete(listObject[i]);
 	}
 
 }
@@ -119,7 +119,7 @@ void Grid::Insert(int id, int type,  float x, float y, float w, float h)
 	int Left = floor(x / (float)GRID_CELL_WIDTH);
 	int Right = floor((x+w) / (float)GRID_CELL_WIDTH);
 
-	CGameObject * dataObject = GetNewObject(type, x, y, w, h); 
+	CGameObject * dataObject = CreateObject(type, x, y, w, h);
 	if (dataObject == NULL)
 	{
 		DebugOut(L"[Insert Object GRID Fail] ");
@@ -128,7 +128,7 @@ void Grid::Insert(int id, int type,  float x, float y, float w, float h)
 	dataObject->id=id;
 	dataObject->isTake = false;
 
-	listObjectGame.push_back(dataObject);
+	listObject.push_back(dataObject);
 
 	for (int row = Top; row <= Bottom; row++)
 	{
@@ -140,7 +140,7 @@ void Grid::Insert(int id, int type,  float x, float y, float w, float h)
 
 }
 
-CGameObject * Grid::GetNewObject(int type, int x, int y,int w, int h)
+CGameObject * Grid::CreateObject(int type, int x, int y,int w, int h)
 {
 	if (type == BRICK_TYPE1 || type == BRICK_TYPE2) return new Brick(type,x, y, w, h);
 	else if (type == LARGECANDLE_TYPE ) return new LargeCandle(x, y,w); //x,y,typeitem

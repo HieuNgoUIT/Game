@@ -32,7 +32,7 @@ class Grid
 { 
 
 private:
-	vector<CGameObject*> listObjectGame;
+	vector<CGameObject*> listObject;
 	vector<CGameObject*> cells[500][500];
 
 	void ResetTake();
@@ -45,7 +45,7 @@ public:
 	void DeleteObjects();
 	void Insert(int id, int type,  float x, float y, float w, float h); 
 
-	CGameObject * GetNewObject(int type, int x, int y, int w, int h);
+	CGameObject * CreateObject(int type, int x, int y, int w, int h);
 
 	Grid();
 	~Grid();

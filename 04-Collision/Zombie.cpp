@@ -149,5 +149,7 @@ void Zombie::RePosition(Camera *camera)
 	this->reviveTime = rand() % 300 + 1; //random de ko the trung nhau
 	this->hiteffect->isDoneRender = false;
 	this->deadffect->isDoneRender = false;
+	this->hiteffect->remainingTime = 10;
+	this->deadffect->remainingTime = 10;
 	health = 10;
 }

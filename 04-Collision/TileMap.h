@@ -21,18 +21,18 @@ private:
 	int ScreenColumn;
 	int ScreenRow;
 
-	int RowMatrix; // số lượng dòng của ma trận tilemap txt
-	int ColumnMatrix;// số lượng cột của ma trận tilemap txt
+	int RowMatrix; 
+	int ColumnMatrix;
 
-	int ColTile; // số lượng cột tile trong texture
-	int RowTile;// số lượng dòng tile trong texture
-	int CountTileFrame; // tổng số lương tile trong texture 
+	int ColTile; 
+	int RowTile;
+	int CountTileFrame; 
 	int tileMap[500][500];
 	int AutoFit;
 
 
-	int row; // dòng hiện tại camera đang đứng
-	int column; //cột hiện tại camera đang đứng
+	int row; 
+	int column; 
 	int x, y;
 
 
