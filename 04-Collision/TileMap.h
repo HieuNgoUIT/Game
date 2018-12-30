@@ -42,7 +42,7 @@ public:
 	void LoadMap(char* b, char* s, int row, int col, int total, int rowmaxtrix, int colmatrix);
 	void ReadFile(char * filename, int rowmaxtrix, int colmatrix);
 	void DrawMap(Camera * camera);
-	void DrawMaplvl1(Camera * camera);
+	
 	/*void DrawMapWater(Camera * camera);*/
 
 };

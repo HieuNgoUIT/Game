@@ -11,11 +11,11 @@ protected:
 	int _width;
 	int _height;
 	float vx;
-	/*int _borderLeft;
-	int _borderRight;*/
+	
 
 public:
-	
+	int _borderLeft;
+	int _borderRight;
 	Camera(int w, int h/*, int b_left, int b_right*/);
 	~Camera();
 	void Go(DWORD dt);

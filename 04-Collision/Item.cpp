@@ -76,40 +76,8 @@ Item::Item(int objectnumber, int X, int Y)
 	this->y = Y;
 	remainingTime = 500;
 	currentPos = x;
-	this->itemNumber = objectnumber;
-	if (itemNumber == 100)
-	{
-		tag = HEART_TAG;
-	}
-	else if (itemNumber == 107)
-	{
-		tag = WHIP_TAG;
-	}
-	else if (itemNumber == 113)
-	{
-		tag = KNIFE_TAG;
-	}
-	else if (itemNumber == 114)
-	{
-		tag = AXE_TAG;
-	}
-	else if (itemNumber == 115)
-	{
-		tag = HOLYWATER_TAG;
-	}
-	else if (itemNumber == 109)
-	{
-		tag = ROSARY_TAG;
-	}
-	else if (itemNumber == 111)
-	{
-		tag = STOPWATCH_TAG;
-	}
-	else if (itemNumber == 105)
-	{
-		tag = REDBAG_TAG;
-	}
-
+	this->tag = objectnumber;
+	
 }
 
 Item::Item()

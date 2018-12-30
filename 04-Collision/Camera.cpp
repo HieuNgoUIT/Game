@@ -8,8 +8,7 @@ Camera::Camera(int w, int h/*, int b_left, int b_right*/)
 {
 	_width = w;
 	_height = h;
-	/*_borderLeft = b_left;
-	_borderRight = b_right; */
+	
 	SetPosition(0, 0);
 }
 
@@ -41,13 +40,13 @@ void Camera::Go(DWORD dt)
 
 void Camera::Update()
 {
-	if (_viewport.x < 0)
+	if (_viewport.x < _borderLeft)
 	{
-		_viewport.x = 0;
+		_viewport.x = _borderLeft;
 	}
-	if (_viewport.x >850)
+	if (_viewport.x >_borderRight)
 	{
-		_viewport.x = 850;
+		_viewport.x = _borderRight;
 	}
 }
 

@@ -15,6 +15,38 @@ void DebugOut(wchar_t *fmt, ...);
 #define BREAKABLEBRICK_TAG 13
 #define ENEMY_TAG 500
 
+//ITEM TAG 
+#define HEART_TAG 100
+#define BALL_TAG 101
+#define DOUBLE_TAG 102
+#define INVI_TAG 103
+#define BLUEBLAG_TAG 104
+#define REDBAG_TAG 105
+#define WHITEBAG_TAG 106
+#define WHIP_TAG 107
+#define ROAST_TAG  108
+#define ROSARY_TAG  109
+#define SHEART_TAG 110
+#define STOPWATCH_TAG 111
+#define TRIPLE_TAG  112
+#define KNIFE_TAG  113
+#define AXE_TAG  114
+#define HOLYWATER_TAG 115
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #define BRICK_TYPE1 12
 #define BRICK_TYPE2 -12

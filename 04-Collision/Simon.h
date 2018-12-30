@@ -110,6 +110,7 @@ public:
 	void CollisionWithItem(vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void ResetLife();
+	void CheckBoundaries(int left,int right);
 	// void PreProcessOnStair(CGameObject *hiddenstair,  Camera *camera);
 	// void PreProcessBeforeOnStair(CGameObject *hiddenstair, Camera *camera);
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL, vector<LPGAMEOBJECT>* coItems = NULL);

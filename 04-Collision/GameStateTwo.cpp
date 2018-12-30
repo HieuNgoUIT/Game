@@ -10,7 +10,7 @@ void GameStateTwo::LoadResources()
 	simon->SetPosition(SIMON_POSITION_DEFAULT); //33 4 14
 	boss = new Boss(5300, 100);
 	tilemap = new TileMap();
-	tilemap->LoadMap("Resource/sprites/Grid/test1.b", "Resource/sprites/Grid/test1.s", 34, 4, 136, 14, 90);
+	tilemap->LoadMap("Resource/sprites/Grid/lv2.b", "Resource/sprites/Grid/lv2.s", 34, 4, 136, 14, 90);
 
 	grid = new Grid();
 	grid->ReadFileToGrid("Resource\\sprites\\Grid\\lv2.txt"); //20 4 80    14 90

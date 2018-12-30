@@ -28,9 +28,10 @@ void GameStateOne::LoadResources()
 	}
 
 	camera = new Camera(SCREEN_WIDTH, SCREEN_HEIGHT);
-
+	camera->_borderLeft = 0;
+	camera->_borderRight = 850;
 	tilemap = new TileMap();
-	tilemap->LoadMap("Resource/sprites/lv1.b", "Resource/sprites/lv1.s", 10, 4, 40, 6, 24);
+	tilemap->LoadMap("Resource/sprites/Grid/lv1.b", "Resource/sprites/Grid/lv1.s", 9, 4, 36, 6, 24);
 
 	
 	checkpoint = new CheckPoint();
@@ -90,6 +91,7 @@ void GameStateOne::Update(DWORD dt)
 		items[i]->Update(dt,0 ,&coObjects);
 	}
 	simon->Update(dt, &coObjects, &items);
+	simon->CheckBoundaries(camera->_borderLeft, camera->_borderRight + 640);
 	camera->SetPosition(simon->x - 320 + 60, 0);
 	camera->Update();
 	CheckCollideWithCheckPoint(simon, checkpoint);
@@ -109,7 +111,7 @@ void GameStateOne::Render()
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
 		ui->Render();
-		tilemap->DrawMaplvl1(camera);
+		tilemap->DrawMap(camera);
 
 		for (int i = 0; i < objects.size(); i++)
 			objects[i]->Render(camera);
