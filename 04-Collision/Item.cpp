@@ -72,9 +72,6 @@
 //}
 Item::Item(int objectnumber, int X, int Y)
 {
-//	_texture = new Texture(link, 1, 1, 1);
-//	_sprite = new Sprite(_texture, 100);
-	//texId=
 	this->x = X;
 	this->y = Y;
 	remainingTime = 500;
@@ -147,12 +144,12 @@ void Item::Update(DWORD dt, float simonx, vector<LPGAMEOBJECT>* coObjects)
 
 			CGameObject::Update(dt);
 
-			if (x > currentPos + 35)
+			if (x > currentPos + 25)
 			{
 				CheckRight = true;
 				CheckLeft = false;
 			}
-			if (x < currentPos - 35)
+			if (x < currentPos - 25)
 			{
 				CheckRight = false;
 				CheckLeft = true;

@@ -53,19 +53,18 @@ public:
 	bool isDead;
 	bool isLeft;
 
-	int itemLink;
+	
 	int itemNumber;
 
 	DWORD dt; 
+
 	HitEffect *hiteffect;
 	DeadEffect *deadffect;
 
 	Texture * _texture;
 	Sprite * _sprite;
 
-	//Texture *texturebox = new Texture("textures\\bbox.png");
-
-	//Textures *texs = new Textures();
+	
 
 public: 
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }

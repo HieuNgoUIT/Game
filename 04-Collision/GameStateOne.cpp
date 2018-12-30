@@ -22,6 +22,9 @@ void GameStateOne::LoadResources()
 	{
 		test.at(i)->_sprite = new Sprite(textures->Get(test.at(i)->texId), 100);
 		test.at(i)->_texture = textures->Get(test.at(i)->texId);
+
+		test.at(i)->deadffect->_sprite= new Sprite(textures->Get(-1), 50);
+		test.at(i)->hiteffect->_sprite = new Sprite(textures->Get(-2), 1000);
 	}
 
 	camera = new Camera(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -113,8 +116,8 @@ void GameStateOne::Render()
 		for (int i = 0; i < items.size(); i++)
 			items[i]->Render(camera);
 		simon->Render(camera);
-		//whip->Render(camera);
-
+		
+		checkpoint->Render(camera);
 		spriteHandler->End();
 		d3ddv->EndScene();
 	}

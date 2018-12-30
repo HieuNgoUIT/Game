@@ -115,16 +115,6 @@ void Sprite::Draw(int X, int Y)
 	//position.x = X - _texture->FrameWidth / 2;
 	//position.y = Y - _texture->FrameHeight / 2;
 
-	//spriteHandler->Draw(
-	//	_texture->Texture,
-	//	&srect,
-	//	&center,
-	//	&position,
-	//	D3DCOLOR_XRGB(R, G, B) //color
-	//	);
-
-
-
 	D3DXVECTOR3 p(X, Y, 0);
 	spriteHandler->Draw(
 		_texture->texture,

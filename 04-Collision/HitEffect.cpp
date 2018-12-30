@@ -7,8 +7,8 @@ HitEffect::~HitEffect()
 
 HitEffect::HitEffect()
 {
-	_texture = new Texture("Resource\\sprites\\Effect\\0.png", 1, 1, 1);
-	_sprite = new Sprite(_texture, 1000);
+	//_texture = new Texture("Resource\\sprites\\Effect\\0.png", 1, 1, 1);
+	//_sprite = new Sprite(_texture, 1000);
 	isVisible = false;
 	isDoneRender = false;
 }

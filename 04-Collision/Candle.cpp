@@ -9,9 +9,7 @@ Candle::Candle(int TYPE,int X, int Y, int numberItem)
 	this->y = Y;
 	tag =11;
 	itemNumber = numberItem;
-//	itemLink = ConvertItemNumbertoString(itemNumber);
-
-	item = new Item();
+	
 }
 
 Candle::~Candle()
@@ -63,59 +61,4 @@ void Candle::Render(Camera * camera)
 	}
 }
 
-char * Candle::ConvertItemNumbertoString(int number)
-{
-	switch (number)
-	{
-	case 1:
-		return "Resource\\sprites\\Items\\13.png";
-		break;
-	case 2:
-		return "Resource\\sprites\\Items\\BIG_HEART.png";
-		break;
-	case 3:
-		return "Resource\\sprites\\Items\\DOUBLE_SHOT.png";
-		break;
-	case 4:
-		return "Resource\\sprites\\Items\\INVICIBILITY_ITEM.png";
-		break;
-	case 5:
-		return "Resource\\sprites\\Items\\Money_bag_blue.png";
-		break;
-	case 6:
-		return "Resource\\sprites\\Items\\Money_bag_red.png";
-		break;
-	case 7:
-		return "Resource\\sprites\\Items\\Money_bag_white.png";
-		break;
-	case 8:
-		return "Resource\\sprites\\Items\\MORNING_STAR.png";
-		break;
-	case 9:
-		return "Resource\\sprites\\Items\\ROAST.png";
-		break;
-	case 10:
-		return "Resource\\sprites\\Items\\ROSARY.png";
-		break;
-	case 11:
-		return "Resource\\sprites\\Items\\SMALL_HEART.png";
-		break;
-	case 12:
-		return "Resource\\sprites\\Items\\STOP_WATCH.png";
-		break;
-	case 13:
-		return "Resource\\sprites\\Items\\TRIPLE_SHOT.png";
-		break;
-	case 14:
-		return "Resource\\sprites\\Items\\KNIFE.png";
-		break;
-	case 15:
-		return "Resource\\sprites\\Items\\HOLY_WATER.png";
-		break;
-	case 16:
-		return "Resource\\sprites\\Items\\AXE.png";
-		break;
-	default:
-		break;
-	}
-}
+

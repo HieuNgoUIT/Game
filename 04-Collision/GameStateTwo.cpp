@@ -20,7 +20,8 @@ void GameStateTwo::LoadResources()
 	{
 		test.at(i)->_texture = textures->Get(test.at(i)->texId);
 		test.at(i)->_sprite = new Sprite(textures->Get(test.at(i)->texId), 100);
-		
+		test.at(i)->deadffect->_sprite = new Sprite(textures->Get(-1), 50);
+		test.at(i)->hiteffect->_sprite = new Sprite(textures->Get(-2), 1000);
 	}
 
 	ui = new UI();

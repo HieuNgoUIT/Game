@@ -22,24 +22,7 @@ void LargeCandle::RenderBoundingBox(Camera * camera)
 {
 	CGameObject::RenderBoundingBox(camera);
 }
-char * LargeCandle::ConvertItemNumbertoString(int number)
-{
-	switch (number)
-	{
-	case 2:
-		return "Resource\\sprites\\Items\\BIG_HEART.png";
-		break;	
-	case 8:
-		return "Resource\\sprites\\Items\\MORNING_STAR.png";
-		break;
-	case 14:
-		return "Resource\\sprites\\Items\\KNIFE.png";
-		break;
-	default:
-		break;
-	}
-	
-}
+
 LargeCandle::LargeCandle()
 {
 }
@@ -97,8 +80,3 @@ void LargeCandle::Render(Camera * camera)
 
 }
 
-void LargeCandle::Delete()
-{
-//	delete _texture;
-	//delete _sprite;
-}

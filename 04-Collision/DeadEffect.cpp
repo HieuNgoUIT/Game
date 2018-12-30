@@ -7,8 +7,8 @@ DeadEffect::~DeadEffect()
 
 DeadEffect::DeadEffect()
 {
-	_texture = new Texture("Resource\\sprites\\Effect\\DEAD.png", 3, 1, 3);
-	_sprite = new Sprite(_texture, 50);
+	//_texture = new Texture("Resource\\sprites\\Effect\\DEAD.png", 3, 1, 3);
+	//_sprite = new Sprite(_texture, 50);
 	isVisible = false;
 	isDoneRender = false;
 }

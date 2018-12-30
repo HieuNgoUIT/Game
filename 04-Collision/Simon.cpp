@@ -480,7 +480,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 
 	/* Update về sprite */
 
-	// k phai dau, qua ham render la len hinh r
+	
 #pragma endregion
 
 
@@ -655,13 +655,19 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 		//	isLeft = 0;
 		//}
 	}
-
-	if (!isOnStair)
+	else
 	{
 		CGameObject::Update(dt);
 		vy += SIMON_GRAVITY * dt;// Simple fall down
-		//vx += 0.5f*dt;
+								 //vx += 0.5f*dt;
 	}
+
+	//if (!isOnStair)
+	//{
+	//	CGameObject::Update(dt);
+	//	vy += SIMON_GRAVITY * dt;// Simple fall down
+	//	//vx += 0.5f*dt;
+	//}
 
 	ResetLife();
 
@@ -689,7 +695,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 	//check with item
 	CollisionWithItem(coItems);
 
-	//scores += Whip::GetScore();
+	
 
 
 
