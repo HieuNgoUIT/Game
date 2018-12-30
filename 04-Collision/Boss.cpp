@@ -13,7 +13,7 @@ Boss::Boss(int X, int Y)
 	tag = ENEMY_TAG;//enemy from 500
 	CheckTop = true;
 	health = 10;
-	item = new Item("Resource\\sprites\\Items\\13.png", x, 240);
+//	item = new Item("Resource\\sprites\\Items\\13.png", x, 240);
 	deadffect->remainingTime = 500;//boss thi cho render lau 1 ti
 	
 }

@@ -8,7 +8,7 @@ Candle::Candle(int X, int Y, int numberItem)
 	this->y = Y;
 	tag =11;
 	itemNumber = numberItem;
-	itemLink = ConvertItemNumbertoString(itemNumber);
+//	itemLink = ConvertItemNumbertoString(itemNumber);
 
 	item = new Item();
 }

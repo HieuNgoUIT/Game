@@ -14,6 +14,28 @@ Texture * Textures::Get(int id)
 	return textures[id];
 }
 
+void Textures::LoadTexture(char * filename)
+{
+	std::ifstream input;
+	input.open(filename, std::ifstream::in);
+
+	int id;
+	int col, row, count;
+	char* link="";
+	string checkEnd;
+
+	while (input >> checkEnd)
+	{
+		if (checkEnd == "END")
+		{
+			break;
+		}
+		link = const_cast<char*>(checkEnd.c_str());
+		input >>col>>row>>count >> id;
+		Add(id, link, col, row,count);
+	}
+}
+
 Textures * Textures::__instance = NULL;
 
 

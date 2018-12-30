@@ -13,9 +13,9 @@ LargeCandle::LargeCandle(int type,int X, int Y, int numberItem)
 	this->y = Y;
 	tag = 10;
 	itemNumber = numberItem;
-	itemLink = ConvertItemNumbertoString(itemNumber);
+	//itemLink = ConvertItemNumbertoString(itemNumber);
 	
-	item = new Item();
+	//item = new Item();
 	
 }
 void LargeCandle::RenderBoundingBox(Camera * camera)
@@ -54,8 +54,8 @@ void LargeCandle::GetBoundingBox(float & left, float & top, float & right, float
 	{
 		left = x;
 		top = y;
-		right = x +64;
-		bottom = y + 64;
+		right = x +_texture->FrameWidth;
+		bottom = y + _texture->FrameHeight;
 	}
 
 

@@ -40,8 +40,8 @@ void Simon::GetBoundingBox(float & left, float & top, float & right, float & bot
 	{
 		left = x + 12;
 		top = y - 1; // không chỉnh lại y bởi vì hàm Sit() đã điều chỉnh
-//		right = x + _texture->FrameHeight;
-//		bottom = y + _texture->FrameHeight - 21;
+		right = x + _texture->FrameHeight;
+		bottom = y + _texture->FrameHeight - 21;
 	}
 	else if (isOnStair)
 	{

@@ -154,12 +154,12 @@ bool CGameObject::isColliding(LPGAMEOBJECT object, LPGAMEOBJECT other)
 void CGameObject::RenderBoundingBox(Camera *camera)
 {
 
-	return;
+	//return;
 	
 	D3DXVECTOR3 p(x, y, 0);
 	RECT rect;
-	
-	//LPDIRECT3DTEXTURE9 bbox = texturebox->texture;
+	Textures * textures = Textures::GetInstance();
+	LPDIRECT3DTEXTURE9 bbox = textures->Get(-100)->texture;
 
 	float l, t, r, b;
 
@@ -173,7 +173,7 @@ void CGameObject::RenderBoundingBox(Camera *camera)
 	//D3DXVECTOR2 pos2 = camera->Transform(l, t);
 
 
-	//CGame::GetInstance()->Draw(pos.x, pos.y, bbox, rect.left, rect.top, rect.right, rect.bottom, 100);
+	CGame::GetInstance()->Draw(pos.x, pos.y, bbox, rect.left, rect.top, rect.right, rect.bottom, 100);
 }
 
 

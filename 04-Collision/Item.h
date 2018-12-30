@@ -39,7 +39,7 @@ class Item :public CGameObject
 public:
 	
 	Item();
-	Item(char* link,int X,int Y);
+	Item(int objectnumber,int X,int Y);
 	~Item();
 
 	float remainingTime;

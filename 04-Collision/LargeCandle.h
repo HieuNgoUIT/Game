@@ -6,6 +6,7 @@ class LargeCandle:public CGameObject
 public:
 	
 	Item * item;
+
 	LargeCandle(int type, int X,int Y, int numberItem);
 	LargeCandle();
 	~LargeCandle();

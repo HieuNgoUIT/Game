@@ -70,27 +70,29 @@
 //		break;
 //	}
 //}
-Item::Item(char* link, int X, int Y)
+Item::Item(int objectnumber, int X, int Y)
 {
 //	_texture = new Texture(link, 1, 1, 1);
 //	_sprite = new Sprite(_texture, 100);
+	//texId=
 	this->x = X;
 	this->y = Y;
 	remainingTime = 500;
 	currentPos = x;
-	if (link == HEART_PATH)
+	this->itemNumber = objectnumber;
+	if (itemNumber == 100)
 	{
 		tag = HEART_TAG;
 	}
-	else if (link == WHIP_PATH)
+	else if (itemNumber == 107)
 	{
 		tag = WHIP_TAG;
 	}
-	else if (link == KNIFE_PATH)
+	else if (itemNumber == 113)
 	{
 		tag = KNIFE_TAG;
 	}
-	else if (link == AXE_PATH)
+	/*else if (link == AXE_PATH)
 	{
 		tag = AXE_TAG;
 	}
@@ -109,7 +111,7 @@ Item::Item(char* link, int X, int Y)
 	else if (link == REDBAG_PATH)
 	{
 		tag = REDBAG_TAG;
-	}
+	}*/
 
 }
 

@@ -52,7 +52,8 @@ public:
 	int direction;
 	bool isDead;
 	bool isLeft;
-	char* itemLink;
+
+	int itemLink;
 	int itemNumber;
 
 	DWORD dt; 

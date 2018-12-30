@@ -3,18 +3,8 @@
 void GameStateOne::LoadResources()
 {
 	Textures * textures = Textures::GetInstance();
-	textures->Add(10,"Resource\\sprites\\Ground\\0.png", 2, 1, 2);
-	textures->Add(12, "Resource\\sprites\\Ground\\2.png", 1, 1, 1);
-	textures->Add(1, "Resource\\sprites\\simon.png", 8, 3, 24);
-	textures->Add(2, "Resource\\sprites\\Weapons\\whip1.png", 4, 3, 12);
-
+	textures->LoadTexture("Resource\\sprites\\Grid\\textures.txt");
 	
-	//_sprite = new Sprite(_texture, 100);
-
-
-
-
-
 	simon = Simon::GetInstance();
 	simon->SetPosition(SIMON_POSITION_DEFAULT);
 	simon->_texture = textures->Get(1);
@@ -22,16 +12,6 @@ void GameStateOne::LoadResources()
 	simon->whip->_sprite= new Sprite(textures->Get(2), 100);
 	simon->whip->_texture= textures->Get(2);
 	simon->isStage1 = true;
-	
-
-	camera = new Camera(SCREEN_WIDTH, SCREEN_HEIGHT);
-
-	tilemap = new TileMap();
-	tilemap->LoadMap("Resource/sprites/lv1.b", "Resource/sprites/lv1.s", 10, 4, 40, 6, 24);
-
-	
-	checkpoint = new CheckPoint();
-	checkpoint->SetPosition(1366, 365);
 	
 	grid = new Grid();
 	grid->ReadFileToGrid("Resource\\sprites\\Grid\\lv1.txt");
@@ -43,6 +23,17 @@ void GameStateOne::LoadResources()
 		test.at(i)->_sprite = new Sprite(textures->Get(test.at(i)->texId), 100);
 		test.at(i)->_texture = textures->Get(test.at(i)->texId);
 	}
+
+	camera = new Camera(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	tilemap = new TileMap();
+	tilemap->LoadMap("Resource/sprites/lv1.b", "Resource/sprites/lv1.s", 10, 4, 40, 6, 24);
+
+	
+	checkpoint = new CheckPoint();
+	checkpoint->SetPosition(1366, 365);
+	
+
 
 	ui = new UI();
 	ui->Initialize(simon,NULL);
@@ -64,14 +55,23 @@ void GameStateOne::Update(DWORD dt)
 
 	vector<LPGAMEOBJECT> coObjects;
 	grid->GetListObject(objects, camera);
+
 	for (int i = 0; i < objects.size(); i++)
 	{
-		if (objects[i]->dropItem == true)
+		if (dynamic_cast<LargeCandle *>(objects.at(i)))
 		{
-			item = new Item(objects[i]->itemLink, objects[i]->x, objects[i]->y);
-			items.push_back(item);
+			//LargeCandle *lc = dynamic_cast<LargeCandle *>(coObjects.at(i));
+			if (objects[i]->dropItem == true)
+			{
+				Textures * textures = Textures::GetInstance();
+
+				item = new Item(objects[i]->itemNumber,objects[i]->x, objects[i]->y);
+				item->_sprite = new Sprite(textures->Get(objects[i]->itemNumber), 100);
+				item->_texture = textures->Get(objects[i]->itemNumber);
+				items.push_back(item);
+			}
+			objects[i]->SetDropItem(false);
 		}
-		objects[i]->SetDropItem(false);
 	}
 
 	for (int i = 0; i < objects.size(); i++)
