@@ -1,6 +1,6 @@
 #include "Merman.h"
 
-Merman::Merman(int X, int Y)
+Merman::Merman(int TYPE, int X, int Y)
 {
 //	_texture = new Texture("Resource\\sprites\\Enemies\\MERMAN.png", 3, 1, 3);
 //	_sprite = new Sprite(_texture, 200);
@@ -16,6 +16,7 @@ Merman::Merman(int X, int Y)
 	//fireball = new FireBall(x, y);
 	health = 10;
 	fireball = new FireBall(x, y);
+	texId = TYPE;
 }
 
 Merman::~Merman()

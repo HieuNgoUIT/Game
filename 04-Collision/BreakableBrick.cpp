@@ -3,6 +3,7 @@
 
 BreakableBrick::BreakableBrick(int TYPE, int X, int Y, int W, int H)
 {
+	texId = TYPE;
 	tag = BREAKABLEBRICK_TAG;
 	if (TYPE == BREAKABLEBRICK_TYPE1)
 	{

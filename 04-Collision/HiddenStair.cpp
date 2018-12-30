@@ -12,6 +12,7 @@ HiddenStair::HiddenStair(int TYPE,int X,int Y,int direction,int isLeft)
 	this->tag = TYPE;
 	this->direction = direction;
 	this->isLeft = isLeft;
+	texId = TYPE;
 }
 
 void HiddenStair::GetBoundingBox(float & left, float & top, float & right, float & bottom)

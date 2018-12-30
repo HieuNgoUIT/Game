@@ -30,8 +30,8 @@ void Boss::GetBoundingBox(float & left, float & top, float & right, float & bott
 		{
 			left = x;
 			top = y;
-			right = x + _texture->FrameWidth;
-			bottom = y + _texture->FrameHeight;
+			//right = x + _texture->FrameWidth;
+			//bottom = y + _texture->FrameHeight;
 		}
 	}
 	
@@ -79,23 +79,23 @@ void Boss::Update(DWORD dt, float simonx, float simony, vector<LPGAMEOBJECT>* co
 
 void Boss::Render(Camera * camera)
 {
-	if (!isDead)
-	{
-		D3DXVECTOR2 pos = camera->Transform(x, y);
-		_sprite->Draw(pos.x, pos.y);
-		RenderBoundingBox(camera);
-	}
-	else
-	{
-		if (deadffect->isDoneRender == false)
-		{
-			deadffect->isVisible = true;
-			deadffect->SetPosition(this->x , this->y);
-			deadffect->Render(camera);
-		}
-		item->Render(camera);
+	//if (!isDead)
+	//{
+	//	D3DXVECTOR2 pos = camera->Transform(x, y);
+	//	_sprite->Draw(pos.x, pos.y);
+	//	//RenderBoundingBox(camera);
+	//}
+	//else
+	//{
+	//	if (deadffect->isDoneRender == false)
+	//	{
+	//		deadffect->isVisible = true;
+	//		deadffect->SetPosition(this->x , this->y);
+	//		deadffect->Render(camera);
+	//	}
+	//	item->Render(camera);
 
-	}
+	//}
 
 
 }

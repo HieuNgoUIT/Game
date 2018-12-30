@@ -10,7 +10,7 @@ public:
 	float startYpos;
 	bool allowToDo;
 	bool isAttack;
-	Merman(int X, int Y);
+	Merman(int TYPE, int X, int Y);
 	~Merman();
 	WaterEffect *watereffect;
 	WaterEffect *watereffect1;

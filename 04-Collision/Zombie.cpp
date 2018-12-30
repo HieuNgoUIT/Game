@@ -1,7 +1,7 @@
 #include "Zombie.h"
 #pragma once
 
-Zombie::Zombie(int X, int Y, int direction)
+Zombie::Zombie(int TYPE, int X, int Y, int direction)
 {
 //	_texture = new Texture("Resource\\sprites\\Enemies\\ZOMBIE.png", 2, 1, 2);
 //	_sprite = new Sprite(_texture, 100);
@@ -15,6 +15,7 @@ Zombie::Zombie(int X, int Y, int direction)
 	vx = 1;
 	vy = 10;
 	health = 10;
+	texId = TYPE;
 }
 
 Zombie::~Zombie()

@@ -7,7 +7,7 @@ public:
 	float startXpos;
 	float startYpos;
 	
-	Zombie(int X,int Y,int direction);
+	Zombie(int TYPE,int X,int Y,int direction);
 	~Zombie();
 	float reviveTime=300;
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);

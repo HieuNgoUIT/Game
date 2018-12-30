@@ -2,6 +2,8 @@
 
 void GameStateTwo::LoadResources()
 {
+	Textures * textures = Textures::GetInstance();
+
 	game = CGame::GetInstance();
 	camera = new Camera(SCREEN_WIDTH, SCREEN_HEIGHT);
 	simon = Simon::GetInstance();
@@ -9,8 +11,18 @@ void GameStateTwo::LoadResources()
 	boss = new Boss(5300, 100);
 	tilemap = new TileMap();
 	tilemap->LoadMap("Resource/sprites/Grid/test1.b", "Resource/sprites/Grid/test1.s", 34, 4, 136, 14, 90);
+
 	grid = new Grid();
 	grid->ReadFileToGrid("Resource\\sprites\\Grid\\lv2.txt"); //20 4 80    14 90
+	vector<CGameObject*> test;
+	test = grid->getListObject();
+	for (int i = 0; i < test.size(); i++)
+	{
+		test.at(i)->_texture = textures->Get(test.at(i)->texId);
+		test.at(i)->_sprite = new Sprite(textures->Get(test.at(i)->texId), 100);
+		
+	}
+
 	ui = new UI();
 	ui->Initialize(simon, boss);
 	door = new Door(3115, 130);

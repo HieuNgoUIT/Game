@@ -1,6 +1,6 @@
 #include "Pander.h"
 
-Pander::Pander(int X, int Y)
+Pander::Pander(int TYPE, int X, int Y)
 {
 //	_texture = new Texture("Resource\\sprites\\Enemies\\PANTHER.png", 4, 1, 4);
 //	_sprite = new Sprite(_texture, 100);
@@ -12,7 +12,7 @@ Pander::Pander(int X, int Y)
 	startYpos = Y;
 	doJump = true;
 	health = 10;
-	
+	texId = TYPE;
 }
 
 Pander::~Pander()

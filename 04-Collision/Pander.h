@@ -9,7 +9,7 @@ public:
 	bool isGrounded;
 	bool CheckTop;
 	bool allowToDo;
-	Pander(int X, int Y);
+	Pander(int TYPE, int X, int Y);
 	~Pander();
 	float reviveTime = 500;
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);

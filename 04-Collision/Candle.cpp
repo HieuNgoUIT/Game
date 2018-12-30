@@ -1,9 +1,10 @@
 #include "Candle.h"
 
-Candle::Candle(int X, int Y, int numberItem)
+Candle::Candle(int TYPE,int X, int Y, int numberItem)
 {
 //	_texture = new Texture("Resource\\sprites\\Ground\\1.png", 2, 1, 2);
 //	_sprite = new Sprite(_texture, 100);
+	texId = TYPE;
 	this->x = X;
 	this->y = Y;
 	tag =11;

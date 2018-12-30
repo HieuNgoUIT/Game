@@ -4,7 +4,7 @@
 class Candle :public CGameObject {
 public:
 	Item * item;
-	Candle(int X, int Y,int numberItem);
+	Candle(int TYPE,int X, int Y,int numberItem);
 	~Candle();
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void Update(DWORD dt, float simonx = 0, vector<LPGAMEOBJECT> *coObjects = NULL);

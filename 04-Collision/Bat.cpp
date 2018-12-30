@@ -1,6 +1,6 @@
 #include "Bat.h"
 
-Bat::Bat(int X, int Y)
+Bat::Bat(int TYPE, int X, int Y)
 {
 	//_texture = new Texture("Resource\\sprites\\Enemies\\BAT.png", 4, 1, 4);
 	//_sprite = new Sprite(_texture, 100);
@@ -14,6 +14,7 @@ Bat::Bat(int X, int Y)
 	/*vx = -0.1f;*/
 	//vy = 10;
 	health = 10;
+	texId = TYPE;
 }
 
 Bat::~Bat()

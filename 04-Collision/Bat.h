@@ -7,7 +7,7 @@ public:
 	float startXpos;
 	float startYpos;
 	bool allowToDo;
-	Bat(int X, int Y);
+	Bat(int TYPE, int X, int Y);
 	~Bat();
 	float currentPos;
 	bool CheckBot=false;

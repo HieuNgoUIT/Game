@@ -149,11 +149,11 @@ CGameObject * Grid::CreateObject(int type, int x, int y,int w, int h)
 {
 	if (type == BRICK_TYPE1 || type == BRICK_TYPE2) return new Brick(type,x, y, w, h);
 	else if (type == LARGECANDLE_TYPE ) return new LargeCandle(type,x, y,w); //x,y,typeitem
-	else if (type == CANDLE_TYPE ) return new Candle(x, y,w);//x,y,typeitem
-	else if (type == ZOMBIE_TYPE ) return new Zombie(x,y,w); //x,y,direction
-	else if (type == PANDER_TYPE) return new Pander(x, y);
-	else if (type == MERMAID_TYPE ) return new Merman(x, y);
-	else if (type == BAT_TYPE) return new Bat(x, y);
+	else if (type == CANDLE_TYPE ) return new Candle(type, x, y,w);//x,y,typeitem
+	else if (type == ZOMBIE_TYPE ) return new Zombie(type, x,y,w); //x,y,direction
+	else if (type == PANDER_TYPE) return new Pander(type, x, y);
+	else if (type == MERMAID_TYPE ) return new Merman(type, x, y);
+	else if (type == BAT_TYPE) return new Bat(type, x, y);
 	else if (type == BOTSTAIR || type ==TOPSTAIR) return new HiddenStair(type,x, y,w,h);//type,x,y,direction,isleft
 	else if (type == BREAKABLEBRICK_TYPE1 || type == BREAKABLEBRICK_TYPE2) return new BreakableBrick(type, x, y, w, h);
 	return NULL;
