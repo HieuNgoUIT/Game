@@ -154,12 +154,20 @@ void GameStateTwo::Update(DWORD dt)
 	grid->GetListObject(objects, camera);
 	for (int i = 0; i < objects.size(); i++)
 	{
-		if (objects[i]->dropItem == true)
+		if (dynamic_cast<Candle *>(objects.at(i)))
 		{
-//			item = new Item(objects[i]->itemLink, objects[i]->x, objects[i]->y);
-			items.push_back(item);
+			//LargeCandle *lc = dynamic_cast<LargeCandle *>(coObjects.at(i));
+			if (objects[i]->dropItem == true)
+			{
+				Textures * textures = Textures::GetInstance();
+
+				item = new Item(objects[i]->itemNumber, objects[i]->x, objects[i]->y);
+				item->_sprite = new Sprite(textures->Get(objects[i]->itemNumber), 100);
+				item->_texture = textures->Get(objects[i]->itemNumber);
+				items.push_back(item);
+			}
 			objects[i]->SetDropItem(false);
-			//objects[i]->isCreatedItem = true;//sau khi push item thi moi xoa khoi objects
+			coObjects.push_back(objects[i]);
 		}
 		else if (dynamic_cast<Merman *>(objects[i]))
 		{

@@ -2,8 +2,8 @@
 
 FireBall::FireBall(int X, int Y)
 {
-//	_texture = new Texture("Resource\\sprites\\Enemies\\FIREBALL.png", 1, 1, 1);
-//	_sprite = new Sprite(_texture, 200);
+	_texture = new Texture("Resource\\sprites\\Enemies\\FIREBALL.png", 1, 1, 1);
+	_sprite = new Sprite(_texture, 200);
 	this->x = X;
 	this->y = Y;
 	health = 10;

@@ -92,26 +92,26 @@ Item::Item(int objectnumber, int X, int Y)
 	{
 		tag = KNIFE_TAG;
 	}
-	/*else if (link == AXE_PATH)
+	else if (itemNumber == 114)
 	{
 		tag = AXE_TAG;
 	}
-	else if (link == HOLYWATER_PATH)
+	else if (itemNumber == 115)
 	{
 		tag = HOLYWATER_TAG;
 	}
-	else if (link == ROSARY_PATH)
+	else if (itemNumber == 109)
 	{
 		tag = ROSARY_TAG;
 	}
-	else if (link == STOPWATCH_PATH)
+	else if (itemNumber == 111)
 	{
 		tag = STOPWATCH_TAG;
 	}
-	else if (link == REDBAG_PATH)
+	else if (itemNumber == 105)
 	{
 		tag = REDBAG_TAG;
-	}*/
+	}
 
 }
 
