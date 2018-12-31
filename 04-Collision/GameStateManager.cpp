@@ -3,7 +3,7 @@
 void GameStateManager::LoadResources()
 {
 	
-	gamestate->LoadResources();
+//	gamestate->LoadResources();
 }
 
 void GameStateManager::Update(DWORD dt)
@@ -12,7 +12,7 @@ void GameStateManager::Update(DWORD dt)
 	{
 		gamestate->KillAll();
 		gamestate = new GameStateTwo();		
-		gamestate->LoadResources();
+//		gamestate->LoadResources();
 		gamestate->isChangingState = false;	
 	}
 	gamestate->Update(dt);

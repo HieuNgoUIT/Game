@@ -4,15 +4,8 @@ void GameStateTwo::LoadResources()
 {
 	Textures * textures = Textures::GetInstance();
 
-	game = CGame::GetInstance();
-	camera = new Camera(SCREEN_WIDTH, SCREEN_HEIGHT);
-	camera->SetBorder(60, 2500);
-	
 	simon = Simon::GetInstance();
 	simon->SetPosition(SIMON_POSITION_DEFAULT); //33 4 14
-	boss = new Boss(5300, 100);
-	tilemap = new TileMap();
-	tilemap->LoadMap("Resource/sprites/Grid/lv2.b", "Resource/sprites/Grid/lv2.s", 34, 4, 136, 14, 90);
 
 	grid = new Grid();
 	grid->ReadFileToGrid("Resource\\sprites\\Grid\\lv2.txt"); //20 4 80    14 90
@@ -26,6 +19,17 @@ void GameStateTwo::LoadResources()
 		test.at(i)->hiteffect->_sprite = new Sprite(textures->Get(-2), 1000);
 	}
 
+	
+	camera = new Camera(SCREEN_WIDTH, SCREEN_HEIGHT);
+	camera->SetBorder(60, 2500);
+	
+
+	
+	tilemap = new TileMap();
+	tilemap->LoadMap("Resource/sprites/Grid/lv2.b", "Resource/sprites/Grid/lv2.s", 34, 4, 136, 14, 90);
+
+	
+
 	ui = new UI();
 	ui->Initialize(simon, boss);
 	
@@ -33,11 +37,21 @@ void GameStateTwo::LoadResources()
 	simon->isStage2 = true;
 	if (!Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
 		Sound::GetInstance()->PlayLoop(STAGE_01_VAMPIRE_KILLER);
-	
+	game = CGame::GetInstance();
+	boss = new Boss(5300, 100);
 }
 
 void GameStateTwo::Update(DWORD dt)
 {
+	mapSecond++;
+	if (mapSecond > 60)
+	{
+		mapTime++;
+		mapSecond = 0;
+	}
+	ui->Update(1000 - mapTime, 3, 1);
+
+
 #pragma region Camera
 
 	if (simon->isCollideDor)
@@ -76,13 +90,7 @@ void GameStateTwo::Update(DWORD dt)
 
 
 
-	mapSecond++;
-	if (mapSecond > 60)
-	{
-		mapTime++;
-		mapSecond = 0;
-	}
-	ui->Update(1000 - mapTime, 3, 1);
+	
 
 
 	vector<LPGAMEOBJECT> coObjects;

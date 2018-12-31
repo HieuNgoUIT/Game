@@ -34,13 +34,15 @@ void GameStateOne::LoadResources()
 	tilemap->LoadMap("Resource/sprites/Grid/lv1.b", "Resource/sprites/Grid/lv1.s", 9, 4, 36, 6, 24);
 
 	
-	checkpoint = new CheckPoint();
-	checkpoint->SetPosition(1366, 365);
 	
 
 
 	ui = new UI();
 	ui->Initialize(simon,NULL);
+
+	checkpoint = new CheckPoint();
+	checkpoint->SetPosition(1366, 365);
+
 	game = CGame::GetInstance();
 	if (!Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
 		Sound::GetInstance()->PlayLoop(STAGE_01_VAMPIRE_KILLER);
@@ -55,6 +57,11 @@ void GameStateOne::Update(DWORD dt)
 		mapSecond = 0;
 	}
 	ui->Update(1000 - mapTime, 3, 1);
+
+	camera->SetPosition(simon->x - 320 + 60, 0);
+	camera->Update();
+
+	simon->CheckBoundaries(camera->_borderLeft, camera->_borderRight + 600);
 
 
 	vector<LPGAMEOBJECT> coObjects;
@@ -91,9 +98,8 @@ void GameStateOne::Update(DWORD dt)
 		items[i]->Update(dt,0 ,&coObjects);
 	}
 	simon->Update(dt, &coObjects, &items);
-	simon->CheckBoundaries(camera->_borderLeft, camera->_borderRight + 600);
-	camera->SetPosition(simon->x - 320 + 60, 0);
-	camera->Update();
+	
+	
 	CheckCollideWithCheckPoint(simon, checkpoint);
 }
 

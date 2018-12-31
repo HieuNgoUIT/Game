@@ -23,8 +23,8 @@
 #include <d3dx9.h>
 #include "Sound.h"
 #include "debug.h"
+#include "GameState.h"
 
-#include "GameStateManager.h"
 #define WINDOW_CLASS_NAME L"SampleWindow"
 #define MAIN_WINDOW_TITLE L"04 - Collision"
 
@@ -39,7 +39,9 @@
 
 HWND hWnd;
 
-GameStateManager *gamestatemanager;
+
+GameState *gamestate;
+
 
 
 //Whip *whip;
@@ -61,30 +63,30 @@ CSampleKeyHander * keyHandler;
 void CSampleKeyHander::OnKeyDown(int KeyCode)
 {
 	
-	if (gamestatemanager->GetSimon()->beingHit) return;
+	if (gamestate->simon->beingHit) return;
 
 	if (KeyCode == DIK_ESCAPE)
 		DestroyWindow(hWnd); // thoát
 
 	if (KeyCode == DIK_Q)
-		gamestatemanager->GetSimon()->SetPosition(3000,100);
+		gamestate->simon->SetPosition(3000,100);
 	if (KeyCode == DIK_M)
 	{
-		gamestatemanager->gamestate->isChangingState = true;
+		gamestate->isChangingState = true;
 	}
 	if (KeyCode == DIK_SPACE)
 	{
-		if (gamestatemanager->GetSimon()->isJumping == false)
-			gamestatemanager->GetSimon()->Jump();
+		if (gamestate->simon->isJumping == false)
+			gamestate->simon->Jump();
 	}
 
 	if (KeyCode == DIK_X)
 	{
-		gamestatemanager->GetSimon()->Attack();
+		gamestate->simon->Attack();
 	}
 	if (KeyCode == DIK_RCONTROL)
 	{
-		gamestatemanager->GetSimon()->ThrowSubWp();
+		gamestate->simon->ThrowSubWp();
 	}
 
 }
@@ -96,54 +98,54 @@ void CSampleKeyHander::OnKeyUp(int KeyCode)
 
 void CSampleKeyHander::KeyState(BYTE *states)
 {
-	if (!gamestatemanager->GetSimon()->isCollideDor)//va cham voi cua
+	if (!gamestate->simon->isCollideDor)//va cham voi cua
 	{
-		if (gamestatemanager->gamestate->game->IsKeyDown(DIK_DOWN))
+		if (gamestate->game->IsKeyDown(DIK_DOWN))
 		{
-			if (gamestatemanager->GetSimon()->isOnStair == false)
+			if (gamestate->simon->isOnStair == false)
 			{
-				gamestatemanager->GetSimon()->Sit();
+				gamestate->simon->Sit();
 			}
 
 
-			if (gamestatemanager->gamestate->game->IsKeyDown(DIK_RIGHT))
-				gamestatemanager->GetSimon()->Right();
+			if (gamestate->game->IsKeyDown(DIK_RIGHT))
+				gamestate->simon->Right();
 
-			if (gamestatemanager->gamestate->game->IsKeyDown(DIK_LEFT))
-				gamestatemanager->GetSimon()->Left();
+			if (gamestate->game->IsKeyDown(DIK_LEFT))
+				gamestate->simon->Left();
 
 			return;
 		}
 		else
-			gamestatemanager->GetSimon()->Stop();
+			gamestate->simon->Stop();
 
 
-		if (!gamestatemanager->GetSimon()->isOnStair)// ko tren stair
+		if (!gamestate->simon->isOnStair)// ko tren stair
 		{
-			if (gamestatemanager->GetSimon()->beingHit) return; 
+			if (gamestate->simon->beingHit) return;
 
-			if (gamestatemanager->gamestate->game->IsKeyDown(DIK_RIGHT))
+			if (gamestate->game->IsKeyDown(DIK_RIGHT))
 			{
-				gamestatemanager->GetSimon()->Right();
-				gamestatemanager->GetSimon()->Go();
-				if (gamestatemanager->GetSimon()->isAttacking == true)//atttack thi stop
+				gamestate->simon->Right();
+				gamestate->simon->Go();
+				if (gamestate->simon->isAttacking == true)//atttack thi stop
 				{
-					gamestatemanager->GetSimon()->Stop();
+					gamestate->simon->Stop();
 				}
 			}
 			else
-				if (gamestatemanager->gamestate->game->IsKeyDown(DIK_LEFT))
+				if (gamestate->game->IsKeyDown(DIK_LEFT))
 				{
-					gamestatemanager->GetSimon()->Left();
-					gamestatemanager->GetSimon()->Go();
-					if (gamestatemanager->GetSimon()->isAttacking == true)
+					gamestate->simon->Left();
+					gamestate->simon->Go();
+					if (gamestate->simon->isAttacking == true)
 					{
-						gamestatemanager->GetSimon()->Stop();
+						gamestate->simon->Stop();
 					}
 				}
 				else
 				{
-					gamestatemanager->GetSimon()->Stop();
+					gamestate->simon->Stop();
 				}
 		}
 	}
@@ -239,11 +241,18 @@ int Run()
 		{
 			frameStart = now;
 
-			gamestatemanager->gamestate->game->ProcessKeyboard();
+			if (gamestate->id == 2)
+			{
+				gamestate->LoadResources("Resource\\sprites\\Grid\\textures.txt", "Resource\\sprites\\Grid\\lv2.txt", "Resource/sprites/Grid/lv2.b", "Resource/sprites/Grid/lv2.s", 34, 4, 136, 14, 90);
+				gamestate->id++;
+			}
+			gamestate->game->ProcessKeyboard();
 
-			gamestatemanager->Update(dt);
+			gamestate->Update(dt);
 
-			gamestatemanager->Render();
+			gamestate->Render();
+
+
 		}
 		else
 			Sleep(tickPerFrame - dt);
@@ -254,19 +263,32 @@ int Run()
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+	gamestate = new GameState();
 	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
-	Sound::GetInstance()->loadSound(hWnd);
-	gamestatemanager = new GameStateManager(1); // man 1
+	
 
-	gamestatemanager->gamestate->game->Init(hWnd);
+
+	gamestate->game->Init(hWnd);
+	Sound::GetInstance()->loadSound(hWnd);
+	
 
 	keyHandler = new CSampleKeyHander();
-	gamestatemanager->gamestate->game->InitKeyboard(keyHandler);
+	gamestate->game->InitKeyboard(keyHandler);
 
 
-	gamestatemanager->LoadResources();
 
 
+	gamestate->id = 1;
+
+	if (gamestate->id == 1)
+	{
+		gamestate->LoadResources("Resource\\sprites\\Grid\\textures.txt", "Resource\\sprites\\Grid\\lv1.txt", "Resource/sprites/Grid/lv1.b", "Resource/sprites/Grid/lv1.s", 9, 4, 36, 6, 24);
+	}
+	else
+	{
+		gamestate->LoadResources("Resource\\sprites\\Grid\\textures.txt", "Resource\\sprites\\Grid\\lv2.txt", "Resource/sprites/Grid/lv2.b", "Resource/sprites/Grid/lv2.s", 34, 4, 136,14, 90);
+	}
+	
 
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);

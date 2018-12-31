@@ -10,6 +10,7 @@
 #include "debug.h"
 class GameState {
 public:
+	int id;
 	Item * item;
 	Grid *grid;
 	UI *ui;
@@ -25,10 +26,11 @@ public:
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> items;
 	bool isChangingState;
-	
-	virtual void LoadResources();
-	virtual void Update(DWORD dt);
-	virtual void Render();
+	GameState();
+	~GameState();
+	 void LoadResources(char* Ftexture,char* Fgrid,char* Fb, char* Fs, int Frow, int Fcol, int Ftotal, int Frowmaxtrix, int Fcolmatrix);
+	 void Update(DWORD dt);
+	 void Render();
 	void CheckCollideWithCheckPoint(Simon *simon, CheckPoint *checkpoint);
 	virtual void KillAll();
 	
