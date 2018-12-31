@@ -1,13 +1,23 @@
 textures\bbox.png 1 1 1 -100
-Resource\sprites\Ground\0.png 2 1 2 10
-Resource\sprites\Ground\2.png 1 1 1 12
+
 Resource\sprites\simon.png 8 3 24 1
 Resource\sprites\Weapons\whip1.png 4 3 12 2
-Resource\sprites\\Items\BIG_HEART.png 1 1 1 100
-Resource\sprites\\Items\13.png 1 1 1 101
-Resource\sprites\\Items\DOUBLE_SHOT.png 1 1 1 102
-Resource\sprites\\Items\INVICIBILITY_ITEM.png 1 1 1 103
-Resource\sprites\\Items\Money_bag_blue.png 1 1 1 104
+
+Resource\sprites\Ground\0.png 2 1 2 10
+Resource\sprites\Ground\2.png 1 1 1 12
+Resource\sprites\Ground\1.png 2 1 2 11
+Resource\sprites\Ground\brick.png 1 1 1 -12
+Resource\sprites\Ground\Brick.png 1 1 1 13
+Resource\sprites\Ground\8.png 1 1 1 14
+Resource\sprites\Ground\NULL.png 1 1 1 7
+Resource\sprites\Ground\NULL.png 1 1 1 -7
+Resource\sprites\Ground\door2.bmp 3 1 3 20
+
+Resource\sprites\Items\BIG_HEART.png 1 1 1 100
+Resource\sprites\Items\13.png 1 1 1 101
+Resource\sprites\Items\DOUBLE_SHOT.png 1 1 1 102
+Resource\sprites\Items\INVICIBILITY_ITEM.png 1 1 1 103
+Resource\sprites\Items\Money_bag_blue.png 1 1 1 104
 Resource\sprites\Items\Money_bag_red.png 1 1 1 105
 Resource\sprites\Items\Money_bag_white.png 1 1 1 106
 Resource\sprites\Items\MORNING_STAR.png 1 1 1 107
@@ -19,16 +29,14 @@ Resource\sprites\Items\TRIPLE_SHOT.png 1 1 1 112
 Resource\sprites\Items\KNIFE.png 1 1 1 113
 Resource\sprites\Items\AXE.png 1 1 1 114
 Resource\sprites\Items\HOLY_WATER.png 1 1 1 115
-Resource\sprites\Ground\1.png 2 1 2 11
-Resource\sprites\Ground\brick.png 1 1 1 -12
-Resource\sprites\Ground\NULL.png 1 1 1 7
-Resource\sprites\Ground\NULL.png 1 1 1 -7
+
+
 Resource\sprites\Enemies\ZOMBIE.png 2 1 2 500
 Resource\sprites\Enemies\PANTHER.png 4 1 4 501
 Resource\sprites\Enemies\MERMAN.png 3 1 3 502
 Resource\sprites\Enemies\BAT.png 4 1 4 503
-Resource\sprites\Ground\Brick.png 1 1 1 13
-Resource\sprites\Ground\8.png 1 1 1 14
+
+
 Resource\sprites\Effect\DEAD.png 3 1 3 -1
 Resource\sprites\Effect\0.png 1 1 1 -2
 END

@@ -7,8 +7,8 @@ class GameStateTwo :public GameState
 {
 public:
 
-	Door * door;
-	Door * door2;
+//	Door * door;
+	//Door * door2;
 	Boss *boss;
 	bool isCollideDoor;
 	void LoadResources();

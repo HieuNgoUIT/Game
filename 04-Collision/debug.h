@@ -60,3 +60,4 @@ void DebugOut(wchar_t *fmt, ...);
 #define PANDER_TYPE 501
 #define MERMAID_TYPE 502
 #define BAT_TYPE 503
+#define DOOR_TYPE 20

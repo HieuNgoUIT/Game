@@ -20,6 +20,7 @@
 #include "Merman.h"
 #include "Bat.h"
 #include "BreakableBrick.h"
+#include "Door.h"
 using namespace std;
 
 #define GRID_CELL_WIDTH 256

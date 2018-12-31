@@ -111,16 +111,15 @@ public:
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void ResetLife();
 	void CheckBoundaries(int left,int right);
-	// void PreProcessOnStair(CGameObject *hiddenstair,  Camera *camera);
-	// void PreProcessBeforeOnStair(CGameObject *hiddenstair, Camera *camera);
+
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL, vector<LPGAMEOBJECT>* coItems = NULL);
-	// void UpdatewItem(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	
 	void  CollisionWithStair(vector<LPGAMEOBJECT>* coObjects);
 	void Render(Camera *camera);
 	void RenderBoundingBox(Camera *camera);
 
-	void Left();  // set lại hướng của simon
-	void Right(); // set lại hướng của simon
+	void Left(); 
+	void Right(); 
 	void Go();
 	void Sit();
 	void Jump();
@@ -130,6 +129,7 @@ public:
 
 	void CollisionWithBrick(vector<LPGAMEOBJECT> *coObjects = NULL);
 	void CollisionWithEnemy(vector<LPGAMEOBJECT> *coObjects = NULL);
+	void CollisionWithDoor(vector<LPGAMEOBJECT> *coObjects = NULL);
 	bool isCollisionWithCheckPoint(CheckPoint *checkpoint);
 
 	void Attack();

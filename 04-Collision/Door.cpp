@@ -1,9 +1,11 @@
 #include "Door.h"
 
-Door::Door(int X,int Y)
+Door::Door(int TYPE,int X,int Y)
 {
-	_texture = new Texture("Resource\\sprites\\Ground\\door2.bmp", 3, 1, 3);
-	_sprite = new Sprite(_texture, 1000);
+	//_texture = new Texture("Resource\\sprites\\Ground\\door2.bmp", 3, 1, 3);
+	//_sprite = new Sprite(_texture, 1000);
+	texId = TYPE;
+	tag = TYPE;
 	this->x = X;
 	this->y = Y;
 }

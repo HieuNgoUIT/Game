@@ -2,7 +2,7 @@
 #include "GameObject.h"
 class Door :public CGameObject {
 public:
-	Door(int X,int Y);
+	Door(int TYPE,int X,int Y);
 	~Door();
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
