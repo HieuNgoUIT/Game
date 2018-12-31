@@ -2,8 +2,8 @@
 
 Door::Door(int X,int Y)
 {
-//	_texture = new Texture("Resource\\sprites\\Ground\\door2.bmp", 3, 1, 3);
-	//_sprite = new Sprite(_texture, 1000);
+	_texture = new Texture("Resource\\sprites\\Ground\\door2.bmp", 3, 1, 3);
+	_sprite = new Sprite(_texture, 1000);
 	this->x = X;
 	this->y = Y;
 }
@@ -16,8 +16,8 @@ void Door::GetBoundingBox(float & left, float & top, float & right, float & bott
 {
 	left = x;
 	top = y;
-	//right = x + _texture->FrameWidth;
-	//bottom = y + _texture->FrameHeight;
+	right = x + _texture->FrameWidth;
+	bottom = y + _texture->FrameHeight;
 }
 
 void Door::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -28,9 +28,9 @@ void Door::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Door::Render(Camera * camera)
 {
-	/*D3DXVECTOR2 pos = camera->Transform(x, y);
+	D3DXVECTOR2 pos = camera->Transform(x, y);
 	_sprite->Draw(pos.x, pos.y);
-	RenderBoundingBox(camera);*/
+	RenderBoundingBox(camera);
 }
 
 void Door::RenderBoundingBox(Camera * camera)

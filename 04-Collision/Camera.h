@@ -18,6 +18,7 @@ public:
 	int _borderRight;
 	Camera(int w, int h/*, int b_left, int b_right*/);
 	~Camera();
+	void SetBorder(int bleft, int bright) { this->_borderLeft = bleft, this->_borderRight = bright; }
 	void Go(DWORD dt);
 	/*void StairGo(DWORD dt,int stairDirection);*/
 	void Update();

@@ -107,7 +107,20 @@ D3DXVECTOR2 Camera::Transform(int x, int y)
 void Camera::SetPosition(int x, int y)
 {
 	_viewport.x = x;
-	_viewport.y = y;
+	if (y < 0)
+	{
+		_viewport.y = 0;
+	}
+	else if (y > 30)
+	{
+		_viewport.y = 450;
+	}
+	else
+	{
+		_viewport.y = y;
+	}
+
+	
 }
 
 

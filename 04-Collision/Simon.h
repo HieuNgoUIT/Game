@@ -2,7 +2,7 @@
 #define __SIMON_H__
 
 
-#define SIMON_POSITION_DEFAULT  50.0f, 0
+#define SIMON_POSITION_DEFAULT  50.0f, 101
 
 
 #define SIMON_GRAVITY 0.005f

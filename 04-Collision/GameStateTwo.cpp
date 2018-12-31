@@ -6,6 +6,8 @@ void GameStateTwo::LoadResources()
 
 	game = CGame::GetInstance();
 	camera = new Camera(SCREEN_WIDTH, SCREEN_HEIGHT);
+	camera->SetBorder(60, 2500);
+	
 	simon = Simon::GetInstance();
 	simon->SetPosition(SIMON_POSITION_DEFAULT); //33 4 14
 	boss = new Boss(5300, 100);
@@ -39,12 +41,103 @@ void GameStateTwo::Update(DWORD dt)
 {
 #pragma region Camera
 
+	//if (simon->isColliding(simon, door)) //va cham voi door
+	//{
+	//	simon->isCollideDor = true;
+	//	door->Update(dt);
+	//	if (camera->GetViewport().x < 2900)
+	//	{
+	//		camera->Go(dt); //move camera
+	//	}
+	//	else
+	//	{
+	//		simon->AutoMove();
+	//		simon->isCollideDor = false;
+	//	}
+	//}
+	//else if (simon->isColliding(simon, door2))
+	//{
+	//	simon->isCollideDor = true;
+	//	simon->Stop();
+	//	door->Update(dt);
+	//	if (camera->GetViewport().x < 4000)
+	//	{
+	//		camera->Go(dt); //move camera
+	//	}
+	//	else
+	//	{
+	//		simon->AutoMove();
+	//		simon->isCollideDor = false;
+	//		simon->isStage21 = false;
+	//	}
+	//}
+	//else //het va cham voi cua 
+	//{
+
+	//	if (simon->y > 450)//y duoi nuoc
+	//	{
+	//		camera->SetPosition(simon->x - 320 + 60, 450);
+	//		camera->UpdateWater();
+	//	}
+	//	else if (simon->x > 3200 && simon->x < 4160) //man` 21
+	//	{
+	//		if (camera->GetViewport().x < 3150)
+	//		{
+	//			camera->Go(dt); //move camera sau khi simon di 1 ti
+	//			simon->isStage21 = true;
+	//			simon->isStage2 = false;
+	//		}
+	//		else
+	//		{
+	//			camera->SetPosition(simon->x - 320 + 60, 0); //update man 21
+	//			camera->UpdateMap21();
+	//		}
+
+	//	}
+	//	else if (simon->x < 3000)//&& simon->isCameraStair==false)
+	//	{
+	//		camera->SetPosition(simon->x - 320 + 60, 0);//update man 2
+	//		camera->UpdateMap2();
+	//	}
+	//	else if (simon->x > 4300)// man 22
+	//	{
+	//		if (camera->GetViewport().x < 4154)
+	//		{
+	//			camera->Go(dt); //move camera sau khi simon di 1 ti
+	//			simon->isStage21 = false;
+	//			simon->isStage22 = true;
+
+	//		}
+	//		else
+	//		{
+	//			if (!simon->isFightingBoss)
+	//			{
+	//				camera->SetPosition(simon->x - 320 + 60, 0); //update man 22
+	//				camera->UpdateMap22();
+	//				
+	//			}
+	//			else
+	//			{
+	//				camera->SetPosition(5065, 0);//boss
+	//				if (simon->health < 0)
+	//				{
+	//					boss->ResetPosition();
+	//				}
+	//				//camera->SetPosition(boss->x - 320 + 60, 0);
+	//			}
+
+	//		}
+	//	}
+
+	//}
+
 	if (simon->isColliding(simon, door)) //va cham voi door
 	{
 		simon->isCollideDor = true;
 		simon->Stop();
+		camera->SetBorder(door->x, door->x + 640);
 		door->Update(dt);
-		if (camera->GetViewport().x < 2900)
+		if (camera->GetViewport().x < camera->_borderLeft)
 		{
 			camera->Go(dt); //move camera
 		}
@@ -58,8 +151,9 @@ void GameStateTwo::Update(DWORD dt)
 	{
 		simon->isCollideDor = true;
 		simon->Stop();
+		camera->SetBorder(door2->x, door2->x + 640);
 		door->Update(dt);
-		if (camera->GetViewport().x < 4000)
+		if (camera->GetViewport().x < camera->_borderLeft)
 		{
 			camera->Go(dt); //move camera
 		}
@@ -72,72 +166,19 @@ void GameStateTwo::Update(DWORD dt)
 	}
 	else //het va cham voi cua 
 	{
-
-		if (simon->y > 450)//y duoi nuoc
+		if (simon->y > 450)
 		{
-			camera->SetPosition(simon->x - 320 + 60, 450);
-			camera->UpdateWater();
+			camera->SetBorder(3250, 3642);
 		}
-		else if (simon->x > 3200 && simon->x < 4160) //man` 21
-		{
-			if (camera->GetViewport().x < 3150)
-			{
-				camera->Go(dt); //move camera sau khi simon di 1 ti
-				simon->isStage21 = true;
-				simon->isStage2 = false;
-			}
-			else
-			{
-				camera->SetPosition(simon->x - 320 + 60, 0); //update man 21
-				camera->UpdateMap21();
-			}
-
-		}
-		else if (simon->x < 3000)//&& simon->isCameraStair==false)
-		{
-			camera->SetPosition(simon->x - 320 + 60, 0);//update man 2
-			camera->UpdateMap2();
-		}
-		else if (simon->x > 4300)// man 22
-		{
-			if (camera->GetViewport().x < 4154)
-			{
-				camera->Go(dt); //move camera sau khi simon di 1 ti
-				simon->isStage21 = false;
-				simon->isStage22 = true;
-
-			}
-			else
-			{
-				if (!simon->isFightingBoss)
-				{
-					camera->SetPosition(simon->x - 320 + 60, 0); //update man 22
-					camera->UpdateMap22();
-					
-				}
-				else
-				{
-					camera->SetPosition(5065, 0);//boss
-					if (simon->health < 0)
-					{
-						boss->ResetPosition();
-					}
-					//camera->SetPosition(boss->x - 320 + 60, 0);
-				}
-
-			}
-		}
+		camera->SetPosition(simon->x - 320 + 60, simon->y-480);
+		camera->Update();
+		
 
 	}
-
-
-	//else //het va cham voi cua 
-	//{
-	//	camera->SetPosition(simon->x - 320 + 60, 0);//update man 2
-	//	camera->UpdateMap2();
-	//}
+	
 #pragma endregion
 
+	simon->CheckBoundaries(camera->_borderLeft, camera->_borderRight + 600);
 
 
 
@@ -262,6 +303,7 @@ void GameStateTwo::Render()
 		simon->Render(camera);
 		boss->Render(camera);
 		door->Render(camera);
+		door2->Render(camera);
 		spriteHandler->End();
 		d3ddv->EndScene();
 	}
