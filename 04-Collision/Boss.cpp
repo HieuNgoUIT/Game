@@ -6,13 +6,13 @@ Boss::Boss()
 
 Boss::Boss(int X, int Y)
 {
-//	_texture = new Texture("Resource\\sprites\\Bosses\\VAMPIRE_BAT.png", 3, 1, 3);
-//	_sprite = new Sprite(_texture, 100);
+	_texture = new Texture("Resource\\sprites\\Bosses\\VAMPIRE_BAT.png", 3, 1, 3);
+	_sprite = new Sprite(_texture, 100);
 	this->x = X;
 	this->y = Y;
 	tag = ENEMY_TAG;//enemy from 500
 	CheckTop = true;
-	health = 10;
+	health = 80;
 //	item = new Item("Resource\\sprites\\Items\\13.png", x, 240);
 	deadffect->remainingTime = 500;//boss thi cho render lau 1 ti
 	
@@ -30,8 +30,8 @@ void Boss::GetBoundingBox(float & left, float & top, float & right, float & bott
 		{
 			left = x;
 			top = y;
-			//right = x + _texture->FrameWidth;
-			//bottom = y + _texture->FrameHeight;
+			right = x + _texture->FrameWidth;
+			bottom = y + _texture->FrameHeight;
 		}
 	}
 	
@@ -79,23 +79,23 @@ void Boss::Update(DWORD dt, float simonx, float simony, vector<LPGAMEOBJECT>* co
 
 void Boss::Render(Camera * camera)
 {
-	//if (!isDead)
-	//{
-	//	D3DXVECTOR2 pos = camera->Transform(x, y);
-	//	_sprite->Draw(pos.x, pos.y);
-	//	//RenderBoundingBox(camera);
-	//}
-	//else
-	//{
-	//	if (deadffect->isDoneRender == false)
-	//	{
-	//		deadffect->isVisible = true;
-	//		deadffect->SetPosition(this->x , this->y);
-	//		deadffect->Render(camera);
-	//	}
-	//	item->Render(camera);
+	if (!isDead)
+	{
+		D3DXVECTOR2 pos = camera->Transform(x, y);
+		_sprite->Draw(pos.x, pos.y);
+		//RenderBoundingBox(camera);
+	}
+	else
+	{
+		if (deadffect->isDoneRender == false)
+		{
+			deadffect->isVisible = true;
+			deadffect->SetPosition(this->x , this->y);
+			deadffect->Render(camera);
+		}
+		item->Render(camera);
 
-	//}
+	}
 
 
 }

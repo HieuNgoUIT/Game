@@ -16,6 +16,7 @@ public:
 	UI *ui;
 	TileMap *tilemap;
 	Simon *simon;
+	Boss *boss;
 	Camera *camera;
 	CGame *game;
 	CheckPoint *checkpoint;

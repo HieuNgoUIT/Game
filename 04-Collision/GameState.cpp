@@ -33,8 +33,8 @@ void GameState::LoadResources(char* Ftexture,char* Fgrid, char* Fb, char* Fs, in
 	test = grid->getListObject();
 	for (int i = 0; i < test.size(); i++)
 	{
-		test.at(i)->_sprite = new Sprite(textures->Get(test.at(i)->texId), 100);
 		test.at(i)->_texture = textures->Get(test.at(i)->texId);
+		test.at(i)->_sprite = new Sprite(textures->Get(test.at(i)->texId), 100);
 
 		test.at(i)->deadffect->_sprite = new Sprite(textures->Get(-1), 50);
 		test.at(i)->hiteffect->_sprite = new Sprite(textures->Get(-2), 1000);
@@ -48,10 +48,18 @@ void GameState::LoadResources(char* Ftexture,char* Fgrid, char* Fb, char* Fs, in
 	// "Resource/sprites/Grid/lv1.b", "Resource/sprites/Grid/lv1.s", 9, 4, 36, 6, 24
 
 
-
+	boss = new Boss(5300, 100);
 
 	ui = new UI();
-	ui->Initialize(simon, NULL);
+	if (boss != NULL)
+	{
+		ui->Initialize(simon, boss);
+	}
+	else
+	{
+		ui->Initialize(simon, NULL);
+	}
+	
 
 	checkpoint = new CheckPoint();
 	checkpoint->SetPosition(1366, 365);
@@ -76,62 +84,51 @@ void GameState::Update(DWORD dt)
 
 	if (simon->isCollideDor)
 	{
-		camera->SetBorder(simon->x, simon->x + 640);
+		camera->SetBorder(simon->x+ simon->_texture->FrameWidth, simon->x + SCREEN_WIDTH-simon->_texture->FrameWidth+500);
 		camera->Go(dt);
 		if (camera->GetViewport().x > camera->_borderLeft)
 		{
 			simon->AutoMove();
 		}
-
 	}
 	else
 	{
-		camera->SetPosition(simon->x - 320 + 60, simon->y - 480);
+		camera->SetPosition(simon->x - SCREEN_WIDTH/2 + simon->_texture->FrameWidth, simon->y - SCREEN_HEIGHT);
 		if (simon->y > 450)
 		{
-
-			camera->UpdateWater();
+			camera->SetBoundariesWater();
 		}
 		else
 		{
-
-			camera->Update();
+			camera->SetBoundaries();
 		}
 	}
 
 
-
-
-	//}
-
 #pragma endregion
 
-	simon->CheckBoundaries(camera->_borderLeft, camera->_borderRight + 600);
-
-
-
-
-
+	simon->CheckBoundaries(camera->_borderLeft, camera->_borderRight + SCREEN_WIDTH- simon->_texture->FrameWidth);
 
 	vector<LPGAMEOBJECT> coObjects;
-
 	grid->GetListObject(objects, camera);
 	for (int i = 0; i < objects.size(); i++)
 	{
 		if (dynamic_cast<Candle *>(objects.at(i))|| dynamic_cast<LargeCandle *>(objects.at(i)))
 		{
-			//LargeCandle *lc = dynamic_cast<LargeCandle *>(coObjects.at(i));
 			if (objects[i]->dropItem == true)
 			{
 				Textures * textures = Textures::GetInstance();
-
 				item = new Item(objects[i]->itemNumber, objects[i]->x, objects[i]->y);
 				item->_sprite = new Sprite(textures->Get(objects[i]->itemNumber), 100);
 				item->_texture = textures->Get(objects[i]->itemNumber);
 				items.push_back(item);
 			}
+			else
+			{
+				coObjects.push_back(objects[i]); // neu ma rot item = false thi` da~chet' nen ko push vao co0bject nua
+			}
 			objects[i]->SetDropItem(false);
-			coObjects.push_back(objects[i]);
+			
 		}
 		else if (dynamic_cast<Merman *>(objects[i]))
 		{
@@ -142,7 +139,7 @@ void GameState::Update(DWORD dt)
 		}
 		else
 		{
-			coObjects.push_back(objects[i]); //neu ma rot item =false thi` da~ chet' nen ko push vao co0bject nua
+			coObjects.push_back(objects[i]); 
 		}
 	}
 
@@ -151,11 +148,15 @@ void GameState::Update(DWORD dt)
 	{
 		for (int i = 0; i < objects.size(); i++)
 		{
-			objects[i]->Update(dt, simon->x, &coObjects);
+			
 			if (dynamic_cast<Zombie *>(objects[i]))
 			{
 				Zombie *zombie = dynamic_cast<Zombie *>(objects[i]);
 				zombie->Update(dt, camera, simon->x, &coObjects);
+			}
+			else
+			{
+				objects[i]->Update(dt, simon->x, &coObjects);
 			}
 		}
 	}
@@ -167,11 +168,8 @@ void GameState::Update(DWORD dt)
 	{
 		simon->isStopwatch = false;
 	}
-	for (int i = 0; i < items.size(); i++)
-	{
-		items[i]->Update(dt, 0, &coObjects);
-	}
-	simon->Update(dt, &coObjects, &items);
+
+	
 	if (simon->isRosary)
 	{
 		for (int i = 0; i < objects.size(); i++)
@@ -183,7 +181,32 @@ void GameState::Update(DWORD dt)
 		simon->isRosary = false;
 	}
 
+
+	for (int i = 0; i < items.size(); i++)
+	{
+		items[i]->Update(dt, NULL, &coObjects);
+	}
+	simon->Update(dt, &coObjects, &items);
+
+
 	CheckCollideWithCheckPoint(simon, checkpoint);
+
+	if (simon->isFightingBoss)
+	{
+		boss->Update(dt, simon->x, simon->y, &coObjects);
+		if (Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
+		{
+			Sound::GetInstance()->Stop(STAGE_01_VAMPIRE_KILLER);
+			Sound::GetInstance()->Play(BOSS_BATTLE_POISON_MIND);
+		}
+		if (Sound::GetInstance()->IsPLaying(STAGE_CLEAR))
+		{
+			Sound::GetInstance()->Stop(BOSS_BATTLE_POISON_MIND);
+		}
+		//Sound::GetInstance()->Play(BOSS_BATTLE_POISON_MIND);
+
+
+	}
 }
 
 void GameState::Render()
@@ -207,7 +230,10 @@ void GameState::Render()
 		for (int i = 0; i < items.size(); i++)
 			items[i]->Render(camera);
 		simon->Render(camera);
-
+		if (boss != NULL)
+		{
+			boss->Render(camera);
+		}
 		checkpoint->Render(camera);
 		spriteHandler->End();
 		d3ddv->EndScene();

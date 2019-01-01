@@ -38,7 +38,7 @@ void Camera::Go(DWORD dt)
 //	_viewport.x += dx;
 //}
 
-void Camera::Update()
+void Camera::SetBoundaries()
 {
 	if (_viewport.x < _borderLeft)
 	{
@@ -50,43 +50,43 @@ void Camera::Update()
 	}
 }
 
-void Camera::UpdateMap2()
-{
-	if (_viewport.x < 60)
-	{
-		_viewport.x =60;
-	}
-	if (_viewport.x > 2500)
-	{
-		_viewport.x = 2500;
-	}
-}
+//void Camera::UpdateMap2()
+//{
+//	if (_viewport.x < 60)
+//	{
+//		_viewport.x =60;
+//	}
+//	if (_viewport.x > 2500)
+//	{
+//		_viewport.x = 2500;
+//	}
+//}
+//
+//void Camera::UpdateMap21()
+//{
+//	if (_viewport.x < 3150)
+//	{
+//		_viewport.x = 3150;
+//	}
+//	if (_viewport.x > 3532)
+//	{
+//		_viewport.x = 3532;
+//	}
+//}
+//
+//void Camera::UpdateMap22()
+//{
+//	if (_viewport.x < 4154)
+//	{
+//		_viewport.x = 4154;
+//	}
+//	if (_viewport.x > 5069)
+//	{
+//		_viewport.x = 5069;
+//	}
+//}
 
-void Camera::UpdateMap21()
-{
-	if (_viewport.x < 3150)
-	{
-		_viewport.x = 3150;
-	}
-	if (_viewport.x > 3532)
-	{
-		_viewport.x = 3532;
-	}
-}
-
-void Camera::UpdateMap22()
-{
-	if (_viewport.x < 4154)
-	{
-		_viewport.x = 4154;
-	}
-	if (_viewport.x > 5069)
-	{
-		_viewport.x = 5069;
-	}
-}
-
-void Camera::UpdateWater()
+void Camera::SetBoundariesWater()
 {
 	if (_viewport.x < 3250)
 	{

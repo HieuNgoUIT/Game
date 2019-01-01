@@ -59,7 +59,7 @@ void GameStateOne::Update(DWORD dt)
 	ui->Update(1000 - mapTime, 3, 1);
 
 	camera->SetPosition(simon->x - 320 + 60, 0);
-	camera->Update();
+//	camera->Update();
 
 	simon->CheckBoundaries(camera->_borderLeft, camera->_borderRight + 600);
 

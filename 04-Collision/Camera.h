@@ -21,11 +21,11 @@ public:
 	void SetBorder(int bleft, int bright) { this->_borderLeft = bleft, this->_borderRight = bright; }
 	void Go(DWORD dt);
 	/*void StairGo(DWORD dt,int stairDirection);*/
-	void Update();
-	void UpdateMap2();
+	void SetBoundaries();
+	/*void UpdateMap2();
 	void UpdateMap21();
-	void UpdateMap22();
-	void UpdateWater();
+	void UpdateMap22();*/
+	void SetBoundariesWater();
 	D3DXVECTOR2 Transform(int x, int y);
 
 	void SetPosition(int x, int y);

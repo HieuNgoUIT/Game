@@ -70,12 +70,12 @@ void GameStateTwo::Update(DWORD dt)
 		if (simon->y > 450)
 		{
 			
-			camera->UpdateWater();
+//			camera->UpdateWater();
 		}
 		else
 		{
 
-			camera->Update();
+//			camera->Update();
 		}
 	}
 		
@@ -162,7 +162,20 @@ void GameStateTwo::Update(DWORD dt)
 		simon->isRosary = false;
 	}
 	
-
+	if (simon->isFightingBoss)
+	{
+		boss->Update(dt, simon->x, simon->y, &coObjects);
+		if (Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
+		{
+			Sound::GetInstance()->Stop(STAGE_01_VAMPIRE_KILLER);
+			Sound::GetInstance()->Play(BOSS_BATTLE_POISON_MIND);
+		}
+		if (Sound::GetInstance()->IsPLaying(STAGE_CLEAR))
+		{
+			Sound::GetInstance()->Stop(BOSS_BATTLE_POISON_MIND);
+		}
+		//Sound::GetInstance()->Play(BOSS_BATTLE_POISON_MIND);
+	}
 
 	
 

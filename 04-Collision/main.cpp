@@ -243,9 +243,10 @@ int Run()
 
 			if (gamestate->id == 2)
 			{
-				gamestate->LoadResources("Resource\\sprites\\Grid\\textures.txt", "Resource\\sprites\\Grid\\lv2.txt", "Resource/sprites/Grid/lv2.b", "Resource/sprites/Grid/lv2.s", 34, 4, 136, 14, 90);
+				gamestate->LoadResources("Resource\\sprites\\Grid\\textures2.txt", "Resource\\sprites\\Grid\\lv2.txt", "Resource/sprites/Grid/lv2.b", "Resource/sprites/Grid/lv2.s", 34, 4, 136, 14, 90);
 				gamestate->id++;
 				gamestate->camera->SetBorder(50, 5000);
+				
 			}
 			gamestate->game->ProcessKeyboard();
 
@@ -283,11 +284,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	if (gamestate->id == 1)
 	{
-		gamestate->LoadResources("Resource\\sprites\\Grid\\textures.txt", "Resource\\sprites\\Grid\\lv1.txt", "Resource/sprites/Grid/lv1.b", "Resource/sprites/Grid/lv1.s", 9, 4, 36, 6, 24);
+		gamestate->LoadResources("Resource\\sprites\\Grid\\textures1.txt", 
+			"Resource\\sprites\\Grid\\lv1.txt", 
+			"Resource/sprites/Grid/lv1.b", 
+			"Resource/sprites/Grid/lv1.s", 9, 4, 36, 6, 24);
 	}
 	else
 	{
-		gamestate->LoadResources("Resource\\sprites\\Grid\\textures.txt", "Resource\\sprites\\Grid\\lv2.txt", "Resource/sprites/Grid/lv2.b", "Resource/sprites/Grid/lv2.s", 34, 4, 136,14, 90);
+		gamestate->LoadResources("Resource\\sprites\\Grid\\textures2.txt", 
+			"Resource\\sprites\\Grid\\lv2.txt", 
+			"Resource/sprites/Grid/lv2.b", 
+			"Resource/sprites/Grid/lv2.s", 34, 4, 136,14, 90);
 	}
 	
 

@@ -22,6 +22,7 @@ Simon::Simon()
 	isJumping = 0;
 	isSitting = 0;
 	isAttacking = 0;
+
 	direction = 1;
 	health = 80; // dinh 8 lan, =80 tai vi render thanh mau 16x5
 
@@ -229,7 +230,7 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJECT>* coItems)
 {
 	CGame *game = CGame::GetInstance();
-
+	if (x > 5300) isFightingBoss = true;
 
 	if (GetTickCount() - untouchable_start > 5000)
 	{
@@ -595,8 +596,6 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 	CollisionWithBrick(&coObjects_Brick); // check Collision and update x, y for simon
 	CollisionWithStair(&coObjects_HiddenStair);
 	CollisionWithDoor(&coObjects_Door);
-
-	//check with item
 	CollisionWithItem(coItems);
 
 
