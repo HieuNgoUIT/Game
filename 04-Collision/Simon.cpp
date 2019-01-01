@@ -244,32 +244,25 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 
 	/* Update về sprite */
 #pragma region Sprite update
-	int index = _sprite->GetIndex();
+	
 
-	if (throwSubwp == true)
+	if (isRenderSubwp == true)
 	{
-
-		if (index < 5 || index >= 8)
+		int index = _sprite->GetIndex();
+		if (index < SIMON_ANI_BEGIN_HITTING || index >SIMON_ANI_END_HITTING)
 		{
-			_sprite->SelectIndex(5);
+			_sprite->SelectIndex(SIMON_ANI_BEGIN_HITTING);
 		}
-
-		if (countupdatesprite == 0)
+		if (index > SIMON_ANI_BEGIN_HITTING)
 		{
-			_sprite->Update(dt);
-			if (index >= 8) countupdatesprite = 1;
+			isRenderSubwp = false;
 		}
-		else
-		{
-			_sprite->SelectIndex(0);
-		}
-
-
+		_sprite->Update(dt);
 
 	}
 	else if (beingHit)
 	{
-		_sprite->SelectIndex(8);
+		_sprite->SelectIndex(SIMON_ANI_BEINGHIT);
 	}
 	else if (isOnStair)
 	{
@@ -286,30 +279,23 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 		{
 			if (direction == 1) //di len
 			{
-				if (index < 21 || index >= 23)
-					_sprite->SelectIndex(21);
-
+				_sprite->PlayAnimation(SIMON_ANI_BEGIN_STAIRHITUP, SIMON_ANI_END_STAIRHITUP, dt);
 			}
 			else
 			{
-				if (index < 18 || index > 20)
-					_sprite->SelectIndex(18);
+				_sprite->PlayAnimation(SIMON_ANI_BEGIN_STAIRHITDOWN, SIMON_ANI_END_STAIRHITDOWN, dt);
 			}
 
-			_sprite->Update(dt);
+			
 		}
 		else if (game->IsKeyDown(DIK_UP))
 		{
-			if (index < 12 || index > 13)
-				_sprite->SelectIndex(12);
-			_sprite->Update(dt);
+			_sprite->PlayAnimation(SIMON_ANI_BEGIN_GOSTAIRUP, SIMON_ANI_END_GOSTAIRUP, dt);
 
 		}
 		else if (game->IsKeyDown(DIK_DOWN))
 		{
-			if (index < 10 || index > 11)
-				_sprite->SelectIndex(10);
-			_sprite->Update(dt);
+			_sprite->PlayAnimation(SIMON_ANI_BEGIN_GOSTAIRDOWN, SIMON_ANI_END_GOSTAIRDOWN, dt);
 		}
 
 
@@ -317,21 +303,10 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 
 	}
 	else if (isSitting == true) //dang ngoi
-	{
-		
+	{	
 		if (isAttacking == true)
-		{
-			/*if (index < SIMON_ANI_BEGIN_SITHITTING || index >= SIMON_ANI_END_SITHITTING)
-			{*/
-			if (index < 15 || index >= 18)
-			{
-				_sprite->SelectIndex(15);
-			}
-			_sprite->Update(dt);
-			//_sprite->SelectIndex(SIMON_ANI_BEGIN_SITHITTING);
-			//_sprite->Update(dt);
-			/*}*/
-
+		{		
+			_sprite->PlayAnimation(SIMON_ANI_BEGIN_SITHITTING, SIMON_ANI_END_SITHITTING, dt);
 		}
 		else
 		{
@@ -349,27 +324,22 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 			_sprite->SetARGB();
 		}
 		if (isJumping == false) // ko nhảy
-		{
-
-			if (index < SIMON_ANI_BEGIN_WALKING || index >= SIMON_ANI_END_WALKING)
-				_sprite->SelectIndex(SIMON_ANI_BEGIN_WALKING);
+		{				
 			if (isAttacking == true)
 			{
-				/*if (index < SIMON_ANI_BEGIN_HITTING || index > SIMON_ANI_END_HITTING)*/
-				_sprite->SelectIndex(SIMON_ANI_BEGIN_HITTING);
+				_sprite->PlayAnimation(SIMON_ANI_BEGIN_HITTING, SIMON_ANI_END_HITTING, dt);
 			}
-			//cập nhật frame mới
-			_sprite->Update(dt); // dt này được cập nhật khi gọi update; 
+			else
+			{
+				_sprite->PlayAnimation(SIMON_ANI_BEGIN_WALKING, SIMON_ANI_END_WALKING, dt);
+			}
+
 		}
 		else
 		{
 			if (isAttacking == true)
 			{
-				if (index < 5 || index >= 8)
-				{
-					_sprite->SelectIndex(5);
-				}
-				_sprite->Update(dt);
+				_sprite->PlayAnimation(SIMON_ANI_BEGIN_HITTING, SIMON_ANI_END_HITTING, dt);
 			}
 			else
 			{
@@ -393,11 +363,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 		{
 			if (isAttacking == true)
 			{
-				if (index < 5 || index >= 8)
-				{
-					_sprite->SelectIndex(5);
-				}
-				_sprite->Update(dt);
+				_sprite->PlayAnimation(SIMON_ANI_BEGIN_HITTING, SIMON_ANI_END_HITTING, dt);
 			}
 			else
 			{
@@ -407,17 +373,11 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 		}
 		else if (isAttacking == true)
 		{
-			if (index < 5 || index >= 8)
-			{
-				_sprite->SelectIndex(5);
-			}
-
-			_sprite->Update(dt);
+			_sprite->PlayAnimation(SIMON_ANI_BEGIN_HITTING, SIMON_ANI_END_HITTING,dt);
 		}
 		else
 		{
 			_sprite->SelectIndex(SiMON_ANI_IDLE);		// SIMON đứng yên
-
 		}
 	}
 
@@ -606,12 +566,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 								 //vx += 0.5f*dt;
 	}
 
-	//if (!isOnStair)
-	//{
-	//	CGameObject::Update(dt);
-	//	vy += SIMON_GRAVITY * dt;// Simple fall down
-	//	//vx += 0.5f*dt;
-	//}
+
 
 	ResetLife();
 
@@ -643,10 +598,6 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 
 	//check with item
 	CollisionWithItem(coItems);
-
-	
-
-
 
 
 }
@@ -1125,7 +1076,7 @@ void Simon::ThrowSubWp()
 			subwp->Create(this->x, this->y, this->direction);
 			subwp->_sprite->SelectIndex(0);
 			useableHeart--;
-			countupdatesprite = 0;
+			isRenderSubwp = 1;
 		}
 	}
 

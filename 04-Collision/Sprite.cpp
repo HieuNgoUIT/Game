@@ -75,6 +75,16 @@ void Sprite::Next()
 		_index = _start;
 }
 
+void Sprite::PlayAnimation(int start, int end, int ellapseTime)
+{
+	if (_index < start || _index > end)
+	{
+		SelectIndex(start);
+	}
+	Update(ellapseTime);
+	
+}
+
 void Sprite::Reset()
 {
 	_index = _start;

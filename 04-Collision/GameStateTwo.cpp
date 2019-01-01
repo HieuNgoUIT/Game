@@ -111,7 +111,6 @@ void GameStateTwo::Update(DWORD dt)
 				items.push_back(item);
 			}
 			objects[i]->SetDropItem(false);
-			coObjects.push_back(objects[i]);
 		}
 		else if (dynamic_cast<Merman *>(objects[i]))
 		{
@@ -125,7 +124,7 @@ void GameStateTwo::Update(DWORD dt)
 			coObjects.push_back(objects[i]); //neu ma rot item =false thi` da~ chet' nen ko push vao co0bject nua
 		}
 	}
-	coObjects.push_back(boss);
+	
 
 	if (!simon->isStopwatch)
 	{
@@ -162,22 +161,10 @@ void GameStateTwo::Update(DWORD dt)
 
 		simon->isRosary = false;
 	}
-	if (simon->isFightingBoss)
-	{
-		boss->Update(dt, simon->x, simon->y, &coObjects);
-		if (Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
-		{
-			Sound::GetInstance()->Stop(STAGE_01_VAMPIRE_KILLER);
-			Sound::GetInstance()->Play(BOSS_BATTLE_POISON_MIND);
-		}
-		if (Sound::GetInstance()->IsPLaying(STAGE_CLEAR))
-		{
-			Sound::GetInstance()->Stop(BOSS_BATTLE_POISON_MIND);
-		}
-		//Sound::GetInstance()->Play(BOSS_BATTLE_POISON_MIND);
+	
 
 
-	}
+	
 
 }
 

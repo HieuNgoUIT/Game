@@ -28,6 +28,7 @@ public:
 	
 	void Next();
 
+	void PlayAnimation(int start, int end, int ellapseTime);
 	
 	void Reset();
 

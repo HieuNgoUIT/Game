@@ -71,18 +71,54 @@ void GameState::Update(DWORD dt)
 	}
 	ui->Update(1000 - mapTime, 3, 1);
 
-	camera->SetPosition(simon->x - 320 + 60, 0);
-	camera->Update();
+
+#pragma region Camera
+
+	if (simon->isCollideDor)
+	{
+		camera->SetBorder(simon->x, simon->x + 640);
+		camera->Go(dt);
+		if (camera->GetViewport().x > camera->_borderLeft)
+		{
+			simon->AutoMove();
+		}
+
+	}
+	else
+	{
+		camera->SetPosition(simon->x - 320 + 60, simon->y - 480);
+		if (simon->y > 450)
+		{
+
+			camera->UpdateWater();
+		}
+		else
+		{
+
+			camera->Update();
+		}
+	}
+
+
+
+
+	//}
+
+#pragma endregion
 
 	simon->CheckBoundaries(camera->_borderLeft, camera->_borderRight + 600);
 
 
-	vector<LPGAMEOBJECT> coObjects;
-	grid->GetListObject(objects, camera);
 
+
+
+
+	vector<LPGAMEOBJECT> coObjects;
+
+	grid->GetListObject(objects, camera);
 	for (int i = 0; i < objects.size(); i++)
 	{
-		if (dynamic_cast<LargeCandle *>(objects.at(i)))
+		if (dynamic_cast<Candle *>(objects.at(i))|| dynamic_cast<LargeCandle *>(objects.at(i)))
 		{
 			//LargeCandle *lc = dynamic_cast<LargeCandle *>(coObjects.at(i));
 			if (objects[i]->dropItem == true)
@@ -95,23 +131,57 @@ void GameState::Update(DWORD dt)
 				items.push_back(item);
 			}
 			objects[i]->SetDropItem(false);
+			coObjects.push_back(objects[i]);
+		}
+		else if (dynamic_cast<Merman *>(objects[i]))
+		{
+			Merman *boss = dynamic_cast<Merman *>(objects[i]);
+			coObjects.push_back(boss);
+			coObjects.push_back(boss->fireball);
+			objects.push_back(boss->fireball);
+		}
+		else
+		{
+			coObjects.push_back(objects[i]); //neu ma rot item =false thi` da~ chet' nen ko push vao co0bject nua
 		}
 	}
 
-	for (int i = 0; i < objects.size(); i++)
+
+	if (!simon->isStopwatch)
 	{
-		coObjects.push_back(objects[i]);
+		for (int i = 0; i < objects.size(); i++)
+		{
+			objects[i]->Update(dt, simon->x, &coObjects);
+			if (dynamic_cast<Zombie *>(objects[i]))
+			{
+				Zombie *zombie = dynamic_cast<Zombie *>(objects[i]);
+				zombie->Update(dt, camera, simon->x, &coObjects);
+			}
+		}
 	}
-	for (int i = 0; i < objects.size(); i++)
+	else
 	{
-		objects[i]->Update(dt);
+		WatchTime--;
+	}
+	if (WatchTime < 0)
+	{
+		simon->isStopwatch = false;
 	}
 	for (int i = 0; i < items.size(); i++)
 	{
 		items[i]->Update(dt, 0, &coObjects);
 	}
 	simon->Update(dt, &coObjects, &items);
+	if (simon->isRosary)
+	{
+		for (int i = 0; i < objects.size(); i++)
+			if (objects[i]->tag == ENEMY_TAG)
+			{
+				objects[i]->health -= 10;
+			}
 
+		simon->isRosary = false;
+	}
 
 	CheckCollideWithCheckPoint(simon, checkpoint);
 }

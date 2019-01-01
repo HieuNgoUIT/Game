@@ -245,6 +245,7 @@ int Run()
 			{
 				gamestate->LoadResources("Resource\\sprites\\Grid\\textures.txt", "Resource\\sprites\\Grid\\lv2.txt", "Resource/sprites/Grid/lv2.b", "Resource/sprites/Grid/lv2.s", 34, 4, 136, 14, 90);
 				gamestate->id++;
+				gamestate->camera->SetBorder(50, 5000);
 			}
 			gamestate->game->ProcessKeyboard();
 

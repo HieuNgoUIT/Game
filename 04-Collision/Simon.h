@@ -20,10 +20,26 @@
 
 #define SIMON_ANI_BEGIN_WALKING 1
 #define SIMON_ANI_END_WALKING 3
+
 #define SIMON_ANI_BEGIN_HITTING 5
 #define SIMON_ANI_END_HITTING 7
+
+#define SIMON_ANI_BEINGHIT 8
+
+#define SIMON_ANI_BEGIN_GOSTAIRUP 12
+#define SIMON_ANI_END_GOSTAIRUP 13
+
+#define SIMON_ANI_BEGIN_GOSTAIRDOWN 10
+#define SIMON_ANI_END_GOSTAIRDOWN 11
+
 #define SIMON_ANI_BEGIN_SITHITTING 15
 #define SIMON_ANI_END_SITHITTING 17
+
+#define SIMON_ANI_BEGIN_STAIRHITUP 21
+#define SIMON_ANI_END_STAIRHITUP 23
+
+#define SIMON_ANI_BEGIN_STAIRHITDOWN 18
+#define SIMON_ANI_END_STAIRHITDOWN 20
 
 #define SiMON_ANI_IDLE 0
 
@@ -91,7 +107,7 @@ public:
 	int useableHeart = 5;
 	int scores;
 	int life = 3;
-	int countupdatesprite;
+	int isRenderSubwp;
 
 	Whip* whip;
 	SubWeapon *subwp;
