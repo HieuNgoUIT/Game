@@ -20,18 +20,25 @@ void Bmr::Update(DWORD dt, float left, float right, vector<LPGAMEOBJECT>* coObje
 	{
 		x = right - 1;
 		direction = -direction;
-		isTouchBoundary = true;
+		isTouchBoundaryR = true;
 	}
 	else if (x < left)
 	{
 		x = left + 1;
 		direction = -direction;
-		isTouchBoundary = true;
+		isTouchBoundaryL = true;
 	}
 	x += dx;
-	if (isTouchBoundary)
+	if (isTouchBoundaryR)
 	{
-		if (x < currentPos || x > currentPos)
+		if (x < currentPos)
+		{
+			this->isFinish = true;
+		}
+	}
+	if (isTouchBoundaryL)
+	{
+		if (x > currentPos)
 		{
 			this->isFinish = true;
 		}
@@ -51,8 +58,8 @@ void Bmr::Create(float simonX, float simonY, int simondirection)
 {
 
 	this->x = simonX;
-	isTouchBoundary = false;
-
+	isTouchBoundaryR = false;
+	isTouchBoundaryL = false;
 
 	this->y = simonY;
 	this->currentPos = simonX;

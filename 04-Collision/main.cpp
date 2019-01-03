@@ -69,7 +69,7 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		DestroyWindow(hWnd); // thoát
 
 	if (KeyCode == DIK_Q)
-		gamestate->simon->SetPosition(4000,100);
+		gamestate->simon->SetPosition(3000,100);
 	if (KeyCode == DIK_M)
 	{
 		gamestate->isChangingState = true;
@@ -245,7 +245,7 @@ int Run()
 			{
 				gamestate->LoadResources("Resource\\sprites\\Grid\\textures2.txt", "Resource\\sprites\\Grid\\lv2.txt", "Resource/sprites/Grid/lv2.b", "Resource/sprites/Grid/lv2.s", 34, 4, 136, 14, 90);
 				gamestate->id++;
-				gamestate->camera->SetBorder(50, 5000);
+				gamestate->camera->SetBorder(60, 2500);
 				
 			}
 			gamestate->game->ProcessKeyboard();

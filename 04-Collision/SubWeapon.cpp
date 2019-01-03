@@ -53,7 +53,17 @@ void SubWeapon::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (isColliding(this, coObjects->at(i)))
 		{
-			coObjects->at(i)->health -= 10;
+			
+			if (dynamic_cast<Boss *>(coObjects->at(i)))
+			{
+				Boss *mm = dynamic_cast<Boss *>(coObjects->at(i));
+				coObjects->at(i)->health -= 10;
+				mm->StartUntouchable();
+			}
+			else
+			{
+				coObjects->at(i)->health -= 10;
+			}
 			//this->isFinish = true;//da ban xong
 
 		}

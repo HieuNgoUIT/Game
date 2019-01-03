@@ -45,7 +45,7 @@ void Boss::Update(DWORD dt, float simonx, float simony, bool isAllowtoDo, vector
 		if (health >= 0)
 		{
 
-			if (GetTickCount() - untouchable_start > 500)
+			if (GetTickCount() - untouchable_start > 1000)
 			{
 				untouchable_start = 0;
 				untouchable = 0;

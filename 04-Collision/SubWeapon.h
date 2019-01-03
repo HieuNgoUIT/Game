@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
-
 #include "LargeCandle.h"
+#include "Boss.h"
 class SubWeapon :public CGameObject
 {
 public:

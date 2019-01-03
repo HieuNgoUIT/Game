@@ -3,7 +3,8 @@
 class Bmr :public SubWeapon {
 public:
 	float currentPos;
-	bool isTouchBoundary;
+	bool isTouchBoundaryR;
+	bool isTouchBoundaryL;
 	Bmr(int X, int Y);
 	~Bmr();
 	void Update(DWORD dt, float left, float right, vector<LPGAMEOBJECT> *coObjects = NULL);

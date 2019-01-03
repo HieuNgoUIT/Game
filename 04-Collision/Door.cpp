@@ -8,6 +8,7 @@ Door::Door(int TYPE,int X,int Y)
 	tag = TYPE;
 	this->x = X;
 	this->y = Y;
+	//isDead = false;
 }
 
 Door::~Door()
@@ -16,10 +17,14 @@ Door::~Door()
 
 void Door::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	left = x;
-	top = y;
-	right = x + _texture->FrameWidth;
-	bottom = y + _texture->FrameHeight;
+	if (!isDead)
+	{
+		left = x;
+		top = y;
+		right = x + _texture->FrameWidth ;
+		bottom = y + _texture->FrameHeight;
+	}
+	
 }
 
 void Door::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

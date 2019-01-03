@@ -35,28 +35,30 @@ void GameState::LoadResources(char* Ftexture, char* Fgrid, char* Fb, char* Fs, i
 	ui = new UI();
 	ui->Initialize(simon, NULL);
 
-	vector<CGameObject*> test;
-	test = grid->getListObject();
-	for (int i = 0; i < test.size(); i++)
+	vector<CGameObject*> listobj;
+	listobj = grid->getListObject();
+	for (int i = 0; i < listobj.size(); i++)
 	{
-		test.at(i)->_texture = textures->Get(test.at(i)->texId);
-		test.at(i)->_sprite = new Sprite(textures->Get(test.at(i)->texId), 100);
-
-		test.at(i)->deadffect->_sprite = new Sprite(textures->Get(-1), 50);
-		test.at(i)->hiteffect->_sprite = new Sprite(textures->Get(-2), 1000);
+		listobj.at(i)->_texture = textures->Get(listobj.at(i)->texId);
+		
+		listobj.at(i)->deadffect->_sprite = new Sprite(textures->Get(-1), 50);
+		listobj.at(i)->hiteffect->_sprite = new Sprite(textures->Get(-2), 1000);
+		if (dynamic_cast<Door *>(listobj[i]))
+		{
+			listobj.at(i)->_sprite = new Sprite(textures->Get(listobj.at(i)->texId), 1500);
+		}
+		else
+		{
+			listobj.at(i)->_sprite = new Sprite(textures->Get(listobj.at(i)->texId), 100);
+		}
 	}
 
 	camera = new Camera(SCREEN_WIDTH, SCREEN_HEIGHT);
-	camera->SetBorder(0, 850);
+	camera->SetBorder(LBORDER_1, RBORDER_1);
 
 	tilemap = new TileMap();
 	tilemap->LoadMap(Fb, Fs, Frow, Fcol, Ftotal, Frowmaxtrix, Fcolmatrix);
 	// "Resource/sprites/Grid/lv1.b", "Resource/sprites/Grid/lv1.s", 9, 4, 36, 6, 24
-
-
-
-
-
 
 
 	checkpoint = new CheckPoint();
@@ -76,13 +78,14 @@ void GameState::Update(DWORD dt)
 		mapSecond = 0;
 	}
 
+	
 
 
 #pragma region Camera
 
 	if (simon->isCollideDor)
 	{
-		camera->SetBorder(simon->x + simon->_texture->FrameWidth, simon->x + SCREEN_WIDTH - simon->_texture->FrameWidth + 500);
+		camera->SetBorder(simon->x, RBORDER_2);
 		camera->Go(dt);
 		if (camera->GetViewport().x > camera->_borderLeft)
 		{
@@ -92,7 +95,7 @@ void GameState::Update(DWORD dt)
 	else
 	{
 		camera->SetPosition(simon->x - SCREEN_WIDTH / 2 + simon->_texture->FrameWidth, simon->y - SCREEN_HEIGHT);
-		if (simon->y > 450)
+		if (simon->y > yWATER)
 		{
 			camera->SetBoundariesWater();
 		}
@@ -102,6 +105,11 @@ void GameState::Update(DWORD dt)
 		}
 	}
 
+	if (simon->x > xBOSS)
+	{
+		simon->isFightingBoss = true;
+ 		camera->SetBorder(RBORDER_2, RBORDER_2); // cuoi cung boss nen trung voi bien cuoi
+	}
 
 #pragma endregion
 
@@ -195,22 +203,6 @@ void GameState::Update(DWORD dt)
 
 	CheckCollideWithCheckPoint(simon, checkpoint);
 	ui->Update(1000 - mapTime, 3, 1, bossHP);
-	//if (simon->isFightingBoss)
-	//{
-	//	
-	//	//boss->Update(dt, simon->x, simon->y, &coObjects);
-	//	if (Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
-	//	{
-	//		Sound::GetInstance()->Stop(STAGE_01_VAMPIRE_KILLER);
-	//		Sound::GetInstance()->Play(BOSS_BATTLE_POISON_MIND);
-	//	}
-	//	if (Sound::GetInstance()->IsPLaying(STAGE_CLEAR))
-	//	{
-	//		Sound::GetInstance()->Stop(BOSS_BATTLE_POISON_MIND);
-	//	}
-	//	//Sound::GetInstance()->Play(BOSS_BATTLE_POISON_MIND);
-
-
 	
 }
 

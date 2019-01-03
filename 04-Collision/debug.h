@@ -15,6 +15,14 @@ void DebugOut(wchar_t *fmt, ...);
 #define BREAKABLEBRICK_TAG 13
 #define ENEMY_TAG 500
 
+
+#define LBORDER_1 0
+#define RBORDER_1 850
+#define LBOSSBORDER 4154
+#define RBORDER_2 5069
+#define yWATER 500
+#define xBOSS 5500
+
 //ITEM TAG 
 #define HEART_TAG 100
 #define BALL_TAG 101

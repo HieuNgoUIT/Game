@@ -1045,6 +1045,10 @@ void Simon::CollisionWithDoor(vector<LPGAMEOBJECT>* coObjects)
 		{
 			isCollideDor = false;
 		}
+		if (x > coObjects->at(i)->x + _texture->FrameWidth )
+		{
+			coObjects->at(i)->isDead = true;
+		}
 	}
 }
 

@@ -111,9 +111,9 @@ void Camera::SetPosition(int x, int y)
 	{
 		_viewport.y = 0;
 	}
-	else if (y > 30)
+	else if (y > 20) // 500-480
 	{
-		_viewport.y = 450;
+		_viewport.y = 450;//water
 	}
 	else
 	{
