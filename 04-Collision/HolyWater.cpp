@@ -13,7 +13,7 @@ HolyWater::HolyWater(int X, int Y)
 	//currentPos = y;
 	//isDead = false;
 }
-void HolyWater::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void HolyWater::Update(DWORD dt, float left, float right, vector<LPGAMEOBJECT>* coObjects)
 {
 
 	if (!isFinish)

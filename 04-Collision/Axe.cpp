@@ -13,7 +13,7 @@ Axe::Axe(int X, int Y)
 	currentPos = y;
 	//isDead = false;
 }
-void Axe::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Axe::Update(DWORD dt, float left, float right, vector<LPGAMEOBJECT>* coObjects)
 {
 	
 

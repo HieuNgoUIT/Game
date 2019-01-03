@@ -69,6 +69,6 @@ public:
 	UI();
 	~UI();
 	bool Initialize( Simon *simon, Boss *boss);
-	void Update( int time, int life, int stage);
+	void Update( int time, int life, int stage,int bosshp);
 	void Render();
 };

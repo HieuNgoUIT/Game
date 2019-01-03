@@ -56,7 +56,7 @@ void GameStateOne::Update(DWORD dt)
 		mapTime++;
 		mapSecond = 0;
 	}
-	ui->Update(1000 - mapTime, 3, 1);
+//	ui->Update(1000 - mapTime, 3, 1);
 
 	camera->SetPosition(simon->x - 320 + 60, 0);
 //	camera->Update();

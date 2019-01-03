@@ -32,7 +32,7 @@ void DebugOut(wchar_t *fmt, ...);
 #define KNIFE_TAG  113
 #define AXE_TAG  114
 #define HOLYWATER_TAG 115
-
+#define CROSS_TAG 116
 
 
 

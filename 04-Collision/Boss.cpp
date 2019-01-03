@@ -4,10 +4,11 @@ Boss::Boss()
 {
 }
 
-Boss::Boss(int X, int Y)
+Boss::Boss(int TYPE,int X, int Y)
 {
-	_texture = new Texture("Resource\\sprites\\Bosses\\VAMPIRE_BAT.png", 3, 1, 3);
-	_sprite = new Sprite(_texture, 100);
+	//_texture = new Texture("Resource\\sprites\\Bosses\\VAMPIRE_BAT.png", 3, 1, 3);
+	//_sprite = new Sprite(_texture, 100);
+	texId = TYPE;
 	this->x = X;
 	this->y = Y;
 	tag = ENEMY_TAG;//enemy from 500
@@ -37,38 +38,42 @@ void Boss::GetBoundingBox(float & left, float & top, float & right, float & bott
 	
 }
 
-void Boss::Update(DWORD dt, float simonx, float simony, vector<LPGAMEOBJECT>* coObjects)
+void Boss::Update(DWORD dt, float simonx, float simony, bool isAllowtoDo, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (health >= 0)
+	if (isAllowtoDo)
 	{
-
-		if (GetTickCount() - untouchable_start > 500)
+		if (health >= 0)
 		{
-			untouchable_start = 0;
-			untouchable = 0;
+
+			if (GetTickCount() - untouchable_start > 500)
+			{
+				untouchable_start = 0;
+				untouchable = 0;
+			}
+			if (x < 5060)
+				x = 5060;
+			GoStartPosition(dt, simonx, simony);
+			GoSimonPosition(dt, simonx, simony);
+
+			int index = _sprite->GetIndex();
+			if (index == 0)
+				_sprite->SelectIndex(1);
+			_sprite->Update(dt);
+
 		}
-		if (x < 5060)
-			x = 5060;
-		GoStartPosition(dt, simonx, simony);
-		GoSimonPosition(dt, simonx, simony);
-
-		int index = _sprite->GetIndex();
-		if (index == 0)
-			_sprite->SelectIndex(1);
-		_sprite->Update(dt);
-
-	}
-	else
-	{
-		isDead = true;
-		item->Update(dt,NULL, coObjects);
-		deadffect->Update(dt);
-		if (Sound::GetInstance()->IsPLaying(BOSS_BATTLE_POISON_MIND))
+		else
 		{
-			Sound::GetInstance()->Stop(BOSS_BATTLE_POISON_MIND);
+			isDead = true;
+			item->Update(dt, NULL, coObjects);
+			deadffect->Update(dt);
+			if (Sound::GetInstance()->IsPLaying(BOSS_BATTLE_POISON_MIND))
+			{
+				Sound::GetInstance()->Stop(BOSS_BATTLE_POISON_MIND);
+			}
+			Sound::GetInstance()->Play(STAGE_CLEAR);
 		}
-		Sound::GetInstance()->Play(STAGE_CLEAR);
 	}
+	
 
 
 
@@ -83,7 +88,7 @@ void Boss::Render(Camera * camera)
 	{
 		D3DXVECTOR2 pos = camera->Transform(x, y);
 		_sprite->Draw(pos.x, pos.y);
-		//RenderBoundingBox(camera);
+		RenderBoundingBox(camera);
 	}
 	else
 	{

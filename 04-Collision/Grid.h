@@ -21,6 +21,7 @@
 #include "Bat.h"
 #include "BreakableBrick.h"
 #include "Door.h"
+#include "Boss.h"
 using namespace std;
 
 #define GRID_CELL_WIDTH 256

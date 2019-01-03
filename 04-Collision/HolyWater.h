@@ -7,7 +7,7 @@ public:
 	float currentPos;
 	HolyWater(int X, int Y);
 	~HolyWater();
-	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
+	void Update(DWORD dt, float left, float right, vector<LPGAMEOBJECT> *coObjects = NULL);
 	void Create(float simonX, float simonY, int simondirection);
 	void CollisionWithBrick(vector<LPGAMEOBJECT> *coObjects = NULL);
 };

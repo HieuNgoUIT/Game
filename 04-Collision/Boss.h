@@ -12,7 +12,7 @@ public:
 	Item *item;
 	//int heath;
 	Boss();
-	Boss(int X, int Y);
+	Boss(int TYPE,int X, int Y);
 	~Boss();
 	float lastSimonx;
 	float lastSimony;
@@ -24,7 +24,7 @@ public:
 	bool CheckLeft;
 
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-	void Update(DWORD dt, float simonx,float simony, vector<LPGAMEOBJECT> *coObjects = NULL);
+	void Update(DWORD dt, float simonx,float simony, bool isAllowtoDo, vector<LPGAMEOBJECT> *coObjects = NULL);
 	void Render(Camera * camera);
 	
 	void GoStartPosition(DWORD dt, float simonx, float simony);

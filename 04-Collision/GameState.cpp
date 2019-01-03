@@ -12,9 +12,9 @@ GameState::~GameState()
 {
 }
 
-void GameState::LoadResources(char* Ftexture,char* Fgrid, char* Fb, char* Fs, int Frow, int Fcol, int Ftotal, int Frowmaxtrix, int Fcolmatrix)
+void GameState::LoadResources(char* Ftexture, char* Fgrid, char* Fb, char* Fs, int Frow, int Fcol, int Ftotal, int Frowmaxtrix, int Fcolmatrix)
 {
-	
+
 	Textures * textures = Textures::GetInstance();
 	textures->LoadTexture(Ftexture); //"Resource\\sprites\\Grid\\textures.txt"
 
@@ -28,6 +28,12 @@ void GameState::LoadResources(char* Ftexture,char* Fgrid, char* Fb, char* Fs, in
 
 	grid = new Grid();
 	grid->ReadFileToGrid(Fgrid); //"Resource\\sprites\\Grid\\lv1.txt"
+
+
+
+
+	ui = new UI();
+	ui->Initialize(simon, NULL);
 
 	vector<CGameObject*> test;
 	test = grid->getListObject();
@@ -44,27 +50,19 @@ void GameState::LoadResources(char* Ftexture,char* Fgrid, char* Fb, char* Fs, in
 	camera->SetBorder(0, 850);
 
 	tilemap = new TileMap();
-	tilemap->LoadMap(Fb,Fs,Frow,Fcol,Ftotal,Frowmaxtrix,Fcolmatrix);
+	tilemap->LoadMap(Fb, Fs, Frow, Fcol, Ftotal, Frowmaxtrix, Fcolmatrix);
 	// "Resource/sprites/Grid/lv1.b", "Resource/sprites/Grid/lv1.s", 9, 4, 36, 6, 24
 
 
-	boss = new Boss(5300, 100);
 
-	ui = new UI();
-	if (boss != NULL)
-	{
-		ui->Initialize(simon, boss);
-	}
-	else
-	{
-		ui->Initialize(simon, NULL);
-	}
-	
+
+
+
 
 	checkpoint = new CheckPoint();
 	checkpoint->SetPosition(1366, 365);
 
-	
+
 	if (!Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
 		Sound::GetInstance()->PlayLoop(STAGE_01_VAMPIRE_KILLER);
 }
@@ -77,14 +75,14 @@ void GameState::Update(DWORD dt)
 		mapTime++;
 		mapSecond = 0;
 	}
-	ui->Update(1000 - mapTime, 3, 1);
+
 
 
 #pragma region Camera
 
 	if (simon->isCollideDor)
 	{
-		camera->SetBorder(simon->x+ simon->_texture->FrameWidth, simon->x + SCREEN_WIDTH-simon->_texture->FrameWidth+500);
+		camera->SetBorder(simon->x + simon->_texture->FrameWidth, simon->x + SCREEN_WIDTH - simon->_texture->FrameWidth + 500);
 		camera->Go(dt);
 		if (camera->GetViewport().x > camera->_borderLeft)
 		{
@@ -93,7 +91,7 @@ void GameState::Update(DWORD dt)
 	}
 	else
 	{
-		camera->SetPosition(simon->x - SCREEN_WIDTH/2 + simon->_texture->FrameWidth, simon->y - SCREEN_HEIGHT);
+		camera->SetPosition(simon->x - SCREEN_WIDTH / 2 + simon->_texture->FrameWidth, simon->y - SCREEN_HEIGHT);
 		if (simon->y > 450)
 		{
 			camera->SetBoundariesWater();
@@ -107,13 +105,13 @@ void GameState::Update(DWORD dt)
 
 #pragma endregion
 
-	simon->CheckBoundaries(camera->_borderLeft, camera->_borderRight + SCREEN_WIDTH- simon->_texture->FrameWidth);
+	simon->CheckBoundaries(camera->_borderLeft, camera->_borderRight + SCREEN_WIDTH - simon->_texture->FrameWidth);
 
 	vector<LPGAMEOBJECT> coObjects;
 	grid->GetListObject(objects, camera);
 	for (int i = 0; i < objects.size(); i++)
 	{
-		if (dynamic_cast<Candle *>(objects.at(i))|| dynamic_cast<LargeCandle *>(objects.at(i)))
+		if (dynamic_cast<Candle *>(objects.at(i)) || dynamic_cast<LargeCandle *>(objects.at(i)))
 		{
 			if (objects[i]->dropItem == true)
 			{
@@ -128,31 +126,37 @@ void GameState::Update(DWORD dt)
 				coObjects.push_back(objects[i]); // neu ma rot item = false thi` da~chet' nen ko push vao co0bject nua
 			}
 			objects[i]->SetDropItem(false);
-			
+
 		}
 		else if (dynamic_cast<Merman *>(objects[i]))
 		{
-			Merman *boss = dynamic_cast<Merman *>(objects[i]);
-			coObjects.push_back(boss);
-			coObjects.push_back(boss->fireball);
-			objects.push_back(boss->fireball);
+			Merman *mm = dynamic_cast<Merman *>(objects[i]);
+			coObjects.push_back(mm);
+			coObjects.push_back(mm->fireball);
+			objects.push_back(mm->fireball);
 		}
 		else
 		{
-			coObjects.push_back(objects[i]); 
+			coObjects.push_back(objects[i]);
 		}
 	}
 
-
+	
 	if (!simon->isStopwatch)
 	{
 		for (int i = 0; i < objects.size(); i++)
 		{
-			
+
 			if (dynamic_cast<Zombie *>(objects[i]))
 			{
 				Zombie *zombie = dynamic_cast<Zombie *>(objects[i]);
 				zombie->Update(dt, camera, simon->x, &coObjects);
+			}
+			else if (dynamic_cast<Boss *>(objects[i]))
+			{
+				Boss *boss = dynamic_cast<Boss *>(objects[i]);
+				boss->Update(dt, simon->x, simon->y, simon->isFightingBoss, &coObjects);
+				bossHP = boss->health;
 			}
 			else
 			{
@@ -169,7 +173,7 @@ void GameState::Update(DWORD dt)
 		simon->isStopwatch = false;
 	}
 
-	
+
 	if (simon->isRosary)
 	{
 		for (int i = 0; i < objects.size(); i++)
@@ -190,23 +194,24 @@ void GameState::Update(DWORD dt)
 
 
 	CheckCollideWithCheckPoint(simon, checkpoint);
+	ui->Update(1000 - mapTime, 3, 1, bossHP);
+	//if (simon->isFightingBoss)
+	//{
+	//	
+	//	//boss->Update(dt, simon->x, simon->y, &coObjects);
+	//	if (Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
+	//	{
+	//		Sound::GetInstance()->Stop(STAGE_01_VAMPIRE_KILLER);
+	//		Sound::GetInstance()->Play(BOSS_BATTLE_POISON_MIND);
+	//	}
+	//	if (Sound::GetInstance()->IsPLaying(STAGE_CLEAR))
+	//	{
+	//		Sound::GetInstance()->Stop(BOSS_BATTLE_POISON_MIND);
+	//	}
+	//	//Sound::GetInstance()->Play(BOSS_BATTLE_POISON_MIND);
 
-	if (simon->isFightingBoss)
-	{
-		boss->Update(dt, simon->x, simon->y, &coObjects);
-		if (Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
-		{
-			Sound::GetInstance()->Stop(STAGE_01_VAMPIRE_KILLER);
-			Sound::GetInstance()->Play(BOSS_BATTLE_POISON_MIND);
-		}
-		if (Sound::GetInstance()->IsPLaying(STAGE_CLEAR))
-		{
-			Sound::GetInstance()->Stop(BOSS_BATTLE_POISON_MIND);
-		}
-		//Sound::GetInstance()->Play(BOSS_BATTLE_POISON_MIND);
 
-
-	}
+	
 }
 
 void GameState::Render()
@@ -249,9 +254,9 @@ void GameState::CheckCollideWithCheckPoint(Simon * simon, CheckPoint * checkpoin
 	{
 		if (game->IsKeyDown(DIK_UP))
 		{
-			this->id ++;
+			this->id++;
 		}
-		
+
 	}
 }
 

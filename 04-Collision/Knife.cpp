@@ -13,7 +13,7 @@ Knife::Knife(int X,int Y)
 	tag = 3;
 	//isDead = false;
 }
-void Knife::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Knife::Update(DWORD dt, float left, float right, vector<LPGAMEOBJECT>* coObjects)
 {
 	remainingTime--;
 	if (remainingTime < 0)

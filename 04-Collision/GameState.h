@@ -11,6 +11,7 @@
 class GameState {
 public:
 	int id;
+	int bossHP=0;
 	Item * item;
 	Grid *grid;
 	UI *ui;

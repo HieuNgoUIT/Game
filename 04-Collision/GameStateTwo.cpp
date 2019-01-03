@@ -38,7 +38,7 @@ void GameStateTwo::LoadResources()
 	if (!Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
 		Sound::GetInstance()->PlayLoop(STAGE_01_VAMPIRE_KILLER);
 	game = CGame::GetInstance();
-	boss = new Boss(5300, 100);
+	//boss = new Boss(5300, 100);
 }
 
 void GameStateTwo::Update(DWORD dt)
@@ -49,7 +49,7 @@ void GameStateTwo::Update(DWORD dt)
 		mapTime++;
 		mapSecond = 0;
 	}
-	ui->Update(1000 - mapTime, 3, 1);
+//	ui->Update(1000 - mapTime, 3, 1);
 
 
 #pragma region Camera

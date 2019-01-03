@@ -177,6 +177,9 @@
     <ClInclude Include="Textures.h">
       <Filter>Animation</Filter>
     </ClInclude>
+    <ClInclude Include="Bmr.h">
+      <Filter>Player\SubWp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debug.cpp">
@@ -307,6 +310,9 @@
     </ClCompile>
     <ClCompile Include="Textures.cpp">
       <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Bmr.cpp">
+      <Filter>Player\SubWp</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -63,9 +63,7 @@
 #include "Sound.h"
 #include "HolyWater.h"
 #include "HiddenStair.h"
-
-//#include "Weapon.h"
-//#include "MorningStar.h"
+#include "Bmr.h"
 
 class Simon : public CGameObject
 {

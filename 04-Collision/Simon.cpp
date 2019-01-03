@@ -171,6 +171,15 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 				isrenderAxe = false;
 
 			}
+			else if (coObjects->at(i)->tag == CROSS_TAG)
+			{
+				isSubwp = true;
+				subwp = new Bmr(x, y);
+				isrenderKnife = false;
+				isrenderHolyWater = false;
+				isrenderAxe = false;
+
+			}
 			else if (coObjects->at(i)->tag == ROSARY_TAG)
 			{
 				isRosary = true;
@@ -180,6 +189,7 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 			{
 				isStopwatch = true;
 			}
+
 			coObjects->at(i)->isDead = true;
 			Sound::GetInstance()->Play(COLLECT_ITEM);
 
@@ -230,7 +240,7 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJECT>* coItems)
 {
 	CGame *game = CGame::GetInstance();
-	if (x > 5300) isFightingBoss = true;
+	if (x > 5500) isFightingBoss = true;
 
 	if (GetTickCount() - untouchable_start > 5000)
 	{
@@ -253,11 +263,12 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 		if (index < SIMON_ANI_BEGIN_HITTING || index >SIMON_ANI_END_HITTING)
 		{
 			_sprite->SelectIndex(SIMON_ANI_BEGIN_HITTING);
+			if (index > SIMON_ANI_BEGIN_HITTING)
+			{
+				isRenderSubwp = false;
+			}
 		}
-		if (index > SIMON_ANI_BEGIN_HITTING)
-		{
-			isRenderSubwp = false;
-		}
+		
 		_sprite->Update(dt);
 
 	}
@@ -412,12 +423,12 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 	{
 		if (!subwp->isFinish) // chua finish thi update
 		{
-			subwp->SetPosition(subwp->x, subwp->y);
-			subwp->Update(dt, coObjects);
+			//subwp->SetPosition(subwp->x, subwp->y+10);
+			subwp->Update(dt,x-SCREEN_WIDTH/2, x + SCREEN_WIDTH / 2, coObjects);
 		}
 		if (subwp->isFinish == true) //finish thi cho quang
 		{
-			throwSubwp = 0;
+			throwSubwp = false;
 		}
 
 	}

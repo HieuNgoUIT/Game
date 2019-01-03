@@ -36,7 +36,7 @@ void SubWeapon::GetBoundingBox(float & left, float & top, float & right, float &
 
 }
 
-void SubWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void SubWeapon::Update(DWORD dt,float left,float right, vector<LPGAMEOBJECT>* coObjects)
 {
 	
 }
@@ -54,7 +54,7 @@ void SubWeapon::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObjects)
 		if (isColliding(this, coObjects->at(i)))
 		{
 			coObjects->at(i)->health -= 10;
-			this->isFinish = true;//da ban xong
+			//this->isFinish = true;//da ban xong
 
 		}
 

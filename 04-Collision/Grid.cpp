@@ -157,6 +157,7 @@ CGameObject * Grid::CreateObject(int type, int x, int y,int w, int h)
 	else if (type == BOTSTAIR || type ==TOPSTAIR) return new HiddenStair(type,x, y,w,h);//type,x,y,direction,isleft
 	else if (type == BREAKABLEBRICK_TYPE1 || type == BREAKABLEBRICK_TYPE2) return new BreakableBrick(type, x, y, w, h);
 	else if (type == DOOR_TYPE) return new Door(type, x, y);
+	else if (type == 1000) return new Boss(type, x, y);
 	return NULL;
 }
  
