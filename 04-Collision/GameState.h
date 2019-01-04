@@ -35,7 +35,7 @@ public:
 	 void Render();
 	void CheckCollideWithCheckPoint(Simon *simon, CheckPoint *checkpoint);
 	virtual void KillAll();
-	
-
+	void LoadTextSprite(LPGAMEOBJECT obj,int textureID,int tineAniFrame=100);
+	void CheckClearAllObj();
 
 };

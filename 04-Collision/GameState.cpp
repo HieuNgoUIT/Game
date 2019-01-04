@@ -16,21 +16,17 @@ void GameState::LoadResources(char* Ftexture, char* Fgrid, char* Fb, char* Fs, i
 {
 
 	Textures * textures = Textures::GetInstance();
-	textures->LoadTexture(Ftexture); //"Resource\\sprites\\Grid\\textures.txt"
+	textures->LoadTexture(Ftexture); 
 
 	simon = Simon::GetInstance();
 	simon->SetPosition(SIMON_POSITION_DEFAULT);
-	simon->_texture = textures->Get(1);
-	simon->_sprite = new Sprite(textures->Get(1), 150);
-	simon->whip->_sprite = new Sprite(textures->Get(2), 100);
-	simon->whip->_texture = textures->Get(2);
-	simon->isStage1 = true;
+
+	LoadTextSprite(simon, 1, 150);
+	LoadTextSprite(simon->whip, 2);
+	
 
 	grid = new Grid();
-	grid->ReadFileToGrid(Fgrid); //"Resource\\sprites\\Grid\\lv1.txt"
-
-
-
+	grid->ReadFileToGrid(Fgrid); 
 
 	ui = new UI();
 	ui->Initialize(simon, NULL);
@@ -39,18 +35,15 @@ void GameState::LoadResources(char* Ftexture, char* Fgrid, char* Fb, char* Fs, i
 	listobj = grid->getListObject();
 	for (int i = 0; i < listobj.size(); i++)
 	{
-		listobj.at(i)->_texture = textures->Get(listobj.at(i)->texId);
-		
-		listobj.at(i)->deadffect->_sprite = new Sprite(textures->Get(-1), 50);
-		listobj.at(i)->hiteffect->_sprite = new Sprite(textures->Get(-2), 1000);
-		if (dynamic_cast<Door *>(listobj[i]))
+		if (dynamic_cast<Door *>(listobj[i])) 
 		{
-			listobj.at(i)->_sprite = new Sprite(textures->Get(listobj.at(i)->texId), 1500);
+			LoadTextSprite(listobj.at(i), listobj.at(i)->texId, 1500);
 		}
 		else
 		{
-			listobj.at(i)->_sprite = new Sprite(textures->Get(listobj.at(i)->texId), 100);
-		}
+			LoadTextSprite(listobj.at(i), listobj.at(i)->texId);
+		}	
+		
 	}
 
 	camera = new Camera(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -58,12 +51,10 @@ void GameState::LoadResources(char* Ftexture, char* Fgrid, char* Fb, char* Fs, i
 
 	tilemap = new TileMap();
 	tilemap->LoadMap(Fb, Fs, Frow, Fcol, Ftotal, Frowmaxtrix, Fcolmatrix);
-	// "Resource/sprites/Grid/lv1.b", "Resource/sprites/Grid/lv1.s", 9, 4, 36, 6, 24
-
+	//file .b .s , cot dong cho texture, cot dong trong ma tran
 
 	checkpoint = new CheckPoint();
 	checkpoint->SetPosition(1366, 365);
-
 
 	if (!Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
 		Sound::GetInstance()->PlayLoop(STAGE_01_VAMPIRE_KILLER);
@@ -79,8 +70,6 @@ void GameState::Update(DWORD dt)
 	}
 
 	
-
-
 #pragma region Camera
 
 	if (simon->isCollideDor)
@@ -122,11 +111,9 @@ void GameState::Update(DWORD dt)
 		if (dynamic_cast<Candle *>(objects.at(i)) || dynamic_cast<LargeCandle *>(objects.at(i)))
 		{
 			if (objects[i]->dropItem == true)
-			{
-				Textures * textures = Textures::GetInstance();
+			{		
 				item = new Item(objects[i]->itemNumber, objects[i]->x, objects[i]->y);
-				item->_sprite = new Sprite(textures->Get(objects[i]->itemNumber), 100);
-				item->_texture = textures->Get(objects[i]->itemNumber);
+				LoadTextSprite(item, objects[i]->itemNumber);
 				items.push_back(item);
 			}
 			else
@@ -141,7 +128,7 @@ void GameState::Update(DWORD dt)
 			Merman *mm = dynamic_cast<Merman *>(objects[i]);
 			coObjects.push_back(mm);
 			coObjects.push_back(mm->fireball);
-			objects.push_back(mm->fireball);
+			objects.push_back(mm->fireball); //cho update
 		}
 		else
 		{
@@ -149,7 +136,6 @@ void GameState::Update(DWORD dt)
 		}
 	}
 
-	
 	if (!simon->isStopwatch)
 	{
 		for (int i = 0; i < objects.size(); i++)
@@ -181,25 +167,14 @@ void GameState::Update(DWORD dt)
 		simon->isStopwatch = false;
 	}
 
-
-	if (simon->isRosary)
-	{
-		for (int i = 0; i < objects.size(); i++)
-			if (objects[i]->tag == ENEMY_TAG)
-			{
-				objects[i]->health -= 10;
-			}
-
-		simon->isRosary = false;
-	}
-
-
 	for (int i = 0; i < items.size(); i++)
 	{
 		items[i]->Update(dt, NULL, &coObjects);
 	}
+	
+	CheckClearAllObj();
+	
 	simon->Update(dt, &coObjects, &items);
-
 
 	CheckCollideWithCheckPoint(simon, checkpoint);
 	ui->Update(1000 - mapTime, 3, 1, bossHP);
@@ -255,4 +230,30 @@ void GameState::CheckCollideWithCheckPoint(Simon * simon, CheckPoint * checkpoin
 void GameState::KillAll()
 {
 
+}
+
+void GameState::LoadTextSprite(LPGAMEOBJECT obj, int textureID, int tineAniFrame )
+{
+	Textures * textures = Textures::GetInstance();
+	Texture *txtemp= textures->Get(textureID);
+
+	obj->_texture = txtemp;
+	obj->_sprite= new Sprite(txtemp, tineAniFrame);
+
+	obj->deadffect->_sprite = new Sprite(textures->Get(-1), 50);
+	obj->hiteffect->_sprite = new Sprite(textures->Get(-2), 1000);
+}
+
+void GameState::CheckClearAllObj()
+{
+	if (simon->isRosary)
+	{
+		for (int i = 0; i < objects.size(); i++)
+			if (objects[i]->tag == ENEMY_TAG)
+			{
+				objects[i]->health -= 10;
+			}
+
+		simon->isRosary = false;
+	}
 }

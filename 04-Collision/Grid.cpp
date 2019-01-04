@@ -61,39 +61,6 @@ void Grid::GetListObject(vector<CGameObject*>& ListObj, Camera * camera)
 			}
 		}
 }
-//
-//void Grid::GetListObject(vector<CGameObject*> &ListObj, CGameObject * obj)
-//{
-//	ListObj.clear(); // clear list
-//	ResetTake();
-//
-//	int rowBottom = floor((obj->y + obj->GetHeight()) / (float)GRID_CELL_HEIGHT);
-//	int rowTop = floor((obj->y) / (float)GRID_CELL_HEIGHT);
-//
-//	int colLeft = floor((obj->x) / (float)GRID_CELL_WIDTH);
-//	int colRight = floor((obj->x + obj->GetWidth()) / (float)GRID_CELL_WIDTH);
-//
-//
-//	for (int row = rowTop; row <= rowBottom; row++)
-//		for (int col = colLeft; col <= colRight; col++)
-//		{
-//			for (int i = 0; i < cells[row + GRID_BASE][col + GRID_BASE].size(); i++)
-//			{
-//				if (cells[row + GRID_BASE][col + GRID_BASE].at(i)->GetHealth() > 0) // còn tồn tại
-//				{
-//					if (cells[row + GRID_BASE][col + GRID_BASE].at(i)->isTake == false)
-//					{
-//						ListObj.push_back(cells[row + GRID_BASE][col + GRID_BASE].at(i));
-//						cells[row + GRID_BASE][col + GRID_BASE].at(i)->isTake = true;
-//					}
-//				}
-//			}
-//		}
-//}
-
- 
- 
-
 void Grid::ResetTake()
 {
 	for (int i = 0; i < listObject.size(); i++)

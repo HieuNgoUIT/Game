@@ -18,8 +18,6 @@ bool UI::Initialize(Simon *simon, Boss *boss)
 	this->boss = boss;
 	this->simon = simon;
 
-
-
 	tBlack = new Texture("Resource\\sprites\\UI\\black.png", 1, 1, 1);
 	black = new Sprite(tBlack, 100);
 

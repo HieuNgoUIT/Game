@@ -16,7 +16,7 @@ Brick::Brick(int TYPE,int X, int Y, int W, int H)
 		type = BRICK_TYPE2;
 	}
 	_sprite = new Sprite(_texture, 1000);*/
-	type = BRICK_TYPE1;
+//	type = BRICK_TYPE1;
 	this->x = X;
 	this->y = Y;
 	this->width = W;
@@ -26,7 +26,7 @@ Brick::Brick(int TYPE,int X, int Y, int W, int H)
 
 void Brick::Render(Camera *camera)
 {
-	if (type == BRICK_TYPE1)
+	if (texId == BRICK_TYPE1)
 	{
 		D3DXVECTOR2 pos = camera->Transform(x, y);
 		for (int i = 0; i < (int)ceil(width / BRICK_FRAME_WIDTH); i++)
