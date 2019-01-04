@@ -1,5 +1,4 @@
-#ifndef __CAMERA_H__
-#define __CAMERA_H__
+#pragma once
 #include <d3d9.h>
 #include <d3dx9.h>
 
@@ -37,7 +36,7 @@ public:
 	
 };
 
-#endif
+
 
 
 

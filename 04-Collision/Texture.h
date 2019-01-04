@@ -1,6 +1,4 @@
-#ifndef __CTEXTURE_H__
-#define __CTEXTURE_H__
-
+#pragma once
 #include <d3d9.h>
 #include <d3dx9.h>
 #include "Game.h"
@@ -32,4 +30,3 @@ protected:
 };
 
 
-#endif

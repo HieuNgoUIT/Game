@@ -1,16 +1,14 @@
-﻿#ifndef __SIMON_H__
-#define __SIMON_H__
-
+﻿#pragma once
 
 #define SIMON_POSITION_DEFAULT  50.0f, 101
 
 
-#define SIMON_GRAVITY 0.005f
-#define SIMON_VJUMP 0.9f
+
 
 #define SIMON_WALKING_SPEED 0.2f //0.12f 
 
-
+#define SIMON_GRAVITY 0.005f
+#define SIMON_VJUMP 0.9f
 
 
 #define SIMON_STATE_IDLE 0
@@ -119,12 +117,13 @@ public:
 	void Render(Camera *camera);
 	void RenderBoundingBox(Camera *camera);
 
-	void Left();
-	void Right();
+
 	void Go();
 	void Sit();
 	void Jump();
 	void AutoMove();
+	void Left();
+	void Right();	
 	void Stop();
 	void Attack();
 	void ThrowSubWp();
@@ -143,4 +142,3 @@ public:
 
 
 
-#endif

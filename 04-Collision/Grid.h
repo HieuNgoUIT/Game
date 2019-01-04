@@ -1,5 +1,4 @@
-﻿#ifndef __GRID_H__
-#define	__GRID_H__
+﻿#pragma once
 
 #include <vector>
 #include <stdlib.h>
@@ -54,4 +53,3 @@ public:
 	~Grid();
 };
 
-#endif

@@ -1,5 +1,4 @@
-#ifndef __BRICK_H__
-#define __BRICK_H__
+#pragma once
 
 #define BRICK_FRAME_WIDTH 32
 #define BRICK_FRAME_HEIGHT 32
@@ -19,5 +18,3 @@ public:
 	
 };
 
-
-#endif

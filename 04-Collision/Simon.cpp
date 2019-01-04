@@ -37,10 +37,10 @@ Simon::~Simon()
 
 void Simon::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	if (isSitting == true) // simon đang ngồi
+	if (isSitting == true) 
 	{
 		left = x + 12;
-		top = y - 1; // không chỉnh lại y bởi vì hàm Sit() đã điều chỉnh
+		top = y - 1; 
 		right = x + _texture->FrameHeight;
 		bottom = y + _texture->FrameHeight - 21;
 	}
@@ -213,7 +213,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 		beingHit = 0;
 	}
 
-	/* Update về sprite */
+	
 #pragma region Sprite update
 	
 
@@ -712,7 +712,7 @@ void Simon::Left()
 
 void Simon::Right()
 {
-	direction = 1; // quay qua phải
+	direction = 1; 
 	whip->direction = 1;
 }
 
@@ -728,8 +728,8 @@ void Simon::Sit()
 	vx = 0;
 	isWalking = 0;
 
-	if (isSitting == false) // nếu trước đó simon chưa ngồi
-		y = y + 16; // kéo simon xuống
+	if (isSitting == false) 
+		y = y + 16; 
 
 	isSitting = 1;
 }
@@ -758,14 +758,14 @@ void Simon::Stop()
 		vx = 0;
 	if (direction == -1 && vx > 0)*/
 	vx = 0;
-	// tóm lại là vx = 0 :v
+	
 
 
 	isWalking = 0;
-	if (isSitting == true) // nếu simon đang ngồi
+	if (isSitting == true) 
 	{
-		isSitting = 0; // hủy trạng thái ngồi
-		y = y - 18; // kéo simon lên
+		isSitting = 0; 
+		y = y - 18; 
 	}
 
 }
@@ -780,7 +780,7 @@ void Simon::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 
 	coEvents.clear();
 
-	CalcPotentialCollisions(coObjects, coEvents); // Lấy danh sách các va chạm
+	CalcPotentialCollisions(coObjects, coEvents); 
 
 	//if (isOnStair)
 	//{
@@ -1038,12 +1038,12 @@ bool Simon::isCollisionWithCheckPoint(LPGAMEOBJECT checkPoint)
 
 void Simon::Attack()
 {
-	if (isAttacking == true) // đang tấn công thì thôi
+	if (isAttacking == true) 
 		return;
 
 	isAttacking = true;
 	Sound::GetInstance()->Play(USING_WHIP);
-	whip->Create(this->x, this->y, this->direction); // set vị trí weapon theo simon
+	whip->Create(this->x, this->y, this->direction); 
 }
 
 void Simon::ThrowSubWp()
