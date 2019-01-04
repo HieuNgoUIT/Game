@@ -6,7 +6,10 @@ Textures::Textures()
 void Textures::Add(int id, char* filePath, int cols, int rows, int count)
 {
 	Texture *_texture = new Texture(filePath, cols, rows, count);
-	textures[id] = _texture;
+	if (textures[id] == NULL)
+	{ 
+		textures[id] = _texture;
+	}
 }
 
 Texture * Textures::Get(int id)

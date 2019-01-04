@@ -62,17 +62,18 @@ CSampleKeyHander * keyHandler;
 
 void CSampleKeyHander::OnKeyDown(int KeyCode)
 {
-	
+
 	if (gamestate->simon->beingHit) return;
 
 	if (KeyCode == DIK_ESCAPE)
 		DestroyWindow(hWnd); // thoát
 
 	if (KeyCode == DIK_Q)
-		gamestate->simon->SetPosition(3000,100);
+		gamestate->simon->SetPosition(3000, 100);
 	if (KeyCode == DIK_M)
 	{
 		gamestate->isChangingState = true;
+		gamestate->id++;
 	}
 	if (KeyCode == DIK_SPACE)
 	{
@@ -149,7 +150,7 @@ void CSampleKeyHander::KeyState(BYTE *states)
 				}
 		}
 	}
-	
+
 
 }
 
@@ -213,7 +214,28 @@ HWND CreateGameWindow(HINSTANCE hInstance, int nCmdShow, int ScreenWidth, int Sc
 
 	return hWnd;
 }
-
+void ChangeState(int id)
+{
+	switch (id)
+	{
+	case 1:
+		gamestate->LoadResources("Resource\\sprites\\Grid\\textures1.txt",
+			"Resource\\sprites\\Grid\\lv1.txt",
+			"Resource/sprites/Grid/lv1.b",
+			"Resource/sprites/Grid/lv1.s", 9, 4, 36, 6, 24);
+		break;
+	case 2:
+		gamestate->LoadResources("Resource\\sprites\\Grid\\textures2.txt",
+			"Resource\\sprites\\Grid\\lv2.txt",
+			"Resource/sprites/Grid/lv2.b",
+			"Resource/sprites/Grid/lv2.s", 34, 4, 136, 14, 90);
+		gamestate->camera->SetBorder(LBORDER_2, RBORDER_2);
+		gamestate->isChangingState = false;
+		break;
+	default:
+		break;
+	}
+}
 int Run()
 {
 	MSG msg;
@@ -241,12 +263,9 @@ int Run()
 		{
 			frameStart = now;
 
-			if (gamestate->id == 2)
+			if (gamestate->isChangingState)
 			{
-				gamestate->LoadResources("Resource\\sprites\\Grid\\textures2.txt", "Resource\\sprites\\Grid\\lv2.txt", "Resource/sprites/Grid/lv2.b", "Resource/sprites/Grid/lv2.s", 34, 4, 136, 14, 90);
-				gamestate->id++;
-				gamestate->camera->SetBorder(60, 2500);
-				
+				ChangeState(gamestate->id);
 			}
 			gamestate->game->ProcessKeyboard();
 
@@ -267,36 +286,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 {
 	gamestate = new GameState();
 	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
-	
-
 
 	gamestate->game->Init(hWnd);
 	Sound::GetInstance()->loadSound(hWnd);
-	
+
 
 	keyHandler = new CSampleKeyHander();
 	gamestate->game->InitKeyboard(keyHandler);
 
-
-
-
 	gamestate->id = 1;
+	ChangeState(gamestate->id);
 
-	if (gamestate->id == 1)
-	{
-		gamestate->LoadResources("Resource\\sprites\\Grid\\textures1.txt", 
-			"Resource\\sprites\\Grid\\lv1.txt", 
-			"Resource/sprites/Grid/lv1.b", 
-			"Resource/sprites/Grid/lv1.s", 9, 4, 36, 6, 24);
-	}
-	else
-	{
-		gamestate->LoadResources("Resource\\sprites\\Grid\\textures2.txt", 
-			"Resource\\sprites\\Grid\\lv2.txt", 
-			"Resource/sprites/Grid/lv2.b", 
-			"Resource/sprites/Grid/lv2.s", 34, 4, 136,14, 90);
-	}
-	
 
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
@@ -305,3 +305,4 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	return 0;
 }
+

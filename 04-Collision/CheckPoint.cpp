@@ -1,11 +1,14 @@
 #include "CheckPoint.h"
 
-CheckPoint::CheckPoint()
+CheckPoint::CheckPoint(int TYPE,int X,int Y)
 {
-	_texture = new Texture("Resource\\sprites\\Ground\\NULL.png",1, 1,1);
-	_sprite = new Sprite(_texture, 100);
-	//x = X;
-	//y = Y;
+	//_texture = new Texture("Resource\\sprites\\Ground\\NULL.png",1, 1,1);
+	//_sprite = new Sprite(_texture, 100);
+	x = X;
+	y = Y;
+	texId = TYPE;
+	tag = TYPE;
+	
 }
 
 CheckPoint::~CheckPoint()

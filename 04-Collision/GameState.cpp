@@ -16,17 +16,17 @@ void GameState::LoadResources(char* Ftexture, char* Fgrid, char* Fb, char* Fs, i
 {
 
 	Textures * textures = Textures::GetInstance();
-	textures->LoadTexture(Ftexture); 
+	textures->LoadTexture(Ftexture);
 
 	simon = Simon::GetInstance();
 	simon->SetPosition(SIMON_POSITION_DEFAULT);
 
 	LoadTextSprite(simon, 1, 150);
 	LoadTextSprite(simon->whip, 2);
-	
+
 
 	grid = new Grid();
-	grid->ReadFileToGrid(Fgrid); 
+	grid->ReadFileToGrid(Fgrid);
 
 	ui = new UI();
 	ui->Initialize(simon, NULL);
@@ -35,15 +35,15 @@ void GameState::LoadResources(char* Ftexture, char* Fgrid, char* Fb, char* Fs, i
 	listobj = grid->getListObject();
 	for (int i = 0; i < listobj.size(); i++)
 	{
-		if (dynamic_cast<Door *>(listobj[i])) 
+		if (dynamic_cast<Door *>(listobj[i]))
 		{
 			LoadTextSprite(listobj.at(i), listobj.at(i)->texId, 1500);
 		}
 		else
 		{
 			LoadTextSprite(listobj.at(i), listobj.at(i)->texId);
-		}	
-		
+		}
+
 	}
 
 	camera = new Camera(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -52,9 +52,6 @@ void GameState::LoadResources(char* Ftexture, char* Fgrid, char* Fb, char* Fs, i
 	tilemap = new TileMap();
 	tilemap->LoadMap(Fb, Fs, Frow, Fcol, Ftotal, Frowmaxtrix, Fcolmatrix);
 	//file .b .s , cot dong cho texture, cot dong trong ma tran
-
-	checkpoint = new CheckPoint();
-	checkpoint->SetPosition(1366, 365);
 
 	if (!Sound::GetInstance()->IsPLaying(STAGE_01_VAMPIRE_KILLER))
 		Sound::GetInstance()->PlayLoop(STAGE_01_VAMPIRE_KILLER);
@@ -69,7 +66,7 @@ void GameState::Update(DWORD dt)
 		mapSecond = 0;
 	}
 
-	
+
 #pragma region Camera
 
 	if (simon->isCollideDor)
@@ -97,7 +94,7 @@ void GameState::Update(DWORD dt)
 	if (simon->x > xBOSS)
 	{
 		simon->isFightingBoss = true;
- 		camera->SetBorder(RBORDER_2, RBORDER_2); // cuoi cung boss nen trung voi bien cuoi
+		camera->SetBorder(RBORDER_2, RBORDER_2); // cuoi cung boss nen trung voi bien cuoi
 	}
 
 #pragma endregion
@@ -111,7 +108,7 @@ void GameState::Update(DWORD dt)
 		if (dynamic_cast<Candle *>(objects.at(i)) || dynamic_cast<LargeCandle *>(objects.at(i)))
 		{
 			if (objects[i]->dropItem == true)
-			{		
+			{
 				item = new Item(objects[i]->itemNumber, objects[i]->x, objects[i]->y);
 				LoadTextSprite(item, objects[i]->itemNumber);
 				items.push_back(item);
@@ -138,6 +135,7 @@ void GameState::Update(DWORD dt)
 
 	if (!simon->isStopwatch)
 	{
+		//update bth
 		for (int i = 0; i < objects.size(); i++)
 		{
 
@@ -160,6 +158,14 @@ void GameState::Update(DWORD dt)
 	}
 	else
 	{
+		for (int i = 0; i < objects.size(); i++)
+		{
+			if (objects[i]->tag != ENEMY_TAG)
+			{
+				objects[i]->Update(dt, simon->x, &coObjects);
+			}
+
+		}
 		WatchTime--;
 	}
 	if (WatchTime < 0)
@@ -171,14 +177,15 @@ void GameState::Update(DWORD dt)
 	{
 		items[i]->Update(dt, NULL, &coObjects);
 	}
-	
+
 	CheckClearAllObj();
-	
+
 	simon->Update(dt, &coObjects, &items);
 
-	CheckCollideWithCheckPoint(simon, checkpoint);
+	CheckCollideWithCheckPoint(simon);
+
 	ui->Update(1000 - mapTime, 3, 1, bossHP);
-	
+
 }
 
 void GameState::Render()
@@ -202,11 +209,8 @@ void GameState::Render()
 		for (int i = 0; i < items.size(); i++)
 			items[i]->Render(camera);
 		simon->Render(camera);
-		if (boss != NULL)
-		{
-			boss->Render(camera);
-		}
-		checkpoint->Render(camera);
+
+
 		spriteHandler->End();
 		d3ddv->EndScene();
 	}
@@ -215,30 +219,22 @@ void GameState::Render()
 	d3ddv->Present(NULL, NULL, NULL, NULL);
 }
 
-void GameState::CheckCollideWithCheckPoint(Simon * simon, CheckPoint * checkpoint)
+void GameState::CheckCollideWithCheckPoint(Simon * simon)
 {
-	if (simon->isCollisionWithCheckPoint(checkpoint))
+	if (simon->isCollideCheckPoint)
 	{
-		if (game->IsKeyDown(DIK_UP))
-		{
-			this->id++;
-		}
-
+		this->isChangingState = true;
+		this->id++;
 	}
 }
 
-void GameState::KillAll()
-{
-
-}
-
-void GameState::LoadTextSprite(LPGAMEOBJECT obj, int textureID, int tineAniFrame )
+void GameState::LoadTextSprite(LPGAMEOBJECT obj, int textureID, int tineAniFrame)
 {
 	Textures * textures = Textures::GetInstance();
-	Texture *txtemp= textures->Get(textureID);
+	Texture *txtemp = textures->Get(textureID);
 
 	obj->_texture = txtemp;
-	obj->_sprite= new Sprite(txtemp, tineAniFrame);
+	obj->_sprite = new Sprite(txtemp, tineAniFrame);
 
 	obj->deadffect->_sprite = new Sprite(textures->Get(-1), 50);
 	obj->hiteffect->_sprite = new Sprite(textures->Get(-2), 1000);

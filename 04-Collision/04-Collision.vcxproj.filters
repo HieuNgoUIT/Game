@@ -93,16 +93,7 @@
     <ClInclude Include="UI.h">
       <Filter>Map</Filter>
     </ClInclude>
-    <ClInclude Include="GameStateOne.h">
-      <Filter>States</Filter>
-    </ClInclude>
     <ClInclude Include="GameState.h">
-      <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="GameStateTwo.h">
-      <Filter>States</Filter>
-    </ClInclude>
-    <ClInclude Include="GameStateManager.h">
       <Filter>States</Filter>
     </ClInclude>
     <ClInclude Include="CheckPoint.h">
@@ -227,16 +218,7 @@
     <ClCompile Include="UI.cpp">
       <Filter>Map</Filter>
     </ClCompile>
-    <ClCompile Include="GameStateOne.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
     <ClCompile Include="GameState.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
-    <ClCompile Include="GameStateTwo.cpp">
-      <Filter>States</Filter>
-    </ClCompile>
-    <ClCompile Include="GameStateManager.cpp">
       <Filter>States</Filter>
     </ClCompile>
     <ClCompile Include="CheckPoint.cpp">

@@ -5,7 +5,7 @@ Resource\sprites\Weapons\whip1.png 4 3 12 2
 
 Resource\sprites\Ground\0.png 2 1 2 10
 Resource\sprites\Ground\2.png 1 1 1 12
-
+Resource\sprites\Ground\NULL.png 1 1 1 21
 
 Resource\sprites\Items\BIG_HEART.png 1 1 1 100
 Resource\sprites\Items\MORNING_STAR.png 1 1 1 107

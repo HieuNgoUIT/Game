@@ -86,11 +86,6 @@ public:
 
 	bool isFightingBoss;
 
-	bool isStage1;
-	bool isStage2;//canh dau
-	bool isStage21;//after 1 dooor
-	bool isStage22;//after 2 door
-
 	bool isRosary;
 	bool isStopwatch;
 
@@ -100,8 +95,8 @@ public:
 	bool isrenderRosary;
 
 	bool isCollideDor;
-	//bool isDoneCameraStair;
-	
+	bool isCollideCheckPoint;
+
 	int useableHeart = 5;
 	int scores;
 	int life = 3;
@@ -110,7 +105,6 @@ public:
 	Whip* whip;
 	SubWeapon *subwp;
 
-public:
 	Simon();
 	~Simon();
 
@@ -123,31 +117,31 @@ public:
 	void StartBeingHit() { beingHit = 1; beingHit_start = GetTickCount(); }
 	void CollisionWithItem(vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float &left, float &top, float &right, float &bottom);
-	void ResetLife();
-	void CheckBoundaries(int left,int right);
+	/*void ResetLife();*/
+	void CheckBoundaries(int left, int right);
 
 	void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL, vector<LPGAMEOBJECT>* coItems = NULL);
-	
+
 	void  CollisionWithStair(vector<LPGAMEOBJECT>* coObjects);
 	void Render(Camera *camera);
 	void RenderBoundingBox(Camera *camera);
 
-	void Left(); 
-	void Right(); 
+	void Left();
+	void Right();
 	void Go();
 	void Sit();
 	void Jump();
 	void AutoMove();
-
 	void Stop();
+	void Attack();
+	void ThrowSubWp();
 
 	void CollisionWithBrick(vector<LPGAMEOBJECT> *coObjects = NULL);
 	void CollisionWithEnemy(vector<LPGAMEOBJECT> *coObjects = NULL);
 	void CollisionWithDoor(vector<LPGAMEOBJECT> *coObjects = NULL);
-	bool isCollisionWithCheckPoint(CheckPoint *checkpoint);
+	bool isCollisionWithCheckPoint(LPGAMEOBJECT checkpoint);
 
-	void Attack();
-	void ThrowSubWp();
+	
 
 };
 

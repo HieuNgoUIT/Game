@@ -72,33 +72,33 @@ void Simon::GetBoundingBox(float & left, float & top, float & right, float & bot
 	}
 
 }
-
-void Simon::ResetLife()
-{
-	if (health < 0)
-	{
-		if (isStage2)
-		{
-
-			this->SetPosition(50, 100);
-		}
-		else if (isStage21)
-		{
-
-			this->SetPosition(3000, 100);
-		}
-		else if (isStage22)
-		{
-
-			this->isFightingBoss = false;
-			this->SetPosition(4301, 100);
-		}
-
-		health = 80;
-		untouchable = 0;
-		life--;
-	}
-}
+//
+//void Simon::ResetLife()
+//{
+//	if (health < 0)
+//	{
+//		if (isStage2)
+//		{
+//
+//			this->SetPosition(50, 100);
+//		}
+//		else if (isStage21)
+//		{
+//
+//			this->SetPosition(3000, 100);
+//		}
+//		else if (isStage22)
+//		{
+//
+//			this->isFightingBoss = false;
+//			this->SetPosition(4301, 100);
+//		}
+//
+//		health = 80;
+//		untouchable = 0;
+//		life--;
+//	}
+//}
 
 void Simon::CheckBoundaries(int left, int right)
 {
@@ -240,7 +240,7 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJECT>* coItems)
 {
 	CGame *game = CGame::GetInstance();
-	if (x > 5500) isFightingBoss = true;
+	
 
 	if (GetTickCount() - untouchable_start > 5000)
 	{
@@ -580,7 +580,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 
 
 
-	ResetLife();
+	/*ResetLife();*/
 
 	vector<LPGAMEOBJECT> coObjects_Brick;
 	coObjects_Brick.clear();
@@ -590,6 +590,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 	coObjects_Zombie.clear();
 	vector<LPGAMEOBJECT> coObjects_Door;
 	coObjects_Door.clear();
+	LPGAMEOBJECT checkpoint=NULL;
 
 	for (int i = 0; i < coObjects->size(); i++)
 	{
@@ -601,6 +602,8 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 			coObjects_Zombie.push_back(coObjects->at(i));
 		if (coObjects->at(i)->GetTag() == DOOR_TYPE)
 			coObjects_Door.push_back(coObjects->at(i));
+		if (coObjects->at(i)->GetTag() == 21)
+			checkpoint = coObjects->at(i);
 	}
 
 	CollisionWithEnemy(&coObjects_Zombie);
@@ -608,7 +611,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 	CollisionWithStair(&coObjects_HiddenStair);
 	CollisionWithDoor(&coObjects_Door);
 	CollisionWithItem(coItems);
-
+	isCollisionWithCheckPoint(checkpoint);
 
 }
 
@@ -1052,16 +1055,27 @@ void Simon::CollisionWithDoor(vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-bool Simon::isCollisionWithCheckPoint(CheckPoint* checkPoint)
+bool Simon::isCollisionWithCheckPoint(LPGAMEOBJECT checkPoint)
 {
-	//for (int i = 0; i < coObjects->size(); i++) //aabb item
-	//{
-	if (isColliding(this, checkPoint))
+	if (checkPoint != NULL)
 	{
-		return true;
+		CGame *game = CGame::GetInstance();
+		if (isColliding(this, checkPoint))
+		{
+			if (game->IsKeyDown(DIK_UP))
+			{
+				isCollideCheckPoint = true;
+			}
+			else
+			{
+				isCollideCheckPoint = false;
+			}
+
+		}
+		return isCollideCheckPoint;
 	}
-	//}
-	return false;
+	
+	
 
 
 }

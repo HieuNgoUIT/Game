@@ -18,6 +18,8 @@ void DebugOut(wchar_t *fmt, ...);
 
 #define LBORDER_1 0
 #define RBORDER_1 850
+#define LBORDER_2 60
+#define RBORDER_2 2500
 #define LBOSSBORDER 4154
 #define RBORDER_2 5069
 #define yWATER 500
