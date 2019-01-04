@@ -5,23 +5,11 @@ Brick::Brick(int TYPE,int X, int Y, int W, int H)
 {
 	tag = BRICK_TAG;
 	texId = TYPE;
-	/*if (TYPE == BRICK_TYPE1)
-	{
-		_texture = new Texture("Resource\\sprites\\Ground\\2.png", 1, 1, 1);
-		type = BRICK_TYPE1;
-	}
-	else
-	{
-		_texture = new Texture("Resource\\sprites\\Ground\\brick.png", 1, 1, 1);
-		type = BRICK_TYPE2;
-	}
-	_sprite = new Sprite(_texture, 1000);*/
-//	type = BRICK_TYPE1;
 	this->x = X;
 	this->y = Y;
 	this->width = W;
 	this->height = H;
-	isDead = 0;
+	
 }
 
 void Brick::Render(Camera *camera)

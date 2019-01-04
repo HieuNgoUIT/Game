@@ -31,10 +31,5 @@ Resource\sprites\Enemies\MERMAN.png 3 1 3 502
 Resource\sprites\Enemies\BAT.png 4 1 4 503
 Resource\sprites\Bosses\VAMPIRE_BAT.png 3 1 3 1000
 
-Resource\sprites\simon.png 8 3 24 1
-Resource\sprites\Weapons\whip1.png 4 3 12 2
-Resource\sprites\Items\BIG_HEART.png 1 1 1 100
-Resource\sprites\Effect\DEAD.png 3 1 3 -1
-Resource\sprites\Effect\0.png 1 1 1 -2
 
 END

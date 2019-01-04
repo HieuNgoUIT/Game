@@ -37,7 +37,7 @@ class Grid
 private:
 	vector<CGameObject*> listObject;
 	vector<CGameObject*> cells[500][500];
-
+	Textures *textures;
 	void ResetTake();
  
 public:
@@ -46,8 +46,8 @@ public:
 	
 	vector<CGameObject*> getListObject();
 	void DeleteObjects();
-	void Insert(int id, int type,  float x, float y, float w, float h); 
-
+	void Insert( int type,  float x, float y, float w, float h); 
+	void LoadTextSprite(LPGAMEOBJECT obj, int textureID, int tineAniFrame = 100);
 	CGameObject * CreateObject(int type, int x, int y, int w, int h);
 
 	Grid();

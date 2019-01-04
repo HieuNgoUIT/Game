@@ -12,8 +12,8 @@ Simon * Simon::GetInstance()
 
 Simon::Simon()
 {
-//	_texture = new Texture("Resource\\sprites\\simon.png", 8, 3, 24);
-	//_sprite = new Sprite(_texture, 150);
+	_texture = new Texture("Resource\\sprites\\simon.png", 8, 3, 24);
+	_sprite = new Sprite(_texture, 150);
 	whip = new Whip(x, y);
 	subwp = new SubWeapon(/*x, y*/);
 	tag = 1;

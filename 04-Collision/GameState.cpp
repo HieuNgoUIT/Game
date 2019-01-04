@@ -15,36 +15,36 @@ GameState::~GameState()
 void GameState::LoadResources(char* Ftexture, char* Fgrid, char* Fb, char* Fs, int Frow, int Fcol, int Ftotal, int Frowmaxtrix, int Fcolmatrix)
 {
 
-	Textures * textures = Textures::GetInstance();
-	textures->LoadTexture(Ftexture);
+	/*Textures * textures = Textures::GetInstance();
+	textures->LoadTexture(Ftexture);*/
 
 	simon = Simon::GetInstance();
 	simon->SetPosition(SIMON_POSITION_DEFAULT);
 
-	LoadTextSprite(simon, 1, 150);
-	LoadTextSprite(simon->whip, 2);
-
-
 	grid = new Grid();
 	grid->ReadFileToGrid(Fgrid);
+	
 
 	ui = new UI();
 	ui->Initialize(simon, NULL);
 
-	vector<CGameObject*> listobj;
-	listobj = grid->getListObject();
-	for (int i = 0; i < listobj.size(); i++)
-	{
-		if (dynamic_cast<Door *>(listobj[i]))
-		{
-			LoadTextSprite(listobj.at(i), listobj.at(i)->texId, 1500);
-		}
-		else
-		{
-			LoadTextSprite(listobj.at(i), listobj.at(i)->texId);
-		}
+	//vector<CGameObject*> listobj;
+	//listobj = grid->getListObject();
+	//for (int i = 0; i < listobj.size(); i++)
+	//{
+	//	if (dynamic_cast<Door *>(listobj[i]))
+	//	{
+	//		LoadTextSprite(listobj.at(i), listobj.at(i)->texId, 1500);
+	//	}
+	//	else
+	//	{
+	//		LoadTextSprite(listobj.at(i), listobj.at(i)->texId);
+	//	}
 
-	}
+	//}
+
+
+	
 
 	camera = new Camera(SCREEN_WIDTH, SCREEN_HEIGHT);
 	camera->SetBorder(LBORDER_1, RBORDER_1);
@@ -110,7 +110,7 @@ void GameState::Update(DWORD dt)
 			if (objects[i]->dropItem == true)
 			{
 				item = new Item(objects[i]->itemNumber, objects[i]->x, objects[i]->y);
-				LoadTextSprite(item, objects[i]->itemNumber);
+				grid->LoadTextSprite(item, objects[i]->itemNumber);
 				items.push_back(item);
 			}
 			else
@@ -226,18 +226,6 @@ void GameState::CheckCollideWithCheckPoint(Simon * simon)
 		this->isChangingState = true;
 		this->id++;
 	}
-}
-
-void GameState::LoadTextSprite(LPGAMEOBJECT obj, int textureID, int tineAniFrame)
-{
-	Textures * textures = Textures::GetInstance();
-	Texture *txtemp = textures->Get(textureID);
-
-	obj->_texture = txtemp;
-	obj->_sprite = new Sprite(txtemp, tineAniFrame);
-
-	obj->deadffect->_sprite = new Sprite(textures->Get(-1), 50);
-	obj->hiteffect->_sprite = new Sprite(textures->Get(-2), 1000);
 }
 
 void GameState::CheckClearAllObj()

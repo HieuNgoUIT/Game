@@ -7,8 +7,8 @@ int Whip::GetScore()
 }
 Whip::Whip(int X, int Y)
 {
-//	_texture = new Texture("Resource\\sprites\\Weapons\\whip1.png", 4, 3, 12);
-	//_sprite = new Sprite(_texture, 100);
+	_texture = new Texture("Resource\\sprites\\Weapons\\whip1.png", 4, 3, 12);
+	_sprite = new Sprite(_texture, 100);
 	x = X;
 	y = Y;
 	tag = 2;
