@@ -64,7 +64,7 @@ void Boss::Update(DWORD dt, float simonx, float simony, bool isAllowtoDo, vector
 		else
 		{
 			isDead = true;
-			item->Update(dt, NULL, coObjects);
+			//item->Update(dt, NULL, coObjects);
 			deadffect->Update(dt);
 			if (Sound::GetInstance()->IsPLaying(BOSS_BATTLE_POISON_MIND))
 			{
@@ -98,7 +98,7 @@ void Boss::Render(Camera * camera)
 			deadffect->SetPosition(this->x , this->y);
 			deadffect->Render(camera);
 		}
-		item->Render(camera);
+		//item->Render(camera);
 
 	}
 

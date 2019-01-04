@@ -18,18 +18,12 @@ bool UI::Initialize(Simon *simon, Boss *boss)
 	this->boss = boss;
 	this->simon = simon;
 
-	tBlack = new Texture("Resource\\sprites\\UI\\black.png", 1, 1, 1);
-	black = new Sprite(tBlack, 100);
-
-
 	tredEdge = new Texture("Resource\\sprites\\UI\\redEdge.bmp", 1, 1, 1);
 	redEdge = new Sprite(tredEdge, 100);
 
 
 	tHeart = new Texture("Resource\\sprites\\UI\\Heart.png", 1, 1, 1);
 	heart = new Sprite(tHeart, 100);
-
-
 
 	tAxe = new Texture("Resource\\sprites\\UI\\AXE.png", 1, 1, 1);
 	axe = new Sprite(tAxe, 100);
@@ -132,8 +126,6 @@ void UI::Render()
 	if (font)
 		font->DrawTextA(NULL, information.c_str(), -1, &rect, DT_LEFT, D3DCOLOR_XRGB(255, 255, 255));
 
-
-
 	for (int i = 0; i <= simon->health; i += 5)
 	{
 		simonHPList->Draw(i * 2 + 130, 37);
@@ -153,22 +145,27 @@ void UI::Render()
 		noHPList->Draw(290 - i * 2, 60);
 	}
 
-
-
-	heart->Draw(420, 27);
+	heart->Draw(420, 33);
 	redEdge->Draw(320, 27);
-	if (simon->isrenderKnife)
+
+	if (dynamic_cast<Knife *>(simon->subwp))
 	{
 		knife->Draw(345, 45);
 	}
-	if (simon->isrenderAxe)
+	else if (dynamic_cast<Axe *>(simon->subwp))
 	{
 		axe->Draw(345, 45);
 	}
-	if (simon->isrenderHolyWater)
+	else if (dynamic_cast<HolyWater *>(simon->subwp))
 	{
 		holyWater->Draw(345, 45);
 	}
+	else if (dynamic_cast<Bmr *>(simon->subwp))
+	{
+		cross->Draw(345, 45);
+	}
+
+	
 
 
 }

@@ -19,7 +19,7 @@ void DebugOut(wchar_t *fmt, ...);
 #define LBORDER_1 0
 #define RBORDER_1 850
 #define LBORDER_2 60
-#define RBORDER_2 2500
+#define RFIRSTBORDER_2 2500
 #define LBOSSBORDER 4154
 #define RBORDER_2 5069
 #define yWATER 500
@@ -45,19 +45,6 @@ void DebugOut(wchar_t *fmt, ...);
 #define CROSS_TAG 116
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 #define BRICK_TYPE1 12
 #define BRICK_TYPE2 -12
 #define BREAKABLEBRICK_TYPE1 13
@@ -71,3 +58,6 @@ void DebugOut(wchar_t *fmt, ...);
 #define MERMAID_TYPE 502
 #define BAT_TYPE 503
 #define DOOR_TYPE 20
+#define CP_TYPE 21
+#define BOSS_TYPE 1000
+

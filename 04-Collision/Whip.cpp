@@ -73,16 +73,12 @@ void Whip::GetBoundingBox(float & left, float & top, float & right, float & bott
 			}
 		}
 	}
-	
-
-
 
 }
 
 void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	int index = _sprite->GetIndex();
-
 
 	if (typeOfWhip == 0)
 	{

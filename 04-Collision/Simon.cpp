@@ -72,33 +72,6 @@ void Simon::GetBoundingBox(float & left, float & top, float & right, float & bot
 	}
 
 }
-//
-//void Simon::ResetLife()
-//{
-//	if (health < 0)
-//	{
-//		if (isStage2)
-//		{
-//
-//			this->SetPosition(50, 100);
-//		}
-//		else if (isStage21)
-//		{
-//
-//			this->SetPosition(3000, 100);
-//		}
-//		else if (isStage22)
-//		{
-//
-//			this->isFightingBoss = false;
-//			this->SetPosition(4301, 100);
-//		}
-//
-//		health = 80;
-//		untouchable = 0;
-//		life--;
-//	}
-//}
 
 void Simon::CheckBoundaries(int left, int right)
 {
@@ -148,37 +121,24 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 			{
 				isSubwp = true;
 				subwp = new Knife(x, y);
-				isrenderKnife = true;
-				isrenderHolyWater = false;
-				isrenderAxe = false;
 
 			}
 			else if (coObjects->at(i)->tag == AXE_TAG)
 			{
 				isSubwp = true;
 				subwp = new Axe(x, y);
-				isrenderKnife = false;
-				isrenderHolyWater = false;
-				isrenderAxe = true;
 
 			}
 			else if (coObjects->at(i)->tag == HOLYWATER_TAG)
 			{
 				isSubwp = true;
 				subwp = new HolyWater(x, y);
-				isrenderKnife = false;
-				isrenderHolyWater = true;
-				isrenderAxe = false;
 
 			}
 			else if (coObjects->at(i)->tag == CROSS_TAG)
 			{
 				isSubwp = true;
 				subwp = new Bmr(x, y);
-				isrenderKnife = false;
-				isrenderHolyWater = false;
-				isrenderAxe = false;
-
 			}
 			else if (coObjects->at(i)->tag == ROSARY_TAG)
 			{
@@ -399,16 +359,12 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 	
 #pragma endregion
 
-
-
 	if (isAttacking == true)
 	{
 		if (whip->isFinish == false)
 		{
 
 			whip->SetPosition(this->x, this->y); //set pos cho bbox whip
-
-
 			whip->Update(dt, coObjects);
 
 		}
@@ -602,7 +558,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 			coObjects_Zombie.push_back(coObjects->at(i));
 		if (coObjects->at(i)->GetTag() == DOOR_TYPE)
 			coObjects_Door.push_back(coObjects->at(i));
-		if (coObjects->at(i)->GetTag() == 21)
+		if (coObjects->at(i)->GetTag() == CP_TYPE)
 			checkpoint = coObjects->at(i);
 	}
 

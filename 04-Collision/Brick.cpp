@@ -9,7 +9,6 @@ Brick::Brick(int TYPE,int X, int Y, int W, int H)
 	this->y = Y;
 	this->width = W;
 	this->height = H;
-	
 }
 
 void Brick::Render(Camera *camera)

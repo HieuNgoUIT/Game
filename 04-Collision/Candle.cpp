@@ -42,8 +42,6 @@ void Candle::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 	{
 		dropItem = 1;
 		isCreated = 1;
-		//isCreated = 1;
-		//item->isCreated = 1;
 	}
 }
 

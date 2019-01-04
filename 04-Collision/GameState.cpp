@@ -12,42 +12,25 @@ GameState::~GameState()
 {
 }
 
-void GameState::LoadResources(char* Ftexture, char* Fgrid, char* Fb, char* Fs, int Frow, int Fcol, int Ftotal, int Frowmaxtrix, int Fcolmatrix)
+void GameState::LoadResources( char* Fgrid, char* Fb, char* Fs, int Frow, int Fcol, int Ftotal, int Frowmaxtrix, int Fcolmatrix)
 {
+	simon->SetPosition(SIMON_POSITION_DEFAULT);
+	grid->ReadFileToGrid(Fgrid);
+	tilemap->LoadMap(Fb, Fs, Frow, Fcol, Ftotal, Frowmaxtrix, Fcolmatrix);
+}
 
-	/*Textures * textures = Textures::GetInstance();
-	textures->LoadTexture(Ftexture);*/
-
+void GameState::Init(char * Fgrid, char * Fb, char * Fs, int Frow, int Fcol, int Ftotal, int Frowmaxtrix, int Fcolmatrix)
+{
 	simon = Simon::GetInstance();
 	simon->SetPosition(SIMON_POSITION_DEFAULT);
 
 	grid = new Grid();
 	grid->ReadFileToGrid(Fgrid);
-	
 
 	ui = new UI();
 	ui->Initialize(simon, NULL);
 
-	//vector<CGameObject*> listobj;
-	//listobj = grid->getListObject();
-	//for (int i = 0; i < listobj.size(); i++)
-	//{
-	//	if (dynamic_cast<Door *>(listobj[i]))
-	//	{
-	//		LoadTextSprite(listobj.at(i), listobj.at(i)->texId, 1500);
-	//	}
-	//	else
-	//	{
-	//		LoadTextSprite(listobj.at(i), listobj.at(i)->texId);
-	//	}
-
-	//}
-
-
-	
-
 	camera = new Camera(SCREEN_WIDTH, SCREEN_HEIGHT);
-	camera->SetBorder(LBORDER_1, RBORDER_1);
 
 	tilemap = new TileMap();
 	tilemap->LoadMap(Fb, Fs, Frow, Fcol, Ftotal, Frowmaxtrix, Fcolmatrix);
@@ -181,10 +164,11 @@ void GameState::Update(DWORD dt)
 	CheckClearAllObj();
 
 	simon->Update(dt, &coObjects, &items);
-
+	ResetLife();
 	CheckCollideWithCheckPoint(simon);
 
 	ui->Update(1000 - mapTime, 3, 1, bossHP);
+	
 
 }
 
@@ -222,7 +206,7 @@ void GameState::Render()
 void GameState::CheckCollideWithCheckPoint(Simon * simon)
 {
 	if (simon->isCollideCheckPoint)
-	{
+	{	
 		this->isChangingState = true;
 		this->id++;
 	}
@@ -239,5 +223,17 @@ void GameState::CheckClearAllObj()
 			}
 
 		simon->isRosary = false;
+	}
+}
+
+void GameState::ResetLife()
+{
+	if (simon->health < 0)
+	{
+		simon->SetPosition(camera->_borderLeft + 60, 100);
+		simon->health = 80;
+		simon->life--;
+		simon->untouchable = 0;
+		simon->beingHit = 0;
 	}
 }

@@ -85,15 +85,8 @@ public:
 	bool isTopStair;
 
 	bool isFightingBoss;
-
 	bool isRosary;
 	bool isStopwatch;
-
-	bool isrenderKnife;
-	bool isrenderHolyWater;
-	bool isrenderAxe;
-	bool isrenderRosary;
-
 	bool isCollideDor;
 	bool isCollideCheckPoint;
 

@@ -38,14 +38,11 @@ class CGameObject
 public:
 	int texId;
 	int tag;
-	int id; // ID của object
 	int health;
 	float x; 
-	float y;
-	bool dropItem; //danh cho item
+	float y;	
 	float dx;	// dx = vx*dt
 	float dy;	// dy = vy*dt
-	int isCreated = 0; // danh cho item
 	float vx;
 	float vy;
 	bool isTake;//grid
@@ -53,7 +50,8 @@ public:
 	bool isDead;
 	bool isLeft;
 
-	
+	int isCreated = 0; // danh cho item
+	bool dropItem; //danh cho item
 	int itemNumber;
 
 	DWORD dt; 

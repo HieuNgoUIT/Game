@@ -30,10 +30,13 @@ public:
 	bool isChangingState;
 	GameState();
 	~GameState();
-	void LoadResources(char* Ftexture, char* Fgrid, char* Fb, char* Fs, int Frow, int Fcol, int Ftotal, int Frowmaxtrix, int Fcolmatrix);
+
+	void LoadResources(char* Fgrid, char* Fb, char* Fs, int Frow, int Fcol, int Ftotal, int Frowmaxtrix, int Fcolmatrix);
+	void Init(char* Fgrid, char* Fb, char* Fs, int Frow, int Fcol, int Ftotal, int Frowmaxtrix, int Fcolmatrix);
 	void Update(DWORD dt);
 	void Render();
 	void CheckCollideWithCheckPoint(Simon *simon);
 	void CheckClearAllObj();
+	void ResetLife();
 
 };

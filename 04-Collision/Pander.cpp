@@ -44,7 +44,7 @@ void Pander::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		if (simonx > startXpos - 200 && simonx < startXpos + SCREEN_WIDTH)
+		if (simonx > startXpos - 200)
 		{
 			allowToDo = true;
 		}

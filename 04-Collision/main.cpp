@@ -35,21 +35,10 @@
 #define MAX_FRAME_RATE 120
 
 
-
-
 HWND hWnd;
-
 
 GameState *gamestate;
 
-
-
-//Whip *whip;
-//Item *item;
-//Grid *grid;
-//UI *ui;
-//int mapSecond = 0;
-//int mapTime = 0;
 
 class CSampleKeyHander : public CKeyEventHandler
 {
@@ -219,18 +208,42 @@ void ChangeState(int id)
 	switch (id)
 	{
 	case 1:
-		gamestate->LoadResources("Resource\\sprites\\Grid\\textures1.txt",
+		gamestate->LoadResources(
 			"Resource\\sprites\\Grid\\lv1.txt",
 			"Resource/sprites/Grid/lv1.b",
 			"Resource/sprites/Grid/lv1.s", 9, 4, 36, 6, 24);
+		gamestate->camera->SetBorder(LBORDER_1, RBORDER_1);
+		gamestate->isChangingState = false;
 		break;
 	case 2:
-		gamestate->LoadResources("Resource\\sprites\\Grid\\textures2.txt",
+		gamestate->LoadResources(
 			"Resource\\sprites\\Grid\\lv2.txt",
 			"Resource/sprites/Grid/lv2.b",
 			"Resource/sprites/Grid/lv2.s", 34, 4, 136, 14, 90);
-		gamestate->camera->SetBorder(LBORDER_2, RBORDER_2);
+		gamestate->camera->SetBorder(LBORDER_2, RFIRSTBORDER_2);
 		gamestate->isChangingState = false;
+		break;
+	default:
+		break;
+	}
+}
+void InitState(int id)
+{
+	switch (id)
+	{
+	case 1:
+		gamestate->Init(
+			"Resource\\sprites\\Grid\\lv1.txt",
+			"Resource/sprites/Grid/lv1.b",
+			"Resource/sprites/Grid/lv1.s", 9, 4, 36, 6, 24);
+		gamestate->camera->SetBorder(LBORDER_1, RBORDER_1);
+		break;
+	case 2:
+		gamestate->Init(
+			"Resource\\sprites\\Grid\\lv2.txt",
+			"Resource/sprites/Grid/lv2.b",
+			"Resource/sprites/Grid/lv2.s", 34, 4, 136, 14, 90);
+		gamestate->camera->SetBorder(LBORDER_2, RFIRSTBORDER_2);
 		break;
 	default:
 		break;
@@ -294,10 +307,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	keyHandler = new CSampleKeyHander();
 	gamestate->game->InitKeyboard(keyHandler);
 
-	gamestate->id = 1;
-	ChangeState(gamestate->id);
-
-
+	InitState(1);
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 
