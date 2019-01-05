@@ -1,8 +1,8 @@
 ﻿#pragma once
-#include <d3d9.h>
-#include <d3dx9.h>
 #include "Camera.h"
 #include "Texture.h"
+#include <d3d9.h>
+#include <d3dx9.h>
 #include "Game.h"
 
 
@@ -11,17 +11,18 @@ public:
 	Texture * _texture;
 
 	int _start;
-	int _end;
-	int _index;
 	int _timeAni;
 	int _timeLocal;
+	int _end;
+	int _index;
+	
 	float width, height;
 	float GetWidth();
 	float GetHeight();
 	Sprite();
 	Sprite(const Sprite &sprite);
-	Sprite(Texture* texture, int timeAnimation);
-	Sprite(Texture* texture, int start, int end, int timeAnimation);
+	Sprite(Texture* texture, int timeAni);
+	Sprite(Texture* texture, int start, int end, int timeAni);
 
 
 	void Next();

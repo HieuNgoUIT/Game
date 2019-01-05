@@ -4,12 +4,10 @@
 
 
 
-Camera::Camera(int w, int h/*, int b_left, int b_right*/)
+Camera::Camera(int w, int h)
 {
 	_width = w;
-	_height = h;
-	
-	SetPosition(0, 0);
+	_height = h;	
 }
 
 Camera::~Camera()
@@ -100,7 +98,6 @@ void Camera::SetBoundariesWater()
 
 D3DXVECTOR2 Camera::Transform(int x, int y)
 {
-
 	return D3DXVECTOR2(x - _viewport.x, y - _viewport.y);
 }
 
@@ -122,7 +119,6 @@ void Camera::SetPosition(int x, int y)
 
 	
 }
-
 
 D3DXVECTOR2 Camera::GetViewport()
 {

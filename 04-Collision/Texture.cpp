@@ -1,30 +1,24 @@
 #include "Texture.h"
 
-Texture::Texture(char* _fileName, int cols, int rows, int count)
+Texture::Texture(char* fileName, int cols, int rows, int count)
 {
 	Cols = cols;
 	Rows = rows;
 	Count = count;
-	FileName = _fileName;
+	FileName = fileName;
 	this->Load();
 }
 
-Texture::Texture(char* _fileName, int cols, int rows, int count, int R, int G, int B)
+Texture::Texture(char* fileName, int cols, int rows, int count, int R, int G, int B)
 {
 	Cols = cols;
 	Rows = rows;
 	Count = count;
-	FileName = _fileName;
+	FileName = fileName;
 	this->Load(R, G, B);
 }
 
 
-
-Texture::~Texture()
-{
-	if (this->texture != NULL)
-		this->texture->Release();
-}
 
 void Texture::Draw(int x, int y)
 {
@@ -54,8 +48,6 @@ void Texture::Load()
 
 	if (result != D3D_OK)
 	{
-		//	GLMessage("Can not load texture");
-		//	GLTrace("[texture.h] Failed to get information from image file [%s]", FileName);
 		OutputDebugStringA(FileName);
 		return;
 	}
@@ -71,7 +63,7 @@ void Texture::Load()
 		D3DPOOL_DEFAULT,
 		D3DX_DEFAULT,
 		D3DX_DEFAULT,
-		D3DCOLOR_XRGB(255, 0, 255), //color
+		D3DCOLOR_XRGB(255, 0, 255), 
 		&info,
 		0,
 		&texture
@@ -79,8 +71,6 @@ void Texture::Load()
 
 	if (result != D3D_OK)
 	{
-		//GLMessage("Can not load texture");
-		//	GLTrace("[texture.h] Failed to create texture from file '%s'", FileName);
 		return;
 	}
 }
@@ -104,8 +94,6 @@ void Texture::Load(int R, int G, int B)
 
 	if (result != D3D_OK)
 	{
-		//GLMessage("Can not load texture");
-		//GLTrace("[texture.h] Failed to get information from image file [%s]", FileName);
 		OutputDebugStringA(FileName);
 		return;
 	}
@@ -121,7 +109,7 @@ void Texture::Load(int R, int G, int B)
 		D3DPOOL_DEFAULT,
 		D3DX_DEFAULT,
 		D3DX_DEFAULT,
-		D3DCOLOR_XRGB(R, G, B), //color
+		D3DCOLOR_XRGB(R, G, B), 
 		&info,
 		0,
 		&texture
@@ -129,8 +117,13 @@ void Texture::Load(int R, int G, int B)
 
 	if (result != D3D_OK)
 	{
-		//GLMessage("Can not load texture");
-		//GLTrace("[texture.h] Failed to create texture from file '%s'", FileName);
+		
 		return;
 	}
+}
+
+Texture::~Texture()
+{
+	if (this->texture != NULL)
+		this->texture->Release();
 }

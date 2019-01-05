@@ -29,8 +29,7 @@
 #define MAIN_WINDOW_TITLE L"04 - Collision"
 
 #define BACKGROUND_COLOR D3DCOLOR_XRGB(0,0,0)
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
+
 
 #define MAX_FRAME_RATE 120
 
@@ -99,10 +98,10 @@ void CSampleKeyHander::KeyState(BYTE *states)
 
 
 			if (gamestate->game->IsKeyDown(DIK_RIGHT))
-				gamestate->simon->Right();
+				gamestate->simon->SetDirectionRight();
 
 			if (gamestate->game->IsKeyDown(DIK_LEFT))
-				gamestate->simon->Left();
+				gamestate->simon->SetDirectionLeft();
 
 			return;
 		}
@@ -116,8 +115,8 @@ void CSampleKeyHander::KeyState(BYTE *states)
 
 			if (gamestate->game->IsKeyDown(DIK_RIGHT))
 			{
-				gamestate->simon->Right();
-				gamestate->simon->Go();
+				gamestate->simon->SetDirectionRight();
+				gamestate->simon->Move();
 				if (gamestate->simon->isAttacking == true)//atttack thi stop
 				{
 					gamestate->simon->Stop();
@@ -126,8 +125,8 @@ void CSampleKeyHander::KeyState(BYTE *states)
 			else
 				if (gamestate->game->IsKeyDown(DIK_LEFT))
 				{
-					gamestate->simon->Left();
-					gamestate->simon->Go();
+					gamestate->simon->SetDirectionLeft();
+					gamestate->simon->Move();
 					if (gamestate->simon->isAttacking == true)
 					{
 						gamestate->simon->Stop();
@@ -139,8 +138,6 @@ void CSampleKeyHander::KeyState(BYTE *states)
 				}
 		}
 	}
-
-
 }
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

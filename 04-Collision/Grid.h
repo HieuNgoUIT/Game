@@ -5,10 +5,9 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include "Game.h" 
 #include <string>
+#include "Game.h" 
 #include "Brick.h"
-#include "debug.h"
 #include "LargeCandle.h"
 #include "CheckPoint.h"
 #include "HiddenStair.h"
@@ -22,28 +21,25 @@
 #include "Door.h"
 #include "Boss.h"
 #include "CheckPoint.h"
+#include "debug.h"
 using namespace std;
 
-#define GRID_CELL_WIDTH 256
-#define GRID_CELL_HEIGHT 224
+#define GRID_CELL_WIDTH 160
+#define GRID_CELL_HEIGHT 120
 
 
 
 
 class Grid
-{ 
-
-private:
+{
+	Textures *textures;
 	vector<CGameObject*> listObject;
 	vector<CGameObject*> cells[500][500];
-	Textures *textures;
-	void ResetTake();
+	void ResetisTake();
  
 public:
-	void ReadFileToGrid(char * filename); 
 	void GetListObject(vector<CGameObject*>& ListObj, Camera * camera);
-	
-	vector<CGameObject*> getListObject();
+	void ReadFile(char * filename); 
 	void DeleteObjects();
 	void Insert( int type,  float x, float y, float w, float h); 
 	void LoadTextSprite(LPGAMEOBJECT obj, int textureID, int tineAniFrame = 100);

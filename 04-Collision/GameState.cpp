@@ -1,8 +1,5 @@
 #include "GameState.h"
 
-
-
-
 GameState::GameState()
 {
 	game = CGame::GetInstance();
@@ -15,7 +12,7 @@ GameState::~GameState()
 void GameState::LoadResources( char* Fgrid, char* Fb, char* Fs, int Frow, int Fcol, int Ftotal, int Frowmaxtrix, int Fcolmatrix)
 {
 	simon->SetPosition(SIMON_POSITION_DEFAULT);
-	grid->ReadFileToGrid(Fgrid);
+	grid->ReadFile(Fgrid);
 	tilemap->LoadMap(Fb, Fs, Frow, Fcol, Ftotal, Frowmaxtrix, Fcolmatrix);
 }
 
@@ -25,7 +22,7 @@ void GameState::Init(char * Fgrid, char * Fb, char * Fs, int Frow, int Fcol, int
 	simon->SetPosition(SIMON_POSITION_DEFAULT);
 
 	grid = new Grid();
-	grid->ReadFileToGrid(Fgrid);
+	grid->ReadFile(Fgrid);
 
 	ui = new UI();
 	ui->Initialize(simon, NULL);

@@ -704,19 +704,19 @@ void Simon::Render(Camera *camera)
 }
 
 
-void Simon::Left()
+void Simon::SetDirectionLeft()
 {
 	direction = -1;
 	whip->direction = -1;
 }
 
-void Simon::Right()
+void Simon::SetDirectionRight()
 {
 	direction = 1; 
 	whip->direction = 1;
 }
 
-void Simon::Go()
+void Simon::Move()
 {
 	vx = SIMON_WALKING_SPEED * direction;
 	isWalking = 1;
@@ -744,7 +744,7 @@ void Simon::Jump()
 
 void Simon::AutoMove()
 {
-	Go();
+	Move();
 	CGameObject::Update(dt);
 	x += dx;
 	_sprite->Update(dt);

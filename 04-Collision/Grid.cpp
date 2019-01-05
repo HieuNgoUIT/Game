@@ -6,12 +6,7 @@ Grid::Grid()
 	textures->LoadTexture("Resource\\sprites\\Grid\\textures.txt");
 }
 
-Grid::~Grid()
-{
-
-}
-
-void Grid::ReadFileToGrid(char * filename)
+void Grid::ReadFile(char * filename)
 {
 	listObject.clear();
 
@@ -55,7 +50,7 @@ void Grid::ReadFileToGrid(char * filename)
 void Grid::GetListObject(vector<CGameObject*>& ListObj, Camera * camera)
 {
 	ListObj.clear(); // clear list
-	ResetTake();
+	ResetisTake();
 
 	int rowBottom = floor((camera->GetViewport().y + camera->GetHeight()) / (float)GRID_CELL_HEIGHT);
 	int rowTop = floor((camera->GetViewport().y) / (float)GRID_CELL_HEIGHT);
@@ -78,17 +73,12 @@ void Grid::GetListObject(vector<CGameObject*>& ListObj, Camera * camera)
 			}
 		}
 }
-void Grid::ResetTake()
+void Grid::ResetisTake()
 {
 	for (int i = 0; i < listObject.size(); i++)
 	{
 		listObject[i]->isTake = false;
 	}
-}
-
-vector<CGameObject*> Grid::getListObject()
-{
-	return listObject;
 }
 
 void Grid::DeleteObjects()
@@ -203,4 +193,6 @@ CGameObject * Grid::CreateObject(int type, int x, int y, int w, int h)
 	}
 }
 
-
+Grid::~Grid()
+{
+}

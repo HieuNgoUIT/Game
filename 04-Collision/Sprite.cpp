@@ -1,14 +1,5 @@
 #include "Sprite.h" 
 
-float Sprite::GetWidth()
-{
-	return width;
-}
-
-float Sprite::GetHeight()
-{
-	return height;
-}
 
 Sprite::Sprite()
 {
@@ -32,23 +23,23 @@ Sprite::Sprite(const Sprite &sprite)
 	SetARGB();
 }
 
-Sprite::Sprite(Texture* texture, int start, int end, int timeAnimation)
+Sprite::Sprite(Texture* texture, int start, int end, int timeAni)
 	: _texture(texture)
 {
 	_start = start;
 	_end = end;
-	_timeAni = timeAnimation;
+	_timeAni = timeAni;
 	_index = start;
 	_timeLocal = 0;
 	SetARGB();
 }
 
-Sprite::Sprite(Texture* texture, int timeAnimation)
+Sprite::Sprite(Texture* texture, int timeAni)
 	: _texture(texture)
 {
 	_start = 0;
 	_end = _texture->Count - 1;
-	_timeAni = timeAnimation;
+	_timeAni = timeAni;
 	_index = 0;
 	_timeLocal = 0;
 	SetARGB();
@@ -74,7 +65,11 @@ void Sprite::Next()
 	if (_index > _end)
 		_index = _start;
 }
-
+void Sprite::Reset()
+{
+	_index = _start;
+	_timeLocal = 0;
+}
 void Sprite::PlayAnimation(int start, int end, int ellapseTime)
 {
 	if (_index < start || _index > end)
@@ -85,11 +80,7 @@ void Sprite::PlayAnimation(int start, int end, int ellapseTime)
 	
 }
 
-void Sprite::Reset()
-{
-	_index = _start;
-	_timeLocal = 0;
-}
+
 
 void Sprite::SelectIndex(int index)
 {
@@ -136,8 +127,6 @@ void Sprite::Draw(int X, int Y)
 
 
 }
-
-
 
 void Sprite::DrawFlipX(int x, int y)
 {
@@ -191,4 +180,13 @@ int Sprite::GetIndex()
 //	initialized = true;
 //	return initialized;
 //}
+float Sprite::GetWidth()
+{
+	return width;
+}
+
+float Sprite::GetHeight()
+{
+	return height;
+}
 

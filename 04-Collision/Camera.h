@@ -4,33 +4,25 @@
 
 class Camera
 {
-protected:
-	
+public:
 	D3DXVECTOR2 _viewport;
+
 	int _width;
 	int _height;
 	float vx;
-	
-
-public:
 	int _borderLeft;
 	int _borderRight;
-	Camera(int w, int h/*, int b_left, int b_right*/);
+
+	Camera(int w, int h);
 	~Camera();
+
 	void SetBorder(int bleft, int bright) { this->_borderLeft = bleft, this->_borderRight = bright; }
 	void Go(DWORD dt);
-	/*void StairGo(DWORD dt,int stairDirection);*/
 	void SetBoundaries();
-	/*void UpdateMap2();
-	void UpdateMap21();
-	void UpdateMap22();*/
 	void SetBoundariesWater();
-	D3DXVECTOR2 Transform(int x, int y);
-
 	void SetPosition(int x, int y);
-
 	D3DXVECTOR2 GetViewport();
-
+	D3DXVECTOR2 Transform(int x, int y);
 	int GetWidth();
 	int GetHeight();
 	
