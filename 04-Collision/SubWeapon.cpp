@@ -43,36 +43,36 @@ void SubWeapon::Update(DWORD dt,float left,float right, vector<LPGAMEOBJECT>* co
 
 void SubWeapon::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObjects)
 {
-	/*vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
-	coEvents.clear();*/
+	coEvents.clear();
 
-	//CalcPotentialCollisions(coObjects, coEvents); // Lấy danh sách các va chạm
-	for (int i = 0; i < coObjects->size(); i++)
+	CalcPotentialCollisions(coObjects, coEvents); // Lấy danh sách các va chạm
+	
+	// No collision occured, proceed normally
+	if (coEvents.size() == 0)
 	{
-		if (isColliding(this, coObjects->at(i)))
+		for (int i = 0; i < coObjects->size(); i++)
 		{
-			
-			if (dynamic_cast<Boss *>(coObjects->at(i)))
+			if (isColliding(this, coObjects->at(i)))
 			{
-				Boss *mm = dynamic_cast<Boss *>(coObjects->at(i));
-				coObjects->at(i)->health -= 10;
-				mm->StartUntouchable();
+
+				if (dynamic_cast<Boss *>(coObjects->at(i)))
+				{
+					Boss *mm = dynamic_cast<Boss *>(coObjects->at(i));
+					coObjects->at(i)->health -= 10;
+					mm->StartUntouchable();
+				}
+				else
+				{
+					coObjects->at(i)->health -= 10;
+				}
+				//this->isFinish = true;//da ban xong
+
 			}
-			else
-			{
-				coObjects->at(i)->health -= 10;
-			}
-			//this->isFinish = true;//da ban xong
 
 		}
-
-	}
-	// No collision occured, proceed normally
-	/*if (coEvents.size() == 0)
-	{
-
 	}
 	else
 	{
@@ -80,26 +80,32 @@ void SubWeapon::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObjects)
 
 	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
-	}*/
-	// Collision logic with Goombas
-	//for (UINT i = 0; i < coEventsResult.size(); i++)
-	//{
-	//	LPCOLLISIONEVENT e = coEventsResult[i];
-	//	if (dynamic_cast<LargeCandle *>(e->obj))
-	//	{
-	//		LargeCandle *largecandle = dynamic_cast<LargeCandle *>(e->obj);
-	//		// jump on top >> kill Goomba and deflect a bit 
-	//		if (e->nx != 0)
-	//		{
-	//			largecandle->isDead = true;
-	//		}
-	//	}
-	//}
+	}
+	for (UINT i = 0; i < coEventsResult.size(); i++)
+	{
+		LPCOLLISIONEVENT e = coEventsResult[i];
+		if (dynamic_cast<LargeCandle *>(e->obj))
+		{
+			LargeCandle *largecandle = dynamic_cast<LargeCandle *>(e->obj);
+			// jump on top >> kill Goomba and deflect a bit 
+			if (e->nx != 0)
+			{
 
-
-	// clean up collision events
-	/*for (UINT i = 0; i < coEvents.size(); i++)
-	delete coEvents[i];*/
+				if (dynamic_cast<Boss *>(coObjects->at(i)))
+				{
+					Boss *mm = dynamic_cast<Boss *>(coObjects->at(i));
+					coObjects->at(i)->health -= 10;
+					mm->StartUntouchable();
+				}
+				else
+				{
+					coObjects->at(i)->health -= 10;
+				}
+			}
+		}
+	}	
+	for (UINT i = 0; i < coEvents.size(); i++)
+	delete coEvents[i];
 }
 
 void SubWeapon::Create(float simonX, float simonY, int simondirection)

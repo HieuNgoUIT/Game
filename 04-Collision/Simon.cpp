@@ -2,7 +2,6 @@
 
 Simon * Simon::sinstance = NULL;
 
-
 Simon * Simon::GetInstance()
 {
 	if (sinstance == NULL)
@@ -30,17 +29,16 @@ Simon::Simon()
 	//_ListWeapon.push_back(new MorningStar());
 }
 
-
 Simon::~Simon()
 {
 }
 
 void Simon::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {
-	if (isSitting == true) 
+	if (isSitting == true)
 	{
 		left = x + 12;
-		top = y - 1; 
+		top = y - 1;
 		right = x + _texture->FrameHeight;
 		bottom = y + _texture->FrameHeight - 21;
 	}
@@ -85,122 +83,9 @@ void Simon::CheckBoundaries(int left, int right)
 	}
 }
 
-
-void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
-{
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	coEvents.clear();
-
-	CalcPotentialCollisions(coObjects, coEvents); // Lấy danh sách các va chạm
-
-
-	//DebugOut(L"[INFO] KeyUp: %d\n", coObjects->size());
-	for (int i = 0; i < coObjects->size(); i++) //aabb item
-	{
-		if (isColliding(this, coObjects->at(i)))
-		{
-			if (coObjects->at(i)->tag == HEART_TAG)
-			{
-				this->useableHeart += 1;
-			}
-			else if (coObjects->at(i)->tag == WHIP_TAG)
-			{
-				whip->typeOfWhip += 1;
-			}
-			else if (coObjects->at(i)->tag == REDBAG_TAG)
-			{
-				scores += 100;
-			}
-			else if (coObjects->at(i)->tag == BLUEBLAG_TAG)
-			{
-				scores += 100;
-			}
-			else if (coObjects->at(i)->tag == KNIFE_TAG)
-			{
-				isSubwp = true;
-				subwp = new Knife(x, y);
-
-			}
-			else if (coObjects->at(i)->tag == AXE_TAG)
-			{
-				isSubwp = true;
-				subwp = new Axe(x, y);
-
-			}
-			else if (coObjects->at(i)->tag == HOLYWATER_TAG)
-			{
-				isSubwp = true;
-				subwp = new HolyWater(x, y);
-
-			}
-			else if (coObjects->at(i)->tag == CROSS_TAG)
-			{
-				isSubwp = true;
-				subwp = new Bmr(x, y);
-			}
-			else if (coObjects->at(i)->tag == ROSARY_TAG)
-			{
-				isRosary = true;
-
-			}
-			else if (coObjects->at(i)->tag == STOPWATCH_TAG)
-			{
-				isStopwatch = true;
-			}
-
-			coObjects->at(i)->isDead = true;
-			Sound::GetInstance()->Play(COLLECT_ITEM);
-
-
-		}
-	}
-
-	// No collision occured, proceed normally
-	//if (coEvents.size() == 0)
-	//{
-	//	/*	x += dx;
-	//		y += dy;*/
-	//}
-	//else
-	//{
-	//	float min_tx, min_ty, nx = 0, ny;
-
-	//	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-	//	// nếu ko va chạm thì min_tx,min_ty = 1.0, còn nếu có thì nó trả về thời gian va chạm. 
-	//	//Còn nx,ny là hướng va chạm,  = 0 nếu ko va chạm;
-
-
-
-
-	//	for (UINT i = 0; i < coEventsResult.size(); i++)
-	//	{
-	//		LPCOLLISIONEVENT e = coEventsResult[i];
-	//		if (dynamic_cast<Item *>(e->obj))
-	//		{
-	//			Item *item = dynamic_cast<Item *>(e->obj);
-	//			// jump on top >> kill Goomba and deflect a bit 
-	//			if (e->t > 0 && e->t <= 1)
-	//			{
-	//				item->isDead = true;
-	//				this->useableHeart += 1;
-	//			}
-	//		}
-	//	}
-	//	//}
-
-
-	//	// clean up collision events
-	//	for (UINT i = 0; i < coEvents.size(); i++)
-	//		delete coEvents[i];
-	//}
-}
-
 void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJECT>* coItems)
 {
 	CGame *game = CGame::GetInstance();
-	
 
 	if (GetTickCount() - untouchable_start > 5000)
 	{
@@ -213,9 +98,9 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 		beingHit = 0;
 	}
 
-	
+
 #pragma region Sprite update
-	
+
 
 	if (isRenderSubwp == true)
 	{
@@ -228,7 +113,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 				isRenderSubwp = false;
 			}
 		}
-		
+
 		_sprite->Update(dt);
 
 	}
@@ -258,7 +143,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 				_sprite->PlayAnimation(SIMON_ANI_BEGIN_STAIRHITDOWN, SIMON_ANI_END_STAIRHITDOWN, dt);
 			}
 
-			
+
 		}
 		else if (game->IsKeyDown(DIK_UP))
 		{
@@ -275,9 +160,9 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 
 	}
 	else if (isSitting == true) //dang ngoi
-	{	
+	{
 		if (isAttacking == true)
-		{		
+		{
 			_sprite->PlayAnimation(SIMON_ANI_BEGIN_SITHITTING, SIMON_ANI_END_SITHITTING, dt);
 		}
 		else
@@ -296,7 +181,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 			_sprite->SetARGB();
 		}
 		if (isJumping == false) // ko nhảy
-		{				
+		{
 			if (isAttacking == true)
 			{
 				_sprite->PlayAnimation(SIMON_ANI_BEGIN_HITTING, SIMON_ANI_END_HITTING, dt);
@@ -345,7 +230,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 		}
 		else if (isAttacking == true)
 		{
-			_sprite->PlayAnimation(SIMON_ANI_BEGIN_HITTING, SIMON_ANI_END_HITTING,dt);
+			_sprite->PlayAnimation(SIMON_ANI_BEGIN_HITTING, SIMON_ANI_END_HITTING, dt);
 		}
 		else
 		{
@@ -356,7 +241,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 
 	/* Update về sprite */
 
-	
+
 #pragma endregion
 
 	if (isAttacking == true)
@@ -380,7 +265,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 		if (!subwp->isFinish) // chua finish thi update
 		{
 			//subwp->SetPosition(subwp->x, subwp->y+10);
-			subwp->Update(dt,x-SCREEN_WIDTH/2, x + SCREEN_WIDTH / 2, coObjects);
+			subwp->Update(dt, x - SCREEN_WIDTH / 2, x + SCREEN_WIDTH / 2, coObjects);
 		}
 		if (subwp->isFinish == true) //finish thi cho quang
 		{
@@ -415,22 +300,6 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 				y--;
 				CGameObject::Update(dt);
 			}
-			//if (direction == 3 && isLeft == 1)//truong hop db water
-			//{
-			//	/*vx = 0;
-			//	vy = 0;
-			//	x = 3220;
-			//	y = 400;
-			//	direction = -1;
-			//	isLeft = 1;*/
-			//	vx = 0;
-			//	vy = 0;
-			//	x--;
-			//	y--;
-			//	CGameObject::Update(dt);
-			//}
-
-
 
 		} //bat dau tu ben duoi
 		//di xuong o giua cau thang
@@ -517,15 +386,6 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 
 		}
 
-		//if (y>450 )//truong hop db water
-		//{
-		//	vx = 0;
-		//	vy = 0;
-		//	x=3230;
-		//	y=520;
-		//	direction = 1;
-		//	isLeft = 0;
-		//}
 	}
 	else
 	{
@@ -535,18 +395,11 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 	}
 
 
-
-	/*ResetLife();*/
-
-	vector<LPGAMEOBJECT> coObjects_Brick;
 	coObjects_Brick.clear();
-	vector<LPGAMEOBJECT> coObjects_HiddenStair;
 	coObjects_HiddenStair.clear();
-	vector<LPGAMEOBJECT> coObjects_Zombie;
-	coObjects_Zombie.clear();
-	vector<LPGAMEOBJECT> coObjects_Door;
+	coObjects_Enemy.clear();
 	coObjects_Door.clear();
-	LPGAMEOBJECT checkpoint=NULL;
+	checkpoint = NULL;
 
 	for (int i = 0; i < coObjects->size(); i++)
 	{
@@ -555,130 +408,19 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 		if (coObjects->at(i)->GetTag() == BOTSTAIR || coObjects->at(i)->GetTag() == TOPSTAIR)
 			coObjects_HiddenStair.push_back(coObjects->at(i));
 		if (coObjects->at(i)->GetTag() == ENEMY_TAG)
-			coObjects_Zombie.push_back(coObjects->at(i));
+			coObjects_Enemy.push_back(coObjects->at(i));
 		if (coObjects->at(i)->GetTag() == DOOR_TYPE)
 			coObjects_Door.push_back(coObjects->at(i));
 		if (coObjects->at(i)->GetTag() == CP_TYPE)
 			checkpoint = coObjects->at(i);
 	}
-
-	CollisionWithEnemy(&coObjects_Zombie);
+	CollisionWithItem(coItems);
+	CollisionWithEnemy(&coObjects_Enemy);
 	CollisionWithBrick(&coObjects_Brick); // check Collision and update x, y for simon
 	CollisionWithStair(&coObjects_HiddenStair);
 	CollisionWithDoor(&coObjects_Door);
-	CollisionWithItem(coItems);
 	isCollisionWithCheckPoint(checkpoint);
 
-}
-
-
-void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects)
-{
-	for (int i = 0; i < coObjects->size(); i++) //check va cham stair duoi va tren
-	{
-		if (isColliding(this, coObjects->at(i)))
-		{
-			CGame *game = CGame::GetInstance();
-			if (game->IsKeyDown(DIK_UP)) //stair duoi
-			{
-				if (coObjects->at(i)->GetTag() == -7)
-				{
-					//PreProcessBeforeOnStair(coObjects->at(i), camera);
-					//if (this->y <= coObjects->at(i)->y) // sau khi da dieu chinh vi tri thi cho no onstair
-					//{
-					isOnStair = true; //tren thang
-					//isCameraStair = false;//cho camera theo map lai bth
-				/*}*/
-					isBottomStair = true; //bat dau tu duoi
-					isTopStair = false; //ko phai tren
-					this->direction = coObjects->at(i)->direction; //gan simon direction = sarit direction
-					this->isLeft = coObjects->at(i)->isLeft;
-					isWalkFromBot = true;// o giua cau thang nhung o duoi
-					isWalkFromTop = false; // o giua cau thang nhung o tren
-					if (direction == 1)
-					{
-						this->x = coObjects->at(i)->x;
-						this->y -= 10;
-					}
-					else
-					{
-						this->x = coObjects->at(i)->x - 20;
-						this->y -= 10;
-					}
-
-
-
-				}
-
-			}
-			if (game->IsKeyDown(DIK_DOWN))
-			{
-				if (coObjects->at(i)->GetTag() == 7)
-				{
-					/*	PreProcessBeforeOnStair(coObjects->at(i), camera);
-						if (this->y >= coObjects->at(i)->y)
-						{*/
-					isOnStair = true; //tren thang
-				/*	isCameraStair = false;
-				}*/
-					isTopStair = true;
-					isBottomStair = false;
-					this->direction = coObjects->at(i)->direction;
-					this->isLeft = coObjects->at(i)->isLeft;
-					isWalkFromTop = true;
-					isWalkFromBot = false;
-					if (direction == -1)
-					{
-						this->y += 25;
-						this->x = coObjects->at(i)->x - 50;
-					}
-					else
-					{
-						this->y += 20;
-						this->x = coObjects->at(i)->x + 35;
-					}
-
-				}
-
-			}
-
-		}
-	}
-	if (isOnStair)
-	{
-		for (int i = 0; i < coObjects->size(); i++)  //check va cham khi dang di chuyen
-		{
-			if (isColliding(this, coObjects->at(i)))
-			{
-				if (coObjects->at(i)->GetTag() == 7 && isBottomStair == true)
-				{
-					//PreProcessOnStair(coObjects->at(i), camera); // xu ly sau khi x > x stair thi tra ve iscamerastiar =false
-					isWalkFromBot = false;
-
-					//if (isCameraStair == false)
-					//{
-					isOnStair = false;//xu ly camera lai bth theo map
-				//}
-				}
-				if (coObjects->at(i)->GetTag() == -7 && isTopStair == true)
-				{
-					isOnStair = false;
-					isWalkFromTop = false;
-				}
-				if (coObjects->at(i)->GetTag() == -7 && isBottomStair == true) //bat dau o dau, cham o do
-				{
-					isOnStair = false;
-
-				}
-				if (coObjects->at(i)->GetTag() == 7 && isTopStair == true)//bat dau o dau, cham o do
-				{
-					isOnStair = false;
-
-				}
-
-			}
-		}
-	}
 }
 
 void Simon::Render(Camera *camera)
@@ -692,7 +434,7 @@ void Simon::Render(Camera *camera)
 		_sprite->DrawFlipX(pos.x, pos.y);
 
 
-	if (whip->isFinish == false && beingHit==0)
+	if (whip->isFinish == false && beingHit == 0)
 	{
 		whip->Render(camera);
 	}
@@ -703,7 +445,6 @@ void Simon::Render(Camera *camera)
 	RenderBoundingBox(camera);
 }
 
-
 void Simon::SetDirectionLeft()
 {
 	direction = -1;
@@ -712,7 +453,7 @@ void Simon::SetDirectionLeft()
 
 void Simon::SetDirectionRight()
 {
-	direction = 1; 
+	direction = 1;
 	whip->direction = 1;
 }
 
@@ -728,8 +469,8 @@ void Simon::Sit()
 	vx = 0;
 	isWalking = 0;
 
-	if (isSitting == false) 
-		y = y + 16; 
+	if (isSitting == false)
+		y = y + 16;
 
 	isSitting = 1;
 }
@@ -758,21 +499,53 @@ void Simon::Stop()
 		vx = 0;
 	if (direction == -1 && vx > 0)*/
 	vx = 0;
-	
+
 
 
 	isWalking = 0;
-	if (isSitting == true) 
+	if (isSitting == true)
 	{
-		isSitting = 0; 
-		y = y - 18; 
+		isSitting = 0;
+		y = y - 18;
 	}
 
 }
+
+void Simon::Attack()
+{
+	if (isAttacking == true)
+		return;
+
+	isAttacking = true;
+	Sound::GetInstance()->Play(USING_WHIP);
+	whip->Create(this->x, this->y, this->direction);
+}
+
+void Simon::ThrowSubWp()
+{
+
+	if (throwSubwp == true) // đang tấn công thì thôi
+		return;
+	if (isSubwp)
+	{
+		if (useableHeart != 0)
+		{
+			throwSubwp = 1;
+			//subwp->isDead = false;
+			subwp->Create(this->x, this->y, this->direction);
+			subwp->_sprite->SelectIndex(0);
+			useableHeart--;
+			isRenderSubwp = 1;
+		}
+	}
+
+}
+
 void Simon::RenderBoundingBox(Camera *camera)
 {
 	CGameObject::RenderBoundingBox(camera);
 }
+
 void Simon::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 {
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -780,7 +553,7 @@ void Simon::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 
 	coEvents.clear();
 
-	CalcPotentialCollisions(coObjects, coEvents); 
+	CalcPotentialCollisions(coObjects, coEvents);
 
 	//if (isOnStair)
 	//{
@@ -1004,9 +777,229 @@ void Simon::CollisionWithDoor(vector<LPGAMEOBJECT>* coObjects)
 		{
 			isCollideDor = false;
 		}
-		if (x > coObjects->at(i)->x + _texture->FrameWidth )
+		if (x > coObjects->at(i)->x + _texture->FrameWidth)
 		{
 			coObjects->at(i)->isDead = true;
+		}
+	}
+}
+
+void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
+{
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+
+	CalcPotentialCollisions(coObjects, coEvents); // Lấy danh sách các va chạm
+
+
+												  //DebugOut(L"[INFO] KeyUp: %d\n", coObjects->size());
+	for (int i = 0; i < coObjects->size(); i++) //aabb item
+	{
+		if (isColliding(this, coObjects->at(i)))
+		{
+			if (coObjects->at(i)->tag == HEART_TAG)
+			{
+				this->useableHeart += 1;
+			}
+			else if (coObjects->at(i)->tag == WHIP_TAG)
+			{
+				whip->typeOfWhip += 1;
+			}
+			else if (coObjects->at(i)->tag == REDBAG_TAG)
+			{
+				scores += 100;
+			}
+			else if (coObjects->at(i)->tag == BLUEBLAG_TAG)
+			{
+				scores += 100;
+			}
+			else if (coObjects->at(i)->tag == KNIFE_TAG)
+			{
+				isSubwp = true;
+				subwp = new Knife(x, y);
+
+			}
+			else if (coObjects->at(i)->tag == AXE_TAG)
+			{
+				isSubwp = true;
+				subwp = new Axe(x, y);
+
+			}
+			else if (coObjects->at(i)->tag == HOLYWATER_TAG)
+			{
+				isSubwp = true;
+				subwp = new HolyWater(x, y);
+
+			}
+			else if (coObjects->at(i)->tag == CROSS_TAG)
+			{
+				isSubwp = true;
+				subwp = new Bmr(x, y);
+			}
+			else if (coObjects->at(i)->tag == ROSARY_TAG)
+			{
+				isRosary = true;
+
+			}
+			else if (coObjects->at(i)->tag == STOPWATCH_TAG)
+			{
+				isStopwatch = true;
+			}
+
+			coObjects->at(i)->isDead = true;
+			Sound::GetInstance()->Play(COLLECT_ITEM);
+
+
+		}
+	}
+
+	// No collision occured, proceed normally
+	//if (coEvents.size() == 0)
+	//{
+	//	/*	x += dx;
+	//		y += dy;*/
+	//}
+	//else
+	//{
+	//	float min_tx, min_ty, nx = 0, ny;
+
+	//	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+	//	// nếu ko va chạm thì min_tx,min_ty = 1.0, còn nếu có thì nó trả về thời gian va chạm. 
+	//	//Còn nx,ny là hướng va chạm,  = 0 nếu ko va chạm;
+
+
+
+
+	//	for (UINT i = 0; i < coEventsResult.size(); i++)
+	//	{
+	//		LPCOLLISIONEVENT e = coEventsResult[i];
+	//		if (dynamic_cast<Item *>(e->obj))
+	//		{
+	//			Item *item = dynamic_cast<Item *>(e->obj);
+	//			// jump on top >> kill Goomba and deflect a bit 
+	//			if (e->t > 0 && e->t <= 1)
+	//			{
+	//				item->isDead = true;
+	//				this->useableHeart += 1;
+	//			}
+	//		}
+	//	}
+	//	//}
+
+
+	//	// clean up collision events
+	//	for (UINT i = 0; i < coEvents.size(); i++)
+	//		delete coEvents[i];
+	//}
+}
+
+void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects)
+{
+	for (int i = 0; i < coObjects->size(); i++) //check va cham stair duoi va tren
+	{
+		if (isColliding(this, coObjects->at(i)))
+		{
+			CGame *game = CGame::GetInstance();
+			if (game->IsKeyDown(DIK_UP)) //stair duoi
+			{
+				if (coObjects->at(i)->GetTag() == -7)
+				{
+					//PreProcessBeforeOnStair(coObjects->at(i), camera);
+					//if (this->y <= coObjects->at(i)->y) // sau khi da dieu chinh vi tri thi cho no onstair
+					//{
+					isOnStair = true; //tren thang
+									  //isCameraStair = false;//cho camera theo map lai bth
+									  /*}*/
+					isBottomStair = true; //bat dau tu duoi
+					isTopStair = false; //ko phai tren
+					this->direction = coObjects->at(i)->direction; //gan simon direction = sarit direction
+					this->isLeft = coObjects->at(i)->isLeft;
+					isWalkFromBot = true;// o giua cau thang nhung o duoi
+					isWalkFromTop = false; // o giua cau thang nhung o tren
+					if (direction == 1)
+					{
+						this->x = coObjects->at(i)->x;
+						this->y -= 10;
+					}
+					else
+					{
+						this->x = coObjects->at(i)->x - 20;
+						this->y -= 10;
+					}
+
+
+
+				}
+
+			}
+			if (game->IsKeyDown(DIK_DOWN))
+			{
+				if (coObjects->at(i)->GetTag() == 7)
+				{
+					/*	PreProcessBeforeOnStair(coObjects->at(i), camera);
+					if (this->y >= coObjects->at(i)->y)
+					{*/
+					isOnStair = true; //tren thang
+									  /*	isCameraStair = false;
+									  }*/
+					isTopStair = true;
+					isBottomStair = false;
+					this->direction = coObjects->at(i)->direction;
+					this->isLeft = coObjects->at(i)->isLeft;
+					isWalkFromTop = true;
+					isWalkFromBot = false;
+					if (direction == -1)
+					{
+						this->y += 25;
+						this->x = coObjects->at(i)->x - 50;
+					}
+					else
+					{
+						this->y += 20;
+						this->x = coObjects->at(i)->x + 35;
+					}
+
+				}
+
+			}
+
+		}
+	}
+	if (isOnStair)
+	{
+		for (int i = 0; i < coObjects->size(); i++)  //check va cham khi dang di chuyen
+		{
+			if (isColliding(this, coObjects->at(i)))
+			{
+				if (coObjects->at(i)->GetTag() == 7 && isBottomStair == true)
+				{
+					//PreProcessOnStair(coObjects->at(i), camera); // xu ly sau khi x > x stair thi tra ve iscamerastiar =false
+					isWalkFromBot = false;
+
+					//if (isCameraStair == false)
+					//{
+					isOnStair = false;//xu ly camera lai bth theo map
+									  //}
+				}
+				if (coObjects->at(i)->GetTag() == -7 && isTopStair == true)
+				{
+					isOnStair = false;
+					isWalkFromTop = false;
+				}
+				if (coObjects->at(i)->GetTag() == -7 && isBottomStair == true) //bat dau o dau, cham o do
+				{
+					isOnStair = false;
+
+				}
+				if (coObjects->at(i)->GetTag() == 7 && isTopStair == true)//bat dau o dau, cham o do
+				{
+					isOnStair = false;
+
+				}
+
+			}
 		}
 	}
 }
@@ -1030,38 +1023,10 @@ bool Simon::isCollisionWithCheckPoint(LPGAMEOBJECT checkPoint)
 		}
 		return isCollideCheckPoint;
 	}
-	
-	
+
+
 
 
 }
 
-void Simon::Attack()
-{
-	if (isAttacking == true) 
-		return;
 
-	isAttacking = true;
-	Sound::GetInstance()->Play(USING_WHIP);
-	whip->Create(this->x, this->y, this->direction); 
-}
-
-void Simon::ThrowSubWp()
-{
-
-	if (throwSubwp == true) // đang tấn công thì thôi
-		return;
-	if (isSubwp)
-	{
-		if (useableHeart != 0)
-		{
-			throwSubwp = 1;
-			//subwp->isDead = false;
-			subwp->Create(this->x, this->y, this->direction);
-			subwp->_sprite->SelectIndex(0);
-			useableHeart--;
-			isRenderSubwp = 1;
-		}
-	}
-
-}

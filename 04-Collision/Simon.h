@@ -123,9 +123,12 @@ public:
 	void CollisionWithEnemy(vector<LPGAMEOBJECT> *coObjects = NULL);
 	void CollisionWithDoor(vector<LPGAMEOBJECT> *coObjects = NULL);
 	bool isCollisionWithCheckPoint(LPGAMEOBJECT checkpoint);
-
-
-
+	
+	vector<LPGAMEOBJECT> coObjects_Brick;
+	vector<LPGAMEOBJECT> coObjects_HiddenStair;	
+	vector<LPGAMEOBJECT> coObjects_Enemy;	
+	vector<LPGAMEOBJECT> coObjects_Door;
+	LPGAMEOBJECT checkpoint = NULL;
 };
 
 

@@ -117,72 +117,85 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	vector<LPGAMEOBJECT> coObjects_LargeCandle;
 	coObjects_LargeCandle.clear();
-	vector<LPGAMEOBJECT> coObjects_Candle;
-	coObjects_Candle.clear();
 	vector<LPGAMEOBJECT> coObjects_Zombie;
 	coObjects_Zombie.clear();
-	LPGAMEOBJECT boss;
 	for (int i = 0; i < coObjects->size(); i++)
 	{
-		if (coObjects->at(i)->GetTag() == 10)
+		if (coObjects->at(i)->GetTag() == LARGECANDLE_TYPE || coObjects->at(i)->GetTag() == CANDLE_TYPE)
 			coObjects_LargeCandle.push_back(coObjects->at(i));
-		if (coObjects->at(i)->GetTag() == 11)
-			coObjects_Candle.push_back(coObjects->at(i));
 		if (coObjects->at(i)->GetTag() == ENEMY_TAG || coObjects->at(i)->GetTag() == BREAKABLEBRICK_TAG)
 			coObjects_Zombie.push_back(coObjects->at(i));
-		
+
 	}
 	CollisionWithEnemy(&coObjects_Zombie);
 	CollisionWithLargeCandle(&coObjects_LargeCandle);
-	CollisionWithCandle(&coObjects_Candle);
 
 }
 void Whip::CollisionWithLargeCandle(vector<LPGAMEOBJECT>* coObjects)
 {
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
 
-	for (int i = 0; i < coObjects->size(); i++)
+	coEvents.clear();
+
+	CalcPotentialCollisions(coObjects, coEvents); // Lấy danh sách các va chạm
+												  // No collision occured, proceed normally
+	if (coEvents.size() == 0)
 	{
-		if (isColliding(this, coObjects->at(i)))
+		for (int i = 0; i < coObjects->size(); i++)
 		{
-			coObjects->at(i)->isDead = true;
-			Sound::GetInstance()->Play(HIT_SOUND);
-			/*HitEffect *he = HitEffect::GetInstance();
-			he->Render(100, 100);*/
+			if (isColliding(this, coObjects->at(i)))
+			{
+				coObjects->at(i)->isDead = true;
+				Sound::GetInstance()->Play(HIT_SOUND);
+			}
 
 		}
-
 	}
-	// No collision occured, proceed normally
-/*if (coEvents.size() == 0)
-{
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny;
 
-}
-else
-{
-	float min_tx, min_ty, nx = 0, ny;
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+		// nếu ko va chạm thì min_tx,min_ty = 1.0, còn nếu có thì nó trả về thời gian va chạm. 
+		//Còn nx,ny là hướng va chạm,  = 0 nếu ko va chạm;
 
-	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+		// block 
+		//	x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+		//y += min_ty * dy + ny * 0.4f; // ny = -1 thì hướng từ trên xuống....
 
-	}*/
-	// Collision logic with Goombas
-//for (UINT i = 0; i < coEventsResult.size(); i++)
-//{
-//	LPCOLLISIONEVENT e = coEventsResult[i];
-//	if (dynamic_cast<LargeCandle *>(e->obj))
-//	{
-//		LargeCandle *largecandle = dynamic_cast<LargeCandle *>(e->obj);
-//		// jump on top >> kill Goomba and deflect a bit 
-//		if (e->nx != 0)
-//		{
-//			largecandle->isDead = true;
-//		}
-//	}
-//}
+		//if (nx != 0)
+		//	coObjects->at(i)->health -= 10; // nếu mà nx, ny <>0  thì nó va chạm rồi. mà chạm rồi thì dừng vận tốc cho nó đừng chạy nữa
 
+		//if (ny != 0)
+		//{
+		//	coObjects->at(i)->health -= 10;
+		//	
+		//}
 
-// clean up collision events
-/*for (UINT i = 0; i < coEvents.size(); i++)
-	delete coEvents[i];*/
+		// Collision logic with Goombas
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
+
+			// jump on top >> kill Goomba and deflect a bit 
+			if (e->ny < 0)
+			{
+				coObjects->at(i)->isDead = true;
+				Sound::GetInstance()->Play(HIT_SOUND);
+			}
+			else if (e->nx != 0)
+			{
+				coObjects->at(i)->isDead = true;
+				Sound::GetInstance()->Play(HIT_SOUND);
+			}
+
+		}
+	}
+	// clean up collision events
+	for (UINT i = 0; i < coEvents.size(); i++)
+		delete coEvents[i];
+
 }
 void Whip::CollisionWithCandle(vector<LPGAMEOBJECT>* coObjects)
 {
@@ -192,83 +205,80 @@ void Whip::CollisionWithCandle(vector<LPGAMEOBJECT>* coObjects)
 		{
 			coObjects->at(i)->isDead = true;
 		}
-
 	}
 }
 void Whip::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObjects)
 {
 	//
-	//vector<LPCOLLISIONEVENT> coEvents;
-	//vector<LPCOLLISIONEVENT> coEventsResult;
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
 
-	//coEvents.clear();
+	coEvents.clear();
 
-	//CalcPotentialCollisions(coObjects, coEvents); // Lấy danh sách các va chạm
-	//											  // No collision occured, proceed normally
-	//if (coEvents.size() == 0)
-	//{
-	for (int i = 0; i < coObjects->size(); i++)
+	CalcPotentialCollisions(coObjects, coEvents); // Lấy danh sách các va chạm
+												  // No collision occured, proceed normally
+	if (coEvents.size() == 0)
 	{
-		if (isColliding(this, coObjects->at(i)))
+		for (int i = 0; i < coObjects->size(); i++)
 		{
-			coObjects->at(i)->health -= 10;
-			this->score += 100;
-			if (dynamic_cast<Boss *>(coObjects->at(i)))
+			if (isColliding(this, coObjects->at(i)))
 			{
-				Boss *boss = dynamic_cast<Boss *>(coObjects->at(i));
-				boss->StartUntouchable();
-				Sound::GetInstance()->Play(HIT_SOUND);
+				coObjects->at(i)->health -= 10;
+				this->score += 100;
+				if (dynamic_cast<Boss *>(coObjects->at(i)))
+				{
+					Boss *boss = dynamic_cast<Boss *>(coObjects->at(i));
+					boss->StartUntouchable();
+					Sound::GetInstance()->Play(HIT_SOUND);
+				}
+
+				/*Simon *simon = Simon::GetInstance();
+				simon->score += 100;*/
 			}
 
-			/*Simon *simon = Simon::GetInstance();
-			simon->score += 100;*/
 		}
-
 	}
-	//}
-	//else
-	//{
-	//	float min_tx, min_ty, nx = 0, ny;
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny;
 
-	//	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-	//	// nếu ko va chạm thì min_tx,min_ty = 1.0, còn nếu có thì nó trả về thời gian va chạm. 
-	//	//Còn nx,ny là hướng va chạm,  = 0 nếu ko va chạm;
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+		// nếu ko va chạm thì min_tx,min_ty = 1.0, còn nếu có thì nó trả về thời gian va chạm. 
+		//Còn nx,ny là hướng va chạm,  = 0 nếu ko va chạm;
 
-	//	// block 
-	//	//	x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-	//	//y += min_ty * dy + ny * 0.4f; // ny = -1 thì hướng từ trên xuống....
+		// block 
+		//	x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
+		//y += min_ty * dy + ny * 0.4f; // ny = -1 thì hướng từ trên xuống....
 
-	//	//if (nx != 0)
-	//	//	coObjects->at(i)->health -= 10; // nếu mà nx, ny <>0  thì nó va chạm rồi. mà chạm rồi thì dừng vận tốc cho nó đừng chạy nữa
+		//if (nx != 0)
+		//	coObjects->at(i)->health -= 10; // nếu mà nx, ny <>0  thì nó va chạm rồi. mà chạm rồi thì dừng vận tốc cho nó đừng chạy nữa
 
-	//	//if (ny != 0)
-	//	//{
-	//	//	coObjects->at(i)->health -= 10;
-	//	//	
-	//	//}
+		//if (ny != 0)
+		//{
+		//	coObjects->at(i)->health -= 10;
+		//	
+		//}
 
-	//	// Collision logic with Goombas
-	//	for (UINT i = 0; i < coEventsResult.size(); i++)
-	//	{
-	//		LPCOLLISIONEVENT e = coEventsResult[i];
+		// Collision logic with Goombas
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
 
-	//		// jump on top >> kill Goomba and deflect a bit 
-	//		if (e->ny < 0)
-	//		{
-	//			e->obj->health -= 10;
-	//		}
-	//		else if (e->nx != 0)
-	//		{
-	//			e->obj->health -= 10;
-	//		}
+			// jump on top >> kill Goomba and deflect a bit 
+			if (e->ny < 0)
+			{
+				e->obj->health -= 10;
+			}
+			else if (e->nx != 0)
+			{
+				e->obj->health -= 10;
+			}
 
-	//	}
-	//}
-
-
-	//// clean up collision events
-	//for (UINT i = 0; i < coEvents.size(); i++)
-	//	delete coEvents[i];
+		}
+	}
+	// clean up collision events
+	for (UINT i = 0; i < coEvents.size(); i++)
+		delete coEvents[i];
 }
 
 void Whip::Create(float simonX, float simonY, int simondirection)
