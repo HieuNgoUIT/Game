@@ -36,76 +36,34 @@ void SubWeapon::GetBoundingBox(float & left, float & top, float & right, float &
 
 }
 
-void SubWeapon::Update(DWORD dt,float left,float right, vector<LPGAMEOBJECT>* coObjects)
+void SubWeapon::Update(DWORD dt, float left, float right, vector<LPGAMEOBJECT>* coObjects)
 {
-	
+
 }
 
 void SubWeapon::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObjects)
 {
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	coEvents.clear();
-
-	CalcPotentialCollisions(coObjects, coEvents); // Lấy danh sách các va chạm
-	
-	// No collision occured, proceed normally
-	if (coEvents.size() == 0)
+	for (int i = 0; i < coObjects->size(); i++)
 	{
-		for (int i = 0; i < coObjects->size(); i++)
+		if (isColliding(this, coObjects->at(i)))
 		{
-			if (isColliding(this, coObjects->at(i)))
+
+			if (dynamic_cast<Boss *>(coObjects->at(i)))
 			{
-
-				if (dynamic_cast<Boss *>(coObjects->at(i)))
-				{
-					Boss *mm = dynamic_cast<Boss *>(coObjects->at(i));
-					coObjects->at(i)->health -= 10;
-					mm->StartUntouchable();
-				}
-				else
-				{
-					coObjects->at(i)->health -= 10;
-				}
-				//this->isFinish = true;//da ban xong
-
+				Boss *mm = dynamic_cast<Boss *>(coObjects->at(i));
+				coObjects->at(i)->health -= 10;
+				mm->StartUntouchable();
 			}
+			else
+			{
+				coObjects->at(i)->health -= 10;
+			}
+			//this->isFinish = true;//da ban xong
 
 		}
-	}
-	else
-	{
-	float min_tx, min_ty, nx = 0, ny;
-
-	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
 
 	}
-	for (UINT i = 0; i < coEventsResult.size(); i++)
-	{
-		LPCOLLISIONEVENT e = coEventsResult[i];
-		if (dynamic_cast<LargeCandle *>(e->obj))
-		{
-			LargeCandle *largecandle = dynamic_cast<LargeCandle *>(e->obj);
-			// jump on top >> kill Goomba and deflect a bit 
-			if (e->nx != 0)
-			{
 
-				if (dynamic_cast<Boss *>(coObjects->at(i)))
-				{
-					Boss *mm = dynamic_cast<Boss *>(coObjects->at(i));
-					coObjects->at(i)->health -= 10;
-					mm->StartUntouchable();
-				}
-				else
-				{
-					coObjects->at(i)->health -= 10;
-				}
-			}
-		}
-	}	
-	for (UINT i = 0; i < coEvents.size(); i++)
-	delete coEvents[i];
 }
 
 void SubWeapon::Create(float simonX, float simonY, int simondirection)

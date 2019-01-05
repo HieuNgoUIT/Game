@@ -21,7 +21,7 @@ void HolyWater::Update(DWORD dt, float left, float right, vector<LPGAMEOBJECT>* 
 		if (!CheckTop)
 		{
 			vy =- 0.1f;
-			vx = direction * 0.1f;
+			vx = direction * 0.15f;
 		}
 		if (y < currentPos - 20)
 		{
@@ -29,8 +29,8 @@ void HolyWater::Update(DWORD dt, float left, float right, vector<LPGAMEOBJECT>* 
 		}
 		if (CheckTop)
 		{
-			vx = 0.04f*direction;
-			vy = 0.15f;
+			vx = 0.09f*direction;
+			vy = 0.3f;
 		}
 		
 		CGameObject::Update(dt);

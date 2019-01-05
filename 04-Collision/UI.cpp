@@ -43,8 +43,8 @@ bool UI::Initialize(Simon *simon, Boss *boss)
 	tKnife = new Texture("Resource\\sprites\\UI\\KNIFE.png", 1, 1, 1);
 	knife = new Sprite(tKnife, 100);
 
-
-
+	tStopWatch = new Texture("Resource\\sprites\\UI\\STOP_WATCH.png", 1, 1, 1);
+	stopWatch = new Sprite(tStopWatch, 100);
 
 
 	tsimonHPList = new Texture("Resource\\sprites\\UI\\HP.png", 1, 1, 1);
@@ -164,6 +164,11 @@ void UI::Render()
 	{
 		cross->Draw(345, 45);
 	}
+	else if (dynamic_cast<StopWatch *>(simon->subwp))
+	{
+		stopWatch->Draw(345, 45);
+	}
+
 
 	
 

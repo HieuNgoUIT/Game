@@ -171,6 +171,9 @@
     <ClInclude Include="Bmr.h">
       <Filter>Player\SubWp</Filter>
     </ClInclude>
+    <ClInclude Include="StopWatch.h">
+      <Filter>Player\SubWp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debug.cpp">
@@ -294,6 +297,9 @@
       <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="Bmr.cpp">
+      <Filter>Player\SubWp</Filter>
+    </ClCompile>
+    <ClCompile Include="StopWatch.cpp">
       <Filter>Player\SubWp</Filter>
     </ClCompile>
   </ItemGroup>

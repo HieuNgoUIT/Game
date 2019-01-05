@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "debug.h"
+#define ZOMBIE_V 0.09f
 class Zombie :public CGameObject
 {
 public:

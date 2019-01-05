@@ -63,20 +63,22 @@ void CSampleKeyHander::OnKeyDown(int KeyCode)
 		gamestate->isChangingState = true;
 		gamestate->id++;
 	}
-	if (KeyCode == DIK_SPACE)
+	if (KeyCode == DIK_S)
 	{
 		if (gamestate->simon->isJumping == false)
 			gamestate->simon->Jump();
 	}
 
-	if (KeyCode == DIK_X)
+	if (KeyCode == DIK_A)
 	{
-		gamestate->simon->Attack();
+		
+		if(gamestate->game->IsKeyDown(DIK_UP))
+			gamestate->simon->ThrowSubWp();
+		else
+			gamestate->simon->Attack();
+
 	}
-	if (KeyCode == DIK_RCONTROL)
-	{
-		gamestate->simon->ThrowSubWp();
-	}
+
 
 }
 
@@ -117,7 +119,7 @@ void CSampleKeyHander::KeyState(BYTE *states)
 			{
 				gamestate->simon->SetDirectionRight();
 				gamestate->simon->Move();
-				if (gamestate->simon->isAttacking == true)//atttack thi stop
+				if (gamestate->simon->isAttacking == true && gamestate->simon->isJumping==false)//atttack thi stop
 				{
 					gamestate->simon->Stop();
 				}
@@ -127,7 +129,7 @@ void CSampleKeyHander::KeyState(BYTE *states)
 				{
 					gamestate->simon->SetDirectionLeft();
 					gamestate->simon->Move();
-					if (gamestate->simon->isAttacking == true)
+					if (gamestate->simon->isAttacking == true && gamestate->simon->isJumping == false)
 					{
 						gamestate->simon->Stop();
 					}

@@ -2,7 +2,7 @@
 
 #define SIMON_POSITION_DEFAULT  50.0f, 101
 
-#define SIMON_WALKING_SPEED 0.2f //0.12f 
+#define SIMON_WALKING_SPEED 0.17f //0.12f 
 
 #define SIMON_GRAVITY 0.005f
 #define SIMON_VJUMP 0.9f
@@ -55,6 +55,7 @@
 #include "HolyWater.h"
 #include "HiddenStair.h"
 #include "Bmr.h"
+#include"StopWatch.h"
 #include "debug.h"
 
 class Simon : public CGameObject

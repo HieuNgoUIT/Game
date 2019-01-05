@@ -50,7 +50,7 @@ void Zombie::Update(DWORD dt, Camera *camera, float simonx, vector<LPGAMEOBJECT>
 		{
 			direction = -direction; //doi huong khi di het 1 window
 		}
-		vx = 0.05f*direction;
+		vx = ZOMBIE_V *direction;
 		vy = 0.5f;
 
 		CGameObject::Update(dt);

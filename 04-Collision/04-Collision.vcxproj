@@ -155,6 +155,7 @@
     <ClInclude Include="Simon.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="StopWatch.h" />
     <ClInclude Include="SubWeapon.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Textures.h" />
@@ -198,6 +199,7 @@
     <ClCompile Include="Simon.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="StopWatch.cpp" />
     <ClCompile Include="SubWeapon.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Textures.cpp" />

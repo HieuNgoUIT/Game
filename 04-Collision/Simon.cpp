@@ -266,10 +266,18 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 		{
 			//subwp->SetPosition(subwp->x, subwp->y+10);
 			subwp->Update(dt, x - SCREEN_WIDTH / 2, x + SCREEN_WIDTH / 2, coObjects);
+			if (dynamic_cast<StopWatch *>(subwp))
+			{
+				isStopwatch = true;
+			}
 		}
 		if (subwp->isFinish == true) //finish thi cho quang
 		{
 			throwSubwp = false;
+			if (dynamic_cast<StopWatch *>(subwp))
+			{
+				isStopwatch = false;
+			}
 		}
 
 	}
@@ -440,7 +448,11 @@ void Simon::Render(Camera *camera)
 	}
 	if (throwSubwp == 1)
 	{
-		subwp->Render(camera);
+		if (!dynamic_cast<StopWatch *>(subwp))
+		{
+			subwp->Render(camera);
+		}
+		
 	}
 	RenderBoundingBox(camera);
 }
@@ -492,16 +504,8 @@ void Simon::AutoMove()
 }
 
 void Simon::Stop()
-{/*
-	if (vx != 0)
-		vx -= dt * SIMON_GRAVITY*0.1*direction;
-	if (direction == 1 && vx < 0)
-		vx = 0;
-	if (direction == -1 && vx > 0)*/
+{
 	vx = 0;
-
-
-
 	isWalking = 0;
 	if (isSitting == true)
 	{
@@ -533,7 +537,12 @@ void Simon::ThrowSubWp()
 			throwSubwp = 1;
 			//subwp->isDead = false;
 			subwp->Create(this->x, this->y, this->direction);
-			subwp->_sprite->SelectIndex(0);
+			if (!dynamic_cast<StopWatch *>(subwp))
+			{
+				subwp->_sprite->SelectIndex(0);
+			}
+			
+			
 			useableHeart--;
 			isRenderSubwp = 1;
 		}
@@ -845,7 +854,8 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 			}
 			else if (coObjects->at(i)->tag == STOPWATCH_TAG)
 			{
-				isStopwatch = true;
+				isSubwp = true;
+				subwp = new StopWatch();
 			}
 
 			coObjects->at(i)->isDead = true;

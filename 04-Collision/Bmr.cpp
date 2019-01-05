@@ -60,7 +60,6 @@ void Bmr::Create(float simonX, float simonY, int simondirection)
 	this->x = simonX;
 	isTouchBoundaryR = false;
 	isTouchBoundaryL = false;
-
 	this->y = simonY;
 	this->currentPos = simonX;
 	this->direction = simondirection;

@@ -9,7 +9,7 @@ GameState::~GameState()
 {
 }
 
-void GameState::LoadResources( char* Fgrid, char* Fb, char* Fs, int Frow, int Fcol, int Ftotal, int Frowmaxtrix, int Fcolmatrix)
+void GameState::LoadResources(char* Fgrid, char* Fb, char* Fs, int Frow, int Fcol, int Ftotal, int Frowmaxtrix, int Fcolmatrix)
 {
 	simon->SetPosition(SIMON_POSITION_DEFAULT);
 	grid->ReadFile(Fgrid);
@@ -113,9 +113,9 @@ void GameState::Update(DWORD dt)
 		}
 	}
 
+	
 	if (!simon->isStopwatch)
 	{
-		//update bth
 		for (int i = 0; i < objects.size(); i++)
 		{
 
@@ -136,22 +136,7 @@ void GameState::Update(DWORD dt)
 			}
 		}
 	}
-	else
-	{
-		for (int i = 0; i < objects.size(); i++)
-		{
-			if (objects[i]->tag != ENEMY_TAG)
-			{
-				objects[i]->Update(dt, simon->x, &coObjects);
-			}
-
-		}
-		WatchTime--;
-	}
-	if (WatchTime < 0)
-	{
-		simon->isStopwatch = false;
-	}
+	
 
 	for (int i = 0; i < items.size(); i++)
 	{
@@ -165,7 +150,7 @@ void GameState::Update(DWORD dt)
 	CheckCollideWithCheckPoint(simon);
 
 	ui->Update(1000 - mapTime, 3, 1, bossHP);
-	
+
 
 }
 
@@ -203,7 +188,7 @@ void GameState::Render()
 void GameState::CheckCollideWithCheckPoint(Simon * simon)
 {
 	if (simon->isCollideCheckPoint)
-	{	
+	{
 		this->isChangingState = true;
 		this->id++;
 	}

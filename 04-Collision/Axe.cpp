@@ -10,7 +10,7 @@ Axe::Axe(int X, int Y)
 	x = X;
 	y = Y;
 	tag = 3;
-	currentPos = y;
+	//currentPos = y;
 	//isDead = false;
 }
 void Axe::Update(DWORD dt, float left, float right, vector<LPGAMEOBJECT>* coObjects)
@@ -58,6 +58,7 @@ void Axe::Update(DWORD dt, float left, float right, vector<LPGAMEOBJECT>* coObje
 }
 void Axe::Create(float simonX, float simonY, int simondirection)
 {
+	this->currentPos = simonY;
 	this->x = simonX;
 	this->y = simonY;
 	this->direction = simondirection;
