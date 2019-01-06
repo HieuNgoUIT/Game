@@ -100,7 +100,14 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 
 
 #pragma region Sprite update
-
+	if (untouchable)
+	{
+		_sprite->SetRGBA(100, 100, 100);//mau trong suot
+	}
+	else
+	{
+		_sprite->SetRGBA();
+	}
 
 	if (isRenderSubwp == true)
 	{
@@ -113,9 +120,7 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 				isRenderSubwp = false;
 			}
 		}
-
 		_sprite->Update(dt);
-
 	}
 	else if (beingHit)
 	{
@@ -123,15 +128,6 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 	}
 	else if (isOnStair)
 	{
-		if (untouchable)
-		{
-			_sprite->SetARGB(255, 255, 255, 30);
-		}
-		else
-		{
-			_sprite->SetARGB();
-		}
-
 		if (isAttacking == true)
 		{
 			if (direction == 1) //di len
@@ -172,14 +168,6 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 	}
 	else if (isWalking == true) // đang di chuyển
 	{
-		if (untouchable)
-		{
-			_sprite->SetARGB(255, 255, 255, 30);
-		}
-		else
-		{
-			_sprite->SetARGB();
-		}
 		if (isJumping == false) // ko nhảy
 		{
 			if (isAttacking == true)
@@ -208,14 +196,6 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 	}
 	else
 	{
-		if (untouchable)
-		{
-			_sprite->SetARGB(255, 255, 255, 30);
-		}
-		else
-		{
-			_sprite->SetARGB();
-		}
 		if (isJumping == true) // nếu ko đi mà chỉ nhảy
 		{
 			if (isAttacking == true)
@@ -422,13 +402,13 @@ void Simon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects, vector<LPGAMEOBJEC
 		if (coObjects->at(i)->GetTag() == CP_TYPE)
 			checkpoint = coObjects->at(i);
 	}
+
 	CollisionWithItem(coItems);
 	CollisionWithEnemy(&coObjects_Enemy);
-	CollisionWithBrick(&coObjects_Brick); // check Collision and update x, y for simon
+	CollisionWithBrick(&coObjects_Brick);
 	CollisionWithStair(&coObjects_HiddenStair);
 	CollisionWithDoor(&coObjects_Door);
-	isCollisionWithCheckPoint(checkpoint);
-
+	CollisionWithCheckPoint(checkpoint);
 }
 
 void Simon::Render(Camera *camera)
@@ -452,7 +432,7 @@ void Simon::Render(Camera *camera)
 		{
 			subwp->Render(camera);
 		}
-		
+
 	}
 	RenderBoundingBox(camera);
 }
@@ -541,8 +521,8 @@ void Simon::ThrowSubWp()
 			{
 				subwp->_sprite->SelectIndex(0);
 			}
-			
-			
+
+
 			useableHeart--;
 			isRenderSubwp = 1;
 		}
@@ -564,20 +544,6 @@ void Simon::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 
 	CalcPotentialCollisions(coObjects, coEvents);
 
-	//if (isOnStair)
-	//{
-	//	for (int i = 0; i < coObjects->size(); i++) //aabb item
-	//	{
-	//		if (isColliding(this, coObjects->at(i)))
-	//		{
-	//			isOnStair = false;
-	//			this->y = y - 25;
-
-
-
-	//		}
-	//	}
-	//}
 
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
@@ -595,51 +561,17 @@ void Simon::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 
 		// block 
 		x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		y += min_ty * dy + ny * 0.4f; // ny = -1 thì hướng từ trên xuống....
+		y += min_ty * dy + ny * 0.4f; 
 
 		if (nx != 0)
-			vx = 0; // nếu mà nx, ny <>0  thì nó va chạm rồi. mà chạm rồi thì dừng vận tốc cho nó đừng chạy nữa
+			vx = 0; 
 
 		if (ny != 0)
 		{
 			vy = 0;
-			isJumping = false; // kết thúc nhảy
+			isJumping = false; 
 		}
-
-		//// Collision logic with Goombas
-		//for (UINT i = 0; i < coEventsResult.size(); i++)
-		//{
-		//	LPCOLLISIONEVENT e = coEventsResult[i];
-		//	if (dynamic_cast<Goomba *>(e->obj))
-		//	{
-		//		Goomba *goomba = dynamic_cast<Goomba *>(e->obj);
-		//		// jump on top >> kill Goomba and deflect a bit 
-		//		if (e->ny < 0)
-		//		{
-		//			if (goomba->GetState() != GOOMBA_STATE_DIE)
-		//			{
-		//				goomba->SetState(GOOMBA_STATE_DIE);
-		//				vy = -MARIO_JUMP_DEFLECT_SPEED;
-		//			}
-		//		}
-		//		else if (e->nx != 0)
-		//		{
-		//			if (untouchable == 0)
-		//			{
-		//				if (goomba->GetState() != GOOMBA_STATE_DIE)
-		//				{
-		//					if (level > MARIO_LEVEL_SMALL)
-		//					{
-		//						level = MARIO_LEVEL_SMALL;
-		//						StartUntouchable();
-		//					}
-		//					else
-		//						SetState(MARIO_STATE_DIE);
-		//				}
-		//			}
-		//		}
-		//	}
-		//}
+		
 	}
 
 	// clean up collision events
@@ -649,126 +581,35 @@ void Simon::CollisionWithBrick(vector<LPGAMEOBJECT>* coObjects)
 
 void Simon::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObjects)
 {
-	for (int i = 0; i < coObjects->size(); i++)
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+
+	CalcPotentialCollisions(coObjects, coEvents);
+
+	if (coEvents.size() != 0)
 	{
-		if (isColliding(this, coObjects->at(i)))
-		{
+		float min_tx, min_ty, nx = 0, ny;
+
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
+
+		if (nx != 0 || ny != 0)
 			if (untouchable == 0)
 			{
-				vx = 0.5f*coObjects->at(i)->direction;
+				vx = 0.5f*direction;
 				vy = -0.5f;
 				CGameObject::Update(dt);
 				y += dy;
 				x += dx;
-				//dx = vx * dt;			
 				StartUntouchable();
 				StartBeingHit();
 				health -= 10;
 			}
-
-		}
 	}
 
-	//vector<LPCOLLISIONEVENT> coEvents;
-	//vector<LPCOLLISIONEVENT> coEventsResult;
-
-	//coEvents.clear();
-
-	//CalcPotentialCollisions(coObjects, coEvents); // Lấy danh sách các va chạm
-
-	//											  //if (isOnStair)
-	//											  //{
-	//											  //	for (int i = 0; i < coObjects->size(); i++) //aabb item
-	//											  //	{
-	//											  //		if (isColliding(this, coObjects->at(i)))
-	//											  //		{
-	//											  //			isOnStair = false;
-	//											  //			this->y = y - 25;
-
-
-
-	//											  //		}
-	//											  //	}
-	//											  //}
-
-	//											  // No collision occured, proceed normally
-	//if (coEvents.size() == 0)
-	//{
-	//	/*x += dx;
-	//	y += dy;*/
-	//}
-	//else
-	//{
-	//	float min_tx, min_ty, nx = 0, ny;
-
-	//	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-	//	// nếu ko va chạm thì min_tx,min_ty = 1.0, còn nếu có thì nó trả về thời gian va chạm. 
-	//	//Còn nx,ny là hướng va chạm,  = 0 nếu ko va chạm;
-
-	//	// block 
-	////	x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-	//	//y += min_ty * dy + ny * 0.4f; // ny = -1 thì hướng từ trên xuống....
-
-	//	if (nx != 0)
-	//		vx = 0; // nếu mà nx, ny <>0  thì nó va chạm rồi. mà chạm rồi thì dừng vận tốc cho nó đừng chạy nữa
-
-	//	if (ny != 0)
-	//	{
-	//		vy = 0;
-	//		isJumping = false; // kết thúc nhảy
-	//	}
-
-	//	// Collision logic with Goombas
-	//	for (UINT i = 0; i < coEventsResult.size(); i++)
-	//	{
-	//		LPCOLLISIONEVENT e = coEventsResult[i];
-	//		if (dynamic_cast<CGameObject *>(e->obj))
-	//		{
-	//			CGameObject *zombie = dynamic_cast<CGameObject *>(e->obj);
-	//			// jump on top >> kill Goomba and deflect a bit 
-	//			if (e->ny < 0)
-	//			{
-	//				if (untouchable == 0)
-	//				{
-	//					vy = -1.0f;
-	//					_sprite->SelectIndex(8);
-	//					StartUntouchable();
-	//				}
-	//				else
-	//				{
-	//					
-	//					health--;
-	//				}
-	//			}
-	//			else if (e->nx != 0)
-	//			{
-	//				if (untouchable == 0)
-	//				{
-	//					vy = -1.0f;
-	//					if (direction == 1)
-	//					{
-	//						vx = 1.0f;
-	//					}
-	//					else
-	//					{
-	//						vx = -0.1;
-	//					}
-	//					StartUntouchable();
-	//					_sprite->SelectIndex(8);
-	//				}
-	//				else
-	//				{
-	//					health--;
-	//				}
-	//			}
-	//		}
-	//	}
-	//}
-
-
-	//// clean up collision events
-	//for (UINT i = 0; i < coEvents.size(); i++)
-	//	delete coEvents[i];
+	for (UINT i = 0; i < coEvents.size(); i++)
+		delete coEvents[i];
 }
 
 void Simon::CollisionWithDoor(vector<LPGAMEOBJECT>* coObjects)
@@ -795,15 +636,6 @@ void Simon::CollisionWithDoor(vector<LPGAMEOBJECT>* coObjects)
 
 void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 {
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	coEvents.clear();
-
-	CalcPotentialCollisions(coObjects, coEvents); // Lấy danh sách các va chạm
-
-
-												  //DebugOut(L"[INFO] KeyUp: %d\n", coObjects->size());
 	for (int i = 0; i < coObjects->size(); i++) //aabb item
 	{
 		if (isColliding(this, coObjects->at(i)))
@@ -864,45 +696,6 @@ void Simon::CollisionWithItem(vector<LPGAMEOBJECT>* coObjects)
 
 		}
 	}
-
-	// No collision occured, proceed normally
-	//if (coEvents.size() == 0)
-	//{
-	//	/*	x += dx;
-	//		y += dy;*/
-	//}
-	//else
-	//{
-	//	float min_tx, min_ty, nx = 0, ny;
-
-	//	FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-	//	// nếu ko va chạm thì min_tx,min_ty = 1.0, còn nếu có thì nó trả về thời gian va chạm. 
-	//	//Còn nx,ny là hướng va chạm,  = 0 nếu ko va chạm;
-
-
-
-
-	//	for (UINT i = 0; i < coEventsResult.size(); i++)
-	//	{
-	//		LPCOLLISIONEVENT e = coEventsResult[i];
-	//		if (dynamic_cast<Item *>(e->obj))
-	//		{
-	//			Item *item = dynamic_cast<Item *>(e->obj);
-	//			// jump on top >> kill Goomba and deflect a bit 
-	//			if (e->t > 0 && e->t <= 1)
-	//			{
-	//				item->isDead = true;
-	//				this->useableHeart += 1;
-	//			}
-	//		}
-	//	}
-	//	//}
-
-
-	//	// clean up collision events
-	//	for (UINT i = 0; i < coEvents.size(); i++)
-	//		delete coEvents[i];
-	//}
 }
 
 void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects)
@@ -1014,7 +807,7 @@ void Simon::CollisionWithStair(vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-bool Simon::isCollisionWithCheckPoint(LPGAMEOBJECT checkPoint)
+void Simon::CollisionWithCheckPoint(LPGAMEOBJECT checkPoint)
 {
 	if (checkPoint != NULL)
 	{
@@ -1029,9 +822,7 @@ bool Simon::isCollisionWithCheckPoint(LPGAMEOBJECT checkPoint)
 			{
 				isCollideCheckPoint = false;
 			}
-
 		}
-		return isCollideCheckPoint;
 	}
 
 

@@ -5,26 +5,21 @@
 class Texture
 {
 public:
-	char* FileName; 	
+	char* mfile; 	
 	int FrameWidth;
 	int FrameHeight;
-	int Cols;		
-	int Rows;		
-	int Count;		
+	int mcols;		
+	int mrows;		
+	int mcount;		
 		
 	LPDIRECT3DTEXTURE9 texture;
-	RECT Size;
+	RECT rect;
 	Texture(char* fileName, int cols = 1, int rows = 1, int count = 1);
-	Texture(char* fileName, int cols, int rows, int count, int R, int G, int B);
-	
-	
-	~Texture();
-	
+	Texture(char* fileName, int cols, int rows, int count, int R, int G, int B);	
 	void Draw(int x, int y);
-	
-protected:
 	void Load();
 	void Load(int R, int G, int B);
+	~Texture();
 };
 
 

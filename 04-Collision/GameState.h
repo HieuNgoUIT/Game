@@ -14,7 +14,7 @@ public:
 	int bossHP = 0;
 	float mapSecond = 0;
 	float mapTime = 0;
-	float WatchTime = 300;
+	bool isChangingState;
 
 	Item * item;
 	Grid *grid;
@@ -27,7 +27,7 @@ public:
 
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> items;
-	bool isChangingState;
+	
 	GameState();
 	~GameState();
 

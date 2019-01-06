@@ -1,30 +1,15 @@
 ﻿#include "SubWeapon.h"
 
-SubWeapon::SubWeapon(/*int X, int Y*/)
+SubWeapon::SubWeapon()
 {
-	//isDead = true;
-	//isSubwp = false;
-	//isDead = true;
-	/*_texture = new Texture("Resource\\sprites\\Sub_weapons\\KNIFE_ACTION.png", 1, 1, 1);
-	_sprite = new Sprite(_texture, 100);
-	x = X;
-	y = Y;
-	vx = 10.0f;
-	tag = 3;*/
+	
 }
 
-//SubWeapon::SubWeapon()
-//{
-//}
 
 SubWeapon::~SubWeapon()
 {
 }
 
-//void SubWeapon::RenderBoundingBox(Camera * camera)
-//{
-//	CGameObject::RenderBoundingBox(camera);
-//}
 
 void SubWeapon::GetBoundingBox(float & left, float & top, float & right, float & bottom)
 {

@@ -198,13 +198,20 @@ void GameState::CheckClearAllObj()
 {
 	if (simon->isRosary)
 	{
+		
 		for (int i = 0; i < objects.size(); i++)
+		{
+			tilemap->_sprite->SetRGBA(100, 0, 100, 0);//mau trong suot
 			if (objects[i]->tag == ENEMY_TAG)
 			{
 				objects[i]->health -= 10;
 			}
-
-		simon->isRosary = false;
+		}
+		simon->isRosary = false;	
+	}
+	else
+	{
+		tilemap->_sprite->SetRGBA();
 	}
 }
 

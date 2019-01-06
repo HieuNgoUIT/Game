@@ -32,11 +32,11 @@ void TileMap::ReadFile(char * filename, int rowmaxtrix, int colmatrix)
 
 void TileMap::DrawMap(Camera *camera)
 {
-	int row = SCREEN_HEIGHT / 64;
-	int	col = SCREEN_WIDTH / 64;
+	int row = SCREEN_HEIGHT / TILE_HEIGHT;
+	int	col = SCREEN_WIDTH / TILE_WIDTH;
 
-	int currentRow=camera->GetViewport().y / 64;
-	int currentCol=camera->GetViewport().x / 64;
+	int currentRow=camera->GetViewport().y / TILE_HEIGHT;
+	int currentCol=camera->GetViewport().x / TILE_WIDTH;
 
 	x = -(int(camera->GetViewport().x) % _texture->FrameHeight);
 	y = -(int(camera->GetViewport().y) % _texture->FrameHeight);

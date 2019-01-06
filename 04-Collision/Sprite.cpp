@@ -2,47 +2,38 @@
 
 
 Sprite::Sprite()
-{
+{	
+	mStart = 0;	
+	mTimeAni = 0;
+	mTimeLocal = 0;
+	mEnd = 0;
+	mIndex = 0;
+	SetRGBA();
 	_texture = NULL;
-	_start = 0;
-	_end = 0;
-	_timeAni = 0;
-	_index = 0;
-	_timeLocal = 0;
-	SetARGB();
 }
 
-Sprite::Sprite(const Sprite &sprite)
-{
-	_texture = sprite._texture;
-	_start = sprite._start;
-	_end = sprite._end;
-	_timeAni = sprite._timeAni;
-	_index = sprite._start;
-	_timeLocal = sprite._timeLocal;
-	SetARGB();
-}
+
 
 Sprite::Sprite(Texture* texture, int start, int end, int timeAni)
 	: _texture(texture)
 {
-	_start = start;
-	_end = end;
-	_timeAni = timeAni;
-	_index = start;
-	_timeLocal = 0;
-	SetARGB();
+	mStart = start;
+	mTimeLocal = 0;
+	mTimeAni = timeAni;
+	mEnd = end;
+	mIndex = start;	
+	SetRGBA();
 }
 
 Sprite::Sprite(Texture* texture, int timeAni)
 	: _texture(texture)
 {
-	_start = 0;
-	_end = _texture->Count - 1;
-	_timeAni = timeAni;
-	_index = 0;
-	_timeLocal = 0;
-	SetARGB();
+	mStart = 0;
+	mTimeLocal = 0;
+	mTimeAni = timeAni;
+	mEnd = _texture->mcount - 1;
+	mIndex = 0;	
+	SetRGBA();
 }
 
 Sprite::~Sprite()
@@ -51,7 +42,7 @@ Sprite::~Sprite()
 		delete _texture;
 }
 
-void Sprite::SetARGB(int r, int g, int b, int a)
+void Sprite::SetRGBA(int r, int g, int b, int a)
 {
 	R = r;
 	G = g;
@@ -61,18 +52,18 @@ void Sprite::SetARGB(int r, int g, int b, int a)
 
 void Sprite::Next()
 {
-	_index++;
-	if (_index > _end)
-		_index = _start;
+	mIndex++;
+	if (mIndex > mEnd)
+		mIndex = mStart;
 }
 void Sprite::Reset()
 {
-	_index = _start;
-	_timeLocal = 0;
+	mIndex = mStart;
+	mTimeLocal = 0;
 }
 void Sprite::PlayAnimation(int start, int end, int ellapseTime)
 {
-	if (_index < start || _index > end)
+	if (mIndex < start || mIndex > end)
 	{
 		SelectIndex(start);
 	}
@@ -84,16 +75,16 @@ void Sprite::PlayAnimation(int start, int end, int ellapseTime)
 
 void Sprite::SelectIndex(int index)
 {
-	_index = index;
+	mIndex = index;
 }
 
 void Sprite::Update(int ellapseTime)
 {
-	_timeLocal += ellapseTime;
+	mTimeLocal += ellapseTime;
 
-	if (_timeLocal >= _timeAni)
+	if (mTimeLocal >= mTimeAni)
 	{
-		_timeLocal = 0;
+		mTimeLocal = 0;
 		this->Next();
 	}
 }
@@ -106,8 +97,8 @@ void Sprite::Draw(int X, int Y)
 
 
 
-	srect.left = (_index % _texture->Cols)*(_texture->FrameWidth);
-	srect.top = (_index / _texture->Cols)*(_texture->FrameHeight);
+	srect.left = (mIndex % _texture->mcols)*(_texture->FrameWidth);
+	srect.top = (mIndex / _texture->mcols)*(_texture->FrameHeight);
 	srect.right = srect.left + _texture->FrameWidth;
 	srect.bottom = srect.top + _texture->FrameHeight;
 
@@ -155,7 +146,7 @@ void Sprite::DrawFlipX(int x, int y)
 
 int Sprite::GetIndex()
 {
-	return _index;
+	return mIndex;
 }
 //bool Sprite::Initialize(const char *file)
 //{

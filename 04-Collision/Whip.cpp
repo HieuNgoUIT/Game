@@ -133,68 +133,14 @@ void Whip::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 void Whip::CollisionWithLargeCandle(vector<LPGAMEOBJECT>* coObjects)
 {
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	coEvents.clear();
-
-	CalcPotentialCollisions(coObjects, coEvents); // Lấy danh sách các va chạm
-												  // No collision occured, proceed normally
-	if (coEvents.size() == 0)
+	for (int i = 0; i < coObjects->size(); i++)
 	{
-		for (int i = 0; i < coObjects->size(); i++)
+		if (isColliding(this, coObjects->at(i)))
 		{
-			if (isColliding(this, coObjects->at(i)))
-			{
-				coObjects->at(i)->isDead = true;
-				Sound::GetInstance()->Play(HIT_SOUND);
-			}
-
+			coObjects->at(i)->isDead = true;
+			Sound::GetInstance()->Play(HIT_SOUND);
 		}
 	}
-	else
-	{
-		float min_tx, min_ty, nx = 0, ny;
-
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-		// nếu ko va chạm thì min_tx,min_ty = 1.0, còn nếu có thì nó trả về thời gian va chạm. 
-		//Còn nx,ny là hướng va chạm,  = 0 nếu ko va chạm;
-
-		// block 
-		//	x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		//y += min_ty * dy + ny * 0.4f; // ny = -1 thì hướng từ trên xuống....
-
-		//if (nx != 0)
-		//	coObjects->at(i)->health -= 10; // nếu mà nx, ny <>0  thì nó va chạm rồi. mà chạm rồi thì dừng vận tốc cho nó đừng chạy nữa
-
-		//if (ny != 0)
-		//{
-		//	coObjects->at(i)->health -= 10;
-		//	
-		//}
-
-		// Collision logic with Goombas
-		for (UINT i = 0; i < coEventsResult.size(); i++)
-		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
-
-			// jump on top >> kill Goomba and deflect a bit 
-			if (e->ny < 0)
-			{
-				coObjects->at(i)->isDead = true;
-				Sound::GetInstance()->Play(HIT_SOUND);
-			}
-			else if (e->nx != 0)
-			{
-				coObjects->at(i)->isDead = true;
-				Sound::GetInstance()->Play(HIT_SOUND);
-			}
-
-		}
-	}
-	// clean up collision events
-	for (UINT i = 0; i < coEvents.size(); i++)
-		delete coEvents[i];
 
 }
 void Whip::CollisionWithCandle(vector<LPGAMEOBJECT>* coObjects)
@@ -209,76 +155,20 @@ void Whip::CollisionWithCandle(vector<LPGAMEOBJECT>* coObjects)
 }
 void Whip::CollisionWithEnemy(vector<LPGAMEOBJECT>* coObjects)
 {
-	//
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	coEvents.clear();
-
-	CalcPotentialCollisions(coObjects, coEvents); // Lấy danh sách các va chạm
-												  // No collision occured, proceed normally
-	if (coEvents.size() == 0)
+	for (int i = 0; i < coObjects->size(); i++)
 	{
-		for (int i = 0; i < coObjects->size(); i++)
+		if (isColliding(this, coObjects->at(i)))
 		{
-			if (isColliding(this, coObjects->at(i)))
+			coObjects->at(i)->health -= 10;
+			this->score += 100;
+			if (dynamic_cast<Boss *>(coObjects->at(i)))
 			{
-				coObjects->at(i)->health -= 10;
-				this->score += 100;
-				if (dynamic_cast<Boss *>(coObjects->at(i)))
-				{
-					Boss *boss = dynamic_cast<Boss *>(coObjects->at(i));
-					boss->StartUntouchable();
-					Sound::GetInstance()->Play(HIT_SOUND);
-				}
-
-				/*Simon *simon = Simon::GetInstance();
-				simon->score += 100;*/
+				Boss *boss = dynamic_cast<Boss *>(coObjects->at(i));
+				boss->StartUntouchable();
+				Sound::GetInstance()->Play(HIT_SOUND);
 			}
-
 		}
 	}
-	else
-	{
-		float min_tx, min_ty, nx = 0, ny;
-
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny);
-		// nếu ko va chạm thì min_tx,min_ty = 1.0, còn nếu có thì nó trả về thời gian va chạm. 
-		//Còn nx,ny là hướng va chạm,  = 0 nếu ko va chạm;
-
-		// block 
-		//	x += min_tx * dx + nx * 0.4f;		// nx*0.4f : need to push out a bit to avoid overlapping next frame
-		//y += min_ty * dy + ny * 0.4f; // ny = -1 thì hướng từ trên xuống....
-
-		//if (nx != 0)
-		//	coObjects->at(i)->health -= 10; // nếu mà nx, ny <>0  thì nó va chạm rồi. mà chạm rồi thì dừng vận tốc cho nó đừng chạy nữa
-
-		//if (ny != 0)
-		//{
-		//	coObjects->at(i)->health -= 10;
-		//	
-		//}
-
-		// Collision logic with Goombas
-		for (UINT i = 0; i < coEventsResult.size(); i++)
-		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
-
-			// jump on top >> kill Goomba and deflect a bit 
-			if (e->ny < 0)
-			{
-				e->obj->health -= 10;
-			}
-			else if (e->nx != 0)
-			{
-				e->obj->health -= 10;
-			}
-
-		}
-	}
-	// clean up collision events
-	for (UINT i = 0; i < coEvents.size(); i++)
-		delete coEvents[i];
 }
 
 void Whip::Create(float simonX, float simonY, int simondirection)
