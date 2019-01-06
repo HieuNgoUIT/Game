@@ -477,7 +477,8 @@ void Simon::Jump()
 
 void Simon::AutoMove()
 {
-	Move();
+	vx = 0.08f * direction;
+	isWalking = true;
 	CGameObject::Update(dt);
 	x += dx;
 	_sprite->Update(dt);
