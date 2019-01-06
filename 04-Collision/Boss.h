@@ -3,6 +3,11 @@
 #include "debug.h"
 #include "Sound.h"
 #include "Item.h"
+
+#define BOUNDARY 5060
+#define BOUNDARYFROMTOP 240
+#define BOUNDARYFROMRIGHT 110
+#define BOUNDARYFROMLEFT 400
 class Boss :public CGameObject
 {
 public:
@@ -10,7 +15,6 @@ public:
 	float positionyToHit;
 	float positionxToHit;
 	Item *item;
-	//int heath;
 	Boss();
 	Boss(int TYPE,int X, int Y);
 	~Boss();

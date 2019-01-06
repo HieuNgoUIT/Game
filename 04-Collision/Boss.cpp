@@ -44,14 +44,13 @@ void Boss::Update(DWORD dt, float simonx, float simony, bool isAllowtoDo, vector
 	{
 		if (health >= 0)
 		{
-
 			if (GetTickCount() - untouchable_start > 1000)
 			{
 				untouchable_start = 0;
 				untouchable = 0;
 			}
-			if (x < 5060)
-				x = 5060;
+			if (x < BOUNDARY)
+				x = BOUNDARY;
 			GoStartPosition(dt, simonx, simony);
 			GoSimonPosition(dt, simonx, simony);
 
@@ -110,7 +109,7 @@ void Boss::GoStartPosition(DWORD dt, float simonx, float simony)
 {
 	if (CheckTop) // bat dau o checktop
 	{
-		if (/*x > 5100 ||*/ y < 240) //di qua ben trai
+		if (y < BOUNDARYFROMTOP) //di qua ben trai
 		{
 			vx = -0.1f;
 			vy = 0.1f;
@@ -141,28 +140,20 @@ void Boss::GoStartPosition(DWORD dt, float simonx, float simony)
 		y += dy;
 	}
 
-	if (y < 110)
+	if (y < BOUNDARYFROMRIGHT)
 	{
 		waittingtimebeforeattack = 125;
 		CheckTop = true;
 		CheckRight = false;
 	}
 
-
-
-
-
-
-
 }
 
 void Boss::GoSimonPosition(DWORD dt, float simonx, float simony)
 {
-
 	if (CheckLeft)
 	{
-
-		if (y < 400)
+		if (y < BOUNDARYFROMLEFT)
 		{
 			vy = 0.3f;
 			vx = 0.3f;
@@ -192,17 +183,9 @@ void Boss::GoSimonPosition(DWORD dt, float simonx, float simony)
 
 			CheckRight = true;
 			CheckBot = false;
-
-
 		}
 
 	}
-
-
-
-
-
-
 }
 
 void Boss::ResetPosition()

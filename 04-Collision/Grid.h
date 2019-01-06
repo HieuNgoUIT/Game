@@ -24,11 +24,8 @@
 #include "debug.h"
 using namespace std;
 
-#define GRID_CELL_WIDTH 160
+#define GRID_CELL_WIDTH 160 
 #define GRID_CELL_HEIGHT 120
-
-
-
 
 class Grid
 {

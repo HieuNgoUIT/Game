@@ -11,8 +11,6 @@ Zombie::Zombie(int TYPE, int X, int Y, int direction)
 	startYpos = Y;
 	tag = ENEMY_TAG;//enemy from 500
 	this->direction = direction;
-	vx = 1;
-	vy = 10;
 	health = 10;
 	texId = TYPE;
 }
@@ -51,7 +49,7 @@ void Zombie::Update(DWORD dt, Camera *camera, float simonx, vector<LPGAMEOBJECT>
 			direction = -direction; //doi huong khi di het 1 window
 		}
 		vx = ZOMBIE_V *direction;
-		vy = 0.5f;
+		vy = GRAVITY*dt;
 
 		CGameObject::Update(dt);
 		_sprite->Update(dt);
@@ -64,8 +62,6 @@ void Zombie::Update(DWORD dt, Camera *camera, float simonx, vector<LPGAMEOBJECT>
 				coObjects_Brick.push_back(coObjects->at(i));
 		}
 		CollisionWithBrick(&coObjects_Brick);
-		/*}*/
-
 	}
 
 }

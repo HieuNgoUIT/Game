@@ -141,7 +141,7 @@ void Grid::LoadTextSprite(LPGAMEOBJECT obj, int textureID, int tineAniFrame)
 	obj->_texture = textures->Get(textureID);
 	obj->_sprite = new Sprite(textures->Get(textureID), tineAniFrame);
 
-	obj->deadffect->_sprite = new Sprite(textures->Get(-1), 50);
+	obj->deadffect->_sprite = new Sprite(textures->Get(-1), 50); //texture dead voi hit co id = -1 -2
 	obj->hiteffect->_sprite = new Sprite(textures->Get(-2), 1000);
 }
 CGameObject * Grid::CreateObject(int type, int x, int y, int w, int h)

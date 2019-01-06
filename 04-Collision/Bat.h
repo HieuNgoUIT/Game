@@ -1,6 +1,10 @@
 #pragma once
 #include "GameObject.h"
 #include "debug.h"
+#define ACTIONX 320
+#define MAXSWING 35
+#define SWINGVY 0.005f
+#define FLYVX 0.1f
 class Bat :public CGameObject
 {
 public:

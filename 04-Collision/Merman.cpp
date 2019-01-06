@@ -49,7 +49,7 @@ void Merman::Update(DWORD dt, float simonx, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		if (simonx > startXpos - 50 && simonx < startXpos + 50)
+		if (simonx > startXpos - ACTIONX && simonx < startXpos + ACTIONX)
 		{
 			allowToDo = true;
 		}
@@ -57,24 +57,21 @@ void Merman::Update(DWORD dt, float simonx, vector<LPGAMEOBJECT>* coObjects)
 		{
 			CGameObject::Update(dt);
 			vx = 0.02f*direction;
-			if (y > 700)
+			if (y > STARTPLACE)
 			{
 				Sound::GetInstance()->Play(SLASH_WATER);
 				watereffect->SetPosition(this->x + 5, this->y - 50);
 				watereffect1->SetPosition(this->x + 10, this->y - 60);
 				watereffect2->SetPosition(this->x + 20, this->y - 70);
 			}
-			if (y < 500)
+			if (y < ENDPLACE)
 			{
-
 				isReachPoint = true;
-				vy = 0.05f*dt;
-
-
+				vy = GRAVITY *dt;
 			}
 			if (!isReachPoint)
 			{
-				vy -= 0.0005f * dt;
+				vy = JUMPV * dt;
 				y += dy;
 			}
 			attackTime--;
@@ -102,11 +99,7 @@ void Merman::Update(DWORD dt, float simonx, vector<LPGAMEOBJECT>* coObjects)
 				_sprite->Update(dt);
 			}
 			
-			
-
-
-
-			
+		
 			watereffect->Update(dt, this->direction);
 			watereffect1->Update(dt, -this->direction);
 			watereffect2->Update(dt, this->direction);

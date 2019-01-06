@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "debug.h"
 #define ZOMBIE_V 0.09f
+#define GRAVITY 0.05f
 class Zombie :public CGameObject
 {
 public:

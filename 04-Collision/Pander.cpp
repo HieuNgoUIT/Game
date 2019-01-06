@@ -44,7 +44,7 @@ void Pander::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		if (simonx > startXpos - 200)
+		if (simonx > startXpos - ACTIONBEFOREX)
 		{
 			allowToDo = true;
 		}
@@ -54,16 +54,16 @@ void Pander::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 			{
 				if (!CheckTop)
 				{
-					vy = -0.1f;
-					vx = -0.3f;
+					vy = JUMPVY;
+					vx = JUMPVX *direction;
 				}
-				if (y < startYpos - 50)
+				if (y < startYpos - MAXHEIGHT)
 				{
 					CheckTop = true;
 				}
 				if (CheckTop)
 				{
-					vy = 0.5f;
+					vy = GRAVITY*dt;
 				}
 				if (isGrounded)
 				{
@@ -77,21 +77,11 @@ void Pander::Update(DWORD dt, float simonx , vector<LPGAMEOBJECT>* coObjects)
 			}
 			else
 			{
-				vx = 0.2f*direction;
-				//vy = 0.05f * dt;
+				vx = RUNVX *direction;
 				CGameObject::Update(dt);
-
 				_sprite->Update(dt);
 			}
-			/*if (x < startXpos - 300)
-			{
-				direction = -direction;
-				x += 10;
-			}*/
-
-			
-			
-
+		
 			vector<LPGAMEOBJECT> coObjects_Brick;
 			coObjects_Brick.clear();
 			for (int i = 0; i < coObjects->size(); i++)
@@ -165,7 +155,7 @@ void Pander::RePosition()
 {
 	this->x = startXpos;
 	this->y = startYpos;
-	this->reviveTime = 200;
+	this->reviveTime = 500;
 	this->hiteffect->isDoneRender = false;
 	this->deadffect->isDoneRender = false;
 	health = 10;
